@@ -1,0 +1,142 @@
+{extend name="public:base" /}
+{block name="body"}
+    <div class="row">
+        <div class="col-md-8">
+        <div class="page-header">
+            <h2>数据展示区</h2>
+        </div>
+ <!-- 为ECharts准备一个具备大小（宽高）的Dom -->
+    <div id="main" style="height:400px"></div>
+    <!-- ECharts单文件引入 -->
+    <script src="http://echarts.baidu.com/build/dist/echarts.js"></script>
+    <script type="text/javascript">
+        // 路径配置
+        require.config({
+            paths: {
+                echarts: 'http://echarts.baidu.com/build/dist'
+            }
+        });
+        
+        // 使用
+        require(
+            [
+                'echarts',
+                'echarts/chart/map' // 使用柱状图就加载bar模块，按需加载
+            ],
+            function (ec) {
+                // 基于准备好的dom，初始化echarts图表
+                var myChart = ec.init(document.getElementById('main')); 
+                
+                var option = {
+    title : {
+        text: '人气最高的省份排名',
+       
+    },
+    tooltip : {
+        trigger: 'item'
+    },
+    legend: {
+        x:'right',
+        selectedMode:false,
+        data:[]
+    },
+    dataRange: {
+        orient: 'horizontal',
+        min: 0,
+        max: 13000,
+        text:['高','低'],           // 文本，默认为数值文本
+        splitNumber:0
+    },
+    toolbox: {
+        show : true,
+        orient: 'vertical',
+        x:'right',
+        y:'center',
+        feature : {
+            mark : {show: true},
+            dataView : {show: true, readOnly: false}
+        }
+    },
+    series : [
+        {
+            name: '全国人气最高的省份排名',
+            type: 'map',
+            mapType: 'china',
+            mapLocation: {
+                x: 'left'
+            },
+            selectedMode : 'multiple',
+            itemStyle:{
+                normal:{label:{show:true}},
+                emphasis:{label:{show:true}}
+            },
+            data:[
+                {name:'西藏', value:0},
+                {name:'青海', value:0},
+                {name:'宁夏', value:0},
+                {name:'海南', value:0},
+                {name:'甘肃', value:0},
+                {name:'贵州', value:1294},
+                {name:'新疆', value:0},
+                {name:'云南', value:0},
+                {name:'重庆', value:0},
+                {name:'吉林', value:0},
+                {name:'山西', value:0},
+                {name:'天津', value:0},
+                {name:'江西', value:1640},
+                {name:'广西', value:0},
+                {name:'陕西', value:2444},
+                {name:'黑龙江', value:0},
+                {name:'内蒙古', value:0},
+                {name:'安徽', value:2759},
+                {name:'北京', value:12682},
+                {name:'福建', value:0},
+                {name:'上海', value:0},
+                {name:'湖北', value:3441},
+                {name:'湖南', value:0},
+                {name:'四川', value:4040},
+                {name:'辽宁', value:0},
+                {name:'河北', value:0},
+                {name:'河南', value:0},
+                {name:'广东', value:0},
+                {name:'台湾', value:0},
+                {name:'浙江', value:8024},
+                {name:'山东', value:0},
+                {name:'江苏', value:7543},
+                {name:'香港', value:7828}
+            ]
+        },
+        
+    ],
+    animation: false
+};
+var ecConfig = require('echarts/config');
+myChart.on(ecConfig.EVENT.MAP_SELECTED, function (param){
+    var selected = param.selected;
+    var mapSeries = option.series[0];
+    var data = [];
+    var legendData = [];
+    var name;
+    for (var p = 0, len = mapSeries.data.length; p < len; p++) {
+        name = mapSeries.data[p].name;
+        //mapSeries.data[p].selected = selected[name];
+        if (selected[name]) {
+            data.push({
+                name: name,
+                value: mapSeries.data[p].value
+            });
+            legendData.push(name);
+        }
+    }
+    option.legend.data = legendData;
+    option.series[1].data = data;
+    myChart.setOption(option, true);
+})
+                    
+        
+                // 为echarts对象加载数据 
+                myChart.setOption(option); 
+            }
+        );
+    </script>
+{/block}

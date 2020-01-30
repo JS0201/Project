@@ -1,0 +1,59 @@
+{extend name="public:base" /}
+{block name="body"}
+    <div class="row">
+        <div class="col-md-8">
+        <div class="page-header">
+            <h2>数据展示区</h2>
+        </div>
+ <!-- 为ECharts准备一个具备大小（宽高）的Dom -->
+    <div id="main" style="height:400px"></div>
+    <!-- ECharts单文件引入 -->
+    <script src="http://echarts.baidu.com/build/dist/echarts.js"></script>
+    <script type="text/javascript">
+        // 路径配置
+        require.config({
+            paths: {
+                echarts: 'http://echarts.baidu.com/build/dist'
+            }
+        });
+        
+        // 使用
+        require(
+            [
+                'echarts',
+                'echarts/chart/bar' // 使用柱状图就加载bar模块，按需加载
+            ],
+            function (ec) {
+                // 基于准备好的dom，初始化echarts图表
+                var myChart = ec.init(document.getElementById('main')); 
+                
+              var option = {
+                
+            title: {
+                left: 'center',
+                text: '北京市热度最高景点'
+            },
+            tooltip: {},
+            legend: {
+                data:['热度']
+            },
+            xAxis: {
+                data: ["天坛公园","颐和园","天安门广场","八达岭长城","鸟巢"]
+            },
+            yAxis: {},
+            series: [{
+                name: '热度',
+                type: 'bar',
+                data: [8.0, 8.2, 10, 8.2, 8.4]
+            }]
+        };
+
+
+
+
+                // 为echarts对象加载数据 
+                myChart.setOption(option); 
+            }
+        );
+    </script>
+{/block}

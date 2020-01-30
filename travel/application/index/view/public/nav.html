@@ -1,0 +1,53 @@
+<nav class="navbar navbar-default navbar-inverse">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="{:url('index/index')}">{$siteName|default="数据展示"}</a>
+    </div>
+
+    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+      <ul class="nav navbar-nav">
+        <li><a href="{:url('index/index/index')}">首页</a></li>
+        <li ><a href="{:url('index/index/max')}">月销量前十景区</a></li> 
+        <li><a href="{:url('index/index/hot')}">热度、代表性前十景区</a></li> 
+        <li><a href="{:url('index/index/demo')}">5A景区的月销量前十名</a></li> 
+      </ul>
+      
+      
+      <ul class="nav navbar-nav navbar-right">
+    
+        <li class="dropdown">
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">最高销量地区<span class="caret"></span></a>
+          <ul class="dropdown-menu">
+            <li><a href="{:url('zhanshi4')}">1江苏·无锡</a></li>
+            <li role="separator" class="divider"></li>
+            <li><a href="{:url('zhanshi5')}">2北京</a></li>
+            <li role="separator" class="divider"></li>
+            <li><a href="{:url('zhanshi6')}">3上海</a></li>
+            <li role="separator" class="divider"></li>
+            <li><a href="{:url('zhanshi7')}">4海南·三亚</a></li>
+            <li role="separator" class="divider"></li>
+            <li><a href="{:url('zhanshi8')}">5江西·上饶</a></li>
+            <li role="separator" class="divider"></li>
+            <li><a href="{:url('zhanshi9')}">6湖北·武汉</a></li>
+            <li role="separator" class="divider"></li>
+            <li><a href="{:url('zhanshi10')}">7浙江·金华</a></li>
+            <li role="separator" class="divider"></li>
+            <li><a href="{:url('zhanshi11')}">8香港</a></li>
+            <li role="separator" class="divider"></li>
+            <li><a href="{:url('zhanshi12')}">9浙江·杭州</a></li>
+            <li role="separator" class="divider"></li>
+            <li><a href="{:url('zhanshi13')}">10江苏·扬州</a></li>
+
+          </ul>
+        </li>
+      
+      </ul>
+    </div>
+  </div>
+</nav>

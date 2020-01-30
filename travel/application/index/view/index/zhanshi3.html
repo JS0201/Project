@@ -1,0 +1,43 @@
+{extend name="public:base" /}
+{block name="body"}
+    <div class="row">
+        <div class="col-md-8">
+        <div class="page-header">
+            <h2>数据展示区</h2>
+        </div>
+    <div id="main" style="width: 800px;height:400px;align-self: center;"></div>
+    <script type="text/javascript">
+        var myChart = echarts.init(document.getElementById('main'));
+        var option = {
+            title: {
+                left: 'center',
+                text: '门票月销量前十景点'
+            },
+            tooltip: {},
+            legend: {
+                data:['月销量']
+            },
+            xAxis: {
+                data: ["户部巷","天涯海角  ","横店影视城","瘦西湖","上海迪士尼乐园","鼋头渚","香港迪士尼乐园","故宫","婺源江岭（油菜花）","上海欢乐谷"]
+            },
+            yAxis: {},
+            series: [{
+                name: '销量',
+                type: 'bar',
+                data: [8950, 10263, 8024, 7543, 12498, 14942,7828, 12682, 9282,8855]
+            }]
+        };
+        myChart.setOption(option);
+    </script>
+
+
+    
+{/block}
+
+
+
+ 
+
+
+
+
