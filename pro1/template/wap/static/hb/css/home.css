@@ -1,0 +1,106 @@
+body {
+  overflow: hidden;
+  background-color: #fff;
+}
+
+.mui-input-group {
+  background-color: #fff;
+  margin-top: 45px;
+  border-bottom: none;
+}
+
+.mui-input-group .mui-input-row label {
+  width: 30%;
+  color: #666666;
+  font-size: 16px;
+}
+
+.mui-input-group .mui-input-row input {
+  width: 70%;
+  font-size: 15px;
+}
+
+
+
+.btn .mui-btn-block {
+  height: 37px;
+  width: 300px;
+  font-size: 16px;
+  line-height: 10px;
+  margin: 0 auto;
+  margin-top: 30px;
+}
+
+.mui-input-group .mui-input-row:nth-last-of-type(3) {
+  position: relative;
+}
+
+.send {
+  margin-top: 4px;
+  position: absolute;
+  color: #2E70F6;
+  font-size: 12px;
+  right: 10px;
+  line-height: 22px;
+  padding: 3px 5px;
+  border: 1px solid #2E70F6;
+}
+
+.numTips {
+  padding: 10px 15px;
+  height: 80px;
+  display: flex;
+  flex-direction: column;
+}
+
+.numTips .top {
+  color: #B8B8B8;
+  font-size: 9px;
+  display: flex;
+}
+
+.numTips .top span {
+  flex: 1;
+}
+
+.numTips .bottom {
+  margin-top: 10px;
+  color: #B8B8B8;
+  font-size: 9px;
+}
+
+.numTips .address {
+  margin-top: 10px;
+  color: #999999;
+  font-size: 12px;
+}
+
+.city {
+  padding: 20px 15px 5px 15px;
+  height: 85px;
+  width: 100%;
+  border-bottom: 1px solid #E5E5E5;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.city .city3 {
+  display: flex;
+  justify-content: space-between;
+}
+
+.city span:nth-of-type(1) {
+  color: #666666;
+  font-size: 16px;
+}
+
+.city span:nth-of-type(2) {
+  color: #666666;
+  font-size: 20px;
+}
+
+.place {
+  margin-top: 20px;
+  font-size: 15px;
+}

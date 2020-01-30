@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+
+    <head>
+        <meta charset="utf-8">
+        <title>资讯</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
+        <meta name="apple-mobile-web-app-capable" content="yes">
+        <meta name="apple-mobile-web-app-status-bar-style" content="black">
+
+<include file="template/wap/Public/title.html" />
+        <script src="__TMPL__/js/mui_comment.js" type="text/javascript" charset="utf-8"></script>
+        <script src="__TMPL__/js/mui.picker.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="__TMPL__/js/modal.js" type="text/javascript" charset="utf-8"></script>
+        <link rel="stylesheet" type="text/css" href="__TMPL__/css/mui.picker.min.css"/>
+    </head>
+
+    <body>
+
+            <!--侧滑菜单部分-->
+<include file="template/wap/Public/middle.html" />
+            <!--主界面部分-->
+            <div class="mui-inner-wrap">
+
+                <div id="offCanvasContentScroll" class="mui-content mui-scroll-wrapper">
+                    <div class="mui-scroll">
+                        <div class="mui-content-padded">
+                            <content action="list" echo="1" page="page" pagesize="10" >
+                                <div class="primary-card">
+                                    <div class="mui-card-header">
+                                        <a href="<{:U('content/index/show',array('id'=>$v['id'],'catid'=>$v['category_id']))}>"><{$v['title']|restrlen=###,8}></a>
+                                        <a href="<{:U('content/index/show',array('id'=>$v['id'],'catid'=>$v['category_id']))}>"><{$v['add_time']|getdatetime='Y-m-d'}></a>
+                                    </div>
+                                </div>
+                            </content>
+                        </div>
+                    </div>
+                </div>
+                <!-- off-canvas backdrop -->
+<include file="template/wap/Public/footer.html" />
+                <div class="mui-off-canvas-backdrop"></div>
+            </div>
+
+
+
+    </body>
+</html>

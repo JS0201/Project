@@ -1,0 +1,45 @@
+body {
+  overflow: hidden;
+  background-color: #fff;
+}
+
+.mui-input-group {
+  background-color: #fff;
+  margin-top: 45px;
+  border-bottom: none;
+}
+
+.mui-input-group .mui-input-row label {
+  width: 10%;
+}
+
+.mui-input-group .mui-input-row input {
+  width: 90%;
+  font-size: 15px;
+}
+
+.mui-input-group img {
+  width: 13px;
+  height: 15px;
+}
+
+.btn .mui-btn-block {
+  height: 37px;
+  width: 300px;
+  font-size: 16px;
+  line-height: 10px;
+  margin: 0 auto;
+  margin-top: 30px;
+}
+
+.mui-input-group .mui-input-row:nth-last-of-type(3) {
+  position: relative;
+}
+
+.send {
+  position: absolute;
+  color: #FF1C1C;
+  font-size: 12px;
+  right: 10px;
+  line-height: 42px;
+}

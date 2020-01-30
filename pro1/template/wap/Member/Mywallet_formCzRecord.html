@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>充值记录</title>
+    <link rel="stylesheet" href="__TMPL__/hb/public/mui/css/mui.min.css">
+    <link rel="stylesheet" href="__TMPL__/hb/public/swiper/css/swiper.min.css">
+    <include file="template/wap/Public/base.html" />
+
+    <!-- 引入头部 -->
+    <include file="template/wap/Public/header.html" />
+
+    <style>
+        html , body{
+            background-color: #fff;
+       }
+        #formtbRecord{
+            height: 100%;
+            padding-top: 0.64rem;
+       }
+       #formtbRecord .contentItem {
+            margin: 0 .15rem;
+            margin-top: .15rem;
+            display: flex;
+            flex-direction: column;
+            margin-bottom: .10rem;
+            padding: .14rem .10rem .11rem;   
+            border: 1px solid #F2902D;
+            font-size: .12rem;
+            border-radius: .10rem;
+            /* box-shadow: 0px 3px 8px 0px rgba(249,175,45,0.26); */
+       }
+       #formtbRecord .contentItem .itemEg{
+           flex: 1;
+           display: flex;
+           color: #666;
+       }
+       #formtbRecord .contentItem .itemEg span{
+           color: #999
+       }
+       #formtbRecord .contentItem .itemEgR span{
+           font-size: .18rem;
+           color: #E8352C;
+       }
+       #formtbRecord .contentItem .itemEg .itemEgR{
+           flex: 1;
+           text-align: right;
+       }
+       #formtbRecord .contentItem .itemEg .bottomLeft{
+           color: #B2B2B2;
+           width: 78%;
+           overflow: hidden;
+           white-space: nowrap;
+           text-overflow:ellipsis;
+       }
+       #formtbRecord .contentItem .itemEg .bottomLeft span{
+           font-size: .14rem;
+           color: #666;
+       }
+       #formtbRecord .contentItem .bottonRight{
+           color: #254DCF !important;
+       }
+    </style>
+</head>
+
+<body>
+    <div id="formtbRecord">
+        <if condition="$data">
+           <volist name="data" id="foo">
+                <div class="contentItem">
+                    <div class="itemEg itemTop">
+                        <span class="time"> <{$foo['tiem']}></span>
+                        <div class="itemEgR topRight">
+                            <span>+<{$foo['num']}></span> USDT
+                        </div>
+                    </div>
+                    <div class="itemEg itemBottom">
+                        <div class="bottomLeft">
+                            <span>钱包地址：</span><{$foo['fa']}>
+                        </div>
+                        <span class="itemEgR bottonRight">已充值成功</span>
+                    </div>
+                </div>
+            </volist>
+        <else/>
+            <div class="contentItem">暂无充值记录</div>
+        </if>
+   
+
+    </div>
+</body>
+
+<script>
+     $(function () {
+
+     })
+</script>

@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>商城</title>
+
+    <link rel="stylesheet" href="__TMPL__/hb/css/shopMall.css">
+    <link rel="stylesheet" href="__TMPL__/hb/public/mui/css/mui.min.css">
+    <link rel="stylesheet" href="__TMPL__/hb/public/swiper/css/swiper.min.css">
+    <link rel="stylesheet" href="__TMPL__/hb/css/common.css">
+    <link rel="stylesheet" href="__TMPL__/hb/public/start.css">
+	 <script type="text/javascript" src="__TMPL__/js/jquery-3.2.1.min.js"></script>
+    <script type="text/javascript" src="__TMPL__/js/gboy.js"></script>
+</head>
+
+<body>
+<!-- 顶栏 -->
+<header class="header">
+   <div class="mui-input-row mui-search">
+        <input type="search" class="mui-input-clear" name="search" placeholder="请搜索您需要的商品名称">
+    </div>
+    <div class="search">搜索</div>
+</header>
+
+<!-- 区域内容 -->
+<div class="">
+    <div class="mui-scroll">
+        <!-- 轮播区 -->
+        <section class="carousel">
+            <div class="swiper-container swiper-container-horizontal">
+                <div class="swiper-wrapper">
+                    <volist name="ads" id="info" >
+                    <div class="swiper-slide swiper-slide-active" style="width: 1365px;">
+                        <img src="<{$info['thumb']}>" alt="">
+                    </div>
+                    </volist>
+                </div>
+                <!-- Add Pagination -->
+                <div class="swiper-pagination swiper-pagination-bullets swiper-pagination-bullets-dynamic" style="width: 80px;">
+                    <span class="swiper-pagination-bullet swiper-pagination-bullet-active swiper-pagination-bullet-active-main"
+                  style="left: 32px;"></span>
+
+                </div>
+                <span class="swiper-notification" aria-live="assertive" aria-atomic="true"></span>
+            </div>
+            <div class="bottom"></div>
+            <div class="shadow"></div>
+        </section>
+        <!-- 商品区 -->
+        <section class="gold">
+
+            <div class="content">
+                <volist name="list" id="foo">
+                    <div class="box">
+                        <a href="<{:U('goods/index/detail',array('sku_id'=>$foo['sku_id']))}>">
+                            <img src="<{$foo['thumb']}>" alt="">
+							<div class="pt5 tal c-red">
+                                <span>￥<{$foo['shop_price']}></span>
+                            </div>
+							 <div class="pb5 tal l16">
+                                <span><{$foo['sku_name']}></span>
+                            </div>
+						</a>
+                    </div>
+                </volist>
+            </div>
+        </section>
+
+    </div>
+</div>
+<!-- 底部 -->
+<include file="template/wap/Public/footer.html" />
+
+<script src="__TMPL__/hb/public/swiper/js/swiper.min.js"></script>
+<script src="__TMPL__/hb/public/mui/js/mui.min.js"></script>
+<script src="__TMPL__/hb/public/zepto/zepto.min.js"></script>
+<script src="__TMPL__/hb/js/upCoin.js"></script>
+<script>
+    var swiper = new Swiper('.swiper-container', {
+        slidesPerView: 1,
+        spaceBetween: 30,
+        loop: true,
+        autoplay: {
+            delay: 2500,
+            disableOnInteraction: false,
+        },
+        pagination: {
+            el: '.swiper-pagination',
+            clickable: true,
+        },
+    });
+    // 调用初始化下拉刷新的方法初始化下拉刷新插件
+    mui.init({
+        pullRefresh: {
+            container: ".mui-scroll-wrapper", // 传入区域滚动父容器的选择器
+            down: {
+                height: 50, //可选,默认50.触发下拉刷新拖动距离,
+                auto: false, //可选,默认false.首次加载自动下拉刷新一次
+                contentdown: "下拉可以刷新", //可选，在下拉可刷新状态时，下拉刷新控件上显示的标题内容
+                contentover: "释放立即刷新", //可选，在释放可刷新状态时，下拉刷新控件上显示的标题内容
+                contentrefresh: "正在刷新...", //可选，正在刷新状态时，下拉刷新控件上显示的标题内容
+                callback: function () {
+
+                }
+                //必选，刷新函数，根据具体业务来编写，比如通过ajax从服务器获取新数据；
+            }
+        }
+    });
+    // 在callback的回调函数里面去执行下拉刷新的刷新操作  执行完下拉操作后需要结束下拉刷新（如果不结束就会一直转圈圈）
+    mui('.mui-scroll-wrapper').pullRefresh().endPulldownToRefresh();
+    // jq操作
+
+</script>
+<script>
+    $('.search').on('tap', function () {
+
+        var keyword = $(" input[ name='search' ] ").val() ;
+
+        gboy.url('<?php echo U("home/index/shop");?>'+"&keyword="+keyword);
+
+
+    })
+</script>
+</body>
+
+</html>

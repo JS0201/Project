@@ -1,0 +1,85 @@
+<include file="Public/header" />
+
+<div class="fixed-nav layout">
+	<ul>
+		<li class="first">后台首页</li>
+		<li class="spacer-gray"></li>
+	</ul>
+	<div class="hr-gray"></div>
+</div>
+<div class="content padding-big have-fixed-nav">
+	
+				<div class="margin-top">
+
+		<div class="fl w50 padding-small-left">
+
+				<table cellpadding="0" cellspacing="0" class="margin-top border bg-white layout">
+						<tbody>
+							<tr class="bg-gray-white line-height-40 border-bottom">
+								<th class="text-left padding-big-left">系统信息</th>
+							</tr>
+							<tr class="border-bottom">
+								<td class="text-left today-sales padding-big padding-small-top padding-small-bottom line-height-40">
+									<span class="fl">系统版本</span>
+									<span class="fr">&nbsp;v0.0.1</span>
+								</td>
+							</tr>
+							<tr class="border-bottom">
+								<td class="text-left today-sales padding-big padding-small-top padding-small-bottom line-height-40">
+									<span class="fl">服务器系统及PHP</span>
+									<span class="fr"><?php echo php_uname('s');?>/<?php echo  PHP_VERSION;?></span>
+								</td>
+							</tr>
+							<tr class="border-bottom">
+								<td class="text-left today-sales padding-big padding-small-top padding-small-bottom line-height-40">
+									<span class="fl">服务器软件</span>
+									<span class="fr"><?php echo php_uname('s');?></span>
+								</td>
+							</tr>
+
+						</tbody>
+					</table>
+	
+		</div>
+	</div>
+</div>
+</body>
+</html>
+<script>
+$('#FontScroll').FontScroll({time: 3000,num: 1});
+/* ajax加载统计 */
+$.ajax({
+url: "<{:U('statistics/order/ajax_home')}>",
+type: 'get',
+dataType: 'json',
+success: function(ret) {
+	// 订单数据
+	if (ret.orders) {
+		$.each(ret.orders,function(k, v) {
+			$("[data-id='"+ k +"']").text(v);
+		});
+	}
+	// 商品数据
+	if (ret.goods) {
+		$.each(ret.goods,function(k, v) {
+			$("[data-id='"+ k +"']").text(v);
+		});
+	}
+	// 待处理咨询
+	$("[data-id='consult_load_do']").text(ret.consult_load_do);
+	// 注册人数
+	$("[data-id='member_total']").text(ret.member_total);
+	// 资金管理
+	$("[data-id='today-amount']").text(ret.sales.today.amount);
+	$("[data-id='today-average']").text(ret.sales.today.average);
+    $("[data-id='zhou-amount']").text(ret.sales.week.amount);
+	$("[data-id='month-amount']").text(ret.sales.month.amount);
+	$("[data-id='year-amount']").text(ret.sales.year.amount);
+	/* 数据库大小 */
+	$("[data-id='dbsize']").text(ret.dbsize[0].db_length);
+},
+error: function(errorMsg) {
+	message("请求数据失败，请稍后再试！");
+}
+});
+</script>

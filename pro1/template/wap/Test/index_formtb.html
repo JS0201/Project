@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>USDT提币</title>
+    <link rel="stylesheet" href="__TMPL__/hb/public/mui/css/mui.min.css">
+    <link rel="stylesheet" href="__TMPL__/hb/public/swiper/css/swiper.min.css">
+    <include file="template/wap/Public/base.html" />
+
+    <!-- 引入头部 -->
+    <include file="template/wap/Public/header.html" />
+
+    <style>
+        html , body{
+            background-color: #fff;
+       }
+        .xfmzc{
+            height: 100%;
+            padding-top: 0.64rem;
+       }
+       .content {
+            margin: 0 .18rem;
+            margin-top: .15rem;
+       }
+       .input-wrapper {
+            display: flex;
+            margin-bottom: .15rem;
+            padding: .23rem .15rem;   
+            border: 1px solid #F2902D;
+            font-size: 0;
+            border-radius: .08rem;
+    box-shadow: 0px 3px 8px 0px rgba(249,175,45,0.26);
+        }
+        input {
+            font-size: 0;
+            border: 0;
+            outline: none;
+        }
+        .input-wrapper .title{
+            flex: 0 0 .8rem;
+            white-space: nowrap;
+            font-size: .18rem;
+            color: #333333;
+        }
+        .input-wrapper input {
+            flex: 1;
+            font-size: .15rem;
+            color: #333333;
+        }
+        .input-wrapper input::placeholder {
+            font-size: .15rem;
+            color: #666666;
+        }
+        .tips {
+            color: #EA452C;
+            font-size: .13rem;
+            margin-left: .05rem;
+        }
+        .submit {
+            padding: .12rem 0;
+            margin-top: .54rem;
+            width: 100%;
+            font-size: .18rem;
+            line-height: .18rem;
+            color: #fff;
+            background:linear-gradient(107deg,rgba(232,53,44,1) 0%,rgba(243,154,45,1) 100%);
+            border-radius:.20rem;
+            text-align: center;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="xfmzc">
+        <div class="content">
+            <div class="input-wrapper">
+                <span class="title">钱包地址：</span>
+                <input placeholder="请粘贴钱包地址到此处" />
+            </div>
+            <div class="input-wrapper">
+                <span class="title">提币数量：</span>
+                <input placeholder="请输入提币数量" />
+            </div>
+            <div class="tips">*提币须知<br>提币手续费为千分之二</div>
+            <div class="submit">确认转出</div>
+        </div>
+
+    </div>
+</body>
+
+<script>
+     $(function () {
+        $('#rightText').css('display', 'block');
+        $('#rightText').text('提币记录');
+        $('#rightText').attr('href', 'index.php?m=Test&c=Index&a=formtbRecord')
+     })
+</script>

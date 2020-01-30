@@ -1,0 +1,436 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+        content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>注册</title>
+    <link rel="stylesheet" href="__TMPL__/hb/public/mui/css/mui.min.css">
+    <link rel="stylesheet" href="__TMPL__/hb/public/swiper/css/swiper.min.css">
+    <include file="template/wap/Public/base.html" />
+    <style>
+        html,
+        body {
+            height: 100%;
+            width: 100%;
+        }
+
+        .box {
+            background-image: url('template/wap/static/vsc/img/loginBG.png');
+            background-size: 100%;
+            padding: 0.8rem 0.43rem 0 0.37rem;
+            widows: 100%;
+            height: 100%;
+        }
+
+        .box .lang {
+            margin-bottom: 0.13rem;
+            position: absolute;
+            top: 0.48rem;
+            right: 0.3rem;
+        }
+
+        .box .lang p {
+            display: block;
+            color: #fff;
+            text-align: center;
+            margin-bottom: .03rem;
+        }
+
+        .box .lang p select {
+            margin: 0;
+            color: #fff;
+            text-align: center;
+            background: rgba(0, 0, 0, 0);
+            border: 0;
+            appearance: none;
+            -moz-appearance: none;
+            -webkit-appearance: none;
+            font-size: 0.18rem;
+            padding: 0 !important;
+        }
+
+        #register_content {}
+
+        #register_content p {
+            font-size: 0.24rem;
+            color: #fff;
+            margin-bottom: 0.19rem;
+        }
+
+        #register_content .userMsg {
+            display: flex;
+            position: relative;
+        }
+
+        #register_content .userMsg img {
+            height: 0.17rem;
+            position: absolute;
+            top: 0.14rem;
+        }
+
+        #register_content .userMsg input {
+            background-color: transparent;
+            border: none;
+            border-bottom: 0.01rem solid #fff;
+            border-radius: 0;
+            flex: 1;
+            font-size: 0.17rem;
+            color: #fff;
+            padding: 0.23rem 0 0.23rem 0.05rem !important;
+            margin-left: 0.26rem;
+        }
+
+        #register_content .userMsg input::placeholder {
+            color: #fff;
+        }
+
+        #register_content .lastM {
+            margin-bottom: 0.31rem;
+        }
+
+        #register_content button {
+            font-size: 0.15rem;
+            color: #FF6B00;
+            background-color: #fff;
+            border-radius: 0.37rem;
+            border-color: #fff;
+            width: 100%;
+            margin-bottom: 0.15rem;
+            margin-left: 0.08rem;
+        }
+
+        .bottom-box {
+            text-align: left;
+            margin-bottom: 0.28rem;
+        }
+
+        .bottom-box a {
+            font-size: 0.12rem;
+            color: #fff;
+            margin-left: -0.05rem;
+        }
+
+        .bottom-box img {
+            display: inline-block;
+            width: 0.11rem;
+            height: 0.11rem;
+        }
+
+        .bottom-box img.active {
+            border: 1px solid #fff
+        }
+
+        .backLogin {
+            text-align: center;
+        }
+
+        .backLogin a {
+            /* font-size: 0.12rem;
+            */
+            color: #fff;
+        }
+    </style>
+    <style>
+        .remember1 {
+            display: none;
+        }
+
+        .remember2 {
+            display: none;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="box">
+        <form method="POST" id="formid">
+            <include file="template/wap/Public/lang.html" />
+            <div id="register_content">
+                <p>创建账户</p>
+                <div class="userMsg">
+                    <img src="template/wap/static/vsc/img/userNameIcon.png" alt="">
+                    <input name="username" onblur="checkName(this.value)" type="text" placeholder="请输入用户名">
+                </div>
+                <div class="userMsg ">
+                    <img src="template/wap/static/vsc/img/pwdIcon.png" alt="">
+                    <input name="upwd" onblur="checkPwd(this.value)" type="password" placeholder="请输入登录密码">
+                </div>
+                <div class="userMsg ">
+                    <img src="template/wap/static/vsc/img/pwdIcon.png" alt="">
+                    <input name="upwd2" onblur="checkPwd2(this.value)" type="password" placeholder="请确认登录密码">
+                </div>
+                <div class="userMsg ">
+                    <img src="template/wap/static/vsc/img/payPwd.png" alt="">
+                    <input name="upwdcoin" onblur="checkPwdPay(this.value)" type="password" placeholder="请输入支付密码">
+                </div>
+                <div class="userMsg">
+                    <img src="template/wap/static/vsc/img/payPwd.png" alt="">
+                    <input name="upwdcoin2" onblur="checkPwdPay2(this.value)" type="password" placeholder="请确认支付密码">
+                </div>
+                <div class="userMsg lastM">
+                    <img src="template/wap/static/vsc/img/payPwd.png" alt="">
+                    <input name="oid" onblur="fixedTop()" type="text" type="text" placeholder="请输入推荐码">
+                </div>
+                <button onclick="return checkformRegister(this.form)">下一步</button>
+            </div>
+            <div class="bottom-box">
+                <span class="conner-register">
+                    <img src="" class="active" alt="" id="agreement" onclick="toggleAgreement()">
+                    <a href="#">《法律声明》+《用户协议》</a>
+                </span>
+            </div>
+            <div class="backLogin">
+                <a href="index.php?m=Test&c=Index&a=login">返回登录</a>
+            </div>
+        </form>
+    </div>
+
+    <div class="remember1">
+        <include file="template/wap/test/Index_mnemonicword.html" />
+    </div>
+    <div class="remember2">
+        <include file="template/wap/test/Index_mnemonicword2.html" />
+    </div>
+
+    <script>
+        var rememberList = []
+        var comfirmRememberList = []
+        var checkAgreement = false
+        var _pwd = ''
+        var _pwdp = ''
+        function checkName(v) {
+            fixedTop()
+            var reg = /^[a-zA-Z]([-_a-zA-Z0-9]{5,19})$/;
+            if (!reg.test(v)) {
+                layer.msg("register0")
+            }
+            return true;
+        }
+        function checkPwd(v) {
+            fixedTop()
+            var reg = /^[a-zA-Z]([-_a-zA-Z0-9]{7,11})$/;
+            if (!reg.test(v)) {
+                layer.msg("register1")
+                return false
+            }
+            _pwd = v;
+            return true;
+        }
+        function checkPwd2(v) {
+            fixedTop()
+            var reg = /^[a-zA-Z]([-_a-zA-Z0-9]{7,11})$/;
+            if (!reg.test(v)) {
+                layer.msg("register1")
+                return false
+            }
+            if (_pwd !== v) {
+                layer.msg("register2")
+                return false
+            }
+            return true;
+        }
+        function checkPwdPay(v) {
+            fixedTop()
+            var reg = /^[0-9]{6}$/;
+            if (!reg.test(v)) {
+                layer.msg("register4")
+                return false
+            }
+            _pwdp = v;
+            return true;
+        }
+        function checkPwdPay2(v) {
+            fixedTop()
+            var reg = /^[0-9]{6}$/;
+            if (!reg.test(v)) {
+                layer.msg("register4")
+                return false
+            }
+            if (_pwdp !== v) {
+                layer.msg("register5")
+                return false
+            }
+            return true;
+        }
+        function toggleAgreement() {
+            fixedTop()
+            checkAgreement = !checkAgreement
+            var agreement = document.querySelector('#agreement');
+            agreement.src = checkAgreement ? 'template/wap/static/vsc/img/tuijianma.png' : ''
+            agreement.className = checkAgreement ? '' : 'active'
+        }
+        function fixedTop() {
+            setTimeout(function () {
+                $('body').scrollTop(0)
+            }, 10)
+        }
+
+        function checkformRegister(form) {
+            fixedTop()
+            var username = form.username.value || '';
+            var upwd = form.upwd.value || '';
+            var upwd2 = form.upwd2.value || '';
+            var paywd = form.upwdcoin.value || '';
+            var paywd2 = form.upwdcoin2.value || '';
+            var oid = form.oid.value || '';
+            if (!username) {
+                layer.msg('Please enter a user name');
+                return false;
+            }
+            if (!checkName(username)) {
+                return false;
+            }
+            if (!upwd) {
+                layer.msg('password');
+                return false;
+            }
+
+            if (!checkPwd(upwd)) {
+                return false;
+            }
+            if (!upwd2) {
+                layer.msg('Please enter the login password again');
+                return false;
+            }
+            if (!checkPwd2(upwd2)) {
+                return false;
+            }
+
+            if (upwd.length < 6 || upwd2.length < 6) {
+                layer.msg('The password length is more than 6 bits');
+                return false;
+            }
+            if (upwd != upwd2) {
+                layer.msg('You have entered two different passwords');
+                return false;
+            }
+
+
+            if (!paywd) {
+                layer.msg('paymentPassword');
+                return false;
+            }
+
+            if (!checkPwdPay(paywd)) {
+                return false;
+            }
+
+
+            if (!paywd2) {
+                layer.msg('confirmPaymentPassword');
+                return false;
+            }
+
+            if (!checkPwdPay2(paywd2)) {
+                return false;
+            }
+            if (paywd.length < 6 || paywd2.length < 6) {
+                layer.msg('The password length is more than 6 bits');
+                return false;
+            }
+            if (paywd != paywd2) {
+                layer.msg('You have entered two different passwords');
+                return false;
+            }
+            if (!checkAgreement) {
+                layer.msg("agr1");
+                return false;
+            }
+            showRemember();
+            return false;
+        }
+        function checkRemember() {
+            if (rememberList.toString() === comfirmRememberList.toString()) {
+                layer.msg("注册校验成功")
+                //确认助记词
+                var data = $('#formid').serialize();
+                var formurl = "{:Url('login/register')}";
+                if (location.pathname.indexOf('app') >= 0) {
+                    var locurl = 'https://www.zuoapp.com/app/ETF';
+
+                } else {
+                    var locurl = "{:Url('index/login')}";
+                }
+                var __token__ = $("input[name='__token__']").val();
+                data += '&helpRememberWords=' + rememberList.toString().replace(/,/g, '')
+                data += '&__token__=' + __token__;
+                WPpost(formurl, data, locurl);
+            } else {
+                layer.msg("{:lang('mnemonic8')}")
+            }
+            return false
+        }
+
+
+        var loginPage = 1;
+        function showRemember() {
+            $(".remember1").show()
+            loginPage = 1;
+            $('#head-title').text('备份助记词')
+        }
+        function showRemember2() {
+            $(".remember2").show()
+            loginPage = 2;
+            $('#head-title').text('输入助记词')
+        }
+        function backPage(page) {
+            $('.remember' + page).hide()
+        }
+        $(function () {
+            $('#backcome').click(function () {
+                backPage(loginPage);
+                loginPage--;
+            })
+
+            var rememberDom2 = document.querySelector('.remember-words-wrapper2')
+            var rememberDom3 = document.querySelector('.remember-words-wrapper3')
+            rememberDom3.addEventListener('click', function (e) {
+                var ev = ev || window.event;
+                var target = ev.target || ev.srcElement;
+                if (target.nodeName.toLocaleLowerCase() == 'span') {
+                    var state = target.className
+                    var rememberWordsDom = ''
+                    if (state.indexOf('remember-words-item-active3') > -1) {
+                        comfirmRememberList = comfirmRememberList.filter(function (item) {
+                            return item != target.textContent
+                        });
+                        target.className = "remember-words-item3"
+                    } else {
+                        comfirmRememberList.push(target.textContent)
+                        target.className = "remember-words-item3 remember-words-item-active3"
+                    }
+                    for (var i = 0; i < comfirmRememberList.length; i++) {
+                        rememberWordsDom += '<span class="remember-words-item2">' + comfirmRememberList[i] +
+                            '</span>'
+                    }
+                    rememberDom2.innerHTML = rememberWordsDom
+                }
+            }, false)
+
+            var getwordUrl = "index.php?m=member&c=api&a=getword";
+            $.get(getwordUrl, function (res) {
+                var list = JSON.parse(res)
+                var list2 = [].concat(list)
+                list2.sort()
+                rememberList = list;
+                var _words = ''
+                var _words2 = ''
+                var wordsList = document.querySelector('.remember-words-wrapper')
+                var wordsList2 = document.querySelector('.remember-words-wrapper3')
+                for (var i in list) {
+                    _words += '<span class="remember-words-item">' + list[i] + '</span>'
+                    _words2 += '<span class="remember-words-item">' + list2[i] + '</span>'
+                }
+                wordsList.innerHTML = _words
+                wordsList2.innerHTML = _words2
+            })
+        })
+    </script>
+
+</body>
+
+</html>

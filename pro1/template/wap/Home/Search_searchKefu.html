@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title><{:L('_find_3')}></title>
+    <link rel="stylesheet" href="__TMPL__/hb/public/mui/css/mui.min.css">
+    <link rel="stylesheet" href="__TMPL__/hb/public/swiper/css/swiper.min.css">
+    <include file="template/wap/Public/base.html" />
+
+    <style>
+        html , body{
+            background-color: #fff;
+       }
+        #searchKefu{
+            height: 100%;
+            padding-top: 0.64rem;
+       }
+        #searchKefu h4{
+            margin-bottom: 0.09rem;
+       }
+        #searchKefu .line2{
+            background-color: #E3E1E1;
+            width: 100%;
+            height: 0.1rem;
+       }
+        #searchKefu .question{
+            padding: 0.15rem 0.2rem 0.2rem 0.2rem;
+       }
+        #searchKefu .question .line{
+            margin-bottom: 0.13rem;
+       }
+        #searchKefu .question .line p{
+            font-size: 0.15rem;
+            color: #EA442C;
+            margin-bottom: 0rem !important;
+       }
+        #searchKefu .question .line span{
+            font-size: 0.12rem;
+            color: #333333;
+       }
+        #searchKefu .submitRes{
+            padding: 0.16rem 0.17rem 0 0.17rem;
+       }
+        #searchKefu .submitRes input , textarea{
+            font-size: 0.15rem;
+            color: #666;
+            border: 0.01rem solid#F2902D;
+            border-radius: 0.05rem;
+       }
+        #searchKefu .submitRes textarea{
+            height: 1.39rem;
+       }
+        #searchKefu .submitRes input{
+            padding-left: 0.58rem 
+       }
+        #searchKefu .submitRes .addID{
+            position: relative;
+            height: 0.5rem;
+       }
+        #searchKefu .submitRes .addID .userID{
+            position: absolute;
+            top: 0.07rem;
+            left: 0.16rem;
+       }
+        #searchKefu button{
+            width: 100%;
+            font-size: 0.18rem;
+            color: #fff;
+            border: none;
+            border-radius: 0.4rem;
+            background: -moz-linear-gradient(left, #E8352C 0%, #F39A2D 100%);
+            background: -o-linear-gradient(left, #E8352C 0%,#F39A2D 100%);
+            background: -ms-linear-gradient(left, #E8352C 0%,#F39A2D 100%);
+            background: linear-gradient(to right, #E8352C 0%,#F39A2D 100%);
+       }
+        </style>
+</head>
+
+<body>
+    <!-- 引入头部 -->
+    <include file="template/wap/Public/header.html" />
+    <div id="searchKefu" class="mobile-content">
+        <div class="question">
+            <h4><{:L('_online_1')}></h4>
+            <div class="line">
+                <p><{:L('_online_2')}></p>
+                <span>&nbsp;&nbsp;&nbsp;<{:L('_online_3')}></span>
+            </div>
+            <div class="line">
+                <p><{:L('_online_4')}></p>
+                <span> &nbsp;&nbsp;&nbsp; <{:L('_online_5')}></span>
+            </div>
+        </div>
+        <div class="line2"></div>
+        <div class="submitRes">
+            <h4><{:L('_online_6')}></h4>
+            <form action="<{:U('home/search/question')}>" method="post">
+            <textarea name="question"  cols="30" rows="10" placeholder="<{:L('_online_7')}>"></textarea>
+             <button type="submit"><{:L('_online_8')}></button>
+          </form>
+        </div>
+
+    </div>
+    <script>
+        $(function() {
+            $('#rightText').css('display', 'block');
+            $('#rightText').text('<{:L('_online_online')}>');
+        
+            $('#rightText').click(function(){
+                layer.msg('<{:L('_qidai')}>')
+            })
+        })
+        
+    </script>
+</body>
+
+</html>

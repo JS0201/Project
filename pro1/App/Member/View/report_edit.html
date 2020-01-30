@@ -1,0 +1,38 @@
+<include file="Admin@Public/header" />
+
+<form action="<?php echo U('send') ?>" method="POST" name="fomr-validate">
+	<input type="hidden" name="id" value="<?php echo $info['id'] ?>">
+	<div class="fixed-nav layout">
+		<ul>
+			<if condition="ACTION_NAME eq 'add'">
+				<li class="first">添加团队等级<a id="addHome" title="添加到首页快捷菜单">[+]</a></li>
+				<else/>
+				<li class="first">编辑团队等级</li>
+			</if>
+			<li class="spacer-gray"></li>
+		</ul>
+		<div class="hr-gray"></div>
+	</div>
+	<div class="content padding-big have-fixed-nav">
+		<div class="form-box clearfix">
+			<?php echo \Org\Util\Form::input('text', 'dj_id', $info['dj_id'], '等级：', '设置团队等级'); ?>
+			<?php echo \Org\Util\Form::input('text', 'dj_name', $info['dj_name'], '等级名称：', '设置团队等级名称'); ?>
+			<?php echo \Org\Util\Form::input('text', 'money', $info['money'], '团队业绩总金额：', '团队业绩总金额'); ?>
+			<?php echo \Org\Util\Form::input('text', 'zt_num', $info['zt_num'], '直推人数：', '直推人数'); ?>
+			<?php echo \Org\Util\Form::input('text', 'ratio', $info['ratio'], '团队分红收益比率：', '团队分红收益比率'); ?>
+			<?php echo \Org\Util\Form::input('text', 'gu_ratio', $info['gu_ratio'], '全网分红收益比率：', '全网分红收益比率'); ?>
+
+			<?php echo \Org\Util\Form::input('text', 'pin_price_rate', $info['pin_price_rate'], '平级奖励比例：', '平级奖励比例'); ?>
+			<?php echo \Org\Util\Form::input('text', 'levela_price_rate', $info['levela_price_rate'], '一级团队奖励比例：', '一级团队奖励比例'); ?>
+			<?php echo \Org\Util\Form::input('text', 'levelb_price_rate', $info['levelb_price_rate'], '二级团队奖励比例：', '二级团队奖励比例'); ?>
+			<?php echo \Org\Util\Form::input('text', 'levelc_price_rate', $info['levelc_price_rate'], '三级团队奖励比例：', '三级团队奖励比例'); ?>
+
+		</div>
+		<div class="padding">
+			<input type="submit" name="dosubmit" class="button bg-main" value="确定" />
+			<input type="reset" name="back" class="button margin-left bg-gray" value="返回" />
+		</div>
+	</div>
+</form>
+</body>
+</html>

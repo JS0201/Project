@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>释放记录</title>
+    <link rel="stylesheet" href="__TMPL__/hb/public/mui/css/mui.min.css">
+    <link rel="stylesheet" href="__TMPL__/hb/public/swiper/css/swiper.min.css">
+    <include file="template/wap/Public/base.html" />
+
+    <!-- 引入头部 -->
+    <include file="template/wap/Public/header.html" />
+    <style>
+        .fenhongjilu {
+            position: relative;
+            margin-top: 64px;
+        }
+
+        .list {
+            margin: 0 .10rem;
+            padding: 0;
+            padding-top: .15rem;
+        }
+
+        .item {
+            display: flex;
+            margin-bottom: .10rem;
+            padding: .11rem;
+            border: 1px solid rgba(242, 144, 45, 1);
+            border-radius: .05rem;
+            list-style-type:none;
+            font-size: 0;
+        }
+        .item .left {
+            flex:1;
+        }
+        .amount {
+            display: flex;
+            align-items:flex-end;
+            margin-bottom: .09rem;
+        }
+        .amount .num {
+            font-size:15px;
+            line-height: 15px;
+            font-family:PingFang-SC-Medium;
+            font-weight:500;
+            color:rgba(51,51,51,1);
+        }
+        .amount .unit {
+            margin-left: .05rem;
+            font-size:12px;
+            line-height: 15px;
+            font-family:PingFang-SC-Medium;
+            font-weight:500;
+            color:rgba(102,102,102,1);
+        }
+        .type {
+            display: flex;
+            align-items:flex-end;
+            margin-bottom: .10rem;
+        }
+        .type .title{
+            font-size:12px;
+            line-height: 12px;
+            font-family:NotoSansHans-DemiLight;
+            font-weight:normal;
+            color:#999999;
+        }
+        .type .code{
+            margin-left: .06rem;
+            font-size:12px;
+            line-height: 12px;
+            font-family:NotoSansHans-DemiLight;
+            font-weight:normal;
+            color:#666666;
+        }
+        .auther {
+            display: flex;
+            align-items:flex-end;
+        }
+        .auther .title{
+            font-size:12px;
+            line-height: 12px;
+            font-family:NotoSansHans-DemiLight;
+            font-weight:normal;
+            color:#999999;
+        }
+        .auther .code{
+            margin-left: .18rem;
+            font-size:12px;
+            line-height: 12px;
+            font-family:NotoSansHans-DemiLight;
+            font-weight:normal;
+            color:#666666;
+        }
+        .right {
+            position: relative;
+            text-align: right;
+
+        }
+        .time {
+            margin-bottom: .30rem;
+            font-size:12px;
+            line-height:12px;
+            font-family:PingFang-SC-Regular;
+            font-weight:400;
+            color:rgba(153,153,153,1);
+        }
+        .state {
+            font-size:12px;
+            line-height:12px;
+            font-family:PingFang-SC-Medium;
+            font-weight:500;
+            color:rgba(55,181,126,1);
+        }
+
+    </style>
+</head>
+
+<body>
+    <div class="fenhongjilu">
+
+        <ul class="list">
+            <if condition="$list">
+                <volist name="list" id="foo">
+
+            <li class="item">
+                <div class="left">
+                    <div class="amount"><a class="num">+<?php echo  $foo['money_nums']; ?></a><a class="unit">usdt</a></div>
+                    <div class="type"><a class="title">收益类型:</a><a class="code"><?php echo types_of($foo['money_type']); ?></a></div>
+                <!--    <div class="auther"><a class="title">提供者:</a><a class="code">fsfdsf</a></div>-->
+                </div>
+                <div class="right">
+                    <div class="time"><{$foo['money_produtime']|date="Y-m-d H:i",###}></div>
+                  <!--  <div class="state">成功</div>-->
+                </div>
+            </li>
+
+            </volist>
+            </if>
+        </ul>
+    </div>
+</body>

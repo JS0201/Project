@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>商品详情</title>
+    <link rel="stylesheet" href="__TMPL__/hb/public/start.css">
+    <link rel="stylesheet" href="__TMPL__/hb/css/detail.css">
+    <link rel="stylesheet" href="__TMPL__/hb/css/gboy.css">
+    <link rel="stylesheet" href="__TMPL__/hb/public/mui/css/mui.min.css">
+	
+</head>
+
+<body>
+<!-- 顶栏 -->
+<header id="header" class="mui-bar mui-bar-nav">
+    <h1 class="mui-title">详情</h1>
+    <button class="mui-action-back mui-btn mui-btn-blue mui-btn-link mui-btn-nav mui-pull-left"><span class="mui-icon mui-icon-left-nav"></span></button>
+</header>
+<!-- 区域内容 -->
+<div class="mui-scroll-wrapper">
+    <div class="mui-scroll">
+        <!-- 商品展示区 -->
+        <section class="show">
+            <img src="<{$thumb}>" alt="">
+        </section>
+        <!-- 商品描述区 -->
+        <section class="describe">
+            <div class="value">
+                <span><{$shop_price}><i>.00(ACNY)</i></span>
+                <span>热推</span>
+                <!--<span>直推奖20区块包</span>-->
+            </div>
+            <div class="text">
+                <{$sku_name}>
+            </div>
+            <!--<div class="tag">-->
+                <!--<span>牛津纺弹力棉</span>-->
+                <!--<span>单边贴袋</span>-->
+                <!--<span>修身剪裁</span>-->
+            <!--</div>-->
+            <div class="newOrold">当季新品</div>
+            <div class="transaction">
+                 <if condition="$number eq 0">
+                    库存：<span style="color: #e41233">缺货</span>
+                <else/>
+                    <span>库存：<{$number}></span>
+
+                </if>
+                <span>月销2598笔</span>
+                <span>广东</span>
+            </div>
+        </section>
+        <!-- 商品选购区 -->
+        <!--<section class="shop">-->
+            <!--<div class="size">-->
+                <!--<span>尺码</span>-->
+                <!--<span>点击选择</span>-->
+                <!--<span>推荐M码></span>-->
+            <!--</div>-->
+            <!--<div class="activity">-->
+                <!--<span>活动</span>-->
+                <!--<span>店铺预售，付款后五天发货</span>-->
+            <!--</div>-->
+        <!--</section>-->
+        <!-- 商品详情 -->
+        <h3 class="pd10 fs16">商品详情</h3>
+        <section class="shopPic">
+            <{$spu['content']}>
+        </section>
+
+    </div>
+</div>
+<!-- 底部 -->
+<footer class="footer">
+    <a href="<{:U('Home/index/moreshop')}>">
+        <img src="__TMPL__/hb/img/iocn/我的未选中/商城.png" alt="">
+        <span>商城</span>
+    </a>
+    <a href="<{:U('order/cart/index')}>">
+        <img src="__TMPL__/hb/img/iocn/我的未选中/购物车.png" alt="">
+        <span>购物车</span>
+    </a>
+    <div class="cart">
+        <span href="javascript:;" data-event="cart_add" data-type="1" data-skuids="<{$sku_id}>" class="divline widthp100 l50 fs16">加入购物车</span>
+    </div>
+
+    <div class="pay">
+        <span  data-event="buy_now" data-skuids="<{$_GET['sku_id']}>" class="divline widthp100 l50 fs16 goumai" >立即购买</span>
+    </div>
+
+</footer>
+<script type="text/javascript" src="__TMPL__/js/jquery-3.2.1.min.js"></script>
+<script type="text/javascript" src="__TMPL__/js/gboy.js"></script>
+<script type="text/javascript" src="__TMPL__/js/gboy.cart.js"></script>
+<script type="text/javascript" src="__ROOT__/statics/js/layer/layer.min.js"></script>
+<script src="__TMPL__/hb/public/mui/js/mui.min.js"></script>
+<script src="__TMPL__/hb/public/zepto/zepto.min.js"></script>
+<script>
+    // 调用初始化下拉刷新的方法初始化下拉刷新插件
+    mui.init({
+        pullRefresh: {
+            container: ".mui-scroll-wrapper", // 传入区域滚动父容器的选择器
+            down: {
+                height: 50, //可选,默认50.触发下拉刷新拖动距离,
+                auto: false, //可选,默认false.首次加载自动下拉刷新一次
+                contentdown: "下拉可以刷新", //可选，在下拉可刷新状态时，下拉刷新控件上显示的标题内容
+                contentover: "释放立即刷新", //可选，在释放可刷新状态时，下拉刷新控件上显示的标题内容
+                contentrefresh: "正在刷新...", //可选，正在刷新状态时，下拉刷新控件上显示的标题内容
+                callback: function () {
+
+                }
+                //必选，刷新函数，根据具体业务来编写，比如通过ajax从服务器获取新数据；
+            }
+        }
+    });
+
+    // 在callback的回调函数里面去执行下拉刷新的刷新操作  执行完下拉操作后需要结束下拉刷新（如果不结束就会一直转圈圈）
+    mui('.mui-scroll-wrapper').pullRefresh().endPulldownToRefresh();
+</script>
+</body>
+
+</html>

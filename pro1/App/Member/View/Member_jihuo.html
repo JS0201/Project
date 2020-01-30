@@ -1,0 +1,98 @@
+<include file="Admin@Public/header" />	
+<style>
+.high-table .tr .td{line-height:50px;min-height:auto;}
+</style>
+<div class="fixed-nav layout">
+    <ul>
+        <li class="first">激活明细<a id="addHome" title="添加到首页快捷菜单">[+]</a></li>
+        <li class="spacer-gray"></li>
+    </ul>
+    <div class="hr-gray"></div>
+</div>
+
+<div class="content padding-big have-fixed-nav">
+    <div class="tips margin-tb"> </div>
+    <div class="member-list-search clearfix">
+        <form action="" method="get">
+            <input type="hidden" name="m" value="<{:MODULE_NAME}>">
+            <input type="hidden" name="c" value="<{:CONTROLLER_NAME}>">
+            <input type="hidden" name="a" value="<{:ACTION_NAME}>">
+            <style>
+                .member-list-search .form-group-id1{ width: 230px;}
+                .member-list-search .form-group-id1 .box{ width:150px;}
+                .member-list-search .form-group-id2{ width: 320px;}
+                .member-list-search .form-group-id2 .box{ width:270px;}
+            </style>
+            <div class="form-box form-layout-rank clearfix border-bottom-none" style="width:200px;">
+                <?php echo  \Org\Util\Form::input('text', 'keyword', $_GET['keyword'], '搜索', '', array('placeholder' => '获得用户'));?>
+            </div>
+            <input class="button bg-sub fl" type="submit" value="查询">
+			<div class="button bg-sub" style="margin-left:20px"><a href="javascript:void(0)" style="color:#fff" id="out">导出excel</a></div>
+        </form>
+    </div>
+
+    <div class="table-wrap member-info-table">
+        <div class="table resize-table paging-table check-table high-table border clearfix">
+            <div class="tr" style="padding-left: 0px;">
+                <span class="th" data-width="25"><span class="td-con">激活数量</span></span>
+                <span class="th" data-width="25"><span class="td-con">激活会员</span></span>
+                <span class="th" data-width="25"><span class="td-con">触发会员</span></span>
+                <span class="th" data-width="25"><span class="td-con">时间</span></span>
+            </div>
+            <?php foreach ($list AS $member): ?>
+            <div class="tr" style="padding-left: 0px;">
+                <span class="td"><?php echo $member['num'] ?></span>
+                <span class="td"><?php echo $member['user_username'] ?>（<?php echo $member['user_realname'] ?>）</span>
+                <span class="td"><?php echo $member['give_username'] ?>（<?php echo $member['give_realname'] ?>）</span>
+                <span class="td">
+                    <span class="td-con"><{$member['time']|date="Y-m-d H:i:s",###}></span>
+                </span>
+            </div>
+            <?php endforeach ?>
+            <div class="paging padding-tb body-bg clearfix">
+				<!--<span style="float:left;padding-left:10px;">总收益：<{$count_money|default=0.00}></span>-->
+                <?php echo $pages;?>
+                <div class="clear"></div>
+            </div>
+        </div>
+    </div>
+</div>
+<script type="text/javascript">
+
+    $(window).load(function () {
+        $(".table").resizableColumns();
+        $(".paging-table").fixedPaging();
+        $(".member-info-tip").hover(function () {
+            $(this).children("span").show();
+        }, function () {
+            $(this).children("span").hide();
+        });
+        $(".member-list-search .form-group").each(function (i) {
+            $(this).addClass("form-group-id" + (i + 1));
+        });
+        $("a.member_update").click(function () {
+            top.dialog({
+                url: $(this).attr("data-url"),
+                title: '修改会员信息',
+                width: 460,
+                onclose: function () {
+                    if (this.returnValue) {
+                        window.location.href = this.returnValue.referer;
+                    }
+                }
+            })
+                    .showModal();
+        });
+        return false;
+    })
+    $(function () {
+        var $val = $("input[type=text]").eq(1).val();
+        $("input[type=text]").eq(1).focus().val($val);
+    })
+	 $('#out').live('click',function(){
+        var keyword=$("input[name='keyword']").val();
+        location.href="<{:U("exports_jihuo")}>&keyword="+keyword;
+    })
+</script>
+</body>
+</html>

@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+	<meta charset="UTF-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	<meta http-equiv="X-UA-Compatible" content="ie=edge" />
+	<title>订单详情</title>
+	<link rel="stylesheet" type="text/css" href="__TMPL__/TKSC/asset/font-awesome/css/font-awesome.min.css"/>
+	<link rel="stylesheet" type="text/css" href="__TMPL__/TKSC/css/iconfont.css"/>
+	<link rel="stylesheet" type="text/css" href="__TMPL__/TKSC/css/style.css"/>
+	<link rel="stylesheet" type="text/css" href="__TMPL__/TKSC/css/common.css"/>
+	<script src="__TMPL__/TKSC/asset/jquery-3.1.1.min.js" type="text/javascript" charset="utf-8"></script>
+	<script type="text/javascript" src="__TMPL__/TKSC/js/gboy.js"></script>
+	<script src="__TMPL__/TKSC/js/common.js" type="text/javascript" charset="utf-8"></script>
+	<style>
+		.f-pink{ border:1px #33230b solid; border-radius: 5px; display: inline-block; width: 80px; height: 30px; line-height: 27px; text-align: center; background: #33230b; color: #e5b973;}
+	</style>
+</head>
+<body>
+<div class="index-bg"></div>
+<div class="lp-header">
+	<a  href="<{:U('trade/home',array('type'=>$type))}>" class="lp-back fa fa-angle-left fl"></a>
+	<h1 class="title">订单详情</h1>
+</div>
+<div class="lp-content section lp-content">
+	<div class="trade-asset lp-content f-White bg-unnder">
+		<div class="tab-bar">
+			<div class="tab-hd flex">
+				<div class="tab-hd-item flex-item <if condition="$_GET['status'] eq ''">cur</if>">全部</div>
+			<div class="tab-hd-item flex-item <if condition="$_GET['status'] eq '0' && $_GET['status'] eq '1' & $_GET['status'] eq '2'">class="cur"</if>">进行中</div>
+		<div class="tab-hd-item flex-item <if condition="$_GET['status'] eq '3'">cur</if>">已完成</div>
+
+</div>
+<div class="tab-bd">
+	<div class="tab-item active">
+		<ul class="lp-cells ">
+			<volist name="list" id="v">
+				<tr>
+					<li class="lp-cells__item ">
+						<div class="flex-justify prow10 pcol15">
+							<div class="div">
+								<p class="ellipsis"><if condition="$v['user_id'] eq $user_id">买入<else/>卖出</if>  <{$v['num']}> <if condition="$v['account_type'] eq '0'">认购HM<elseif condition="$v['account_type'] eq '1'" />奖励HM<elseif condition="$v['account_type'] eq '2'" />USD</if></p>
+								<p class="ellipsis">单价：<{$v['price']}> &nbsp;</p>
+								<p class="ellipsis">总额：<{$v['count_price']}> &nbsp;&nbsp;时间：<{$v['order_create_time']|date="Y-m-d H:i",###}></p>
+								<!--&nbsp; 状态：<{$v['_status']}>-->
+							</div>
+							<if condition="$v['user_id'] eq $user_id">
+								<span class="f-pink"><a href="<{:U('order/buy_details',array('sn'=>$v['order_no']))}>">详情</a></span>
+								<else/>
+								<span class="f-pink"><a href="<{:U('order/sell_details',array('sn'=>$v['order_no']))}>">详情</a></span>
+							</if>
+						</div>
+					</li>
+				</tr>
+			</volist>
+		</ul>
+	</div>
+	<div class="tab-item">
+		<ul class="lp-cells ">
+			<volist name="list2" id="v">
+				<tr>
+					<li class="lp-cells__item ">
+						<div class="flex-justify prow10 pcol15">
+							<div class="div">
+								<p class="ellipsis"><if condition="$v['user_id'] eq $user_id">买入<else/>卖出</if>  <{$v['num']}> <if condition="$v['account_type'] eq '0'">认购HM<elseif condition="$v['account_type'] eq '1'" />奖励HM<elseif condition="$v['account_type'] eq '2'" />USD</if></p>
+								<p class="ellipsis">单价：<{$v['price']}> &nbsp; </p>
+								<p class="ellipsis">总额：<{$v['count_price']}> &nbsp;&nbsp;时间：<{$v['order_create_time']|date="Y-m-d H:i",###}></p>
+							</div>
+							<if condition="$v['user_id'] eq $user_id">
+								<span class="f-pink"><a href="<{:U('order/buy_details',array('sn'=>$v['order_no']))}>">详情</a></span>
+								<else/>
+								<span class="f-pink"><a href="<{:U('order/sell_details',array('sn'=>$v['order_no']))}>">详情</a></span>
+							</if>
+						</div>
+					</li>
+				</tr>
+			</volist>
+		</ul>
+	</div>
+	<div class="tab-item">
+		<ul class="lp-cells ">
+			<volist name="list3" id="v">
+				<tr>
+					<li class="lp-cells__item ">
+						<div class="flex-justify prow10 pcol15">
+							<div class="div">
+								<p class="ellipsis"><if condition="$v['user_id'] eq $user_id">买入<else/>卖出</if>  <{$v['num']}> <if condition="$v['account_type'] eq '0'">认购HM<elseif condition="$v['account_type'] eq '1'" />奖励HM<elseif condition="$v['account_type'] eq '2'" />USD</if></p>
+								<p class="ellipsis">单价：<{$v['price']}> &nbsp; </p>
+								<p class="ellipsis">总额：<{$v['count_price']}> &nbsp;&nbsp;时间：<{$v['order_create_time']|date="Y-m-d H:i",###}></p>
+							</div>
+							<if condition="$v['user_id'] eq $user_id">
+								<span class="f-pink"><a href="<{:U('order/buy_details',array('sn'=>$v['order_no']))}>">详情</a></span>
+								<else/>
+								<span class="f-pink"><a href="<{:U('order/sell_details',array('sn'=>$v['order_no']))}>">详情</a></span>
+							</if>
+						</div>
+					</li>
+				</tr>
+			</volist>
+		</ul>
+	</div>
+</div>
+</div>
+
+</div>
+
+</div>
+
+</body>
+</html>

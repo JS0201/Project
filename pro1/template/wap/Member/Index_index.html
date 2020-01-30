@@ -1,0 +1,328 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport"
+		  content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+	<meta http-equiv="X-UA-Compatible" content="ie=edge">
+	<title><{:L('index_title')}></title>
+	<link rel="stylesheet" href="__TMPL__/hb/public/mui/css/mui.min.css">
+	<link rel="stylesheet" href="__TMPL__/hb/public/start.css">
+	<link rel="stylesheet" href="__TMPL__/hb/css/index.css">
+	<link rel="stylesheet" href="__TMPL__/hb/public/swiper/css/swiper.min.css">
+	<link rel="stylesheet" href="__TMPL__/hb/css/common.css">
+	<style>
+		.swiper-container {
+			margin: .10rem .16rem 0;
+			position: relative;
+			width: auto;
+			height: 1.49rem;
+			background: #fff;
+		}
+
+		.swiper-container .swiper-slide {
+			border-radius: .08rem;
+			background-size: contain;
+		}
+
+		.swiper-container2 {
+			height: .46rem;
+			position: relative;
+			margin: 0 auto;
+			background: #fff;
+			border-radius: .23rem;
+			overflow: hidden;
+		}
+
+		.swiper-container2 .swiper-slide {
+			display: flex;
+			align-items: center;
+			padding: 0 .26rem;
+			box-sizing: border-box;
+		}
+
+		.swiper-container2 .swiper-slide i {
+			display: inline-block;
+			width: .16rem;
+			height: .16rem;
+			background-size: contain;
+			background-repeat: no-repeat;
+			background-position: center center;
+			background-image: url(__TMPL__/hb/img/icon-notice.png);
+		}
+
+		.swiper-container2 .swiper-slide span {
+			width: 226px;
+			font-size: .15rem;
+			font-family: SourceHanSansCN-Normal;
+			font-weight: 400;
+			color: #333333;
+			margin-left: .10rem;
+			white-space: nowrap;
+		}
+
+		.project-wrapper {
+			position: relative;
+			margin: 0 .16rem;
+		}
+
+		.project-wrapper .list {
+			padding: .13rem 0;
+			display: flex;
+			flex-wrap: wrap;
+			background: rgba(255, 255, 255, 1);
+			border: 1px solid #F9CFBE;
+			box-shadow: 0px 3px 8px 0px rgba(249, 175, 45, 0.26);
+			border-radius: 8px;
+		}
+
+		.project-wrapper .list .item {
+			display: flex;
+			flex: 0 0 33.33%;
+			margin-bottom: .16rem;
+			text-align: center;
+			flex-direction: column;
+		}
+		.project-wrapper .list .item:nth-child(7), .project-wrapper .list .item:nth-child(8), .project-wrapper .list .item:nth-child(9) {
+			margin-bottom: 0;
+		}
+
+
+		.project-wrapper .list .item .img-wrapper {
+			flex: 1;
+			display: flex;
+			align-items: center;
+			justify-content: center;
+		}
+
+		.project-wrapper .list img {
+			width: .47rem;
+			height: .47rem;
+		}
+
+		.project-wrapper .list .item .text {
+			margin-top: .10rem;
+			font-size: 12px;
+			font-family: SourceHanSansCN-Medium;
+			font-weight: 500;
+			color: #333333;
+			line-height: 11px;
+		}
+
+		.other-list-wrapper {
+			position: relative;
+			padding: 0 .19rem;
+		}
+
+		.other-list-wrapper ul {
+			padding-top: .16rem;
+		}
+
+		.other-list-wrapper ul li {
+			display: flex;
+			padding: .18rem .17rem .20rem .18rem;
+			background: rgba(255, 255, 255, 1);
+			border: 1px solid #F9CFBE;
+			box-shadow: 0px 3px 8px 0px rgba(249, 175, 45, 0.26);
+			border-radius: 8px;
+			margin-bottom: .10rem;
+		}
+
+		.other-list-wrapper ul li .left {
+			flex: 1;
+			margin-left: .06rem;
+			display: inline-grid;
+		}
+
+		.other-list-wrapper ul li .left .title {
+			font-size: 18px;
+			font-family: SourceHanSansCN-Medium;
+			font-weight: 500;
+			color: rgba(51, 51, 51, 1);
+			overflow: hidden;
+			text-overflow: ellipsis;
+			white-space: nowrap;
+		}
+
+		.other-list-wrapper ul li .left .ps {
+			margin-top: .17rem;
+			font-size: 15px;
+			font-family: SourceHanSansCN-Normal;
+			font-weight: 400;
+			color: rgba(153, 153, 153, 1);
+			overflow: hidden;
+			text-overflow: ellipsis;
+			white-space: nowrap;
+		}
+
+		.other-list-wrapper ul li .right {
+			display: flex;
+			align-items: center;
+			justify-content: center;
+		}
+
+		.other-list-wrapper ul li .right img {
+			width: .78rem;
+			height: .71rem;
+			border-radius: .06rem;
+		}
+		#footer ul li p {
+			margin-top: 4px !important;
+		}
+	</style>
+	<include file="template/wap/Public/base.html" />
+</head>
+
+<body>
+<include file="template/wap/Public/headerhome.html" />
+<div class="mobile-content">
+	<div class="swiper-container">
+		<div class="swiper-wrapper">
+			<div class="swiper-slide" style="background:url(__TMPL__/hb/img/home_banner_<{:L('_cookie_')}>.png) no-repeat center center; background-size: cover;">
+			</div>
+		</div>
+	</div>
+	<?php  $list=article('3');  ?>
+	<div class="swiper-container2">
+		<div class="swiper-wrapper">
+			<?php foreach($list as $key=>$foo){ ?>
+			<div class="swiper-slide">
+				<i></i>
+				<span><a href="<{:U('Home/Index/details',array('tid'=>$foo['id']))}>" ><{$foo['title']|escapeshow|restrlen=###,13}></a></span>
+			</div>
+			<?php }?>
+		</div>
+	</div>
+
+	<div class="project-wrapper">
+		<ul class="list">
+			<li class="item">
+				<div class="img-wrapper">
+					<img src="__TMPL__/hb/img/全民实业@2x.png" />
+				</div>
+				<div class="text"><{:L('index0')}></div>
+			</li>
+			<li class="item">
+				<div class="img-wrapper">
+					<img src="__TMPL__/hb/img/全民娱乐@2x.png" />
+				</div>
+				<div class="text"><{:L('index1')}></div>
+			</li>
+			<li class="item">
+				<div class="img-wrapper">
+					<img src="__TMPL__/hb/img/全民旅行@2x.png" />
+				</div>
+				<div class="text"><{:L('index2')}></div>
+			</li>
+			<li class="item">
+				<div class="img-wrapper">
+					<img src="__TMPL__/hb/img/全民投资@2x.png" />
+				</div>
+				<div class="text"><{:L('index3')}></div>
+			</li>
+			<li class="item">
+				<div class="img-wrapper">
+					<img src="__TMPL__/hb/img/全民银行@2x.png" />
+				</div>
+				<div class="text"><{:L('index4')}></div>
+			</li>
+			<li class="item">
+				<div class="img-wrapper">
+					<img src="__TMPL__/hb/img/全民科技@2x.png" />
+				</div>
+				<div class="text"><{:L('index5')}></div>
+			</li>
+			<li class="item">
+				<div class="img-wrapper">
+					<img src="__TMPL__/hb/img/全民购物@2x.png" />
+				</div>
+				<div class="text"><{:L('index6')}></div>
+			</li>
+			<li class="item">
+				<div class="img-wrapper">
+					<img src="__TMPL__/hb/img/全民地产@2x.png" />
+				</div>
+				<div class="text"><{:L('index7')}></div>
+			</li>
+			<li class="item">
+				<div class="img-wrapper">
+					<img src="__TMPL__/hb/img/全民金融@2x.png" />
+				</div>
+				<div class="text"><{:L('index8')}></div>
+			</li>
+		</ul>
+	</div>
+
+	<div class="other-list-wrapper">
+		<ul>
+			<volist name="dd" id="vo">
+				<a href="<{:U('home/search/searchHWDetail',['id'=>$vo['id']])}>">
+					<li>
+						<div class="right">
+							<img class="arrow" src="<{$vo['thumb']}>">
+						</div>
+						<div class="left">
+							<div class="title"><{$vo['title']}></div>
+							<div class="ps"><{$vo['description']}></div>
+						</div>
+						
+					</li>
+				</a>
+			</volist>
+			<!--<li>
+				<div class="left">
+					<div class="title">标题</div>
+					<div class="ps">描述</div>
+				</div>
+				<div class="right">
+					<img class="arrow" src="__TMPL__/hb/img/icon-arrow.png">
+				</div>
+			</li>
+			<li>
+				<div class="left">
+					<div class="title">标题</div>
+					<div class="ps">描述</div>
+				</div>
+				<div class="right">
+					<img class="arrow" src="__TMPL__/hb/img/icon-arrow.png">
+				</div>
+			</li>-->
+		</ul>
+	</div>
+</div>
+<include file="template/wap/Public/footer.html" />
+
+<script>
+	var swiper = new Swiper('.swiper-container', {
+		slidesPerView: 1,
+		spaceBetween: 30,
+		loop: true,
+		autoplay: {
+			delay: 2500,
+			disableOnInteraction: false,
+		},
+		pagination: {
+			el: '.swiper-pagination',
+			clickable: true,
+		},
+	});
+
+	var mySwiper2 = new Swiper('.swiper-container2', {
+		autoplay: 1600, //可选选项，自动滑动
+		loop: true,
+		direction: 'vertical',
+		preventClicks: false,//默认true
+		autoplay: {
+			delay: 2500,
+			disableOnInteraction: false,
+		},
+		pagination: {
+			el: '.swiper-pagination',
+			clickable: true,
+		},
+	})
+</script>
+</body>
+
+</html>

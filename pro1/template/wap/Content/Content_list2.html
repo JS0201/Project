@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>系统公告</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+    <meta name="format-detection" content="telephone=no" />
+	<include file="template/wap/Public/title.html" />
+<script type="text/javascript">
+$(document).ready(function(){
+
+    $(".main_visual").hover(function(){
+        $("#btn_prev,#btn_next").fadeIn()
+    },function(){
+        $("#btn_prev,#btn_next").fadeOut()
+    });
+    
+    $dragBln = false;
+    
+    $(".main_image").touchSlider({
+        flexible : true,
+        speed : 200,
+        btn_prev : $("#btn_prev"),
+        btn_next : $("#btn_next"),
+        paging : $(".flicking_con a"),
+        counter : function (e){
+            $(".flicking_con a").removeClass("on").eq(e.current-1).addClass("on");
+        }
+    });
+    
+    $(".main_image").bind("mousedown", function() {
+        $dragBln = false;
+    });
+    
+    $(".main_image").bind("dragstart", function() {
+        $dragBln = true;
+    });
+    
+    $(".main_image a").click(function(){
+        if($dragBln) {
+            return false;
+        }
+    });
+    
+    timer = setInterval(function(){
+        $("#btn_next").click();
+    }, 5000);
+    
+    $(".main_visual").hover(function(){
+        clearInterval(timer);
+    },function(){
+        timer = setInterval(function(){
+            $("#btn_next").click();
+        },5000);
+    });
+    
+    $(".main_image").bind("touchstart",function(){
+        clearInterval(timer);
+    }).bind("touchend", function(){
+        timer = setInterval(function(){
+            $("#btn_next").click();
+        }, 5000);
+    });
+    
+});
+</script>
+</head>
+<body>
+
+
+
+<!-- banner  s-->
+<div class="main_visual" style="height: 50vmin;">
+    <!--<div class="flicking_con" style="left: 93%;top: 84%;">
+		<content action="ads" pid="6">
+        <a href="#"></a>
+		</content>
+    
+    </div>
+	-->
+    <div class="main_image" style="height: 50vmin;">
+        <ul>
+           	<content action="ads" pid="6">
+            <li><span >
+			<if condition="$v['link']">
+			<a href="<{$v['link']}>"><img src="<{$v['thumb']}>" alt=""></a>
+			<else/>
+			<img src="<{$v['thumb']}>" alt="">
+			</if>
+			</span></li>
+			</content>
+        </ul>
+    </div>
+</div>
+<!--
+<div class="volunteer">习近平：加强党对金融工作的领导</div>
+-->
+<!-- banner  e-->
+
+<div class="clear"></div>
+<div class="zxtz">
+    <div class="zxtzcc" style="padding:2% 0%;">
+        <p style="float:left;"><span><i class="iconfont gaog">&#xe61f;</i>公告</span></p>
+		<content action="list" pid="28" echo="1" limit="1"  >
+        <marquee class="marq"><a href="<{:U('content/index/show',array('id'=>$v['id'],'catid'=>$v['category_id']))}>"><{$v['title']}></a></marquee>
+		</content>
+    </div>
+</div>
+<div class="demo" style="overflow:hidden;clear:both;">
+    <div class="bt hd"  style="overflow:hidden;">
+        <ul>
+			<content action="category" pid="29" echo="1" limit="3">
+            <li><{$v['name']}></li>
+			</content>
+    
+        </ul>
+    </div>
+    <div style="background: #f2f2f2;height: 3vmin;"></div>
+    <div class="contan bd">
+		<content action="category" pid="29" echo="1" limit="3">
+        <ul>
+            <div class="notice">
+                <h3 style="margin-right:3%;margin-left: 3%;"><em></em> <span><{$v['name']}></span></h3>
+                <ul>
+                   <content action="list"  path="$v[id]" echo="1" limit="10">
+
+                    <li>
+                        <a href="<{:U('content/index/show',array('id'=>$v['id'],'catid'=>$v['category_id']))}>">
+                            <div class="notice_l">
+                                <img src="<{$v['thumb']}>" alt="">
+                            </div>
+                            <div class="notice_r">
+                                <h3><{$v['title']|restrlen=###,10}><span><{$v['add_time']|getdatetime='Y-m-d'}></span></h3>
+                                <p><{$v['content']|clearhtml|restrlen=###,30}></p>
+                            </div>
+                        </a>
+                    </li>
+                    <div class="bjxian"></div>
+					</content>
+                </ul>
+            </div>
+        </ul>
+		</content>
+    </div>
+</div>
+<script type="text/javascript">jQuery(".demo").slide();</script>
+
+	<include file="template/wap/Public/footer.html" />
+
+</body>
+</html>

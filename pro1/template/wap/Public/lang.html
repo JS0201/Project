@@ -1,0 +1,23 @@
+<div class="lang">
+    <p>
+        <select id="selectLang">
+            <option style="color:black" value="en-us">English</option>
+            <option style="color:black" value="zh-cn">中文简体</option>
+            <option style="color:black" value="zh-tw">中文繁体</option>
+        </select>
+        <i></i>
+    </p>
+</div>
+
+<script>
+    $(function () {
+        var lang = getCookie('think_language')
+        $("#selectLang").val(lang)
+
+        $('#selectLang').change(function () {
+            $(this).val()
+            document.cookie = setCookie('think_language', $(this).val())
+            location.reload()
+        });
+    })
+</script>

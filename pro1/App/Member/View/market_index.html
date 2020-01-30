@@ -1,0 +1,114 @@
+<include file="Admin@Public/header" />	
+<style>
+.high-table .tr .td{line-height:50px;min-height:auto;}
+</style>
+<div class="fixed-nav layout">
+    <ul>
+        <li class="first">会员冻结待释放明细<a id="addHome" title="添加到首页快捷菜单">[+]</a></li>
+        <li class="spacer-gray"></li>
+    </ul>
+    <div class="hr-gray"></div>
+</div>
+
+<div class="content padding-big have-fixed-nav">
+    <div class="tips margin-tb"> 
+    </div>
+    <div class="member-list-search clearfix">
+        <form action="" method="get">
+            <input type="hidden" name="m" value="<{:MODULE_NAME}>">
+            <input type="hidden" name="c" value="<{:CONTROLLER_NAME}>">
+            <input type="hidden" name="a" value="<{:ACTION_NAME}>">
+            <div class="form-box form-layout-rank clearfix border-bottom-none">
+                
+				<?php echo  \Org\Util\Form::input('select','type',$_GET['type'] ? $_GET['type'] : 0,'按类型查看','',array('items' =>array('0'=>'有效','1'=>'无效')))?>
+                <?php echo  \Org\Util\Form::input('text', 'keyword', $_GET['keyword'], '搜索', '', array('placeholder' => '获得用户'));?>
+            </div>
+            <input class="button bg-sub fl" type="submit" value="查询">
+        </form>
+    </div>
+
+    <div class="table-wrap member-info-table">
+        <div class="table resize-table paging-table check-table high-table border clearfix">
+            <div class="tr">
+                <span class="th check-option" data-resize="false"><span><input id="check-all" type="checkbox" /></span></span>
+                <span class="th" data-width="10"><span class="td-con">用户</span></span>
+                <span class="th" data-width="10"><span class="td-con">买入金额</span></span>
+                <span class="th" data-width="10"><span class="td-con">获取的总收益</span></span>
+                <span class="th" data-width="10"><span class="td-con">每天释放数量</span></span>
+                <span class="th" data-width="10"><span class="td-con">剩余数量</span></span>
+                <span class="th" data-width="10"><span class="td-con">剩余天数</span></span>
+                <span class="th" data-width="15"><span class="td-con">下单时间</span></span>
+				<span class="th" data-width="15"><span class="td-con">变更时间</span></span>
+                <span class="th" data-width="5"><span class="td-con">状态</span></span>
+            </div>
+            <?php foreach ($list AS $member): ?>
+            <div class="tr">
+                <span class="td check-option"><input type="checkbox" name="ids" value="<?php echo $member['member_sortid'] ?>" /></span>
+
+                <span class="td">
+                <?php $name=M('member')->where(array('id'=>$member['uid']))->getField('username'); echo $name;?>&nbsp;(<?php $realname=M('member')->where(array('id'=>$member['uid']))->getField('realname'); echo $realname;?>)
+                </span>
+                <span class="td"><?php echo $member['total'] ?></span>
+                <span class="td"><?php echo $member['zong_income'] ?></span>
+                <span class="td"><?php echo $member['release_amount'] ?></span>
+                <span class="td"><?php echo $member['sheng_amount'] ?></span>
+                <span class="td"><?php echo $member['total_day'] ?></span>
+                 <span class="td">
+                    <{$member['generated_time']|date="Y-m-d H:i:s",###}>
+                </span>
+				<span class="td">
+                    <{$member['update_time']|date="Y-m-d H:i:s",###}>
+                </span>
+                <span class="td">
+                    <?php if($member['status']==0){?>
+                        有效
+                    <?php }elseif($member['status']==1){?>
+                        无效
+                    <?php }?>
+                </span>
+            </div>
+            <?php endforeach ?>
+			
+            <div class="paging padding-tb body-bg clearfix">
+				<!--<span style="float:left;padding-left:5px;">冻结总数：<{$accumulate}> 个</span>-->
+                <?php echo $pages;?>
+                <div class="clear"></div>
+            </div>
+        </div>
+    </div>
+</div>
+<script type="text/javascript">
+
+    $(window).load(function () {
+        $(".table").resizableColumns();
+        $(".paging-table").fixedPaging();
+        $(".member-info-tip").hover(function () {
+            $(this).children("span").show();
+        }, function () {
+            $(this).children("span").hide();
+        });
+        $(".member-list-search .form-group").each(function (i) {
+            $(this).addClass("form-group-id" + (i + 1));
+        });
+        $("a.member_update").click(function () {
+            top.dialog({
+                url: $(this).attr("data-url"),
+                title: '修改会员信息',
+                width: 460,
+                onclose: function () {
+                    if (this.returnValue) {
+                        window.location.href = this.returnValue.referer;
+                    }
+                }
+            })
+                    .showModal();
+        });
+        return false;
+    })
+    $(function () {
+        var $val = $("input[type=text]").eq(1).val();
+        $("input[type=text]").eq(1).focus().val($val);
+    })
+</script>
+</body>
+</html>

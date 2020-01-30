@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+	<meta charset="UTF-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	<meta http-equiv="X-UA-Compatible" content="ie=edge" />
+	<title>订单详情</title>
+	<include file="template/wap/Peer/title.html" />
+	<link rel="stylesheet" type="text/css" href="__TMPL__/TKSC/css/iconfont.css"/>
+	<link rel="stylesheet" type="text/css" href="__TMPL__/TKSC/css/style.css"/>
+	<link rel="stylesheet" type="text/css" href="__TMPL__/TKSC/css/common.css"/>
+	<style>
+		.table-tit a{color:#333;display:block;}
+		.table-tit a.cur{background:#ffd070;}
+	</style>
+	<script src="__TMPL__/js/jquery-form.js"></script>
+	<script>
+		$(function(){
+			$('.to_os').click(function(){
+				if(confirm('是否确认？')){
+					var oid=$(this).data('oid');
+					$.post('<{:U("buy")}>','oid='+oid,function(data){
+						if(data.status=='0'){
+							alert(data.message);
+						}else{
+							alert(data.message);
+							location.href='<{:U("order/index")}>';
+						}
+						
+					},'json');
+				}
+				
+				
+			})
+		})
+	</script>
+</head>
+<body class="lp-content f-White bg-unnder">
+<div class="index-bg"></div>
+	<header class="mui-bar mui-bar-nav  bg-unnder">
+	    <a class="mui-action-back mui-icon mui-icon-arrowleft mui-pull-left"></a>
+	    <h1 class="mui-title">订单详情</h1>
+	</header>
+	
+	<div class="mui-content  bg-unnder">
+		<form class="c2c-trand myform" enctype="multipart/form-data" action=""  method="post">
+			<input name="sn" value="<{$info['order_no']}>" type="hidden">
+			<div class="form-group">
+				<div class="input-bar">
+					<label class="input-row">订单号：<{$info['order_no']}></label>
+				</div>	
+				
+				<div class="input-bar">
+					<label class="input-row">数量：<{$info['num']}></label>
+				</div>
+				<div class="input-bar">
+					<label class="input-row">价格：<{$info['price']}></label>
+				</div>
+				<div class="input-bar">
+					<label class="input-row">总价：<{$info['count_price']}></label>
+				</div>
+				<div class="input-bar">
+					<label class="input-row">订单状态：<{$info['_status']}></label>
+				</div>
+				<div class="input-bar">
+					<label class="input-row">买家名字：<{$users['realname']}></label>
+				</div>
+				<div class="input-bar">
+					<label class="input-row">买家手机：<{$users['username']}></label>
+				</div>
+				
+					<div class="input-bar" style="padding-bottom:10px; margin-left: 10px;">
+						查看凭证：<if condition="$info['order_status'] egt 2"><a href="<{$info['pay_pic']}>"><img src="<{$info['pay_pic']}>" width="60"></a><else/>未打款</if>
+					</div>
+				
+				<!--
+				<div class="input-bar">
+					<label class="input-row">备注</label>
+					<textarea class="input-row input" rows="4" style="height:auto" placeholder="备注"></textarea>
+				</div>-->
+			</div>
+			
+			<if condition="$info['order_status'] eq 2">
+			<div class="down-sub">
+				<button class="btn" type="button" id="submit">确认收款</button>
+			</div>
+			<elseif condition="$info['order_status'] eq 0" />
+			<div class="down-sub">
+				<button class="btn" type="button" id="submit">撤销订单</button>
+			</div>	
+			
+			</if>
+			
+		</form>
+	</div>
+
+		<script>
+		$(function(){
+			$("#submit").click(function () {
+				var obj=$(this).parents('form');
+					obj.ajaxSubmit(function(data){
+						data=eval("("+data+")")
+						if(data.status==0){
+							alert(data.message);
+						}else{
+							alert(data.message);
+							location.href="<{:U('peer/order/buy')}>";
+						}
+					});
+				});
+		})
+		</script>
+</body>
+</html>

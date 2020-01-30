@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>个人设置</title>
+    <link rel="stylesheet" href="__TMPL__/hb/public/mui/css/mui.min.css">
+    <link rel="stylesheet" href="__TMPL__/hb/public/swiper/css/swiper.min.css">
+    <include file="template/wap/Public/base.html" />
+
+    <!-- 引入头部 -->
+    <include file="template/wap/Public/header.html" />
+    
+
+    <style>
+        html , body{
+            height: 100%;
+            width: 100%;
+            background-color: #fff;
+       }
+        #setting{
+            position: fixed;
+            background-color: #fff;
+            width: 100%;
+            height: 100%;
+            padding-top: 0.64rem;
+       }
+       #setting .setul{
+           padding: 0 .22rem;
+       }
+       #setting .setul li{
+           border-bottom: 1px solid #B6B6B6;
+           display: flex;
+           height: .54rem;
+           line-height: .54rem;
+           padding: 0 .05rem;
+       }
+       #setting .setul li .leftli{
+       }
+       #setting .setul li .leftli img{
+           width: .21rem;
+       }
+       #setting .setul li .leftli span{
+           font-size: .15rem;
+           color: #222;
+           font-weight: 500;
+           margin-left: .05rem;
+       }
+       #setting .setul li .rightli{
+           flex: 1;
+           text-align: right;
+       }
+       #setting .setul li .rightli i{
+           font-style: normal;
+           font-size: .12rem;
+           color: #666;
+       }
+       #setting .setul li .rightli img{
+           width: .09rem;
+           margin-left: .05rem;
+       }
+        </style>
+</head>
+
+<body>
+    <div id="setting">
+        <ul class="setul">
+            <!-- <li onclick="window.location.href = 'index.php?m=Test&c=Index&a=myCertification'">
+                <div class="leftli">
+                        <img src="template/wap/static/vsc/img/myseticon1.png" alt="">
+                    <span>身份认证</span>
+                </div>
+                <div class="rightli">
+                    <i>未认证</i>
+                    <img src="template/wap/static/vsc/img/team-arrow.png" alt="">
+                </div>
+            </li> -->
+            <li  onclick="window.location.href = 'index.php?m=Test&c=Index&a=myWechat'">
+                <div class="leftli">
+                        <img src="template/wap/static/vsc/img/myseticon2.png" alt="">
+                    <span>微信收款</span>
+                </div>
+                <div class="rightli">
+                    <img src="template/wap/static/vsc/img/team-arrow.png" alt="">
+                </div>
+            </li>
+            <li  onclick="window.location.href = 'index.php?m=Test&c=Index&a=myAlipay'">
+                <div class="leftli">
+                        <img src="template/wap/static/vsc/img/myseticon3.png" alt="">
+                    <span>支付宝收款</span>
+                </div>
+                <div class="rightli">
+                    <img src="template/wap/static/vsc/img/team-arrow.png" alt="">
+                </div>
+            </li>
+            <li  onclick="window.location.href = 'index.php?m=Test&c=Index&a=myCertification'">
+                <div class="leftli">
+                        <img src="template/wap/static/vsc/img/myseticon4.png" alt="">
+                    <span>修改登录密码</span>
+                </div>
+                <div class="rightli">
+                    <img src="template/wap/static/vsc/img/team-arrow.png" alt="">
+                </div>
+            </li>
+             <li  onclick="window.location.href = 'index.php?m=Test&c=Index&a=myCertification'">
+                <div class="leftli">
+                        <img src="template/wap/static/vsc/img/myseticon5.png" alt="">
+                    <span>修改支付密码</span>
+                </div>
+                <div class="rightli">
+                    <img src="template/wap/static/vsc/img/team-arrow.png" alt="">
+                </div>
+            </li>
+        </ul>
+    </div>
+
+    <script type="text/javascript" src="__ROOT__/statics/js/jquery-1.7.2.min.js"></script>
+    <script src="__TMPL__/hb/public/mui/js/mui.min.js"></script>
+    <script src="__TMPL__/hb/public/swiper/js/swiper.min.js"></script>
+    <script src="__TMPL__/hb/public/zepto/zepto.min.js"></script>
+</body>
+
+</html>
+<script>
+
+</script>

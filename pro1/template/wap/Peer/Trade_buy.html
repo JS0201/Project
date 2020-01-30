@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+	<meta charset="UTF-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	<meta http-equiv="X-UA-Compatible" content="ie=edge" />
+	<title>买卖区</title>
+	<include file="template/wap/Peer/title.html" />
+	<style>
+		.table-tit a{color:#333;display:block;}
+		.table-tit a.cur{background:#ffd070;}
+	</style>
+	<script>
+		$(function(){
+			$('.to_os').click(function(){
+				if(confirm('是否确认？')){
+					var oid=$(this).data('oid');
+					$.post('<{:U("buy")}>','oid='+oid,function(data){
+						if(data.status=='0'){
+							alert(data.message);
+						}else{
+							alert(data.message);
+							location.href='<{:U("order/sell")}>';
+						}
+						
+					},'json');
+				}
+				
+				
+			})
+		})
+	</script>
+</head>
+<body>
+	<header class="mui-bar mui-bar-nav">
+	    <a class="mui-action-back mui-icon mui-icon-arrowleft mui-pull-left"></a>
+	    <h1 class="mui-title">买入区</h1>
+	</header>
+	
+	<div class="mui-content ">
+		<div class="chart-content">
+			<div class="tab part-row">
+				<div class="tab-bd">
+					<div class="tab-item">
+						<div class="table-tit">
+							<div class="td"><a href="<{:U('trade/buy')}>" class="cur">买入</a></div>
+							<div class="td"><a href="<{:U('trade/sell')}>">卖出</a></div>
+						</div>
+						<table class="table">
+							<thead>
+								<tr>
+									<th>用户名</th>
+									<th>单价</th>
+									<th>数量</th>
+									<th>总额</th>
+									<th>操作</th>
+								</tr>
+							</thead>
+							<tbody>
+								<volist name="list" id="v">
+								<tr>
+									<td><{$v['_username']}></td>
+									<td><{$v['price']}></td>
+									<td><{$v['num']}></td>
+									<td><{$v['count_price']}></td>
+									<td><a href="javascript:;" class="to_os" data-oid="<{$v['id']}>" style="color:#fff;">卖出</a></td>
+								</tr>
+								</volist>
+							</tbody>
+						</table>
+						
+						
+					</div>
+					
+					
+			
+				</div>
+				
+			</div>
+			<div class="page"><{$page}></div>
+		</div>
+		
+	</div>
+		<include file="template/wap/Peer/footer.html" />
+</body>
+</html>

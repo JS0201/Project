@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>资讯详情</title>
+    <link rel="stylesheet" href="__TMPL__/hb/public/start.css">
+    <link rel="stylesheet" href="__TMPL__/hb/css/newDetail.css">
+    <link rel="stylesheet" href="__TMPL__/hb/public/mui/css/mui.min.css">
+    <style>
+        .mt44{
+            margin-top: 50px;
+        }
+		.content{
+			margin:0 15px;
+		}
+		
+    </style>
+</head>
+
+<body>
+<!-- 顶栏 -->
+<header id="header" class="mui-bar mui-bar-nav">
+    <a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+    <h1 class="mui-title"> <{$list['title']}></h1>
+</header>
+<!-- 区域内容 -->
+<div class="mui-scroll-wrapper mt44">
+    <div class="mui-scroll">
+
+        <div class="content">
+            <{$list['content']}>
+        </div>
+    </div>
+</div>
+<script src="__TMPL__/hb/public/mui/js/mui.min.js"></script>
+<script>
+    // 调用初始化下拉刷新的方法初始化下拉刷新插件
+    mui.init({
+        pullRefresh: {
+            container: ".mui-scroll-wrapper", // 传入区域滚动父容器的选择器
+            down: {
+                height: 50, //可选,默认50.触发下拉刷新拖动距离,
+                auto: false, //可选,默认false.首次加载自动下拉刷新一次
+                contentdown: "下拉可以刷新", //可选，在下拉可刷新状态时，下拉刷新控件上显示的标题内容
+                contentover: "释放立即刷新", //可选，在释放可刷新状态时，下拉刷新控件上显示的标题内容
+                contentrefresh: "正在刷新...", //可选，正在刷新状态时，下拉刷新控件上显示的标题内容
+                callback: function () {
+
+                }
+                //必选，刷新函数，根据具体业务来编写，比如通过ajax从服务器获取新数据；
+            }
+        }
+    });
+    // 在callback的回调函数里面去执行下拉刷新的刷新操作  执行完下拉操作后需要结束下拉刷新（如果不结束就会一直转圈圈）
+    mui('.mui-scroll-wrapper').pullRefresh().endPulldownToRefresh();
+</script>
+<script src="__TMPL__/hb/public/zepto/zepto.min.js"></script>
+</body>
+
+</html>
+<script>
+</script>

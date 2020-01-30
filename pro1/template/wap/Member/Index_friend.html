@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title><{:L('_footer_2')}></title>
+    <link rel="stylesheet" href="__TMPL__/hb/public/mui/css/mui.min.css">
+    <link rel="stylesheet" href="__TMPL__/hb/public/swiper/css/swiper.min.css">
+    <include file="template/wap/Public/base.html" />
+    <style>
+        html,body{
+        background-color: #fff;
+   }
+    #friend{
+        background-color: #fff;
+        height: 100%;
+        padding: 0.72rem 0.11rem 0 0.11rem;
+   }
+    #friendHead{
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 0.64rem;
+        line-height: 0.64rem;
+        background: -moz-linear-gradient(left, #E8352C 0%, #F39A2D 100%);
+        background: -o-linear-gradient(left, #E8352C 0%,#F39A2D 100%);
+        background: -ms-linear-gradient(left, #E8352C 0%,#F39A2D 100%);
+        background: linear-gradient(to right, #E8352C 0%,#F39A2D 100%);
+        padding: 0.25rem 0.25rem 0 0.24rem;
+        text-align: center;
+        z-index: 99999;
+        display: flex;
+   }
+    #friendHead .searchbox{
+        height: 0.29rem;
+        border-radius: 0.14rem;
+        border: 0.01rem solid #fff;
+        display: flex;
+        padding-left: 0.15rem;
+        flex: 1;
+        padding-left: 0.15rem;
+        margin-right: 0.1rem;
+   }
+    #friendHead .searchbox img{
+        height: 0.15rem;
+        line-height: 0.17rem;
+        margin-top: 0.06rem;
+   }
+    #friendHead .searchbox input{
+        font-size: 0.13rem;
+        height: 0.29rem;
+        color: #F7D0C3;
+        background-color: transparent;
+        border: none;
+   }
+    #friendHead .searchbox input::placeholder{
+        color: #F7D0C3 
+   }
+    #friendHead span{
+        font-size: 0.15rem;
+        color: #FFEEE8;
+        line-height: 0.29rem;
+   }
+    #friend .friendBox{
+        width: 100%;
+        height: 0.87rem;
+        background: url("template/wap/static/vsc/img/rectangleBg.png");
+        background-size: 100%;
+        background-position: center;
+        display: flex;
+   }
+    #friend .friendBox .left{
+        margin-left: 0.22rem;
+        line-height: 1.07rem;
+   }
+    #friend .friendBox .left img{
+        width: 0.4rem;
+   }
+    #friend .friendBox .right{
+        flex: 1;
+        text-align: left;
+        margin-left: 0.15rem;
+        padding-top: 0.2rem;
+   }
+    #friend .friendBox .right>p{
+        font-size: 0.18rem;
+        color: #222;
+   }
+    #friend .friendBox .right>span{
+        font-size: 0.15rem;
+        color: #9F9997;
+   }
+    </style>
+</head>
+
+<body>
+    <div id="friend" class="mobile-content">
+        <form id="form" action="./index.php?m=Member&c=Index&a=friend" method="post">
+        <div id="friendHead">
+
+            <div class="searchbox"> <img src="template/wap/static/vsc/img/searchIcon.png" alt="">
+              <input type="text" name="username" placeholder="<{:L('friend0')}>">
+            </div> <span onclick="form.submit()"><{:L('friend1')}></span>
+
+        </div>   </form>
+        <if condition="$list">
+        <volist name="list" id="foo">
+        <div class="friendBox">
+            <div class="left"> <img src="template/wap/static/vsc/img/fridenObj.png" alt=""> </div>
+            <div class="right">
+                <p class="userN">用户名:<{$foo.username}></p> <span class="userID">ID:<{$foo.id}></span>
+            </div>
+        </div>
+
+
+        </volist>
+        <else/>
+
+        </if>
+
+    </div>
+    <include file="template/wap/Public/footer.html" />
+</body>
+
+</html>

@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1,minimum-scale=1,user-scalable=0">
+		<meta http-equiv="X-UA-Compatible" content="ie=edge" />
+		<title>USDT VSC 互转</title>
+		<include file="template/wap/Public/title.html" />
+		<link rel="stylesheet" type="text/css" href="__TMPL__/vsc/css/rechargeonline.css"/>
+	</head>
+	<body>
+		<!--头部-->
+		<header class="prow15 bgcolortheme03 flex">
+			<div class="header-left pt10 percent20 flex-center01">
+				<span class="iconfont icon-fanhui1 c-fff left-back fs20"></span>
+			</div>
+			<div class="header-middle pt10 percent60 tac c-fff fs16 fw-b flex-center">
+				<div class="width146 bgcolorfff radius-25 posi-rela height38 transfers-title" id="transfers-title">
+					<div class="posi-abso width80 title-color fs16 tac left-1 top-1 z110 bgcolortheme09 title-bg height40 radius-25" id="title-bg">
+						
+					</div>
+					<div class="posi-abso width80 title-color01 fs16 tac left0 top0 z111 height38">
+						USDT
+					</div>
+					<div class="posi-abso width80 tac title-color02 right0 top0 z111 height38">
+						VSC
+					</div>
+				</div>
+				
+			</div>
+			<div class="header-middle percent20 l48 flex-end tar">
+					<a href="<{:U('Member/MemberSort/hzlist')}>" class="c-fff l48">明细</a>
+				</div>
+		</header>
+		<!--头部----end-->
+		<form action="">
+			<div class="tab-content">
+				<div class="tab-detail">
+					<div class="prow15 bgcolortheme03">
+						<div class="flex pcol15">
+							<div class="calc100">
+								<div class="tal mb5"><span class="colortheme01 fs14">USDT余额</span></div>
+								<div class="colortheme02 fs20 tal" id="usdt-num"><{$money['usdt']}></div>
+							</div>
+							<div class="width100 tac">
+								<div class="tac mb5"><span class="iconfont icon-web-icon colortheme12 fs18"></span> <span class="colortheme01 fs14">VSC单价</span></div>
+								<div class="colortheme02 fs20" id="vsc-price"><{$vsc_price}></div>
+							</div>
+						</div>
+					</div>
+
+					<div class="">
+						<div class="prow15 pt30">
+							<!--提币-->
+							<div class=" mui-input-group pb30 flex">
+								<div class="width55 height40">
+									<label for="" class="divline colortheme01 fs16 fw-b">USDT</label>
+								</div>
+								<div class="input-right01 flex">
+									<div class="input-middle01 fl">
+										<div class="mui-input-row">
+											<input type="text" class="mui-input-clear input-enter-usdt-num" placeholder="输入数量" id="usdt-number">
+										</div>
+									</div>
+									<div class="width50 tac height40">
+										<span class="iconfont icon-zhuanhuan colortheme01 fs18"></span>
+									</div>
+									<div class="input-middle01">
+										<div class="mui-input-row">
+											<input type="text" class="mui-input-clear input-end-usdt-result" value="" placeholder="自动转换" >
+										</div>
+									</div>
+								</div>
+								<div class="width55 height40 tar">
+									<label for="" class="divline colortheme01 fs16 fw-b">VSC</label>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="tab-detail hidden">
+					<div class="prow15 bgcolortheme03">
+						<div class="flex pcol15">
+							<div class="calc100">
+								<div class="tal mb5"><span class="colortheme01 fs14">VSC余额</span></div>
+								<div class="colortheme02 fs20 tal" id="vsc-num"><{$money['member_z_bi']}></div>
+							</div>
+							<div class="width100 tac">
+								<div class="tac mb5"><span class="iconfont icon-web-icon colortheme12 fs18"></span>
+									<span class="colortheme01 fs14">USDT单价</span>
+								</div>
+								<div class="colortheme02 fs20" id="usdt-price"><{$usd_price}></div>
+							</div>
+
+						</div>
+					</div>
+
+					<div class="">
+						<div class="prow15 pt30">
+							<!--提币-->
+							<div class=" mui-input-group pb30 flex">
+								<div class="width55 height40">
+									<label for="" class="divline colortheme01 fs16 fw-b">VSC</label>
+								</div>
+								<div class="input-right01 flex">
+									<div class="input-middle01 fl">
+										<div class="mui-input-row">
+											<input type="text" class="mui-input-clear input-enter-vsc-num" placeholder="输入数量" id="vsc-number">
+										</div>
+									</div>
+									<div class="width50 tac height40">
+										<span class="iconfont icon-zhuanhuan colortheme01 fs18"></span>
+									</div>
+									<div class="input-middle01">
+										<div class="mui-input-row">
+											<input type="text" class="mui-input-clear input-end-vsc-result" placeholder="自动转换" >
+										</div>
+									</div>
+								</div>
+								<div class="width55 height40 tar">
+									<label for="" class="divline colortheme01 fs16 fw-b">USDT</label>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+
+			<div class="">
+				<div class="prow15">
+					<div class=" mui-input-group pb30 flex">
+							<div class="width90 height40 pr10 tar">
+								<label for="" class="divline colortheme01 fs16 mb16 fw-b">二级密码</label>
+							</div>
+							<div class="calc90">
+								<div class="mui-input-row">
+									<input type="password" class="mui-input-clear" placeholder="请输入二级密码" id="psd-again">
+								</div>
+							</div>
+						</div>
+						<div class="pb50">
+							<input type="button" value="确定" class="btn-gradual-bg height40 mt30 radius-6" id="submit-login"/>
+						</div>
+
+					<!--提币 e-->
+				</div>
+			</div>
+		</form>
+	</body>
+
+	<script type="text/javascript">
+		var bol=true;
+		var num=0;
+        var reg = /(^[1-9]([0-9]+)?(\.[0-9]{1,2})?$)|(^(0){1}$)|(^[0-9]\.[0-9]([0-9])?$)/;
+		$('#transfers-title').off().on('click',function(){
+			var that=this;
+            $('.mui-input-clear').val('');
+			if(bol==true){
+				$('#title-bg').animate({'left':'67px'},500);
+				$(that).addClass('active');
+				bol=false;
+				$('.tab-content .tab-detail').eq(num).addClass('hidden').siblings().removeClass('hidden');
+				num=1;
+			}else{
+				$('#title-bg').animate({'left':'-1px'},500);
+				$(that).removeClass('active');
+				bol=true;
+                $('.tab-content .tab-detail').eq(num).addClass('hidden').siblings().removeClass('hidden');
+                num=0;
+			}
+			
+		})
+        var usdtnum='';
+        var vsc_price="";
+        var usdtzong='';
+        var vscnum="";
+        var usdt_price='';
+        var vsc_zong="";
+
+		$('.input-enter-usdt-num').on('keyup',function () {
+
+			usdtnum=$('#usdt-number').val();
+            vsc_price=$('#vsc-price').text();
+			usdtzong=((usdtnum / vsc_price).toFixed(4));
+            if (!(reg.test(usdtnum))) {
+                alert("互转数量输入有错,请重新输入");
+                return false;
+            }
+			if(bol==true){
+
+			    $('.input-end-usdt-result').val(usdtzong);
+			}
+        })
+
+        $('.input-enter-vsc-num').on('keyup',function () {
+
+            vscnum=$('#vsc-number').val();
+            usdt_price=$('#usdt-price').text();
+            vsczong=(((vscnum * vsc_price)/usdt_price).toFixed(4));
+
+            if (!(reg.test(vscnum))) {
+                alert("互转数量输入有错,请重新输入");
+                return false;
+            }
+            if(bol==false){
+
+                $('.input-end-vsc-result').val(vsczong);
+            }
+        })
+
+
+		$('#submit-login').off().on('click',function () {
+		    var psd_again=$('#psd-again').val();
+		    if(psd_again==''){
+		        alert('请输入二级密码');
+		        return false;
+			}
+            if(bol){
+                //num默认是0是usdt
+                if(usdtnum == ""){
+                    alert("请输入互转数量");
+                    return false;
+                }
+                $.post("<{:U('Member/MemberSort/huzhuan')}>",{"usdtnum":usdtnum,"vsc_price":vsc_price,"usdtzong":usdtzong,"type":num,'pwd':psd_again},function (data) {
+                    if (data.status == '0') {
+                        alert(data.message);
+                    } else {
+                        alert(data.message);
+                        location.href="<{:U('Member/memberSort/hzlist')}>";
+                    }
+                });
+			}else {
+                if(vscnum == ""){
+                    alert("请输入互转数量");
+                    return false;
+                }
+			    $.post("<{:U('Member/MemberSort/huzhuan')}>",{"vscnum":vscnum,"vsc_price":vsc_price,"usdt_price":usdt_price,'vsc_zong':vsc_zong,"type":num,'pwd':psd_again},function (data) {
+                    if (data.status == '0') {
+                        alert(data.message);
+                    } else {
+                        alert(data.message);
+                        location.href="<{:U('Member/memberSort/hzlist')}>";
+                    }
+                });
+			}
+        })
+	</script>
+</html>

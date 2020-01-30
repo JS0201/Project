@@ -1,0 +1,459 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>c2c</title>
+    <link rel="stylesheet" href="__TMPL__/hb/public/mui/css/mui.min.css">
+    <link rel="stylesheet" href="__TMPL__/hb/public/start.css">
+    <link rel="stylesheet" href="__TMPL__/hb/css/index.css">
+    <link rel="stylesheet" href="__TMPL__/hb/public/swiper/css/swiper.min.css">
+    <link rel="stylesheet" href="__TMPL__/hb/css/common.css">
+    <style>
+        #footer a img {
+            width: auto;
+        }
+        .has-header{
+            padding-top: .64rem;
+        }
+        
+        .tab-this{
+            background-color: #FF5224;
+            color: #fff;
+        }
+        .head {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 64px;
+        line-height: 64px;
+        padding: 30px 0 0 20px;
+        text-align: center;
+        z-index: 99999;
+        border-bottom: 1px solid #B6B6B6;
+        background-color: #fff;
+        }
+    
+        .head .tab-title {
+            font-size: 14px;
+            font-weight: 400;
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+            top: .22rem;
+            display: flex;
+            color: #FF5224;
+        }
+        .head .tab-title li{
+            padding: .09rem .13rem;
+            border: 1px solid #FF5224;
+            line-height: .14rem;
+            white-space: nowrap;
+        }
+        #rightText{
+            position: absolute;
+            right: .15rem;
+            top: .08rem;
+            color: #333;
+        }
+        .toptitle{
+            border-bottom: 1px solid #CCCCCC;
+        }
+        .toptitleul{
+            display: flex;
+            padding: .16rem .15rem .20rem;
+        }
+        .toptitleul li{
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+        }
+        .toptitleul li span{
+            font-size: .12rem;
+            color: #909090;
+        }
+        .toptitleul li i{
+            font-size: .14rem;
+            color: #333333;
+            font-style: normal;
+        }
+        .flex1{
+            flex: 1
+        }
+        .center{
+            padding: .20rem 1.05rem .35rem 1.07rem;
+        }
+        .center .kind{
+            display: flex;
+        }
+        .center .kind p{
+            flex: 1;
+            font-size: .18rem;
+            color: #FF5224;
+        }
+        .center .kind i{
+            font-size: .14rem;
+            color: #333;
+            margin: 0 .14rem 0 .15rem;
+        }
+        .center .kind h3{
+            flex: 1;
+            text-align: right;
+            font-size: .2rem;
+            color: #33C767;
+        }
+        .inputnum{
+            padding: 0 .24rem;
+        }
+        .inputnum .money{
+            font-size: .15rem;
+            color: #A9A9A9;
+            position: relative;
+        }
+        .inputnum .money p{
+            font-size: .15rem;
+            color: #333;
+            font-weight: 500;
+        }
+        .inputnum .money input{
+            border: none;
+            border-bottom: 1px solid #ccc;
+            border-radius: 0;
+            padding-left: 0;
+        }
+        .inputnum .money input::placeholder{
+            color: #A9A9A9;
+        }
+        .inputnum .money i{
+            position: absolute;
+            bottom: 24px;
+            right: 5px;
+
+        }
+        .payway{
+            padding: .46rem .45rem 0; 
+            position: relative;
+            margin-bottom: .5rem;
+        }
+        .payway h3{
+            font-size: .15rem;
+            color: #333;
+            position: absolute;
+            top: .05rem;
+            left: .25rem;
+        }
+        .payway .ways{
+            display: flex;
+        }
+        .payway .paymethod{
+            flex: 1;
+            font-size: .15rem;
+            color: #00A0E9;
+           
+            text-align: center;
+            
+        }
+        .payway .paymethod span{
+            display: inline-block;
+            border: 1px solid #00A0E9;
+            border-radius: .02rem;
+            width: .98rem;
+            height: .29rem;
+            line-height: .29rem;
+        }
+        .weixin span{
+            margin-left: .78rem;
+            border-color: #32B16C !important;
+            color: #32B16C !important;
+        }
+        .spanbg1{
+            background: url("template/wap/static/vsc/img/paybg1.png");
+            background-size: 100%;
+            background-position: center;
+            border: none !important;
+        }
+        .spanbg2{
+            background: url("template/wap/static/vsc/img/paybg2.png");
+            background-size: 100%;
+            background-position: center;
+            border: none !important;
+        }
+        .confirm{
+            padding: 0 .24rem;
+            
+        }
+        .confirm .button{
+            font-size: .18rem;
+            background-color: #FF5224;
+            border: none;
+            border-radius: .03rem;
+            color: #fff;
+            width: 100%;
+            padding: .16rem 0;
+            text-align: center;
+        }
+
+        #mask{
+            background-color: rgba(0,0,0,.8);
+            position: fixed;
+            top: 0;
+            left: 0;
+            height: 100%;
+            width: 100%;
+            z-index: 99999999;
+            
+        }
+        #mask .titleM{
+            text-align: center;
+            font-size: .18rem;
+            color: #FFFFFF;
+            padding-top: .37rem;
+            margin-bottom: .35rem;
+        }
+        #mask .tipbox{
+            margin-bottom: .65rem;
+            padding: 0 .3rem 0 .27rem;
+        }
+        #mask .tip{
+            margin-bottom: .35rem;
+        }
+        #mask .tip p{
+            font-size: .18rem;
+            color: #FF4200;
+            margin-bottom: .07rem;
+        }
+        #mask .tip span{
+            font-size: .15rem;
+            color: #E2E2E2;
+        }
+        #mask .agree{
+            font-size: .12rem;
+            color: #fff;
+            padding-left: .35rem;
+            margin-bottom: .25rem;
+        }
+        #mask .agree i{
+            display: inline-block;
+            width: .15rem;
+            height: .15rem;
+            border: 1px solid #fff;
+            border-radius: .02rem;
+            margin-right: .05rem;
+        }
+        #mask .btn h3{
+            font-size: .18rem;
+            color: #fff;
+            background-color: #FF5224;
+            border-radius: .03rem;
+            height: .50rem;
+            line-height: .50rem;
+            text-align: center;
+            margin: 0 .24rem;
+        }
+        #mask .agree i.active{
+            background-color: #ccc;
+        }
+        #sell{
+            display: none;
+        }
+    </style>
+    <include file="template/wap/Public/base.html" />
+</head>
+
+<body>
+    <div id="mask">
+        <div class="titleM">充值RMB须知</div>
+        <div class="tipbox">
+            <div class="tip">
+                <p>1.交易币种</p>
+                <span>本平台所有充值的交易都是金猪进行结算，交易前需要先充值金猪</span>
+            </div>
+            <div class="tip">
+                <p>2.RMB介绍</p>
+                <span>RMB是基于以太坊区块链发行的数字资产，在数字货币及区块链领域等同于人民币，1RMB=1元</span>
+            </div>
+            <div class="tip">
+                <p>3.我没有金猪</p>
+                <span>可直接通过人民币购买金猪，买入RMB后即可进行购买交易，提款时可选择换回人民币</span>
+            </div>
+            <div class="tip">
+                <p>4.我已有RMB</p>
+                <span>可通过您的RMB钱包直接体现支付宝或微信</span>
+            </div>
+        </div>
+        <div class="agree">
+            <i onclick="notip()"></i>
+            <span>我已了解，不再提示</span>
+        </div>
+        <div class="btn">
+            <h3 onclick="tosure()">确认</h3>
+        </div>
+    </div>
+    <div class="head">
+        <ul class="tab-title">
+          <li class="tab-this" onclick="tabcheck(0)">购买RMB</li>
+          <li onclick="tabcheck(1)">出售RMB</li>
+        </ul>
+        <a id="rightText" href="index.php?m=Test&c=Index&a=formCzRecord">充值记录</a>
+    </div>
+    <div id="buy" class="mobile-content has-header">
+        <div class="toptitle">
+            <ul class="toptitleul">
+                <li>
+                    <span>当前RMB买入价格</span>
+                    <i>￥1.00</i>
+                </li>
+                <li class="flex1">
+                    <span>认证商家</span>
+                    <i>59位</i>
+                </li>
+                <li class="flex1">
+                    <span>交易单</span>
+                    <i>655651</i>
+                </li>
+                <li>
+                    <span>到账率</span>
+                    <i>100%</i>
+                </li>
+            </ul>
+        </div>
+        <div class="center">
+            <div class="kind">
+                <p>人民币</p> <i>买</i> <h3>RMB</h3>
+            </div>
+        </div>
+        <form action="" method="post" id="buys">
+            <div class="inputnum">
+                <div class="money">
+                    <p>买入金额</p>
+                    <input type="number" name="" id="" placeholder="支付宝最低198元，最高198"><i>元</i>
+                </div>
+                <div class="money">
+                    <p>到账数量</p>
+                    <input type="number" name="" id="" placeholder="请输入到账数量"><i>RMB</i>
+                </div>
+            </div>
+            <div class="confirm" ><div class="button" onclick="confirm(0)">确定买入</div></div>
+        </form>
+    </div>
+    <div id="sell" class="mobile-content has-header">
+        <div class="toptitle">
+            <ul class="toptitleul">
+                <li>
+                    <span>当前RMB卖出价格</span>
+                    <i>￥1.00</i>
+                </li>
+                <li class="flex1">
+                    <span>认证商家</span>
+                    <i>59位</i>
+                </li>
+                <li class="flex1">
+                    <span>交易单</span>
+                    <i>655651</i>
+                </li>
+                <li>
+                    <span>到账率</span>
+                    <i>100%</i>
+                </li>
+            </ul>
+        </div>
+        <div class="center">
+            <div class="kind">
+                <p>RMB</p> <i>卖</i> <h3>人民币</h3>
+            </div>
+        </div>
+        <form action="" method="post" id="sells">
+            <div class="inputnum">
+                <div class="money">
+                    <p>卖出金额</p>
+                    <input type="number" name="" id="" placeholder="支付宝最低198元，最高198"><i>元</i>
+                </div>
+                <div class="money">
+                    <p>到账数量</p>
+                    <input type="number" name="" id="" placeholder="请输入到账数量"><i>RMB</i>
+                </div>
+            </div>
+            <div class="payway">
+                <h3>付款方式</h3>
+                <div class="ways">
+                    <div class="paymethod alipay" onclick="selectpayway(0)">
+                        <span>支付宝转账</span>
+                    </div>
+                    <div class="paymethod weixin" onclick="selectpayway(1)">
+                        <span>微信转账</span>
+                    </div>
+                </div>
+            </div>
+            <div class="confirm" ><div class="button" onclick="confirm(1)">确定卖出</div></div>
+        </form>
+    </div>
+    
+    <include file="template/wap/Public/footer.html" />
+    <script>
+        var dealtype = 0; //交易类型
+        function tabcheck(index) {
+            dealtype = index
+            $('.tab-title').children('li').eq(index).addClass('tab-this').siblings().removeClass('tab-this');
+            if (index == 0) {
+               $('#sell').css('display','none')
+               $('#buy').css('display','block')
+            } else{
+                $('#buy').css('display','none')
+               $('#sell').css('display','block')
+            }
+         }
+
+         var payway = 0; // 支付方式
+        function selectpayway(index) { 
+            payway = 1;
+            $('.alipay span').removeClass('spanbg1')
+            $('.weixin span').removeClass('spanbg2')
+            if (index == 0) {
+                $('.alipay span').addClass('spanbg1')
+            } else {
+                $('.weixin span').addClass('spanbg2')
+            }
+            
+        }
+        function confirm(idx) {
+            if (payway == 0 &&  dealtype == 1) {
+                layer.msg("<a style='color:#fff'>请选择一种支付方式</a>")
+                return false;
+            }
+            layer.open({
+                title: '确认买入',
+                content: '<input type="number" name="" id="zijin" placeholder="请输入资金密码">',
+                btn: ['确定', '取消'],
+                yes: function (index, layero) {
+                    console.log(1);
+                },
+            });
+         }
+
+        
+         
+        //  不再提示
+         if(window.localStorage._tip_){
+             $('#mask').css('display','none')
+         }
+         function notip() { 
+             $('.agree i').toggleClass('active');
+            if (! window.localStorage) {
+                alert("浏览器支持localstorage");
+            } else {
+                window.localStorage._tip_ = 'yes';
+            }
+       
+          }
+        //  遮罩确定
+        function tosure() { 
+            $('#mask').css('display','none')
+
+        }
+    </script>
+</body>
+
+</html>

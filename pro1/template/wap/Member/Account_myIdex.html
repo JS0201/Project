@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title><{:L('_footer_4')}></title>
+    <link rel="stylesheet" href="__TMPL__/hb/public/mui/css/mui.min.css">
+    <link rel="stylesheet" href="__TMPL__/hb/public/swiper/css/swiper.min.css">
+    <include file="template/wap/Public/base.html" />
+    <style>
+        html,body{
+            width: 100%;
+            height: 100%;
+            background-color: #fff;
+        }
+        .myHead .lang{
+            position: absolute;
+            top: 0.38rem;
+            right: 0.17rem;
+        }
+        .myHead .lang p{
+            display: block;
+            color: #fff;
+            margin-bottom: .03rem;
+        }
+        .myHead .lang p select{
+            margin: 0;
+            color: #fff;
+            background: rgba(0, 0, 0, 0);
+            border: 0;
+            appearance: none;
+            -moz-appearance: none;
+            -webkit-appearance: none;
+            font-size: 0.14rem;
+            padding: 0 !important;
+        }
+        .myHead{
+            height: 1.98rem;
+            width: 100%;
+            position: fixed;
+            background: url("template/wap/static/vsc/img/my-bg.png");
+            background-position: center;
+            background-size: 100%;
+            z-index: 999;
+        }
+        .myHead .myMsg{
+            position: absolute;
+            width: 100%;
+            top: 0.85rem;
+            left: 0.35rem;
+            display: flex;
+        }
+        .myHead .myMsg .myleft{
+        }
+        .myHead .myMsg .myleft img{
+            width: 0.58rem;
+        }
+        .myHead .myMsg .myright{
+            flex: 1;
+            text-align: left;
+            margin-left: 0.14rem;
+            color: #fff;
+        }
+        .myHead .myMsg .myright .mytop{
+            font-size: 0.15rem;
+            margin-bottom: 0.15rem;
+            position: relative;
+        }
+        .myHead .myMsg .myright .mytop img{
+            height: 0.18rem;
+            margin-left: 0.15rem;
+            position: absolute;
+            top: 0.02rem;
+        }
+        .myHead .myMsg .myright .mybottom{
+            font-size: 0.12rem;
+        }
+        .myHead .myMsg .myright .mybottom span{
+            margin-right: 0.18rem;
+        }
+        .myHead .myTag{
+            background: url("template/wap/static/vsc/img/my-yuanjiao.png") no-repeat;
+            background-position: center;
+            background-size: 100%;
+            font-size: 0.14rem;
+            color: #333;
+            display: flex;
+            position: absolute;
+            top: 1.62rem;
+            width: 3.37rem;
+            height: 0.91rem;
+            padding-top: 0.17rem;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+        .myHead .myTag .line{
+            width: 0.01rem;
+            height: 0.32rem;
+            background-color: #EB522D;
+        }
+        .myHead .myTag .my1{
+            flex: 1;
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+        }
+         .myHead .myTag .my1 img{
+            height: 0.21rem;
+        }
+         .myHead .myTag .myTeam1 img{
+            width: 0.25rem;
+        }
+         .myHead .myTag .myprofit1 img{
+            width: 0.22rem;
+        }
+        #myIdex .mycontent{
+            padding-top: 2.58rem;
+            padding-bottom: 64px; 
+        }
+        #myIdex .mycontent .myBanner{
+            width: 100%;
+            padding: 0 0.22rem;
+        }
+        #myIdex .mycontent .myBanner img{
+            height: 1.05rem;
+        }
+        #myIdex .mycontent .mybutton .myitem{
+            background: url("template/wap/static/vsc/img/my-tectangle.png") no-repeat;
+            background-position: center;
+            background-size: 100%;
+            height: .70rem;
+            line-height: .70rem;
+            display: flex;
+            padding: 0 .22rem 0 .26rem;
+        }
+        #myIdex .mycontent .mybutton .myitem .itemLeft{
+            position: relative;
+        }
+        #myIdex .mycontent .mybutton .myitem .itemLeft img{
+            height: .25rem;
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+        }
+        #myIdex .mycontent .mybutton .myitem .itemLeft span{
+            margin-left: .35rem;
+            font-size: 18px;
+            color: #333;
+        }
+        #myIdex .mycontent .mybutton .myitem .itemLeft span a{
+            font-size: 18px;
+            color: #333;
+        }
+        #myIdex .mycontent .mybutton .myitem .itemright{
+            flex: 1;
+            text-align: right;
+        }
+        #myIdex .mycontent .mybutton .myitem .itemright img{
+            width: .1rem;
+        }
+    </style>
+</head>
+
+<body>
+<div class="myHead">
+    <include file="template/wap/Public/lang.html" />
+
+    <div class="myMsg">
+        <div class="myleft">
+            <img src="template/wap/static/vsc/img/my-headIcon.png" alt="">
+        </div>
+        <div class="myright">
+            <div class="mytop">
+                <span><{$userName}></span>
+                <?php
+               // $grade=0;
+              if($grade==3){
+                ?>
+
+                <img src="template/wap/static/vsc/img/level-senior.png" alt="高">
+                <?php  }
+              if($grade==2){
+                ?>
+                <img src="template/wap/static/vsc/img/level-intermediate.png" alt="中">
+                <?php  }
+              if($grade==1){
+                ?>
+                <img src="template/wap/static/vsc/img/level-primary.png" alt="低">
+
+                <?php } ?>
+            </div>
+            <div class="mybottom">
+                <span>ID:<{$id}></span>
+                <span><{:L('my_index0')}>ID:<{$pid}></span>
+            </div>
+        </div>
+    </div>
+    <div class="myTag">
+        <div class="my1 myWallet1" onclick="toWallet()">
+            <span><img src="template/wap/static/vsc/img/my-wallet.png" alt=""></span>
+            <span><{:L('my_index1')}></span>
+        </div>
+        <div class="line"></div>
+        <div class="my1 myTeam1" onclick="toTeam()">
+            <span><img src="template/wap/static/vsc/img/my-team.png" alt=""></span>
+            <span><{:L('my_index2')}></span>
+        </div>
+        <div class="line"></div>
+        <div class="my1 myprofit1" onclick="toProfit()">
+            <span><img src="template/wap/static/vsc/img/my-profit.png" alt=""></span>
+            <span><{:L('my_index3')}></span>
+        </div>
+    </div>
+</div>
+<div id="myIdex" class="mobile-content">
+
+    <div class="mycontent">
+        <div class="myBanner">
+            <img src="template/wap/static/vsc/img/my-banner.png" alt="">
+        </div>
+        <div class="mybutton">
+            <a href="<{:U('member/account/myTuiguang')}>">
+                <div class="myitem">
+                    
+                    <div class="itemLeft">
+                        <img src="template/wap/static/vsc/img/my-share.png" alt="">
+                        <span><{:L('my_index4')}></span>
+                    </div>
+                    <div class="itemright">
+                        
+                        <img src="template/wap/static/vsc/img/my-allow.png" alt="">
+                        
+                    </div>
+                </div>
+            </a>
+            <!-- <a href="<{:U('member/account/shifangjilu')}>">
+                <div class="myitem">
+                    <div class="itemLeft">
+                        <img src="template/wap/static/vsc/img/my-jilu.png" alt="">
+                        <span><{:L('my_index8')}></span>
+                    </div>
+                    <div class="itemright">
+                        <img src="template/wap/static/vsc/img/my-allow.png" alt="">
+                    </div>
+                </div>
+            </a> -->
+            <a href="<{:U('member/account/formtuidan')}>">
+                <div class="myitem">
+                    <div class="itemLeft">
+                        <img src="template/wap/static/vsc/img/my-tuidan.png" alt="">
+                        <span><{:L('my_index5')}></span>
+                    </div>
+                    <div class="itemright">
+                        <img src="template/wap/static/vsc/img/my-allow.png" alt="">
+                    </div>
+                </div>
+            </a>
+            <a href="<{:U('member/account/myzijinPwd')}>">
+                <div class="myitem">
+                    <div class="itemLeft">
+                        <img src="template/wap/static/vsc/img/my-zijinPwd.png" alt="">
+                        <span><{:L('my_index6')}></span>
+                    </div>
+                    <div class="itemright">
+                        <img src="template/wap/static/vsc/img/my-allow.png" alt="">
+                    </div>
+                </div>
+            </a>
+            <a href="<{:U('member/public/logout')}>">
+                <div class="myitem">
+                    <div class="itemLeft">
+                        <img src="template/wap/static/vsc/img/my-zijinPwd.png" alt="">
+                        <span> <{:L('my_index7')}></span>
+                    </div>
+                    <div class="itemright">
+                        <img src="template/wap/static/vsc/img/my-allow.png" alt="">
+                    </div>
+                </div>
+            </a>
+        </div>     
+    </div>
+</div>
+
+
+<include file="template/wap/Public/footer.html" />
+
+<script type="text/javascript" src="__ROOT__/statics/js/jquery-1.7.2.min.js"></script>
+<script src="__TMPL__/hb/public/mui/js/mui.min.js"></script>
+<script src="__TMPL__/hb/public/swiper/js/swiper.min.js"></script>
+<script src="__TMPL__/hb/public/zepto/zepto.min.js"></script>
+</body>
+
+</html>
+<script>
+    function toWallet() { window.location.href = 'index.php?m=Member&c=Account&a=myWallet'}
+    function toTeam() { window.location.href = 'index.php?m=Member&c=Account&a=myTeam'}
+    function toProfit() { window.location.href = 'index.php?m=Member&c=Account&a=myProfit'}
+</script>

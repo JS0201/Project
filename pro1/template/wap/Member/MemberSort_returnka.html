@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+		<title>收益详情</title>
+		<include file="template/wap/Public/title.html" />
+		<link rel="stylesheet" type="text/css" href="__TMPL__/vsc/css/dealdetail.css"/>
+	</head>
+	<body>
+		<!--头部-->
+		<header class="prow15 pt15 pb16 bgcolortheme03 flex">
+			<div class="header-left percent20">
+				<span class="iconfont icon-fanhui1 c-fff left-back fs20"></span>
+			</div>
+			<div class="header-middle percent60 tac c-fff fs16 fw-b">
+				收益详情
+			</div>
+		</header>
+		<!--头部----end-->
+		
+		<!--活动中心选项卡标题-->
+		<div class="tab-title flex mb10">
+			<div class="flex-item active">
+				静态收益
+			</div>
+			<div class="flex-item">
+				动态收益
+			</div>
+			<div class="flex-item">
+				团队收益
+			</div>
+		</div>
+		<!--活动中心选项卡标题-----------------------end-->
+		
+		<!--活动中心选项卡内容-->
+		<div class="tab-content activitycontent prow15 pt20 bgcolortheme01">
+			<!--静态收益-->
+			<div class="tab-detail">
+				<div class="flex-justify">
+					<div class="height14 fs14 fw-b tal colortheme01">时间</div>
+					<div class="height14 fs14  fw-b tar colortheme01">数量</div>
+				</div>
+				<if condition="$jingtai">
+					<volist name="jingtai" id="jin">
+						<div class="list-detail  pcol20 flex-justify bbcolortheme01">
+							<div>
+								<span class="height12 fs12 colortheme01 mr10"><{$jin['money_produtime']|date="Y-m-d H:i:s",###}></span>
+								<span class="height12 fs12 colortheme01"><{$jin['money_type'] | types_of}></span>
+							</div>
+							<div class="row-end">
+								<span class="height12 fs12 colortheme02"><{$jin['money_nums']}></span>
+							</div>
+						</div>
+					</volist>
+				<else/>
+					<div class="tac c-333 fs12 pcol15">暂无收益</div>
+				</if>
+			</div>
+			<!--静态收益---------end-->
+			<!--动态收益-->
+			<div class="tab-detail">
+				<div class="flex-justify">
+					<div class="height14 fs14 fw-b tal colortheme01">时间</div>
+					<div class="height14 fs14  fw-b tar colortheme01">数量</div>
+				</div>
+				<if condition="$dongtai">
+					<volist name="dongtai" id="dong">
+
+						<div class="list-detail  pcol20 flex-justify bbcolortheme01">
+							<div>
+								<span class="height12 fs12 colortheme01 mr10"><{$dong['money_produtime']|date="Y-m-d H:i:s",###}></span>
+								<span class="height12 fs12 colortheme01"><{$dong['money_type'] | types_of}></span>
+							</div>
+							<div class="row-end">
+								<span class="height12 fs12 colortheme02"><{$dong['money_nums']}></span>
+							</div>
+						</div>
+					</volist>
+				<else/>
+					<div class="tac c-333 fs12 pcol15">暂无收益</div>
+				</if>
+
+			</div>
+			<!--动态收益-------------end-->
+			<!--团队收益-->
+			<div class="tab-detail">
+				<div class="flex-justify">
+					<div class="height14 fs14 fw-b tal colortheme01">时间</div>
+					<div class="height14 fs14  fw-b tar colortheme01">数量</div>
+				</div>
+				<if condition="$boss">
+					<volist name="boss" id="bossin">
+
+						<div class="list-detail  pcol20 flex-justify bbcolortheme01">
+							<div>
+								<span class="height12 fs12 colortheme01 mr10"><{$bossin['money_produtime']|date="Y-m-d H:i:s",###}></span>
+								<span class="height12 fs12 colortheme01"><{$bossin['money_type'] | types_of}></span>
+							</div>
+							<div class="row-end">
+								<span class="height12 fs12 colortheme02"><{$bossin['money_nums']}></span>
+							</div>
+						</div>
+					</volist>
+				<else/>
+					<div class="tac c-333 fs12 pcol15">暂无收益</div>
+				</if>
+			</div>
+			<!--团队收益-------------end-->
+		</div>
+		<!--活动中心选项卡内容-----------------------end-->
+	</body>
+
+	<script src="__TMPL__/vsc/js/dealdetail.js" type="text/javascript" charset="utf-8"></script>
+	<script type="text/javascript">
+		//点击返回上一页
+		$("header .header-left .left-back").off().on("click",function(){
+			window.history.back(-1);
+			console.log(0)
+		})
+		
+		//商圈选项卡标题
+		/*分类列表选项卡*/
+		$(".tab-title .flex-item").off().on("click",function(){
+			var index=$(this).index();
+			$(this).addClass("active").siblings().removeClass("active");
+			$(".tab-content .tab-detail").eq(index).show().siblings().hide();
+			
+		})
+		
+	</script>
+</html>
+

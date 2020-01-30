@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+	<meta charset="UTF-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	<meta http-equiv="X-UA-Compatible" content="ie=edge" />
+	<title>交易区</title>
+	<link rel="stylesheet" type="text/css" href="__TMPL__/TKSC/css/iconfont.css"/>
+	<link rel="stylesheet" type="text/css" href="__TMPL__/TKSC/css/common.css"/>
+	<link rel="stylesheet" type="text/css" href="__TMPL__/TKSC/css/style.css"/>
+	<script type="text/javascript" src="__TMPL__/js1/jquery-3.2.1.min.js"></script>
+</head>
+<body>
+<div class="index-bg"></div>
+<div class="lp-header bg-transparent f-lightbrown3">
+	<a href="<{:U('member/index/index')}>" class="lp-back iconfont icon-arrow-left fl"></a>
+	<h1 class="title">OTC交易</h1>
+</div>
+<include file="template/wap/Public/footer.html" />
+<div class="lp-content  c2c">
+	
+	<div class="person-box bg-transparent mb10" style="border-bottom: 1px solid #513820;">
+		<div class="person-avatar flex-justify ">
+			<div class="flex">
+				<img src="__TMPL__/TKSC/img/logo.png" alt="" class="person-img" style="width:36px;height:36px"/>
+				<div class="person-text ml10 tl flex-item fs12 f-lightbrown4">
+					<p class="ellipsis lh-14"><{$realname}></p>
+					<p class="ellipsis lh-14"><{$username}></p>
+				</div>
+			</div>
+			<p class="ellipsis f-lightbrown2">当前价格：<{$p_open_price}></p>
+		</div>
+	</div>
+	<div class="mb10">
+		<div class="flex-justify pd10 un-border-group">
+			<div class="input-group">
+				<input type="text" class="input" value="<{$wallet_address}>" id="foo" style="background-color:transparent;color:#e0c493"/>
+				<div class="input-group-btn">
+					<button class="btn btn-brown btn-copy" type="button" data-clipboard-action="copy" data-clipboard-target="#foo">复制地址</button>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="mg10 radius-4">
+		<!-- <div class="flex-justify tc  pd10">
+			<div class="flex-item f-brown tl" style="color: #e0c493;">
+				<p class="ellipsis"><span class=" mr5">认购HM</span><{$money_finance['member_bi']|default='0.0000'}></p>
+				
+			</div>
+			<a href="<{:U('trade/home',array('type'=>0))}>" class="btn btn-brown  len-6">认购HM</a>
+			
+		</div> -->
+		<div class="flex-justify tc  pd10 ">
+			<div class="flex-item f-brown tl" style="color: #e0c493;">
+				<p class="ellipsis"><span class=" mr5">奖励HM</span><{$money_finance['member_z_bi']|default='0.0000'}></p>
+			</div>
+			<a href="<{:U('trade/home',array('type'=>1))}>" class="btn btn-brown  len-6">奖励HM</a>
+		</div>
+		<!-- <div class="flex-justify tc  pd10 ">
+			<div class="flex-item f-brown tl" style="color: #e0c493;">
+				<p class="ellipsis"><span class=" mr5">USD</span><{$money_finance['money']|default='0.0000'}></p>
+			</div>
+			<a href="<{:U('trade/home',array('type'=>2))}>" class="btn btn-brown  len-6">USD</a>
+		</div> -->
+
+
+
+	</div>
+</div>
+
+<script src="__TMPL__/TKSC/asset/clipboard.min.js" type="text/javascript" charset="utf-8"></script>
+<script type="text/javascript">
+    var clipboard = new ClipboardJS('.btn-copy');
+    clipboard.on('success', function(e) {
+        alert("复制成功")
+        console.log(e);
+    });
+
+    clipboard.on('error', function(e) {
+        console.log(e);
+    });
+</script>
+</body>
+</html>

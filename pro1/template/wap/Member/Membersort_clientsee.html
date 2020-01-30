@@ -1,0 +1,384 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>分享排位</title>
+    <link rel="stylesheet" href="__TMPL__/hb/public/start.css">
+    <link rel="stylesheet" href="__TMPL__/hb/css/line.css">
+    <!--<link rel="stylesheet" href="__TMPL__/hb/public/mui/css/mui.min.css">-->
+    <include file="template/wap/Public/title.html" />
+    <style>
+        body{background-color: #fff}
+		.lr{margin-top: 0}
+    </style>
+</head>
+
+<body id="">
+<!-- 顶栏 -->
+<!--<header id="header" class="mui-bar mui-bar-nav">-->
+    <!--<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>-->
+    <!--<h1 class="mui-title">分享排位</h1>-->
+<!--</header>-->
+<!--头部-->
+<header class="prow15 pt15 pb16 bgcolortheme03 flex">
+    <div class="header-left percent20">
+        <span class="iconfont icon-fanhui1 c-fff left-back fs20"></span>
+    </div>
+    <div class="header-middle percent60 tac c-fff fs16 fw-b">
+        分享排位
+    </div>
+</header>
+<!--头部----end-->
+<!-- 左右区 -->
+<section class="lr">
+    <div class="left">
+        <span>左区业绩</span>
+        <span><{$l_az_zhi|default='0'}></span>
+    </div>
+    <div class="right">
+        <span>右区业绩</span>
+        <span><{$r_az_zhi|default='0'}></span>
+    </div>
+</section>
+<!-- 排位 -->
+<section>
+    <!-- 第一层 -->
+    <div class="first">
+        <?php $ziji=M('money_finance')->where(array('uid'=>$zj['id']))->getField('grade');?>
+        <?php  $mobile = substr($zj['username'], 0, 3).'****'.substr($zj['username'], 7); ?>
+
+        <div class="parent">
+            <{$ziji|default='0'|agency_level}>
+        </div>
+        <div class="children">
+            <?php
+								$zid_1=M('member')->where(array('username'=>$zj['username']))->getField('id');//member表里面的id
+            $sortid_1=M('member_sorts')->where(array('uid'=>$zid_1))->getField('id');//membersort表里面的id
+            $count_1=M('member_sorts')->where(array('pid'=>$sortid_1))->count();
+
+            if($count_1>=2){
+            $out_1=2;
+            }else{
+            $out_1=1;
+            }
+            ?>
+            <?php if($out_1>=1){?>
+            <a href="javascript:void(0);">
+                <!--<{$mobile}>  中间4位数为*号-->
+                <{$zj['username']}>
+            </a>
+            <?php }else{?>
+            <a href="javascript:void(0);">
+                <{$zj['username']}>
+            </a>
+            <?php }?>
+			
+			
+        </div>
+        <div class="parent">
+            <{$zj['register_time']|date="Y-m-d",###}>
+        </div>
+        <div class="jiantou1"></div>
+    </div>
+    <!-- 第二层 -->
+    <div class="second">
+        <div class="top">
+            <div class="left">
+                <?php
+
+                            $p1=M('member')->where(array('id'=>$one['0']['uid']))->find(); //左区
+                $p1_grade=M('money_finance')->where(array('uid'=>$one['0']['uid']))->getField('grade');
+                $mobile1 = substr($p1['username'], 0, 3).'****'.substr($p1['username'], 7);
+                ?>
+                <?php if($p1){?>
+                    <div class="parent"><{$p1_grade|default='0'|agency_level}></div>
+                    <div class="children">
+                        <?php
+                                $zid_two=M('member')->where(array('username'=>$p1['username']))->getField('id');//member表里面的id
+                        $sortid_two=M('member_sorts')->where(array('uid'=>$zid_two))->getField('id');//membersort表里面的id
+                        $count_two=M('member_sorts')->where(array('pid'=>$sortid_two))->count();
+                        if($count_two>=2){
+                        $out_two=2;
+                        }else{
+                        $out_two=1;
+                        }
+                        ?>
+                        <?php if($out_two>=1){?>
+                        <a href="<?php echo U('member/memberSort/clientsee',array('oid'=>$p1['username']));?>">
+                            <{$p1['username']}>
+                        </a>
+                        <?php }else{?>
+                        <a href="javascript:void(0);">
+                            <{$p1['username']}>
+                        </a>
+                        <?php }?>
+                    </div>
+                    <div class="parent">
+                        <{$p1['register_time']|date="Y-m-d",###}>
+                    </div>
+                <?php }else{?>
+                    <div class="parent">暂无下级</div>
+                <?php if($zj) { ?>
+                <div class="children"><a href="<?php echo U('member/public/register',array('mobile'=>$zj['username'],'soid'=>$zj['username'],'member_bigposition'=>1));?>">点击注册</a></div>
+                <?php }else{ ?>
+                <div class="children">暂无下级</div>
+                <?php }?>
+                <div class="parent">暂无下级</div>
+                <?php }?>
+            </div>
+            <div class="right">
+                <?php
+                            $p2=M('member')->where(array('id'=>$two['0']['uid']))->find();
+                $mobile2 = substr($p2['username'], 0, 3).'****'.substr($p2['username'], 7);
+                $p2_grade=M('money_finance')->where(array('uid'=>$two['0']['uid']))->getField('grade');
+                ?>
+                <?php if($p2){?>
+                    <div class="parent"><{$p2_grade|default='0'|agency_level}></div>
+                    <div class="children">
+                        <?php
+                        $zid_three=M('member')->where(array('username'=>$p2['username']))->getField('id');//member表里面的id
+                        $sortid_three=M('member_sorts')->where(array('uid'=>$zid_three))->getField('id');//membersort表里面的id
+                        $count_three=M('member_sorts')->where(array('pid'=>$sortid_three))->count();
+                        if($count_three>=2){
+                        $out_three=2;
+                        }else{
+                        $out_three=1;
+                        }
+                        ?>
+                        <?php if($out_three>=1){?>
+                        <a href="<?php echo U('member/memberSort/clientsee',array('oid'=>$p2['username']));?>">
+                            <{$p2['username']}>
+                        </a>
+                        <?php }else{?>
+                        <a href="javascript:void(0);">
+                            <{$p2['username']}>
+                        </a>
+                        <?php }?>
+                    </div>
+                    <div class="parent">
+                        <{$p2['register_time']|date="Y-m-d",###}>
+                    </div>
+                <?php }else{ ?>
+                    <div class="parent">暂无下级</div>
+                <?php if($zj) { ?>
+                    <div class="children"><a href="<?php echo U('member/public/register',array('mobile'=>$zj['username'],'soid'=>$zj['username'],'member_bigposition'=>2));?>">点击注册</a></div>
+                <?php }else{ ?>
+                    <div class="children">暂无下级</div>
+                <?php }?>
+                    <div class="parent">暂无下级</div>
+                <?php }?>
+            </div>
+        </div>
+        <div class="jiantou2"></div>
+    </div>
+    <!-- 第三层 -->
+    <div class="third">
+        <div class="one">
+            <?php $p3=M('member')->where(array('id'=>$one_pid1['0']['0']['uid']))->find();
+            $mobile3 = substr($p3['username'], 0, 3).'****'.substr($p3['username'], 7);
+            $p3_grade=M('money_finance')->where(array('uid'=>$one_pid1['0']['0']['uid']))->getField('grade');
+            ?>
+            <?php if($p3){?>
+            <div class="parent"><{$p3_grade|default='0'|agency_level}></div>
+            <div class="children">
+                <?php
+								$zid_4=M('member')->where(array('username'=>$p3['username']))->getField('id');//member表里面的id
+                $sortid_4=M('member_sorts')->where(array('uid'=>$zid_4))->getField('id');//membersort表里面的id
+                $count_4=M('member_sorts')->where(array('pid'=>$sortid_4))->count();
+                if($count_4>=2){
+                $out_4=2;
+                }else{
+                $out_4=1;
+                }
+                ?>
+
+                <?php if($out_4>=1){?>
+                <a href="<?php echo U('member/memberSort/clientsee',array('oid'=>$p3['username']));?>">
+                    <{$p3['username']}>
+                </a>
+                <?php }else{?>
+                <a href="javascript:void(0);">
+                    <{$p3['username']}>
+                </a>
+                <?php }?>
+            </div>
+            <div class="parent">
+                <{$p3['register_time']|date="Y-m-d",###}>
+            </div>
+            <?php }else{ ?>
+                <div class="parent">暂无下级</div>
+            <?php if($one['0']) {
+                  $username = M('member')->where("id = {$one['0']['uid']}")->getfield('username');
+            ?>
+            <div class="children"> <a href="<?php echo U('member/public/register',array('mobile'=>$username,'soid'=>$username,'member_bigposition'=>1));?>">点击注册</a></div>
+            <?php }else{ ?>
+                <div class="children">暂无下级</div>
+            <?php }?>
+                <div class="parent">暂无下级</div>
+            <?php }?>
+        </div>
+        <div class="two">
+            <?php
+            $p4=M('member')->where(array('id'=>$one_pid2['0']['0']['uid']))->find();
+            $mobile4 = substr($p4['username'], 0, 3).'****'.substr($p4['username'], 7);
+            $p4_grade=M('money_finance')->where(array('uid'=>$one_pid2['0']['0']['uid']))->getField('grade');
+            ?>
+            <?php if($p4){?>
+            <div class="parent"><{$p4_grade|default='0'|agency_level}></div>
+            <div class="children">
+                <?php
+				$zid_5=M('member')->where(array('username'=>$p4['username']))->getField('id');//member表里面的id
+                $sortid_5=M('member_sorts')->where(array('uid'=>$zid_5))->getField('id');//membersort表里面的id
+                $count_5=M('member_sorts')->where(array('pid'=>$sortid_5))->count();
+                if($count_5>=2){
+                $out_5=2;
+                }else{
+                $out_5=1;
+                }
+                ?>
+
+
+                <?php if($out_5>=1){?>
+                <a href="<?php echo U('member/memberSort/clientsee',array('oid'=>$p4['username']));?>">
+                    <{$p4['username']}>
+                </a>
+                <?php }else{?>
+                <a href="javascript:void(0);">
+                    <{$p4['username']}>
+                </a>
+                <?php }?>
+            </div>
+            <div class="parent">
+                <{$p4['register_time']|date="Y-m-d",###}>
+            </div>
+            <?php }else{?>
+                <div class="parent">暂无下级</div>
+            <?php if($one['0']) {
+                               $username = M('member')->where("id = {$one['0']['uid']}")->getfield('username');
+            ?>
+            <div class="children"> <a href="<?php echo U('member/public/register',array('mobile'=>$username,'soid'=>$username,'member_bigposition'=>2));?>">点击注册</a></div>
+            <?php }else{ ?>
+                <div class="children">暂无下级</div>
+            <?php }?>
+                <div class="parent">暂无下级</div>
+            <?php }?>
+        </div>
+        <div class="three">
+            <?php $p5=M('member')->where(array('id'=>$two_pid1['0']['0']['uid']))->find();
+
+            $mobile5 = substr($p5['username'], 0, 3).'****'.substr($p5['username'], 7);
+            $p5_grade=M('money_finance')->where(array('uid'=>$two_pid1['0']['0']['uid']))->getField('grade');
+            ?>
+            <?php if($p5){?>
+                <div class="parent"><{$p5_grade|default='0'|agency_level}></div>
+                <div class="children">
+                    <?php
+                    $zid_6=M('member')->where(array('username'=>$p5['username']))->getField('id');//member表里面的id
+                    $sortid_6=M('member_sorts')->where(array('uid'=>$zid_6))->getField('id');//membersort表里面的id
+                    $count_6=M('member_sorts')->where(array('pid'=>$sortid_6))->count();
+                    if($count_6>=2){
+                    $out_6=2;
+                    }else{
+                    $out_6=1;
+                    }
+                    ?>
+                    <?php if($out_6>=1){?>
+                    <a href="<?php echo U('member/memberSort/clientsee',array('oid'=>$p5['username']));?>">
+                        <{$p5['username']}>
+                    </a>
+                    <?php }else{?>
+                    <a href="javascript:void(0);">
+                        <{$p5['username']}>
+                    </a>
+                    <?php }?>
+                </div>
+                <div class="parent">
+                    <{$p5['register_time']|date="Y-m-d",###}>
+                </div>
+            <?php }else{ ?>
+                <div class="parent">暂无下级</div>
+            <?php if($two['0']) {
+               $username = M('member')->where("id = {$two['0']['uid']}")->getfield('username');
+            ?>
+                <div class="children"> <a href="<?php echo U('member/public/register',array('mobile'=>$username,'soid'=>$username,'member_bigposition'=>1));?>">点击注册</a></div>
+            <?php }else{ ?>
+                <div class="children">暂无下级</div>
+            <?php }?>
+                <div class="parent">暂无下级</div>
+            <?php }?>
+        </div>
+        <div class="four">
+            <?php $p6=M('member')->where(array('id'=>$two_pid2['0']['0']['uid']))->find();
+            $mobile6 = substr($p6['username'], 0, 3).'****'.substr($p6['username'], 7);
+            $p6_grade=M('money_finance')->where(array('uid'=>$two_pid2['0']['0']['uid']))->getField('grade');
+            ?>
+            <?php if($p6){?>
+            <div class="parent"><{$p6_grade|default='0'|agency_level}></div>
+            <div class="children">
+                <?php
+								$zid_7=M('member')->where(array('username'=>$p6['username']))->getField('id');//member表里面的id
+                $sortid_7=M('member_sorts')->where(array('uid'=>$zid_7))->getField('id');//membersort表里面的id
+                $count_7=M('member_sorts')->where(array('pid'=>$sortid_7))->count();
+                if($count_7>=2){
+                $out_7=2;
+                }else{
+                $out_7=1;
+                }
+                ?>
+
+                <?php if($out_7>=1){?>
+                <a href="<?php echo U('member/memberSort/clientsee',array('oid'=>$p6['username']));?>">
+                    <{$p6['username']}>
+                </a>
+                <?php }else{?>
+                <a href="javascript:void(0);">
+                    <{$p6['username']}>
+                </a>
+                <?php }?>
+
+            </div>
+            <div class="parent">
+                <{$p6['register_time']|date="Y-m-d",###}>
+            </div>
+            <?php }else{?>
+                <div class="parent">暂无下级</div>
+            <?php if($two['0']) {
+              $username = M('member')->where("id = {$two['0']['uid']}")->getfield('username');
+            ?>
+            <div class="children"><a href="<?php echo U('member/public/register',array('mobile'=>$username,'soid'=>$username,'member_bigposition'=>2));?>">点击注册</a></div>
+            <?php }else{ ?>
+                <div class="children">暂无下级</div>
+            <?php }?>
+                <div class="parent">暂无下级</div>
+            <?php }?>
+        </div>
+    </div>
+</section>
+<script type="text/javascript" src="__TMPL__/js/jquery-3.2.1.min.js"></script>
+<script type="text/javascript">
+	mui('body').on('tap','a',function(){
+		window.top.location.href=this.href;
+	});
+	function find() {
+		var mobile = $("input[name='mobile']").val();
+		if(!mobile) {
+			alert('手机号不能为空');
+		}
+		$.post("<{:U('Member/message/finduse')}>",{mobile : mobile},function(data) {
+			if(!data.status) {
+				alert(data.message);
+				return false;
+			}
+			window.location.href = "<{:U('member/message/team')}>&oid=" + mobile;
+		},'json');
+	}
+</script>
+<script src="__TMPL__/hb/public/mui/js/mui.min.js"></script>
+<script src="__TMPL__/hb/public/zepto/zepto.min.js"></script>
+<script src="__TMPL__/hb/js/buycart.js"></script>
+</body>
+
+</html>

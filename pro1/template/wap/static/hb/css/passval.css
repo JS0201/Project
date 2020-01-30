@@ -1,0 +1,78 @@
+#bd {
+  overflow: hidden;
+  background-color: #fff;
+}
+
+.mui-input-group {
+  background-color: #fff;
+  margin-top: 45px;
+  border-bottom: none;
+}
+#mui-input-row{
+  height: 60px;
+}
+.mui-input-group .mui-input-row label {
+  margin-top: 15px;
+  color: #666666;
+  font-size: 15px;
+  width: 38%;
+}
+
+.mui-input-group .mui-input-row input {
+  margin-top: 15px;
+  width: 60%;
+  font-size: 15px;
+}
+.mui-input-group .mui-input-row .mui-icon-clear{
+  margin-top: 15px;
+}
+.btn .mui-btn-block {
+  height: 37px;
+  width: 300px;
+  font-size: 16px;
+  line-height: 10px;
+  margin: 0 auto;
+  margin-top: 60px;
+}
+.city {
+  padding: 20px 15px 5px 15px;
+  height: 60px;
+  width: 100%;
+  border-bottom: 1px solid #E5E5E5;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.city .city3 {
+  display: flex;
+}
+
+.city span:nth-of-type(1) {
+  color: #666666;
+  font-size: 16px;
+}
+.city span:nth-of-type(2) {
+  color: #333333;
+  font-size: 15px;
+  margin-left: 20px;
+}
+
+.city span:nth-of-type(3) {
+  color: #666666;
+  font-size: 20px;
+  flex: 1;
+  text-align: right;
+}
+.tip{
+  margin: 10px 15px;
+  height: 40px;
+  display: flex;
+  flex-direction: column;
+}
+.tip span{
+ 
+  font-size: 9px;
+}
+.send{position:absolute;top:20px;right:10px;}
+

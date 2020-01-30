@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title><{:L('_fotgotpsw_title')}></title>
+    <link rel="stylesheet" href="__TMPL__/hb/public/mui/css/mui.min.css">
+    <link rel="stylesheet" href="__TMPL__/hb/public/swiper/css/swiper.min.css">
+    <include file="template/wap/Public/base.html" />
+
+    <!-- 引入头部 -->
+    <include file="template/wap/Public/header.html" />
+
+    <style>
+        html , body{
+            background-color: #fff;
+       }
+        #myzijinPwd{
+            height: 100%;
+            padding-top: 0.64rem;
+       }
+        #myzijinPwd h4{
+            margin-bottom: 0.09rem;
+       }
+        #myzijinPwd .line2{
+            background-color: #E3E1E1;
+            width: 100%;
+            height: 0.1rem;
+       }
+        #myzijinPwd .submitRes{
+            padding: 0.16rem 0.17rem 0 0.17rem;
+       }
+        #myzijinPwd .submitRes h4{
+            font-size: .15rem;
+            color: #333;
+            font-weight: 500;
+        }
+        #myzijinPwd .submitRes textarea{
+            font-size: 0.18rem;
+            color: #333;
+            border: 0.01rem solid#F2902D;
+            border-radius: 0.05rem;
+       }
+        #myzijinPwd .submitRes textarea{
+            height: 1.39rem;
+       }
+        #myzijinPwd button{
+            width: 100%;
+            font-size: 0.18rem;
+            color: #fff;
+            border: none;
+            border-radius: 0.4rem;
+            background: -moz-linear-gradient(left, #E8352C 0%, #F39A2D 100%);
+            background: -o-linear-gradient(left, #E8352C 0%,#F39A2D 100%);
+            background: -ms-linear-gradient(left, #E8352C 0%,#F39A2D 100%);
+            background: linear-gradient(to right, #E8352C 0%,#F39A2D 100%);
+       }
+       #myzijinPwd .submitRes .myitem{
+            height: .44rem;
+            line-height: .44rem;
+            display: flex;
+            border: 1px solid #ED622D;
+            border-radius: .08rem;
+            box-shadow: 0px 2px 19px -6px #F9AF2D;
+            margin-bottom: .10rem;
+       }
+       #myzijinPwd .submitRes .myitem:last-of-type{
+           margin-bottom: .23rem;
+       }
+        #myzijinPwd .submitRes .myitem .itemLeft{
+            flex: 1;
+            text-align: left;
+            position: relative;
+       }
+       #myzijinPwd .submitRes .myitem .itemLeft img{
+           width: .13rem;
+           position: absolute;
+           top: 50%;
+           transform: translateY(-50%);
+           left: .13rem;
+       }
+       #myzijinPwd .submitRes .myitem .itemLeft input{
+           border: none;
+           border-radius: .08rem;
+           margin-left: .20rem;
+           width: 93%;
+           font-size: .15rem;
+           color: #666;
+           padding: 10px 15px;
+       }
+        </style>
+</head>
+
+<body>
+    <div id="myzijinPwd">
+        <form method="post" id="formid">
+        <div class="submitRes">
+            <h4><{:L('_fotgotpsw_1')}></h4>
+            <textarea id="helpRememberWords" onblur="fixedTop()" cols="30" rows="10" name="" placeholder=""></textarea>
+            <div class="myitem">
+                <div class="itemLeft">
+                    <img src="template/wap/static/vsc/img/myrePwd.png" alt="">
+                    <input type="" name="username"  placeholder="<{:L('_fotgotpsw_2')}>" >
+                </div>
+            </div>
+            <div class="myitem">
+                <div class="itemLeft">
+                    <img src="template/wap/static/vsc/img/myrePwd.png" alt="">
+                    <input type="password" name="upwd" onblur="checkPwd(this.value)"   placeholder="<{:L('_fotgotpsw_3')}>">
+                </div>
+            </div>
+            <div class="myitem">
+                <div class="itemLeft">
+                    <img src="template/wap/static/vsc/img/myrePwd.png" alt="">
+                    <input type="password"  name="upwd2"  onblur="checkPwd2(this.value)" placeholder="<{:L('_fotgotpsw_5')}>">
+                </div>
+            </div>
+           <button onclick="return checkform(this.form);"><{:L('_fotgotpsw_4')}></button>
+        </div>
+        </form>
+    </div>
+</body>
+
+</html>
+<script>
+    $('#rightText').attr('href', 'index.php?m=Test&c=Index&a=searchOnLineKefu')
+    var _pwd = ''
+    function checkPwd(v) {
+   
+        fixedTop()
+        var reg = /^[a-zA-Z]([-_a-zA-Z0-9]{7,11})$/;
+        if(!reg.test(v)) {
+            layer.msg("<{:L('register1')}>")
+            return false
+        }
+        _pwd = v;
+        return true;
+    }
+
+    function checkPwd2(v) {
+        fixedTop()
+        var reg = /^[a-zA-Z]([-_a-zA-Z0-9]{7,11})$/;
+        if(!reg.test(v)) {
+            layer.msg("<{:L('register1')}>");
+            return false
+        }
+        if(_pwd !== v) {
+            layer.msg("<{:L('register2')}>");
+            return false
+        }
+        return true;
+    }
+    function checkform(form) {
+        var username = form.username.value;
+        var upwd = form.upwd.value;
+        var upwd2 = form.upwd2.value;
+      //  var helpRememberWords = form.helpRememberWords.value;
+      var helpRememberWords = $('#helpRememberWords').val();
+        var hep=helpRememberWords.toString().replace(/ /g,'');
+        if (!username) {
+            layer.msg("<{:L('Please enter a user name')}>");
+            return false;
+        }
+        checkPwd(upwd)
+        checkPwd2(upwd2)
+
+        if (!upwd) {
+            layer.msg("<{:L('password')}>");
+            return false;
+        }
+
+        if (!upwd2) {
+            layer.msg("<{:L('Please enter the login password again')}>");
+            return false;
+        }
+
+        if (upwd.length < 6 || upwd2.length < 6) {
+            layer.msg('<{:L("The password length is more than 6 bits")}>');
+            return false;
+        }
+
+        if (upwd != upwd2) {
+            layer.msg('<{:L("You have entered two different passwords")}>');
+            return false;
+        }
+
+
+
+        var data = $('#formid').serialize();
+        var formurl = "<{:U('member/public/myloginPwd')}>";
+        var locurl = "<{:U('member/index/index')}>";
+        data = data +"&helpRememberWords="+ hep
+        Wgpost(formurl, data, locurl);
+        return false;
+    }
+    /**
+ * WP ajax post
+ * @author lukui  2017-02-15
+ * @param  {[type]} formurl post url
+ * @param  {[type]} data    post data
+ * @param  {[type]} locurl  成功后跳转的url
+ */
+function Wgpost(formurl,data,locurl){
+
+        $.post(formurl,data,function(data){
+        if (data.type == 1) {
+
+            layer.msg(data.data, {icon: 1,time: 1000},function(){
+                if(locurl){
+                    window.location.href=locurl;
+                }else{
+                    return true;
+                }
+            
+            }); 
+
+        }else if(data.type == -1){
+            layer.msg(data.data, {icon: 2}); 
+        }
+
+        });
+}
+</script>

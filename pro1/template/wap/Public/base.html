@@ -1,0 +1,177 @@
+<link rel="stylesheet" href="__ROOT__/statics/js/layui/css/layui.css">
+<style>
+    html{font-size: 100px;}
+    html , body{
+        position: fixed;
+        background-color: #fff;
+        width: 100%;
+        height: 100%;
+        overflow: hidden;
+    }
+    .mobile-content {
+        position: fixed;
+        top: 0;
+        left: 0;
+        height: 100%;
+        width: 100%;
+        box-sizing: border-box;
+        overflow-y: scroll;
+        -webkit-overflow-scrolling: touch;
+    }
+    .mobile-content.has-head {
+        padding-top: 64px !important;
+    }
+    .mobile-content.has-footer {
+        padding-bottom: 64px !important;
+    }
+
+
+    .pay-password {
+        width:2.05rem;
+        height:auto;
+        background:rgba(255,255,255,1);
+        border-radius:0.05rem;
+    }
+    .pay-password .layui-layer-title {
+        margin-top: 0.2rem;
+        padding: 0 0.16rem 0 0.16rem;
+        border-bottom: 0;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        font-size: 0.18rem;
+        color: #383838;
+        background-color: #fff;
+        text-align: center;
+        height: 0.35rem;
+        line-height: 0.35rem;
+        font-weight: 600 ;
+    }
+    .pay-password .layui-layer-content {
+        position: relative !important;
+        padding: 0.13rem 0.12rem !important;
+        margin-bottom: 0.10rem !important;
+        line-height: 0.24rem !important;
+        word-break: break-all !important;
+        overflow: auto !important;
+        color: #686868 !important;
+        border-bottom: 1px solid #9E9E9E;
+        text-align: center;
+        
+    }
+    .pay-password .layui-layer-content input {
+        margin-bottom: 0;
+        padding: .08rem .13rem;
+        border:1px solid rgba(102,102,102,1);
+        border-radius:.05rem;
+        font-size:.15rem;
+        font-family:PingFang-SC-Medium;
+        font-weight:500;
+        color:rgba(102,102,102,1);
+    }
+    .pay-password .layui-layer-btn {
+        text-align: center;
+        pointer-events: auto;
+        display: flex;
+        padding: .05rem 0 !important;
+    }
+    .pay-password .layui-layer-btn a {
+        display: block !important;
+        height: 0.36rem !important;
+        line-height: 0.36rem !important;
+        margin:0 !important;
+        padding: 0 0 !important;
+        font-size: 0.15rem !important;
+        font-weight: 500 !important;
+        cursor: pointer !important;
+        font-family:PingFang-SC-Medium;
+        text-decoration: none !important;
+        border-radius: .05rem;
+    }
+    .pay-password .layui-layer-btn0{
+        background: #FF4E1E !important;
+    }
+    .pay-password .layui-layer-btn1{
+        background: #999999 !important;
+    }
+    .pay-password .layui-layer-content input{
+        color: #333;
+        border-radius: 0 !important;
+        background-color: transparent !important;
+        color: #383838 !important;
+        flex: 1;
+        text-align: center;
+        border: none !important;
+        border-right: 1px solid #666 !important;
+    }
+    .layui-layer-btn a:last-of-type{
+         border-right: none !important;
+    }
+    .lang {
+        z-index: 999;
+    }
+    
+</style>
+
+
+<script type="text/javascript" src="__ROOT__/statics/js/jquery-1.7.2.min.js"></script>
+<script src="__TMPL__/hb/public/mui/js/mui.min.js"></script>
+<script src="__TMPL__/hb/public/swiper/js/swiper.min.js"></script>
+<script src="__TMPL__/hb/public/zepto/zepto.min.js"></script>
+<script type="text/javascript" src="__ROOT__/statics/js/layui/layui.all.js"></script>
+<script type="text/javascript" src="__ROOT__/statics/js/rem.js"></script>
+<script type="text/javascript">
+    function LayerOpen() {}
+
+    LayerOpen.prototype.password = function (fn) {
+        layer.open({
+            title: "<{:L('_layer_1')}>",
+            closeBtn: false,
+            skin: 'pay-password',
+            content: '<input type="password" id="layerPassword" placeholder="<{:L('_layer_2')}>" />',
+            btn: ['<{:L('_layer_3')}>', '<{:L('_layer_4')}>'],
+            yes: function (index, layero) {
+                fn && fn($('#layerPassword').val());
+            }
+        });
+    }
+
+    var layeropen = new LayerOpen()
+
+
+    function setCookie(name, value) {
+        var exp = new Date();
+        exp.setTime(exp.getTime() + 3 * 24 * 60 * 60 * 1000); //3天过期
+        document.cookie = name + "=" + encodeURI(value) + ";expires=" + exp.toGMTString() + ";path=/";
+        return true;
+    };
+    function fixedTop() {
+        setTimeout(function () {
+            $('body').scrollTop(0)
+        }, 10)
+    }
+    //读取cookies
+    function getCookie(name) {
+        var arr, reg = new RegExp("(^| )" + name + "=([^;]*)(;|$)");
+
+        if (arr = document.cookie.match(reg))
+            return unescape(arr[2]);
+        else
+            return null;
+    }
+
+    $(function() {
+        var needFixed = false;
+        $('input').on('blur', function() {
+            needFixed = true;
+        })
+
+        $('body').on('click', function(e) {
+            if(e.target.nodeName.toLowerCase() != 'input' && needFixed) {
+                needFixed = false;
+                fixedTop();
+                console.log('还原当前位置')
+            }
+        })
+    })
+</script>

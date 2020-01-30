@@ -1,0 +1,88 @@
+body{min-height:100%;background-color: #3a3b51}
+header .header{padding:10px 15px}
+header .header-left .iconfont{line-height: 22px;}
+
+.code{width: 35%;}
+
+input[type=text].inputbg{
+	
+	font-size: 14px;
+	padding-left:12px;
+	border:none;
+	background-color: #fff
+}
+.box-shadow-bottom {
+    box-shadow: 0 4px 10px #ebf2ff;
+}
+.iconright{
+	font-size: 14px;
+	border-left:1px solid #4f576d;
+	right:0;
+	bottom:0;
+	background-color:transparent;
+	border-top-right-radius: 4px;
+	border-bottom-right-radius: 4px;
+
+}
+
+/*申请提币  --------------s*/
+input[type='text'].inputbg{
+	background-color: rgba(0,0,0,.1)
+}
+.box-shadow-bottom {
+    box-shadow: 0 4px 10px #ebf2ff
+}
+select.inputbg,input[type='text'].inputbg{padding-top: 0;padding-bottom:0;background-color: #f1f0f6;}
+
+/*申请提币  --------------e*/
+
+
+/*交易记录*/
+.category-list{display:inline-block;width:100%;}
+.category-detail{width:100%;font-size: 0}
+.category-detail .iconfont{color:#333;font-size: 14px;}
+.category-detail .iconleft{display:inline-block;width:23px;font-size: 23px;}
+.category-list-border{display: inline-block;width:calc(100% - 31px);margin-left: 8px;}
+.category-detail .tategory-word{color:#333;font-size: 14px;font-weight: 600;}
+.borderbottomgray01{border-bottom:1px solid rgba(0,0,0,.1)}
+.category-list-border a{display: inline-block;font-size: 14px}
+.category-list-border a .iconfont{margin-left: 15px;}
+.colorblue01{color:#1382F4}
+.content .category-list:last-child .category-list-border{border:none}
+
+
+/*ETH VSC 互转*/
+input::-webkit-input-placeholder,
+textarea::-webkit-input-placeholder {color:#3f4056;font-size:14px}
+
+.input-right{width: calc(100% - 80px)}
+.input-right01{width: calc(100% - 110px)}
+.input-middle{width: calc(100% - 180px)}
+.input-middle01{width: calc(50% - 25px)}
+.title-color{color: #fff;}
+.title-color.active{color: #d6d7f0;}
+.transfers-title .title-color01{color: #fff;}
+.transfers-title .title-color02{color: #797ba0;}
+.transfers-title.active .title-color01{color: #797ba0;}
+.transfers-title.active .title-color02{color: #fff;}
+
+input[type='text'].mui-input-clear,input[type='password'].mui-input-clear{background-color: #303145;border: none;color:#9095ef}
+input.mui-input-clear::-webkit-input-placeholder{color:#9095ef}
+/*修改昵称*/
+.inputbg01::-webkit-input-placeholder,
+.inputbg01::-webkit-input-placeholder {color:#303145;font-size:14px}
+
+/*矿机商城*/
+.layui-m-layerbtn span{line-height: 50px;}
+.layui-m-layer *{box-sizing: border-box!important;}
+.layui-m-layer .layui-m-layercont{padding: 20px}
+.layui-m-layer select{padding-top: 0;}
+
+
+/*钱包地址*/
+input[type="text"].calc120{padding-right: 102px}
+
+
+/*新加充值*/
+input[type='text'].inputbg02.inputbg::-webkit-input-placeholder {color:#d3d5ff;font-size:14px}
+

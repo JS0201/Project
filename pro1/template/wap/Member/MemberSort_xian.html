@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<title>互转</title>
+		<include file="template/wap/Public/title.html" />
+		<link rel="stylesheet" type="text/css" href="__TMPL__/vsc/css/dealdetail.css"/>
+		<script type="text/javascript" src="__TMPL__/js/gboy.js"></script>
+		<script type="text/javascript" src="__TMPL__/js/jquery-form.js"></script>
+	</head>
+	<body>
+		<!--头部-->
+		<header class="prow15 pt15 pb16 bgcolortheme03 flex">
+			<div class="header-left percent20">
+				<span class="iconfont icon-fanhui1 c-fff left-back fs20"></span>
+			</div>
+			<div class="header-middle percent60 tac c-fff fs16 fw-b">
+				账户互转
+			</div>
+			<div class="header-middle percent20 tar">
+				<a href="<{:U('Member/MemberSort/transferring')}>" class="c-fff">明细</a>
+			</div>
+		</header>
+		<!--头部----end-->
+		<div class="prow15 pt15">
+			<form action="" method="post">
+				<div class="input-group mb20">
+					<label for="" class="divline pt20 pb10 colortheme01 fs16">互转币种</label>
+					<select id="erer" name="erer" class="widthp100 inputbg">
+						<option value="">请选择</option>
+						<option value ="1">VSC</option>
+						<option value ="2">USDT</option>
+					</select>
+				</div>
+				<div class="mb20">
+					<div class="colortheme01 fs16 mb10">
+						对方地址
+					</div>
+					<div class="bgcolortheme02 radius-4">
+						<input type="text" class="inputbg" id="address" name="address" placeholder="请输入对方地址"/>
+					</div>
+				</div>
+				<div class="mb20">
+					<div class="colortheme01 fs16 mb10">
+						互转数量
+					</div>
+					<div class="bgcolortheme02 radius-4">
+						<input type="text" class="inputbg" id="nums" name="nums"  placeholder="请输入数量"/>
+					</div>
+				</div>
+				<div class="mb40">
+					<div class="colortheme01 fs16 mb10">
+						二级密码
+					</div>
+					<div class="bgcolortheme02 radius-4">
+						<input type="text" class="inputbg" name="twopwd" id="twopwd" placeholder="请输入二级密码"/>
+					</div>
+				</div>
+				<div class="pb50">
+					<button class="fill-block btn-gradual-bg loginsubmit height40 radius-6" id="btnSubmit1">确认转账</button>
+				</div>
+			</form>
+		</div>
+	</body>
+
+</html>
+<script>
+    // 互转现金积分
+    $('#btnSubmit1').click(function(){
+        var type=$('#erer').val();//二二复制
+        if(type==''){
+            alert('请选择互转币种');
+            return false;
+        }
+        console.log(type);
+        var nums = $('#nums').val();
+        var address = $('#address').val();   //地址recharge_code
+		var twopwd = $('#twopwd') .val();
+        var reg = /(^[1-9]([0-9]+)?(\.[0-9]{1,2})?$)|(^(0){1}$)|(^[0-9]\.[0-9]([0-9])?$)/;
+        if(address==""){
+            alert("对方钱包地址不能为空,请重新输入");
+            return false;
+        }
+        if (!(reg.test(nums))) {
+            alert("转赠数目输入有错,请重新输入");
+            return false;
+        }
+		if(twopwd==""){
+            alert("二级支付密码不能为空,请重新输入");
+            return false;
+		}
+        if(confirm('确认要执行转赠吗？')) {
+            $.ajax({
+                url: "<{:U('Member/MemberSort/que_xian')}>",
+                type: "post",
+                data: {'address': address, 'nums': nums,'type':type,'twopwd':twopwd},
+                datatype: 'json',
+                success: function (res) {
+                    // console.log(res);
+                    if (res.staus == 1) {
+
+                        var username = res.username;
+                        var mnums = res.money;
+                        var types = res.types;
+                        if(types == 1){
+                            var  str='VSC';
+                        }else{
+                            var  str='USDT';
+                        }
+                        var info = "您已成功转赠" + mnums + str+"给会员";
+                        alert(info);
+                        window.location.reload();
+                    } else {
+                        var info = res.info;
+                        alert(info);
+                    }
+                }
+            })
+        }
+    })
+
+</script>

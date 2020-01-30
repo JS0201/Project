@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+    <title>忘记密码</title>
+    <include file="template/wap/Public/title.html" />
+    <link rel="stylesheet" type="text/css" href="__TMPL__/vsc/css/rechargeonline.css"/>
+    <style>
+        .send-code {
+            border: 1px solid #fde62f;
+            color: #fde62f;
+			border-bottom:none;
+			
+        }
+		input[type='text']::-webkit-input-placeholder, input[type='password']::-webkit-input-placeholder{color:#fde62f}
+		input[type='text'], input[type='password'] {
+			color: #fde62f;
+			border:none;
+			border-radius:0;
+			background-color:transparent;
+			border-bottom: 1px solid #fde62f;
+		}
+		.btn-gradual-bg01{border-color:none}
+    </style>
+</head>
+<body>
+<!--头部-->
+<header class="prow15 pt15 pb16 flex">
+    <div class="header-left percent20">
+        <span class="iconfont icon-fanhui1 c-fff left-back fs20"></span>
+    </div>
+    <div class="header-middle percent60 tac c-fff fs16 fw-b">
+        忘记密码
+    </div>
+</header>
+<!--头部----end-->
+<div class="prow15 pt20 pb30">
+    <div class="input-group mb20">
+        <input type="text" class="widthp100 inputbg01  bgcolorrgba03" name="uname"  id="uname" placeholder="请输入您的手机号" maxlength="11">
+    </div>
+
+    <div class="input-group mb20 posi-rela">
+
+            <input type="text" class="inputbg01" id="code" name="code" value="" placeholder="短信验证码"/>
+
+        <div class="width100 height40 tac posi-abso top-1 right0 z11 send-code" id="yzm">
+            发送验证码
+        </div>
+    </div>
+
+    <div class="input-group mb20">
+        <input type="password" class="widthp100 inputbg inputbg01  bgcolorrgba03" name="" id="password" value="" placeholder="请输入新密码">
+    </div>
+    <div class="input-group mb20">
+        <input type="password" class="widthp100 inputbg inputbg01  bgcolorrgba03" name="" id="LoginPwdRep" value="" placeholder="请再次确认密码">
+    </div>
+</div>
+<div class="prow15 mt50">
+    <button class="btn-gradual-bg widthp100 height40 radius-6" id="submit">确认修改</button>
+</div>
+</body>
+
+</html>
+<script type="text/javascript">
+    $(function(){
+        $('#submit').click(function(){
+            var username=$('#uname').val();
+            var code=$('#code').val();
+            var password=$('#password').val();
+            var pwdconfirm=$('#LoginPwdRep').val();
+            if(password != pwdconfirm){
+                alert('登录密码两次输入不一致');
+                return false;
+            }
+            $.post('<{:U("Member/Public/forgetpwd")}>','username='+username+'&code'+code+'&password='+password,function(data){
+                if(data.status=='0'){
+                    alert(data.message);
+                }else{
+                    alert(data.message);
+                    location.href="<{:U('Member/Public/login')}>";
+                }
+            },'json');
+            return false;
+        })
+        //短信验证
+        $('#yzm').click(function(){
+            var mobile=$('#uname').val();//手机号码
+            //alert(mobile);return false;
+            $.post('<{:U("Member/Public/send_sm1")}>','mobile='+mobile,function(data){
+
+                if(data.status=='0'){
+                    alert(data.message,'',0);
+                    $('#code_img').click();
+                }else{
+                    alert(data.message);
+                    RemainTime();
+                }
+
+            },'json');
+            return false;
+        })
+    })
+    //发送验证码
+    var intime="<{$Think.session.set_time}>";
+    var timenow = "<?php echo time(); ?>";
+    var bet=(parseInt(intime)+60)-parseInt(timenow);
+
+    $(document).ready(function(){
+        //alert(intime);
+        if(bet>0){
+            RemainTime();
+        }
+    });
+
+    var iTime = 59;
+    var Account;
+    if(bet>0){
+        iTime=bet;
+    }
+
+    function RemainTime(){
+        document.getElementById('yzm').disabled = true;
+
+        var iSecond,sSecond="",sTime="";
+        if (iTime >= 0){
+            iSecond = parseInt(iTime%60);
+            iMinute = parseInt(iTime/60);
+            if (iSecond >= 0){
+                if(iMinute>0){
+                    sSecond = iMinute + "分" + iSecond + "秒";
+                }else{
+
+                    sSecond = '剩余'+iSecond + "秒";
+                }
+            }
+            sTime=sSecond;
+            if(iTime==0){
+                clearTimeout(Account);
+                sTime='重新获取';
+                iTime = 59;
+                document.getElementById('yzm').disabled = false;
+            }else{
+                Account = setTimeout("RemainTime()",1000);
+                iTime=iTime-1;
+            }
+        }else{
+            sTime='没有倒计时';
+        }
+        document.getElementById('yzm').innerHTML = sTime;
+
+    }
+
+</script>

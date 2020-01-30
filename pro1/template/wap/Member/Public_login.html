@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>登录</title>
+    <link rel="stylesheet" href="__TMPL__/hb/public/mui/css/mui.min.css">
+    <link rel="stylesheet" href="__TMPL__/hb/public/swiper/css/swiper.min.css">
+    <link rel="stylesheet" href="../static/vsc/css/Index_login.css">
+
+    <link rel="stylesheet" type="text/css" href="__TMPL__/vsc/css/style.css"/>
+    <link rel="stylesheet" type="text/css" href="__TMPL__/vsc/css/login.css"/>
+
+    <include file="template/wap/Public/base.html" />
+    <style>
+        .box {
+            background-image: url('template/wap/static/vsc/img/loginBG.png');
+            background-size: 100%;
+            padding: 1.1rem 0.43rem 0 0.37rem;
+            width: 100%;
+            height: 100%;
+            box-sizing: border-box;
+            overflow-y: scroll;
+            -webkit-overflow-scrolling: touch;
+        }
+        .box .lang{
+            margin-bottom: 0.6rem;
+        }
+        .box .lang p{
+            display: block;
+            color: #fff;
+            text-align: center;
+            margin-bottom: .03rem;
+        }
+        .box .lang p select{
+            margin: 0;
+            color: #fff;
+            text-align: center;
+            background: rgba(0, 0, 0, 0);
+            border: 0;
+            appearance: none;
+            -moz-appearance: none;
+            -webkit-appearance: none;
+            font-size: 0.18rem;
+            padding: 0 !important;
+        }
+        #login_content{
+        }
+        #login_content p{
+            font-size: 0.24rem;
+            color: #fff;
+            margin-bottom: 0.33rem;
+        }
+        #login_content .userMsg{
+            display: flex;
+            position: relative;
+        }
+        #login_content .userMsg img{
+            height: 0.17rem;
+            position: absolute;
+            top: 0.14rem;
+        }
+        #login_content .userMsg input{
+            background-color: transparent;
+            border: none;
+            border-bottom: 0.01rem solid #fff;
+            border-radius: 0;
+            flex: 1;
+            font-size: 0.17rem;
+            color: #fff;
+            padding: 0.23rem 0 0.23rem 0.05rem !important;
+            margin-left: 0.26rem;
+        }
+        #login_content .userMsg input::placeholder{
+            color: #fff;
+        }
+        #login_content .lastM{
+            margin-bottom: 0.6rem;
+        }
+        #login_content button{
+            font-size: 0.15rem;
+            color: #FF6B00;
+            background-color: #fff;
+            border-radius: 0.37rem;
+            border-color: #fff;
+            width: 100%;
+            margin-bottom: 0.7rem;
+            margin-left: 0.08rem;
+            width: 100%;
+                line-height: inherit;
+        }
+        .bottom-box{
+            text-align: center;
+            color: #fff;
+        }
+        .bottom-box a{
+            font-size: 0.15rem;
+            color: #fff;
+        }
+        .bottom-box .conner-login{
+            border-bottom: 0.01rem solid #fff;
+            padding-bottom: 0.1rem;
+        }
+    </style>
+</head>
+
+<body>
+<div class="box">
+
+    <include file="template/wap/Public/lang.html" />
+
+    <div id="login_content">
+        <p><{:L('login0')}></p>
+        <div class="userMsg">
+            <img src="template/wap/static/vsc/img/userNameIcon.png" alt="">
+            <input type="text" class="input-group-br username-blur" id="username" name="username" maxlength="11" placeholder="<{:L('login1')}>">
+        </div>
+        <div class="userMsg lastM">
+            <img src="template/wap/static/vsc/img/pwdIcon.png" alt="">
+            <input type="password" id="password" name="password" placeholder="<{:L('login2')}>">
+        </div>
+        <button class="fill-block btn-login loginsubmit height40" id="send"/><{:L('login3')}>
+    </div>
+    <div class="bottom-box">
+            <span class="conner-login">
+                <a href="<{:U('member/public/register')}>"><{:L('login4')}></a> |
+                <a href="<{:U('member/public/myloginPwd')}>"><{:L('login5')}></a>
+            </span>
+    </div>
+</div>
+<script type="text/javascript" src="__TMPL__/js/gboy.js"></script>
+<script type="text/javascript" src="__TMPL__/js1/gboy.member.js"></script>
+<script>
+    $(function(){
+        $('#send').click(function(){
+            var username=$('#username').val();
+            var password=$('#password').val();
+
+            $.post('<{:U("login")}>','username='+username+'&password='+password,function(data){
+                console.log(data);
+                if(data.status=='0'){
+                    alert(data.message);
+                }else{
+                    gboy.url('<{:U("member/index/index")}>');
+                }
+            },'json')
+            return false;
+        })
+    })
+</script>
+</body>
+
+</html>
+<script>
+
+</script>

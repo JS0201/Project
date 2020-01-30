@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+	<meta charset="UTF-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	<meta http-equiv="X-UA-Compatible" content="ie=edge" />
+	<title>我的订单</title>
+	<include file="template/wap/Peer/title.html" />
+	<style>
+		.table-tit a{color:#333;display:block;}
+		.table-tit a.cur{background:#ffd070;}
+		.order-tab-hd a{color:#fff;}
+		.order-tab-hd .cur a{color:#ffd070;}
+	</style>
+	<script>
+		$(function(){
+			$('.to_os').click(function(){
+				if(confirm('是否确认？')){
+					var oid=$(this).data('oid');
+					$.post('<{:U("buy")}>','oid='+oid,function(data){
+						if(data.status=='0'){
+							alert(data.message);
+						}else{
+							alert(data.message);
+							location.href='<{:U("order/index")}>';
+						}
+						
+					},'json');
+				}
+				
+				
+			})
+		})
+	</script>
+</head>
+<body>
+	<header class="mui-bar mui-bar-nav">
+	    <a class=" mui-icon mui-icon-arrowleft mui-pull-left" href="<{:U('trade/index')}>"></a>
+	    <h1 class="mui-title">卖出</h1>
+	</header>
+	
+	 
+	
+	<div class="mui-content ">
+		<div class="chart-content">
+			<div class="tab part-row">
+				<div class="tab-bd">
+					<div class="tab-item">
+						<div class="table-tit">
+							<div class="td"><a href="<{:U('order/buy')}>" >买入</a></div>
+							<div class="td"><a href="<{:U('order/sell')}>" class="cur">卖出</a></div>
+						</div>
+						<div class="order-list-tab">
+
+							<ul class="order-tab-hd" style="margin:0;">
+								<li <if condition="$_GET['status'] eq ''">class="cur"</if>><a href="<{:U('sell')}>">全部</a></li>
+								<li <if condition="$_GET['status'] eq '0'">class="cur"</if>><a href="<{:U('sell',array('status'=>0))}>">待接单</a></li>
+								<li <if condition="$_GET['status'] eq '1'">class="cur"</if>><a href="<{:U('sell',array('status'=>1))}>">待付款</a></li>
+								<li <if condition="$_GET['status'] eq '2'">class="cur"</if>><a href="<{:U('sell',array('status'=>2))}>">待收款</a></li>
+								<li <if condition="$_GET['status'] eq '3'">class="cur"</if>><a href="<{:U('sell',array('status'=>3))}>">已完成</a></li>
+							</ul>
+						</div>
+
+						<table class="table">
+							<thead>
+								<tr>
+								
+									<th>单价</th>
+									<th>数量</th>
+									<th>总额</th>
+									<th>状态</th>
+									<th>操作</th>
+								</tr>
+							</thead>
+							<tbody>
+								<volist name="list" id="v">
+								<tr>
+									<td><{$v['price']}></td>
+									<td><{$v['num']}></td>
+									<td><{$v['count_price']}></td>
+									<td><{$v['_status']}></td>
+									<td><a href="<{:U('sell_details',array('sn'=>$v['order_no']))}>" style="color:#fff;">详情</a></td>
+								</tr>
+								</volist>
+							</tbody>
+						</table>
+					</div>
+				
+				
+				</div>
+			</div>
+			<div class="page"><{$page}></div>
+		</div>
+	</div>
+		<include file="template/wap/Peer/footer.html" />
+</body>
+</html>

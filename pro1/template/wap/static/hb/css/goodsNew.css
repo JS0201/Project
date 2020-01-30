@@ -1,0 +1,23 @@
+body,html{
+  background-color: #fff;
+}
+.mui-scroll-wrapper{
+  margin-top: 45px;
+}
+.mui-scroll-wrapper ul{
+  padding: 20px 30px;
+}
+.mui-scroll-wrapper ul li{
+  padding: 10px 0;
+  display: flex;
+}
+.mui-scroll-wrapper ul li span:nth-of-type(1){
+  color: #999999;
+  font-size: 15px;
+  marker-end: 20px;
+}
+.mui-scroll-wrapper ul li span:nth-of-type(2){
+  color: #CCCCCC;
+  font-size: 15px;
+  margin-left: 20px;
+}

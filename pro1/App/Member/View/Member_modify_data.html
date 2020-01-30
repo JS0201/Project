@@ -1,0 +1,84 @@
+<include file="Admin@Public/header" />	
+<form action="<?php echo U('modify_data1')?>" method="post" name="member_uppdate">
+<input type="hidden" name="id" value="<?php echo $_GET['id']; ?>">
+<input type="hidden" name="formhash" value="<?php echo FORMHASH ?>">
+
+<style>
+	.modify{background-color: #fff;border-bottom:1px solid #e8f5fc;line-height:32px;padding:5px 5px;margin:5px 0;}
+	.modify span{display:block;float:left;width:25%;text-align:right;}
+	.modify .modify_i{border:1px solid #ddd;width:70%;padding:0 5px;font-size:14px;color:#999;float:left;}
+</style>
+
+<div class="edit-user-info">
+	<div class="table layout border-none clearfix" style="padding: 15px 0;">
+		<div class="modify">
+			<span>钱包地址：</span>
+			<input class="modify_i" type="text" name="wallet_address" value="<if condition="$profile['wallet_address']"><{$profile['wallet_address']}></if>" placeholder="请输入钱包地址"/>
+			<div style="clear: both;"></div>
+		</div>
+		<div class="modify">
+			<span>开户名：</span>
+			<input class="modify_i" type="text" name="account_name" value="<if condition="$profile['account_name']"><{$profile['account_name']}></if>" placeholder="请输入开户名"/>
+			<div style="clear: both;"></div>
+		</div>
+		<div class="modify">
+			<span>开户行：</span>
+			<input class="modify_i" type="text" name="account_bank" value="<if condition="$profile['account_bank']"><{$profile['account_bank']}></if>" placeholder="请输入开户行"/>
+			<div style="clear: both;"></div>
+		</div>
+		<div class="modify">
+			<span>银行卡号：</span>
+			<input class="modify_i" type="text" name="bank_account" value="<if condition="$profile['bank_account']"><{$profile['bank_account']}></if>" placeholder="请输入银行卡号"/>
+			<div style="clear: both;"></div>
+		</div>
+		<div class="modify">
+			<span>支付宝账号：</span>
+			<input class="modify_i" type="text" name="alipay" value="<if condition="$profile['alipay']"><{$profile['alipay']}></if>" placeholder="请输入支付宝账号"/>
+			<div style="clear: both;"></div>
+		</div>
+		<div class="modify">
+			<span>微信号：</span>
+			<input class="modify_i" type="text" name="wechat" value="<if condition="$profile['wechat']"><{$profile['wechat']}></if>" placeholder="请输入微信号"/>
+			<div style="clear: both;"></div>
+		</div>
+
+	</div>
+</div>
+<div style="clear: both;margin-bottom:10px;"></div>
+<div class="padding text-right ui-dialog-footer">
+	<input type="submit" name="dosubmit" value="确定" class="button bg-main"/>
+	<input type="button" name="button" value="取消" class="button margin-left bg-gray" data-back="false"/>
+</div>
+</form>
+
+<script type="text/javascript">
+	$(function(){
+		try {
+			var dialog = top.dialog.get(window);
+		} catch (e) {
+			alert('请勿非法访问');
+			return;
+		}
+		var $val=$("input[type=text]").first().val();
+		$("input[type=text]").first().focus().val($val);
+		var form_member_update = $("form[name='member_uppdate']").Validform({
+			ajaxPost:true,
+			dragonfly:true,
+			callback:function(ret) {
+				dialog.title(ret.message);
+				if(ret.status == 1) {
+						dialog.close(ret);
+						dialog.remove();
+				}
+				return false;
+			}
+		})
+
+		$('input[type=button]').live('click', function () {
+			dialog.close();
+			dialog.remove();
+			return false;
+		})
+	})
+</script>
+

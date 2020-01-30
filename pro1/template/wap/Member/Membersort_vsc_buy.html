@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+	<meta http-equiv="X-UA-Compatible" content="ie=edge">
+	<title><{:L('toudan0')}></title>
+	<link rel="stylesheet" href="__TMPL__/hb/public/mui/css/mui.min.css">
+	<link rel="stylesheet" href="__TMPL__/hb/public/swiper/css/swiper.min.css">
+	<include file="template/wap/Public/base.html" />
+	<style>
+		html , body{
+			background-color: #fff;
+		}
+		.xfmzc{
+			height: 100%;
+			padding-top: 0.64rem;
+		}
+		.content {
+			margin: 0 .18rem;
+			margin-top: .15rem;
+		}
+		.input-wrapper {
+			position: relative;
+			display: flex;
+			align-items: center;
+			margin-bottom: .15rem;
+			padding: .23rem .15rem;
+			border: 1px solid #F2902D;
+			font-size: 0;
+			border-radius: .08rem;
+			box-shadow: 0px 3px 8px 0px rgba(249,175,45,0.26);
+		}
+		input {
+			font-size: 0;
+			border: 0;
+			outline: none;
+		}
+		.input-wrapper .title{
+			flex: 0 0 .8rem;
+			white-space: nowrap;
+			font-size: .18rem;
+			color: #333333;
+			height: .18rem;
+		}
+		.input-wrapper input {
+			flex: 1;
+			font-size: .15rem;
+			color: #333333;
+			margin: 0;
+			border: 0;
+			padding-top:0;
+			padding-bottom: 0;
+			height: .18rem;
+		}
+		.input-wrapper input.right {
+			flex: 1;
+			font-size: .15rem;
+			color: #333333;
+			text-align: right;
+		}
+		.input-wrapper input::placeholder {
+			font-size: .15rem;
+			color: #666666;
+		}
+		.tips {
+			color: #EA452C;
+			font-size: .13rem;
+			margin-left: .05rem;
+		}
+		.submit {
+			padding: .12rem 0;
+			margin-top: .54rem;
+			width: 100%;
+			font-size: .18rem;
+			line-height: .18rem;
+			color: #fff;
+			background:linear-gradient(107deg,rgba(232,53,44,1) 0%,rgba(243,154,45,1) 100%);
+			border-radius:.20rem;
+			text-align: center;
+		}
+        #kuang_type{
+			width: 57%;
+    		right: 52px;
+    		top: 11px;
+
+		}
+        #danwei{
+			font-size: .15rem;
+			color: #666;
+			position: absolute;
+			right: .28rem;
+			top: .22rem;
+
+		}
+		.xfmzc-record {
+			position: absolute;
+			right: 12px;
+			top: 26px;
+			z-index: 9999999;
+			font-size: 14px;
+			color: #fff;
+		}
+		.xfmzc-record a{
+			color: #fff;
+		}
+		.space {
+			padding: .10rem 0;
+			color: rgba(232,53,44,1);
+		}
+	</style>
+</head>
+<body>
+<!-- 引入头部 -->
+<include file="template/wap/Public/header.html" />
+<div class="xfmzc-record"><a href="<{:U('Member/memberSort/vsclist')}>"><{:L('toudan6')}></a></div>
+<div class="xfmzc">
+	<div class="content">
+		<div class="space"><{:L('toudan7')}>: 200 - 10000</div>
+		<div class="input-wrapper">
+			<span class="title"><{:L('toudan1')}>:</span>
+			<div id="danwei">USDT</div>
+			<input id="buyprice">
+		</div>
+		<div class="input-wrapper">
+			<span class="title"><{:L('toudan2')}></span>
+			<input class="right" type="password" placeholder="<{:L('toudan2')}>" id="pay-psd"/>
+		</div>
+		<div class="tips"><{:L('toudan3')}><br><{:L('toudan4')}></div>
+		<div class="submit"><{:L('toudan5')}></div>
+	</div>
+
+</div>
+</body>
+	<script type="text/javascript">
+        var data_money="";
+        var kuang_type="";
+        var type="";
+        var reg = /(^[1-9]\d*$)/;
+		var min = 200;
+		var max = 10000;
+		var toggleClick = true;
+		$('.submit').on('click',function(){
+			if(!toggleClick) {
+				return false;
+			}
+			toggleClick = false;
+			buyprice=$("#buyprice").val();
+            var number=1;
+
+			var type=2;
+			var pwd=$("#pay-psd").val();
+
+			if(buyprice < min || buyprice > max) {
+				toggleClick = true;
+				return layer.msg('<{:L('toudan8')}>')
+			}
+
+			$.post('<{:U("Member/memberSort/vsc_buy")}>', {'number':1,'pwd':pwd,'type':type,'buyprice':buyprice}, function (data) {
+				toggleClick = true;
+				if (data.status == '0') {
+					layer.msg(data.message);
+				} else {
+					layer.msg(data.message);
+					setTimeout(function() {
+						location.href="<{:U('Member/memberSort/vsclist')}>";
+					}, 2000)
+
+				}
+			}, 'json')
+		})
+	</script>
+</html>

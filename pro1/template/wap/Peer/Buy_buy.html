@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+	<meta charset="UTF-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	<meta http-equiv="X-UA-Compatible" content="ie=edge" />
+	<title>买入</title>
+	<link rel="stylesheet" type="text/css" href="__TMPL__/TKSC/asset/font-awesome/css/font-awesome.min.css"/>
+	<link rel="stylesheet" type="text/css" href="__TMPL__/TKSC/css/iconfont.css"/>
+	<link rel="stylesheet" type="text/css" href="__TMPL__/TKSC/css/style.css"/>
+	<link rel="stylesheet" type="text/css" href="__TMPL__/TKSC/css/common.css"/>
+	<script src="__TMPL__/TKSC/asset/jquery-3.1.1.min.js" type="text/javascript" charset="utf-8"></script>
+	<script type="text/javascript" src="__TMPL__TKSC/js1/gboy.js"></script>
+</head>
+<body>
+<div class="lp-header bg-theme">
+	<a href="<{:U('trade/home',array('type'=>$type,'acc_type'=>$acc_type))}>" class="lp-back fa fa-angle-left fl"></a>
+	<h1 class="title">发布买入<?php if($type == 0 ){echo "认购HM";}elseif($type == 1){echo "奖励HM";}elseif($type == 2){echo "USD";}?></h1>
+</div>
+<style>
+	.bg-unnder{ color: black!important;}
+</style>
+<div class="index-bg"></div>
+<div class="lp-content  bg-unnder">
+	<div class="bg-theme chart-header pb70">
+		<div class="flex pcol10">
+			<if condition="$type eq '0'">
+            <div class="flex-item">
+                <p class="ellipsis f-lightbrown3"><{$money_finance['member_bi']|default='0.0000'}></p>
+                <p class="ellipsis f-lightbrown4">认购HM</p>
+            </div>
+            </if>
+            <if condition="$type eq '1'">
+            <div class="flex-item">
+                <p class="ellipsis f-lightbrown3"><{$money_finance['member_z_bi']|default='0.0000'}></p>
+                <p class="ellipsis f-lightbrown4">奖励HM</p>
+            </div>
+            </if>
+            <if condition="$type eq '2'">
+            <div class="flex-item">
+                <p class="ellipsis f-lightbrown3"><{$money_finance['money']|default='0.0000'}></p>
+                <p class="ellipsis f-lightbrown4">USD</p>
+            </div>
+            </if>
+		</div>
+	</div>
+	<div class="mt-70">
+		<div class="lp-card section-o">
+			<div class="pd20">
+				<form action="" class="pushOrder-form" method="post">
+					<if condition="$type eq '0' || $type eq '1'">
+						<p class="ellipsis row">当前价格：<span class="f-pink" id="pirceOrigin"><{$p_open_price}></span></p>
+						<input type="hidden" name="price" id="price" value="<{$usd_price}>">
+						<elseif condition="$type eq '2'" />
+						<p class="ellipsis row">当前价格：<span class="f-pink" id="pirceOrigin"><{$usd_price}></span></p>
+						<input type="hidden" name="price" id="price" value="<{$usd_price}>">
+					</if>
+					<!--<div class=" flex-justify ">-->
+						<!--<p class="ellipsis row">购买价格：<span id="pirceEnd"><{:C('p_open_price')}></span></p>-->
+
+
+						<!--<div class=" range-group">-->
+							<!--<p class="ellipsis tc range-top"><span class="range-result">0</span>%</p>-->
+							<!--<div class="flex-justify">-->
+								<!--<button class="btn btn-range" type="button" range-type="btn-min">-</button>-->
+								<!--<input class="range" type="range" maxlength="100" value="0" />-->
+								<!--<button class="btn btn-range" type="button" range-type="btn-add">+</button>-->
+							<!--</div>-->
+						<!--</div>-->
+					<!--</div>-->
+					<div class="input-group  un-border-group row">
+							<span class="input-group-addon pd0"  >
+								购买数量：
+							</span>
+						<input type="text" style="    background-color: transparent;
+    color: #e0c493;" class="input" name="num" placeholder="输入购买数量" id="pirceNum" />
+					</div>
+					<p class="ellipsis row" >购买总额：<span id="pirceCount">0.0000</span></p>
+					<div class="input-group  un-border-group row">
+							<span class="input-group-addon pd0"  >
+								购买账户：
+							</span>
+						<!--<select name="account_type">-->
+						<!--<option selected="selected" value="0">ATS</option>-->
+						<!--<option value="1">E P</option>-->
+						<!--</select>-->
+						<?php if($type == 0){?>
+						<p class="ellipsis row"><span></span>认购HM</p>
+						<input type="hidden" name="account_type" value="0">
+						<?php }?>
+						<?php if($type == 1){?>
+						<p class="ellipsis row"><span></span>奖励HM</p>
+						<input type="hidden" name="account_type" value="1">
+						<?php }?>
+						<?php if($type == 2){?>
+						<p class="ellipsis row"><span></span>USD</p>
+						<input type="hidden" name="account_type" value="2">
+						<?php }?>
+					</div>
+					<div class="mt50 mb20">
+						<button class="btn btn-theme fill-block" data-event="submit">确认发布</button>
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
+</div>
+<script type="text/javascript">
+    var oPirceEnd = $("#pirceEnd"),
+        oPirceCount = $("#pirceCount"),
+        oPirceOrigin = $("#pirceOrigin"),
+        oPirceNum = $("#pirceNum"),
+        pirceFlag = 5;
+
+    $(".btn-range").on("click", function () {
+        var range = $(this).parents(".range-group").find(".range");
+        var result = $(this).parents(".range-group").find(".range-result");
+        var value = range.val();
+        var type = $(this).attr("range-type");
+        value = parseInt(value);
+        if(type == "btn-add"){
+            range.val(value + pirceFlag);
+        }else{
+            range.val(value - pirceFlag);
+        }
+        range.trigger('change');
+    })
+
+    $(".range").on("change",function () {
+        var result = $(this).parents(".range-group").find(".range-result");
+        result.text($(this).val());
+        getPrice.call($(this));
+        getCount();
+    })
+
+    function getPrice() {
+        var pirceOrigin = oPirceOrigin.text();
+        var ratio = $(this).val() * 0.01 + 1;
+        oPirceEnd.text((pirceOrigin * ratio).toFixed(4)) ;
+        $("#price").val((pirceOrigin * ratio).toFixed(4));
+    }
+
+    function getCount() {
+        var pirceNum = oPirceNum.val();
+        var PirceOrigin = oPirceOrigin.text();
+        var type = "<{$type}>";
+            oPirceCount.text((PirceOrigin * pirceNum).toFixed(4));
+    }
+    oPirceNum.on("input",getCount);
+</script>
+</body>
+</html>

@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>购物车</title>
+    <link rel="stylesheet" href="__TMPL__/hb/public/start.css">
+    <link rel="stylesheet" href="__TMPL__/hb/css/buycart.css">
+    <link rel="stylesheet" href="__TMPL__/hb/css/common.css">
+    <link rel="stylesheet" href="__TMPL__/hb/public/mui/css/mui.min.css">
+    <link rel="stylesheet" href="__TMPL__/hb/css/gboy.css">
+    <script type="text/javascript" src="__TMPL__/js/jquery-3.2.1.min.js"></script>
+    <script type="text/javascript" src="__TMPL__/js/gboy.js"></script>
+    <script type="text/javascript" src="__TMPL__/js/gboy.cart.js"></script>
+    <script type="text/javascript" src="__ROOT__/statics/js/layer/layer.min.js"></script>
+	<style>
+		.pay a{
+			color:#fff;
+		}
+	</style>
+</head>
+
+<body>
+<!-- 顶栏 -->
+<header id="header" class="mui-bar mui-bar-nav">
+    <a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left" href="<{:U('home/index/shop')}>"></a>
+    <h1 class="mui-title">购物车</h1>
+   
+</header>
+<!-- 区域内容 -->
+<div class="mui-scroll-wrapper">
+    <div class="mui-scroll">
+        <!-- 商品 -->
+        <div class="goods">
+            <ul>
+                <volist name="goods_info" id="foo">
+                    <volist name="foo['sku_list']" id="fooo">
+                        <!--<?php print_r($fooo);?>-->
+                    <li>
+                        <div class="mui-input-row mui-checkbox mui-left">
+                            <label>
+                                <img class="detail" src="<{$fooo['_sku_']['thumb']}>" alt="">
+                                <div class="content content01">
+                                    <span class="cansel" data-event="delpro" data-skuids="<{$fooo['_sku_']['sku_id']}>">删除</span>
+                                    <div class="name"><{$fooo['_sku_']['sku_name']}></div>
+                                    <div class="tag">
+                                        <!--<span>颜色：浅蓝</span>-->
+                                        <!--<span>尺码：M</span>-->
+                                    </div>
+                                    <div class="value">
+                                        <span>
+                                          <i id="num" data-price="<{$fooo['_sku_']['shop_price']}>">￥<{$fooo['_sku_']['shop_price']}></i>
+
+                                        </span>
+                                        <div class="">
+                                            <div class="mui-numbox" data-numbox-min="1" data-numbox-max="9">
+
+
+                                                <button class="mui-btn mui-btn-numbox-minus" type="button" data-event="number" data-skuids="<{$fooo['_sku_']['sku_id']}>" data-adjust="reduce">-</button>
+                                                <input class="mui-numbox-input" type="text" data-id="buy-num" name="number" data-skuids="<{$fooo['_sku_']['sku_id']}>" value="<{$fooo['number']}>">
+                                                <button class="mui-btn mui-btn-numbox-plus" type="button" data-event="number" data-skuids="<{$fooo['_sku_']['sku_id']}>" data-adjust="add">+</button>
+
+
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </label>
+                            <!--<input name="checkbox" value="Item 1" type="checkbox">-->
+                        </div>
+                    </li>
+                    </volist>
+                </volist>
+
+            </ul>
+        </div>
+
+    </div>
+</div>
+</div>
+<!-- 结算 -->
+<section class="pay">
+    <div class="mui-input-row mui-checkbox mui-left">
+        <label>
+            <!--<span>全选</span>-->
+            <span>合计<i>￥</i><b data-id="totle" id="total-price"><{$all_prices}></b></span>
+        </label>
+        <div class="btn">
+            <if condition="$status">
+                <a class="divline widthp100 l50"  href="javascript:void(0);" onclick="alert('不可重复购买！');" >结算</a>
+            <else/>
+                <a href="<{:U('order/cart/settlement',array('cart_type'=>'cart_info_to'))}>" class="divline widthp100 l50" data-id='sku-numbers'>结算</a>
+            </if>
+
+        </div>
+        <!--<input name="checkbox1" value="Item 1" type="checkbox">-->
+    </div>
+</section>
+<!-- 删除 -->
+<section class="del" style="display:none">
+    <!--<div class="mui-input-row mui-checkbox mui-left">-->
+        <!--<label>-->
+            <!--<span>全选</span>-->
+
+            <!--<span>合计<i>￥</i><b ></b></span>-->
+        <!--</label>-->
+        <!--<div class="btn">删除</div>-->
+        <!--<input name="checkbox1" value="Item 1" type="checkbox">-->
+    <!--</div>-->
+</section>
+<!-- 底部 -->
+<include file="template/wap/Public/footer.html" />
+<!--<script src="__TMPL__/hb/public/mui/js/mui.min.js"></script>-->
+
+<script src="__TMPL__/hb/js/buycart.js"></script>
+</body>
+
+</html>
+<script>
+   
+</script>

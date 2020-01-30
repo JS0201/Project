@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>互转钱包地址</title>
+    <include file="template/wap/Public/title.html" />
+
+    <link rel="stylesheet" type="text/css" href="__TMPL__/vsc/css/rechargeonline.css"/>
+</head>
+<body>
+<!--头部-->
+<header class="prow15 pt15 pb16 bgcolortheme03 flex">
+    <div class="header-left percent20">
+        <span class="iconfont icon-fanhui1 c-fff left-back fs20"></span>
+    </div>
+    <div class="header-middle percent60 tac c-fff fs16 fw-b">
+        互转钱包地址
+    </div>
+</header>
+<!--头部-----------------------end-->
+
+<!--提取form-->
+<div class="prow15 pb32">
+    <form action="" method="post">
+        <div class="input-group posi-rela">
+            <label for="" class="divline pt20 pb10 colortheme01 fs16">钱包地址</label>
+             <input type="text" class="calc120 inputbg  bgcolorrgba03 ellipsis pr130" name="" id="foo1" value="<{$address}>" placeholder="请输入钱包地址"/>
+            <span class="iconright width100 copy tac height40 posi-abso" data-clipboard-target="#foo1" data-clipboard-action="copy" onclick="">复制地址</span>
+        </div>
+
+    </form>
+</div>
+<!--提取form-----------------------end-->
+
+
+</body>
+
+<script src="__TMPL__/vsc/js/layer.js" type="text/javascript" charset="utf-8"></script>
+<script src="__TMPL__/vsc/js/clipboard.min.js"></script>
+
+<script type="text/javascript">
+    var clipboard = new ClipboardJS('.copy');
+
+    clipboard.on('success', function(e) {
+        console.log(e);
+        alert("复制成功")
+    });
+
+    clipboard.on('error', function(e) {
+        console.log(e);
+    });
+    //点击返回上一页
+    $("header .left-back").off().on("click",function(){
+        window.history.back(-1);
+        console.log(0)
+    })
+
+
+
+
+</script>
+</html>
+

@@ -1,0 +1,148 @@
+<include file="Admin@Public/header" />
+
+<div class="fixed-nav layout">
+	<ul>
+		<li class="first">会员等级参数</li>
+
+	</ul>
+	<div class="hr-gray"></div>
+</div>
+<form action="<{:U('save')}>" method="POST" enctype="multipart/form-data">
+	<div class="content padding-big have-fixed-nav">
+		<div class="content-tabs ">
+			<div class="hidden"><input type="hidden" name="id" value="<?php echo $_GET['id']; ?>"></div>
+			<div class="form-box clearfix">
+				<?php echo \Org\Util\Form::input('text', 'name', $info['name'] ? $info['name'] : '', '等级名称：', '等级名称'); ?>
+			</div>
+			<div class="form-box clearfix">
+				<?php echo \Org\Util\Form::input('text', 'money', $info['money'] ? $info['money'] : '', '入单金额：', '入单金额'); ?>
+			</div>
+			<div class="form-box clearfix">
+				<?php echo \Org\Util\Form::input('text', 'zincome', $info['zincome'] ? $info['zincome'] : '', '杠杆倍数：', '杠杆倍数'); ?>
+			</div>
+            <div class="form-box clearfix">
+                <?php echo \Org\Util\Form::input('text', 'share_rate', $info['share_rate'] ? $info['share_rate'] : '', '无限分享比例：', '无限分享比例'); ?>
+            </div>
+            <div class="form-box clearfix">
+                <?php echo \Org\Util\Form::input('text', 'date_rate', $info['date_rate'] ? $info['date_rate'] : '', '日释放比例：', '日释放比例'); ?>
+            </div>
+            <div class="form-box clearfix">
+                <?php echo \Org\Util\Form::input('text', 'zt_rate', $info['zt_rate'] ? $info['zt_rate'] : '', '直推动态奖励比例：', '直推动态奖励比例'); ?>
+            </div>
+            <div class="form-box clearfix">
+                <?php echo \Org\Util\Form::input('text', 'zt_speed_rate', $info['zt_speed_rate'] ? $info['zt_speed_rate'] : '', '直推加速释放比例：', '直推加速释放比例'); ?>
+            </div>
+            <div class="form-box clearfix">
+                <?php echo \Org\Util\Form::input('text', 'to_usdt_rate', $info['to_usdt_rate'] ? $info['to_usdt_rate'] : '', '释放到提现钱包比例：', '释放到提现钱包比例'); ?>
+            </div>
+            <div class="form-box clearfix">
+                <?php echo \Org\Util\Form::input('text', 'to_bocai_rate', $info['to_bocai_rate'] ? $info['to_bocai_rate'] : '', '释放到博彩码比例：', '释放到博彩码比例'); ?>
+            </div>
+            <div class="form-box clearfix">
+                <?php echo \Org\Util\Form::input('text', 'to_shop_rate', $info['to_shop_rate'] ? $info['to_shop_rate'] : '', '释放到商城码比例：', '释放到商城码比例'); ?>
+            </div>
+            <div class="form-box clearfix">
+                <?php echo \Org\Util\Form::input('text', 'to_futou_rate', $info['to_futou_rate'] ? $info['to_futou_rate'] : '', '释放到复投码比例：', '释放到复投码比例'); ?>
+            </div>
+		<!--	<div class="form-box clearfix">
+				<?php echo \Org\Util\Form::input('text', 'day_income', $info['day_income'] ? $info['day_income'] : '', '矿机每日收益：', '矿机每日收益'); ?>
+			</div>
+			<div class="form-box clearfix">
+				<?php echo \Org\Util\Form::input('text', 'one', $info['one'] ? $info['one'] : '', 'A级直推获得的加速天数：', 'A级直推获得的加速天数'); ?>
+			</div>
+			<div class="form-box clearfix">
+				<?php echo \Org\Util\Form::input('text', 'two', $info['two'] ? $info['two'] : '', 'B级直推获得的加速天数：', 'B级直推获得的加速天数'); ?>
+			</div>
+			<div class="form-box clearfix">
+			<?php echo \Org\Util\Form::input('text', 'three', $info['three'] ? $info['three'] : '', 'C级直推获得的加速天数：', 'C级直推获得的加速天数'); ?>
+			</div>
+			<div class="form-box clearfix">
+				<?php echo \Org\Util\Form::input('text', 'four', $info['four'] ? $info['four'] : '', 'D级直推获得的加速天数：', 'D级直推获得的加速天数'); ?>
+			</div>
+			<div class="form-box clearfix">
+				<?php echo \Org\Util\Form::input('text', 'five', $info['five'] ? $info['five'] : '', 'E级直推获得的加速天数：', 'E级直推获得的加速天数'); ?>
+			</div>
+			<div class="form-box clearfix">
+				<?php echo \Org\Util\Form::input('text', 'six', $info['six'] ? $info['six'] : '', 'F级直推获得的加速天数：', 'F级直推获得的加速天数'); ?>
+			</div>
+
+			<div class="form-box clearfix">
+				<?php echo \Org\Util\Form::input('text', 'cap', $info['cap'] ? $info['cap'] : '', '每日小区产币算力', '每日小区产币算力'); ?>
+			</div>-->
+
+
+		</div>
+		<div class="padding">
+			<input type="submit" class="button bg-main" value="保存" name="dosubmit" />
+			<input type="button" class="button margin-left bg-gray" value="返回" />
+		</div>
+	</div>
+</form>
+<script>
+    var editor = UE.getEditor('content');
+    $("input[name=parent]").attr("readonly","readonly");
+    $("input[name=parent]").live('click',function(){
+
+        var data = $(this).attr('data-ids');
+        top.dialog({
+            url: '<{:U('category_choose',array('type'=>'category'))}>&formhash='+formhash,
+            title: '加载中...',
+            width: 930,
+            data:data,
+            onclose: function () {
+                if(this.returnValue){
+                    $("input[name=parent]").attr('data-ids',this.returnValue.split("category_ids=")[1].split(',').reverse());
+                    $("#choosecat").val(html_encode(this.returnValue,0));
+                    $("input[name=parent_id]").val(html_encode(this.returnValue,1));
+                }
+            }
+        })
+            .showModal();
+    })
+    //选择分类操作
+    function html_encode(str,i){
+        str = str.split("category_ids=")[i];
+        if(i == 1){
+            var id = "<?php echo $_GET['id']?>";
+            var arr_str = str.split(",");
+            if(arr_str[arr_str.length-1] == id){
+                return;
+            }
+            return arr_str[arr_str.length-1];
+        }
+        str = str.replace(/&gt;/g, ">");
+        str = str.replace(/&lt;/g, "<");
+        str = str.replace(/&gt;/g, ">");
+        str = str.replace(/&nbsp;/g, " ");
+        str = str.replace(/&#39;/g, "\'");
+        str = str.replace(/&quot;/g, "\"");
+        return str;
+    }
+
+    function select_tpl(modelid,id){
+        $.post('<{:U('select_tpl')}>','modelid='+modelid+'&id='+id+'&formhash='+formhash,function(data){
+
+            $('input[name="category_template"]').val(data['category_tpl']);
+            $('input[name="list_template"]').val(data['list_tpl']);
+            $('input[name="show_template"]').val(data['show_tpl']);
+        },'json');
+    }
+    $(function(){
+        //模板选择
+        $('.listbox-items').click(function(){
+            var modelid=$('input[name="modelid"]').val();
+            select_tpl(modelid,'');
+        });
+
+        //加载模板
+    <if condition="ACTION_NAME eq 'add'">
+            select_tpl(<{$info['modelid']|default='1'}>,<{$_GET['parent_id']}>);
+
+    <else/>
+        select_tpl(<{$info['modelid']|default='1'}>,<{$info['id']}>);
+
+    </if>
+    })
+</script>
+</body>
+</html>

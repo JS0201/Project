@@ -1,0 +1,74 @@
+<include file="Admin@Public/header" />	
+<form action="<?php echo U('uppdate')?>" method="post" name="member_uppdate">
+<input type="hidden" name="id" value="<?php echo $_GET['id']; ?>">
+<input type="hidden" name="formhash" value="<?php echo FORMHASH ?>">
+<div class="edit-user-info">
+	<div class="table layout border-none clearfix">
+		<div class="tr top-tr">
+			<div class="layout bg-white padding-left"><b>总共币</b></div>
+
+		</div>
+		<div class="tr">
+			<div class="td w65" style="padding-left: 15px;">
+				<input class="input" type="text" name="money" value="" placeholder="请输入总共币，如：10"  datatype="/^\d+(\.\d+)?$/" ignore="ignore"/>
+			</div>
+		</div>
+
+		<div class="tr itop-tr" >
+			<div class="layout bg-white padding-left"><b>返回周期</b></div>
+		</div>
+		<div class="tr">
+			<div class="td w65" style="padding-left: 15px;">
+				<input class="input" type="text" name="day_day" value="7" placeholder="请输入返回周期，如：7" datatype="n" ignore="ignore"/>
+			</div>
+		</div>
+
+		<div class="tr itop-tr">
+			<div class="layout bg-white padding-left"><b>总共返几周</b></div>
+		</div>
+		<div class="tr">
+			<div class="td w65" style="padding-left: 15px;">
+				<input class="input" type="text" name="card" value="200" placeholder="请输入总共返几周，如：10" datatype="n" ignore="ignore"/>
+			</div>
+		</div>
+
+	</div>
+</div>
+
+<div class="padding text-right ui-dialog-footer">
+	<input type="submit" name="dosubmit" value="确定" class="button bg-main"/>
+	<input type="button" name="button" value="取消" class="button margin-left bg-gray" data-back="false"/>
+</div>
+</form>
+
+<script type="text/javascript">
+	$(function(){
+		try {
+			var dialog = top.dialog.get(window);
+		} catch (e) {
+			alert('请勿非法访问');
+			return;
+		}
+		var $val=$("input[type=text]").first().val();
+		$("input[type=text]").first().focus().val($val);
+		var form_member_update = $("form[name='member_uppdate']").Validform({
+			ajaxPost:true,
+			dragonfly:true,
+			callback:function(ret) {
+				dialog.title(ret.message);
+				if(ret.status == 1) {
+						dialog.close(ret);
+						dialog.remove();
+				}
+				return false;
+			}
+		})
+
+		$('input[type=button]').live('click', function () {
+			dialog.close();
+			dialog.remove();
+			return false;
+		})
+	})
+</script>
+

@@ -1,0 +1,77 @@
+body,html{
+  background-color: #fff;
+}
+.mui-bar{background-color:transparent}
+.mui-title{font-size:18px}
+.qr{
+ 
+  padding: 0 30px;
+  display: flex;
+  flex-direction: column;
+  text-align:center
+}
+
+.qr .head{
+  color: #999999;
+  font-size: 15px;
+}
+.qr img{
+  width: 155px;
+  height: 155px;
+  margin: 35px auto 0;
+}
+.qr .tip{
+  margin-top: 20px;
+  color: #666666;
+  font-size: 12px;
+  text-align: center;
+}
+.qr .address{
+  margin-top: 10px;
+  display: flex;
+  color: #CCCCCC;
+  font-size: 18px;
+  justify-content: space-between;
+}
+.qr input{
+  flex: 1;
+}
+.qr .btn{
+ 
+  font-size: 18px;
+}
+
+/*选项卡*/
+.mt44{
+  margin-top:44px;}
+.bgcgray04 {
+  background-color: #f5f5f5;
+}
+.tab .flex .flex-item span.active {
+  display: inline-block;
+  color: #e19e47;
+  border-bottom: 2px solid #e19e47;
+}
+.tab-content .tab-detail:not(:first-child) {
+  display: none;
+}
+.header-right{width:24px;height:24px}
+/*内部互转地址*/
+.body-bg{
+	min-height:100vh;
+	background-color:transparent;
+	background:url(../img/my/address-bg.jpg) no-repeat;
+	background-size:100% 100%
+}
+.mui-bar-nav{box-shadow:none}
+.pt145{padding-top:24vh}
+.mui-bar-nav.mui-bar .mui-icon{color:#fff}
+input::-webkit-input-placeholder{color:#aaaeeb;}
+.homeaddress-input{background-color:transparent;font-size:15px;color:#aaaeeb}
+.coloryellow01{color:#e5851f}
+
+
+
+
+
+

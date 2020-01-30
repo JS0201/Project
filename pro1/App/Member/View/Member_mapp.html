@@ -1,0 +1,66 @@
+<include file="Admin@Public/header" />	
+<link href="__ROOT__/statics/js/ztree/ztreestyle.css" rel="stylesheet" type="text/css" />
+<script src="__ROOT__/statics/js/ztree/jquery.ztree-2.6.js"></script>
+<script type="text/javascript">
+    var zTree;
+    var demoIframe;
+    //setting 是 zTree 的全部设置参数集合，采用 JSON 结构，便于灵活配置
+    var setting = {
+    isSimpleData: true,
+            treeNodeKey: "id", //设置节点唯一标识属性名称
+            treeNodeParentKey: "pid", //设置节点的父节点唯一标识属性名称
+
+            //nameCol: "name",           //设置 zTree 显示节点名称的属性名称,此处默认为Name
+            expandTriggerFlag:true,
+            showLine: true, //在树型中是否显示线条样式
+            root: {                    //zTree数据节点的根，全部节点数据都处于 root.nodes 内
+            isRoot: true,
+                    nodes: []
+            },
+            async: true,
+            asyncUrl: "<{:U('mapp',array('ac'=>'ajax'))}>&time=" + Math.random(),
+            asyncParam: ["id"], //异步调用时传到后台的参数
+            callback: {
+            asyncSuccess: zTreeOnAsyncSuccess
+            }
+    };
+    var treeNodes = <{$arr | json_encode}>;
+            
+
+    $(document).ready(function () {
+    
+            zTree = $("#treeid").zTree(setting, treeNodes);
+       
+    });
+    
+    function zTreeOnAsyncSuccess(event, treeId, treeNode, msg) {
+
+        $('.load_text').remove();
+
+     }
+            
+            
+            
+            
+</script>
+<div class="fixed-nav layout">
+    <ul>
+        <li class="first">会员推荐图<a id="addHome" title="添加到首页快捷菜单">[+]</a></li>
+        <li class="spacer-gray"></li>
+    </ul>
+    <div class="hr-gray"></div>
+</div>
+ 
+<div class="table-edit" style="padding-top:50px;">
+        <div>
+            <div class="load_text"><img src="__ROOT__/statics/images/loading.gif"> 加载中...</div>
+            <ul id="treeid" class="tree" style="width: 100%; height: 100%; overflow: auto;">
+                 
+            </ul>
+        </div>
+
+    </div>
+
+
+</body>
+</html>

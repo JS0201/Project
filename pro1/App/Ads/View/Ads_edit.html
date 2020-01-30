@@ -1,0 +1,40 @@
+<include file="Admin@Public/header" />	
+		<div class="fixed-nav layout">
+			<ul>
+				<li class="first">广告设置</li>
+				<li class="spacer-gray"></li>
+				
+			</ul>
+			<div class="hr-gray"></div>
+		</div>
+		<form action="<{:U('send')}>" method="POST" enctype="multipart/form-data">
+		<div class="content padding-big have-fixed-nav">
+			<div class="hidden">
+				<input type="hidden" name="id" value="<?php echo $info['id']?>" />
+			 
+			</div>
+
+			<div class="form-box clearfix">
+			   <?php echo \Org\Util\Form::input('text', 'title', $info['title'], '广告名称：', '请输入广告名称'); ?>
+			   <?php echo \Org\Util\Form::input('select', 'position_id', $info['position_id'], '广告位：', '请选择广告位',array('items'=>$position_format['items']), array('datatype' => '*')); ?>
+			   <?php echo \Org\Util\Form::input('file', 'thumb',$info['thumb'], '广告图片：','请选择广告图片');?>
+			   <?php echo \Org\Util\Form::input('text', 'link', $info['link'], '链接地址：', '请输入链接地址(http://www.baidu.com)'); ?>
+			   <?php echo \Org\Util\Form::input('text', 'sort', $info['sort'] ? $info['sort'] : 100 , '排序：', '请填写自然数，友情链接会根据排序进行由小到大排列显示'); ?>
+				<?php echo \Org\Util\Form::input('radio', 'status', isset($info['status']) ? $info['status']:1, '是否显示：', '是否在前台显示', array('items' => array('1'=>'开启', '0'=>'关闭'), 'colspan' => 2,)); ?>
+			 
+			   
+			</div> 
+			
+			<div class="padding">
+				<input type="submit" class="button bg-main" value="保存" name="dosubmit"/>
+				<input type="button" class="button margin-left bg-gray" value="返回" />
+			</div>
+		</div>
+		</form>
+		<script>
+		 $(function(){
+			if($('input[name="position_id"]').val()=='')$('.listbox-items span:eq(0)').trigger('click');
+		 })
+		</script>
+	</body>
+</html>

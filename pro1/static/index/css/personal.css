@@ -1,0 +1,930 @@
+/*个人主页面样式*/
+.personalbg{
+	background: #05121A;
+}
+.personalbg header{
+	width: 100%;
+	padding-top: 0.35rem;
+	position: relative;
+}
+.personalbg header i{
+	position: absolute;
+	display: block;
+	width: 0.3rem;
+	height: 0.3rem;
+	top:0.1rem;
+	right: 0.2rem;
+	color: #FFFFFF;
+	font-size: 0.2rem;
+	text-align: center;
+	line-height: 0.3rem;
+}
+.personalbg header article{
+	width: 0.6rem;
+	height: 0.6rem;
+	border-radius:50% ;
+	margin: 0 auto;
+	border: 0.03rem solid #ccc9c6;
+}
+.personalbg header article img{
+	width: 100%;
+	height: 100%;
+	border-radius:50% ;
+}
+
+.personalbg header .cjpt-logo {
+	position: relative;
+	display: inline-block;
+	margin-right: .13rem;
+	margin-left: .06rem;
+	top: 0.05rem;
+    right: 0;
+    width: .77rem;
+    height: .22rem;
+    background: url(/static/index/img/icon-cjyh-logo.png) no-repeat center center;
+    background-size: contain;
+	font-size: 0;
+}
+
+.personalbg header .cjpt-logo.cjpt-logo-zh {
+	background: url(/static/index/img/icon-cjyh-logo.png) no-repeat center center;
+    background-size: contain;
+}
+
+.personalbg header .cjpt-logo.cjpt-logo-en {
+	background: url(/static/index/img/icon-cjyh-logo-en.png) no-repeat center center;
+	background-size: contain;
+	width: 1.04rem;
+}
+
+.personalbg header p{
+	color: #787878;
+	margin: 0;
+}
+.personalbg header p span{
+	font-size: .18rem;
+	vertical-align: middle;
+}
+.personalbg header p:nth-of-type(1){
+	font-size: 0.24rem;
+	color: #D6EEE9;
+	font-weight: 400;
+	margin-left: .07rem;
+}
+.personalbg header p:nth-of-type(2){
+	font-size: 0.15rem;
+	margin-top: 0.17rem;
+	margin-right: .15rem;
+	color: #376758;
+	display: inline-block;
+}
+.personalbg header p:nth-of-type(3){
+	font-size: 0.15rem;
+	margin-top: 0.13rem;
+	color: #376758;
+	display: inline-block;
+}
+.personalbg ul{
+	margin-top:0.29rem ;
+	margin-bottom: .15rem;
+	padding-bottom: .11rem;
+	display: flex;
+	justify-content: center;
+	background: #0A1821;
+	border:1px solid #1C352E;
+	border-radius:9px;
+}
+.personalbg ul li{
+	flex: 1;
+}
+.personalbg ul li section{
+	margin-top:0.15rem ;
+}
+.personalbg ul li:nth-of-type(1) section{
+	border-left:none;
+}
+.personalbg ul li:nth-of-type(4) section{
+	border-right:none ;
+}
+.personalbg ul li section i{
+	display: block;
+	width: 0.50rem;
+	height: 0.44rem;
+	margin: 0 auto;
+	font-size: 0.25rem;
+	line-height: 0.25rem;
+	text-align: center;
+	background-position: center center;
+	background-repeat: center center;
+	background-size: cover;
+}
+.personalbg ul li:nth-of-type(1) section i{
+	background-image: url(/static/index/img/icon-tdsy.png);
+}
+.personalbg ul li:nth-of-type(2) section i{
+	background-image: url(/static/index/img/icon-sqcjpt.png);
+}
+.personalbg ul li:nth-of-type(3) section i{
+	background-image: url(/static/index/img/icon-zjls.png);
+}
+.personalbg ul li:nth-of-type(4) section i{
+	color: #3c9bf3;
+}
+.personalbg ul li section p{
+	text-align: center;
+	font-size: 0.13rem;
+	padding-top: .08rem;
+	color:#D6EEE9;
+	margin: 0;
+}
+.personalbg footer{
+	width: 60%;
+	height: 3.5rem;
+	margin: 0.5rem auto 0 auto;
+	background: url(../img/erweimabg.png) no-repeat;
+	background-size:100% 100% ;
+	padding-top: 0.8rem;
+}
+.personalbg footer .erwema_img{
+	width:1.5rem ;
+	height: 1.5rem;
+	margin: 0 auto;
+}
+.personalbg footer .erwema_img img{
+	width: 100%;
+	height: 100%;
+}
+
+.personalbg .user-index-btn {
+	font-size: 0.15rem;
+	background: #0A1821;
+	border: solid 1px #1C2F35;
+	border-radius:0.03rem;
+	margin-top: .10rem;
+}
+.personalbg .user-index-btn:last-child {
+	margin-bottom: .10rem;
+}
+.personalbg .user-index-btn a {
+	color :#D6EEE9;
+	text-decoration: none;
+}
+
+.personalbg .user-index-btn-p {
+	margin: 0;
+	padding: .13rem;
+	color: #D6EEE9;
+	font-weight:400;
+}
+
+.personalbg .user-index-btn-p i {
+	display: inline-block;
+	width: .20rem;
+	height: .20rem;
+	background-size: cover;
+	background-repeat: no-repeat;
+	background-position: center center;
+	vertical-align: top;
+	margin-right: .11rem;
+}
+.personalbg .user-index-btn-p .icon-smrz {
+	background-image: url(../img/icon-smrz.png)
+}
+.personalbg .user-index-btn-p .icon-czjl {
+	background-image: url(../img/icon-czjl.png)
+}
+.personalbg .user-index-btn-p .icon-lsjl {
+	background-image: url(../img/icon-lsjl.png)
+}
+.personalbg .user-index-btn-p .icon-wfjs {
+	background-image: url(../img/icon-wfjs.png)
+}
+
+.personalbg .user-index-btn-p .icon-sjsq {
+	background-image: url(../img/icon-sjsq.png)
+}
+.personalbg .user-index-btn-p .icon-sbsq {
+	background-image: url(../img/icon-sbsq.png)
+}
+.personalbg .user-index-btn-p .icon-xcwlxz {
+	background-image: url(../img/icon-xcwlxz.png)
+}
+.personalbg .user-index-btn-p .icon-txjl {
+	background-image: url(../img/icon-txjl.png)
+}
+.personalbg .user-index-btn-p .icon-sqcjpt {
+	background-image: url(../img/icon-sqcjpt.png)
+}
+.personalbg .user-index-btn-p .icon-xsjc {
+	background-image: url(../img/icon-xsjc.png)
+}
+.personalbg .user-index-btn-p .icon-xg {
+	background-image: url(../img/icon-xg.png)
+}
+.personalbg .user-index-btn-p .icon-tg {
+	background-image: url(../img/icon-tg.png)
+}
+
+.personalbg .user-index-btn-p span {
+	float: right;
+	color:#2E4D46;
+}
+
+
+
+.personalbg footer p{
+	height: 0.2rem;
+	margin-top: 0.05rem;
+	line-height: 0.2rem;
+	font-size: 0.12rem;
+	text-align: center;
+}
+.personalbg footer p span{
+	margin-right:0.05rem ;
+	color: #d1d1d1;
+}
+.personalbg footer p span i{
+	font-size: 0.12rem;
+}
+
+/* 签约银行 */
+.bank-info-modal{
+	background: #05121A;
+}
+.bank-info-modal ul{
+	margin-top: 0.80rem;
+	width: 100%;
+	height: auto;
+}
+.bank-info-modal ul li{
+	margin: 0 .20rem;
+	margin-top: .15rem;
+	padding: 0 0.20rem;
+	border: 1px solid #0A1821;
+	border-radius:3px;
+	display: flex;
+	flex-wrap: wrap;
+}
+.bank-info-modal ul li span{
+	display: inline-block;
+    vertical-align: middle;
+    height: 0.48rem;
+    font-size: 0.15rem;
+    line-height: 0.48rem;
+    color: #D6EEE9;
+}
+.bank-info-modal ul li input {
+	flex: 1;
+    display: inline-block;
+    vertical-align: middle;
+    border: none;
+    padding: 0;
+    width: 2rem;
+    height: 0.5rem;
+    color: #FFFFFF;
+    background: transparent;
+    font-size: 0.14rem;
+    line-height: 0.48rem;
+	overflow: hidden;
+	text-align: right;
+	background: #0A1821;
+  }
+ .bank-info-modal ul li select{
+ 	vertical-align: middle;
+ 	-webkit-font-smoothing:initial;
+	font-family: arial;
+	color: #FFF;
+	background: transparent;
+	appearance: none;
+    -moz-appearance: none;
+    -webkit-appearance: none;
+	border: 0;
+	outline: none;
+	text-align: right;
+	flex: 1;
+ }
+
+ .bank-info-modal ul li select option {
+	 background: #05121A;
+ }
+/* 个人中心资金流水样式 */
+.order-modal-header{
+	height: 0.3rem;
+}
+.order-modal-header  .title{
+	height: 0.3rem !important;
+	line-height: 0.3rem !important;
+}
+.in_money{
+	color:#FF5347 !important;
+}
+.out_money{
+	color:#6AD56B !important;
+}
+.other_money{
+	color:#3B6ECA !important;
+}
+.in_money_bg{
+	background-color:#fa2e42 !important;
+}
+.out_money_bg{
+	background-color:#1fc65b !important;
+}
+.other_money_bg{
+	background-color: #3B6ECA !important;
+}
+.person_money_list ul{
+	width:100%;
+	color: white;
+	
+}
+.person_money_list ul li{
+    margin: .10rem .15rem 0 .15rem;
+	height: auto;
+	border: 1px solid #1C352E;
+	border-radius: 0.04rem;
+}
+.person_money_list ul li .money_list_header{
+    width: 100%;
+    height:1.02rem;
+    border-radius: 0.1rem;
+    box-shadow: 0 0 2px #000000;
+    background: #0A1821;
+}
+.person_money_list ul li .money_list_header section{
+    display: inline-block;
+    vertical-align: top;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    height:100%;
+}
+.money_list_header section:nth-of-type(1){
+    width: 2%;
+    border-top-left-radius: 0.1rem;
+    border-bottom-left-radius: 0.1rem;
+}
+.money_list_header section:nth-of-type(2){
+    width: 60%;
+    padding: 0.05rem 0.1rem;
+}
+.money_list_header section:nth-of-type(2) p {
+    margin:0;
+    height:0.2rem;
+    line-height: 0.2rem;
+}
+.money_list_header section:nth-of-type(2) p:first-child {
+    font-size: 0.15rem;
+    height:0.3rem;
+    line-height: 0.3rem;
+}
+.money_list_header section:nth-of-type(2) p i{
+	display: inline-block;
+	width: 0.12rem;
+	height: 0.2rem;
+	vertical-align: top;
+    font-size: 0.1rem;
+    text-align: center;
+    line-height: 0.2rem;
+    color: #FDBE19;
+}
+.money_list_header section:nth-of-type(2) p:nth-of-type(2) span{
+	vertical-align: top;
+	display: inline-block;
+	height: 0.2rem;
+	line-height: 0.2rem;
+}
+.money_list_header section:nth-of-type(2) p:nth-of-type(2){
+    color: #D6EEE9;
+    font-size: 0.14rem;
+}
+.money_list_header section:nth-of-type(2) p:nth-of-type(3){
+    color: #D6EEE9;
+    font-size: 0.12rem;
+}
+.money_list_header section:nth-of-type(2) p:nth-of-type(4){
+    color: #36504A;
+    font-size: 0.11rem;
+}
+.money_list_header section:nth-of-type(3){
+    width: 30%;
+    line-height: 0.8rem;
+	font-size: 0.18rem;
+	text-align: right;
+}
+.money_list_header section:nth-of-type(4){
+    width: 7%;
+    font-size: 0.2rem;
+    line-height: 0.8rem;
+    margin-top: 0.3rem;
+}
+
+.person_money_list ul li article{
+    width: 100%;
+    background-color: #1e1e21;
+    display: none;
+    height: 0.4rem;
+    padding-top:0.1rem;
+}
+
+.person_money_list ul li article p{
+    margin: 0 0 0 0.2rem !important;
+    height:0.3rem;
+    font-size: 0.11rem;
+    line-height: 0.14rem;
+    color: #737373;
+}
+
+/*出金弹窗页面样式*/
+.out_money_content{
+	background: #1b1b1d;
+}
+.out_money_content .coldbg{
+	color:#14a17d;
+	background: -webkit-linear-gradient(right, #1db292 , #009eb7); /* Safari 5.1 - 6.0 */
+	background: -o-linear-gradient(right, #1db292 , #009eb7); /* Opera 11.1 - 12.0 */
+	background: -moz-linear-gradient(right, #1db292 , #009eb7); /* Firefox 3.6 - 15 */
+	background: linear-gradient(to right, #1db292 , #009eb7); /* 标准的语法 */
+}
+.out_money_content .coldbg i:nth-of-type(2){
+	color: #40c1bf;
+}
+.out_money_content .hotbg{
+	color:#e60012;
+	background: -webkit-linear-gradient(right, #e2616b , #e64d7b); /* Safari 5.1 - 6.0 */
+	background: -o-linear-gradient(right, #e2616b , #e64d7b); /* Opera 11.1 - 12.0 */
+	background: -moz-linear-gradient(right, #e2616b , #e64d7b); /* Firefox 3.6 - 15 */
+	background: linear-gradient(to right, #e2616b , #e64d7b); /* 标准的语法 */
+}
+.out_money_content .hotbg i:nth-of-type(2){
+	color: #ec6678;
+}
+.out_money_content .ifnone_add_bank{
+	background: #212124;
+	background-clip:border ;
+	-webkit-background-clip:border ;
+	border: 0.02rem #505050 dashed;
+}
+.out_money_content .ifnone_add_bank p:nth-of-type(1){
+	position: static;
+	text-align: center;
+	width: 100%;
+	font-size: 0.8rem;
+	height: 0.6rem;
+	line-height: 0.6rem;
+	color: #505050 ;
+}
+.out_money_content .ifnone_add_bank p:nth-of-type(2){
+	position: static;
+	text-align: center;
+	width: 100%;
+	font-size: 0.13rem;
+	color: #505050 ;
+}
+.out_money_content header{
+	width: 96%;
+	height: 1rem;
+	border-radius:0.1rem ;
+	margin: 0.1rem 2% 0.1rem 2%;
+	position: relative;
+}
+.out_money_content header i:nth-of-type(1){
+	position: absolute;
+	display: block;
+	width: 0.55rem;
+	height: 0.55rem;
+	background: rgba(255,255,255,0.7);
+	font-size: 0.4rem;
+	top:0.1rem;
+	left:0.1rem;
+	line-height: 0.55rem;
+	text-align: center;
+	border-radius:50% ;
+	z-index: 1000;
+}
+.out_money_content header i:nth-of-type(2){
+	position: absolute;
+	display: block;
+	width: 1.2rem;
+	height: 1rem;
+	font-size: 1.2rem;
+	top:0rem;
+	right:0.4rem;
+	line-height: 1rem;
+	text-align: center;
+	overflow: hidden;
+	z-index: 100;
+}
+.out_money_content header p:nth-of-type(1){
+	height: 0.2rem;
+	font-size: 0.15rem;
+	line-height: 0.2rem;
+	text-align: left;
+	position: absolute;
+	top:0.1rem;
+	left: 0.7rem;
+	color: #FFFFFF;
+	z-index: 1000;
+	margin: 0;
+}
+.out_money_content header p:nth-of-type(2){
+	height: 0.3rem;
+	font-size: 0.2rem;
+	line-height: 0.3rem;
+	text-align: left;
+	position: absolute;
+	bottom:0.1rem;
+	right: 0.1rem;
+	color: #FFFFFF;
+	z-index: 1000;
+	font-weight: 700;
+	margin:0;
+}
+.out_money_content article{
+	widows: 100%;
+	height: 0.4rem;
+	background: #222225;
+}
+.out_money_content article span{
+	display: inline-block;
+	vertical-align: top;
+	width: 34%;
+	font-size: 0.15rem;
+	color: #FFFFFF;
+	height: 0.3rem;
+	margin-top: 0.05rem;
+	line-height: 0.3rem;
+}
+.out_money_content article span i{
+	font-size: 0.2rem;
+	color: #ebac34;
+	margin-left:0.25rem ;
+}
+.out_money_content article input{
+	display: inline-block;
+	vertical-align: top;
+	width: 60%;
+	height: 0.2rem;
+	line-height: 0.2rem;
+	margin-top:0.1rem ;
+	background: transparent;
+	border: none;
+	color: #fdbe19;
+	font-size: 0.12rem;
+}
+.out_money_content section{
+	width: 100%;
+	padding-left: 7%;
+	text-align: left;
+	color: #4e4e4f;
+	height: 0.3rem;
+	line-height: 0.3rem;
+	margin: 0;
+	font-size: 0.12rem;
+}
+.out_money_content footer{
+	width: 100%;
+	padding-left:0.25rem;
+	height: 0.3rem;
+	line-height: 0.3rem;
+	color: #4e4e4f;
+	font-size: 0.12rem;
+	text-align: left;
+}
+.out_money_content footer span{
+	display: inline-block;
+	width: 15%;
+	height: 100%;
+	overflow: hidden;
+	vertical-align: top;
+	color: #fdbe19;
+}
+.out_money_content footer span:nth-of-type(1){
+	color: #4e4e4f;
+}
+.out_money_content .outmoneybtn{
+	width: 70%;
+	margin: 0.3rem 15% 0.3rem 15%;
+	border: none;
+}
+.btndisabled{
+	background: #000000;
+}
+
+/*入金弹框样式*/
+
+.red{
+	color: #cc0011 ;
+}
+.blue{
+	color: #1358bd ;
+}
+.qing{
+	color: #19725d ;
+}
+.green{
+	color: #007e3d ;
+}
+.orange{
+	color: orangered ;
+}
+.pay_blue{
+	color: #159aef !important;
+}
+.pay_green{
+	color: #1fc65b !important;
+}
+.pay_purple{
+	color: #1d2087 ;
+}
+.pay_yellow{
+	color: #fbe900 ;
+}
+.pay_qing{
+	color: #00a5d7 ;
+}
+.pay_blue_bg{
+	background: #159aef;
+}
+.pay_green_bg{
+	background: #1fc65b;
+}
+.pay_alipay_bg{
+	background: #00a3ee;
+}
+.pay_yinlian_bg{
+	background: #006a65;
+}
+.pay_alipay{
+	color: #00a3ee !important;
+}
+.pay_yinlian{
+	color: #006a65 !important;
+}
+#in_money_content{
+	background: #1b1b1d;
+}
+#in_money_content header{
+	margin-bottom:0.1rem ;
+	margin-top: 0.1rem;
+}
+#in_money_content header .pay_channel{
+	margin-top:0.1rem ;
+}
+#in_money_content article span i{
+	color: #eb3445;
+}
+#in_money_content .item{
+	border: none;
+	background: #1b1b1d ;
+}
+#in_money_content .item .item-content{
+	background: #1b1b1d ;
+	padding: 0;
+}
+#in_money_content .item .item-content {
+	width: 96%;
+	margin-left: 2%;
+}
+#in_money_content .item .item-content  .pay_bank_list_header{
+	border-radius:0.05rem;
+	background: #28282b;
+	width: 100%;
+	height: 0.7rem;
+	position: relative;
+}
+#in_money_content .item .item-content  .pay_bank_list_header i{
+	display: inline-block;
+	vertical-align: top;
+	width: 0.05rem;
+	height: 0.7rem;
+	border-bottom-left-radius:0.05rem;
+	border-top-left-radius:0.05rem;
+}
+#in_money_content .item .item-content  .pay_bank_list_header article{
+	display: inline-block;
+	width: 80%;
+	height: 0.7rem;
+}
+#in_money_content .item .item-content  .pay_bank_list_header article p span{
+	display: inline-block;
+	vertical-align: top;
+	height: 0.3rem;
+	line-height: 0.3rem;
+	text-align: left;
+}
+#in_money_content .item .item-content  .pay_bank_list_header p:nth-of-type(1){
+	margin-top:0.05rem;
+	font-size:0.15rem;
+	height: 0.3rem;
+}
+#in_money_content .item .item-content  .pay_bank_list_header p:nth-of-type(1) span:nth-of-type(1){
+	width:0.5rem;
+	font-size: 0.25rem;
+	text-align: center;
+}
+#in_money_content .item .item-content  .pay_bank_list_header p:nth-of-type(1) span:nth-of-type(2){
+	width: 1rem;
+}
+#in_money_content .item .item-content  .pay_bank_list_header p:nth-of-type(2){
+	margin:0;
+	font-size:0.12rem;
+	height: 0.3rem;
+}
+#in_money_content .item .item-content  .pay_bank_list_header p:nth-of-type(2) span:nth-of-type(1){
+	width: 0.5rem;
+	text-align: center;
+}
+#in_money_content .item .item-content  .pay_bank_list_header p:nth-of-type(2) span:nth-of-type(2){
+	width: 1rem;
+	color: #ffffff;
+}
+#in_money_content .item-radio .radio-icon{
+	padding: 0;
+	width: 0.15rem;
+	height:0.15rem;
+	text-align: center;
+	line-height: 0.15rem;
+	font-size: 0.1rem;
+	top:0.3rem;
+	color: #fdbe19;
+	right:0.2rem;
+	z-index: 1000;
+}
+.pay_bank_list_content{
+	height: 2rem;
+	width: 96%;
+	margin-left:2% ;
+	background: #222225;
+	border-bottom-left-radius: 0.05rem;
+	border-bottom-right-radius: 0.05rem;
+}
+#in_money_content .pay_bank_list_content .item .item-content{
+	width: 100%;
+	margin: 0;
+}
+#in_money_content .pay_bank_list_content ul{
+	width: 98%;
+	margin-left: 1%;
+	background: #222225;
+	border-bottom-left-radius:0.03rem ;
+	border-bottom-right-radius:0.03rem ;
+}
+#in_money_content .pay_bank_list_content ul li{
+	margin-left:3% ;
+	height: 0.32rem;
+	width: 94%;
+	border-bottom:1px solid #343438 ;
+	margin-bottom: 2px;
+	position: relative;
+}
+#in_money_content .pay_bank_list_content ul li .item .item-content{
+	background: #222225;
+}
+#in_money_content .pay_bank_list_content ul li .item-radio .radio-icon{
+	top:0.11rem;
+	right: 0.21rem;
+}
+#in_money_content .pay_bank_list_content ul li p{
+	font-size: 0.13rem;
+}
+#in_money_content .pay_bank_list_content ul li p span{
+	display: inline-block;
+	height: 0.3rem;
+	line-height: 0.3rem;
+	vertical-align: top;
+	font-size: 0.13rem;
+	width: 2rem;
+}
+#in_money_content .pay_bank_list_content ul li p span:nth-of-type{
+	color: #aaaaaa;
+}
+#in_money_content .pay_bank_list_content ul li p .bankicon{
+	width: 0.4rem;
+	text-align: center;
+}
+#in_money_content .pay_weixin  article p{
+	height: 0.7rem !important;
+	line-height: 0.7rem !important;
+	margin: 0 !important;
+	font-size: 0.15rem !important;
+}
+#in_money_content .pay_weixin  article p span{
+	height: 0.7rem !important;
+	line-height: 0.7rem !important;
+}
+.pay_bank_list_header .kuang{
+	position: absolute;
+	width: 0.15rem;
+	height: 0.15rem;
+	border-radius:3px ;
+	border: 1px solid #343438;
+	top:0.3rem;
+	right: 0.13rem;
+	z-index: 100;
+}
+#in_money_content .pay_bank_list_content ul li .kuang{
+	position: absolute;
+	width: 0.12rem;
+	height: 0.12rem;
+	border-radius:2px ;
+	border: 1px solid #343438;
+	top:0.1rem;
+	right: 0.2rem;
+	z-index: 100;
+}
+#in_money_content .pay_bank_list_content ul li .item-radio .radio-icon{
+	font-size: 0.08rem;
+	width: 0.12rem;
+	height: 0.12rem;
+	line-height: 0.12rem;
+}
+
+
+/*微信支付页面*/
+.pay_weixin_code{
+	width: 100%;
+	height: 6.67rem;
+	overflow: hidden;
+	background:#1b1b1d ;
+	text-align: center;
+	position: relative;
+}
+.no-erweima{
+	position: absolute;
+	width: 100%;
+	height: 100%;
+	top: 0;
+	left: 0;
+	z-index: 10100;
+}
+.pay_weixin_code header{
+	width: 2.9rem;
+	height: 3.3rem;
+	/*background: url(../img/payweixinbg.png) no-repeat;*/
+	background-size:100% 100% ;
+	margin: 0.4rem auto 0 auto;
+}
+.pay_weixin_code header p{
+	height: 0.37rem;
+	line-height: 0.37rem;
+	margin: 0;
+	color: white;
+	font-size: 0.13rem;
+}
+.pay_weixin_code header p span{
+	display: inline-block;
+	width: auto;
+	vertical-align: top;
+	height: 0.37rem;
+	color: #fdbe19;
+	font-size: 0.18rem;
+	line-height: 0.37rem;
+}
+.pay_weixin_code section{
+	font-size: 0.13rem;
+	color: white;
+	height: 0.2rem;
+	line-height: 0.2rem;
+}
+.pay_weixin_code footer{
+	margin: 0 auto;
+    width: 60%;
+    text-align: center;                                                                                                                                                                                       
+    color: #969696;
+    font-size: 0.12rem;
+}
+.qrcode-modal article{
+	position: absolute;
+	width:3rem;
+	height: 3rem;
+	top:22%;
+    left: 40%;
+    margin-left: -0.9rem;
+	z-index: 10000;
+}
+.qrcode-modal article img{
+	width: 100%;
+	height: 100%;
+}
+/*商信快捷支付页面*/
+.pay_shangxin{
+	background: #1b1b11b;
+}
+.pay_shangxin h3{
+	text-align: center;
+	height: 0.3rem;
+	line-height: 0.3rem;
+	color: white;
+	font-size: 0.14rem;
+	margin: 0.2rem 0 0.1rem 0;
+}
+.pay_shangxin h3 span{
+	color: #e9b747;
+	font-size: 0.18rem;
+}
+.pay_shangxin button{
+	width: 70%;
+	margin-left: 15%;
+	margin-top: 0.4rem;
+}

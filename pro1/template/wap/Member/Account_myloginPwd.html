@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>修改登录密码</title>
+    <link rel="stylesheet" href="__TMPL__/hb/public/mui/css/mui.min.css">
+    <link rel="stylesheet" href="__TMPL__/hb/public/swiper/css/swiper.min.css">
+    <include file="template/wap/Public/base.html" />
+
+    <!-- 引入头部 -->
+    <include file="template/wap/Public/header.html" />
+
+    <style>
+        html , body{
+            background-color: #fff;
+       }
+        #myzijinPwd{
+            height: 100%;
+            padding-top: 0.64rem;
+       }
+        #myzijinPwd h4{
+            margin-bottom: 0.09rem;
+       }
+        #myzijinPwd .line2{
+            background-color: #E3E1E1;
+            width: 100%;
+            height: 0.1rem;
+       }
+        #myzijinPwd .submitRes{
+            padding: 0.16rem 0.17rem 0 0.17rem;
+       }
+        #myzijinPwd .submitRes h4{
+            font-size: .15rem;
+            color: #333;
+            font-weight: 500;
+        }
+        #myzijinPwd .submitRes textarea{
+            font-size: 0.18rem;
+            color: #333;
+            border: 0.01rem solid#F2902D;
+            border-radius: 0.05rem;
+       }
+        #myzijinPwd .submitRes textarea{
+            height: 1.39rem;
+       }
+        #myzijinPwd button{
+            width: 100%;
+            font-size: 0.18rem;
+            color: #fff;
+            border: none;
+            border-radius: 0.4rem;
+            background: -moz-linear-gradient(left, #E8352C 0%, #F39A2D 100%);
+            background: -o-linear-gradient(left, #E8352C 0%,#F39A2D 100%);
+            background: -ms-linear-gradient(left, #E8352C 0%,#F39A2D 100%);
+            background: linear-gradient(to right, #E8352C 0%,#F39A2D 100%);
+       }
+       #myzijinPwd .submitRes .myitem{
+            height: .44rem;
+            line-height: .44rem;
+            display: flex;
+            border: 1px solid #ED622D;
+            border-radius: .08rem;
+            box-shadow: 0px 2px 19px -6px #F9AF2D;
+            margin-bottom: .10rem;
+       }
+       #myzijinPwd .submitRes .myitem:last-of-type{
+           margin-bottom: .23rem;
+       }
+        #myzijinPwd .submitRes .myitem .itemLeft{
+            flex: 1;
+            text-align: left;
+            position: relative;
+       }
+       #myzijinPwd .submitRes .myitem .itemLeft img{
+           width: .13rem;
+           position: absolute;
+           top: 50%;
+           transform: translateY(-50%);
+           left: .13rem;
+       }
+       #myzijinPwd .submitRes .myitem .itemLeft input{
+           border: none;
+           border-radius: .08rem;
+           margin-left: .20rem;
+           width: 93%;
+           font-size: .15rem;
+           color: #666;
+       }
+        </style>
+</head>
+
+<body>
+    <div id="myzijinPwd">
+        <form method="post" action="<{:U('member/account/updatePwd')}>">
+        <div class="submitRes">
+            <!--<h4>请输入助记词</h4>
+            <textarea name="helpRememberWords"  cols="30" rows="10" placeholder="mean  saddle  power  panic  noodle  where  bless cement  grant  silver  sugar  around"></textarea>
+           --> <div class="myitem">
+                <div class="itemLeft">
+                    <img src="template/wap/static/vsc/img/myrePwd.png" alt="">
+                    <input type="password" name="old_password"  placeholder="请输入密码" maxlength="18">
+                </div>
+            </div>
+            <div class="myitem">
+                <div class="itemLeft">
+                    <img src="template/wap/static/vsc/img/myrePwd.png" alt="">
+                    <input type="password" name="new_password"  placeholder="请输入新的密码" maxlength="18">
+                </div>
+            </div>
+            <div class="myitem">
+                <div class="itemLeft">
+                    <img src="template/wap/static/vsc/img/myrePwd.png" alt="">
+                    <input type="password" name="new_password2"  placeholder="再次输入新的密码" maxlength="18">
+                </div>
+            </div>
+             <button type="submit">确认</button>
+        </div>
+        </form>
+    </div>
+
+    <script type="text/javascript" src="__ROOT__/statics/js/jquery-1.7.2.min.js"></script>
+    <script src="__TMPL__/hb/public/mui/js/mui.min.js"></script>
+    <script src="__TMPL__/hb/public/swiper/js/swiper.min.js"></script>
+    <script src="__TMPL__/hb/public/zepto/zepto.min.js"></script>
+</body>
+
+</html>
+<script>
+    $('#rightText').attr('href', 'index.php?m=Test&c=Index&a=searchOnLineKefu')
+
+</script>

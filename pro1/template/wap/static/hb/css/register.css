@@ -1,0 +1,112 @@
+body,
+html {
+  background-color: #fff;
+  height: 100%;
+}
+
+.logo {
+  overflow: hidden;
+  width: 100%;
+}
+
+.logo img {
+  display: block;
+  width: 24%;
+  margin: 0 auto;
+  margin-top: 40px;
+}
+
+/* 表单 */
+.group {
+  margin-top: 10px;
+  padding: 0 30px;
+}
+
+input{
+  font-size: 15px;
+  color:#ABABAB;
+}
+input::-webkit-input-placeholder{
+  color:#ABABAB;
+}
+input::-moz-placeholder{   /* Mozilla Firefox 19+ */
+  color:#ABABAB;
+}
+input:-moz-placeholder{    /* Mozilla Firefox 4 to 18 */
+  color:#ABABAB;
+}
+input:-ms-input-placeholder{  /* Internet Explorer 10-11 */ 
+  color:#ABABAB;
+}
+
+.group .mui-input-row {
+  display: flex;
+  margin-bottom:10px;
+  border-bottom: 1px solid #DCDCDC;
+}
+
+.group .mui-input-row img {
+  width: 12px;
+  height: 17px;
+}
+
+.group .mui-input-row label {
+  width: 20px;
+}
+
+.group .mui-input-row input {
+  margin-left: 10px;
+  flex: 1;
+
+}
+
+/* 按钮 */
+.mui-btn{
+  width: 100%;
+  height: 40px;
+  margin: 30px auto 80px;
+  border-radius: 20px;
+  line-height: 10px;
+}
+
+/* 注册、忘记密码 */
+.rgPwd {
+  height: 14px;
+  width: 100%;
+  text-align: center;
+  
+  font-size: 14px;
+}
+
+.rgPwd a {
+  color: #F46A21;
+  font-size: 14px;
+}
+
+/* 关于 */
+.about {
+  width: 100%;
+  margin-top:30px;
+  margin-bottom:30px;
+  text-align: center;
+  color: #787878;
+  font-size: 13px;
+}
+.mr10{margin-right:10px}
+.send {
+  margin-top: 4px;
+  position: absolute;
+  color: #2E70F6;
+  font-size: 12px;
+  right: 10px;
+  line-height: 22px;
+  padding: 3px 5px;
+  border: 1px solid #2E70F6;
+}
+
+.mui-input-row label~select{padding-left:12px}
+
+
+
+
+

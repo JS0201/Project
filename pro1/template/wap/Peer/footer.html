@@ -1,0 +1,61 @@
+
+<!--<div style="height:15vmin;clear: both;"></div>-->
+<!--<footer class="footer">-->
+<!--<a href="<{:U('home/index/index')}>" <if condition="MODULE_NAME eq 'Home' && ACTION_NAME eq 'index'">class="active"</if>>-->
+<!--<i class="icon iconfont icon-shouye"></i>-->
+<!--<p>首页</p>-->
+<!--</a>-->
+<!--&lt;!&ndash;    <if condition="$t_time eq 0">-->
+<!--<a href="<{:U('member/MemberSort/jf')}>" <if condition="MODULE_NAME eq 'Member' && ACTION_NAME eq 'timejf'">class="active"</if>>-->
+<!--<i class="icon iconfont icon-jiaoyizhongxin-01"></i>-->
+<!--<p>市场交易</p>-->
+<!--</a>-->
+<!--<else/>-->
+<!--<a  href="javascript:void(0)" onclick="javascript:alert('<{$que_time['que_tip']}>')">-->
+<!--<i style="color:#888;" class="icon iconfont icon-jiaoyizhongxin-01"></i>-->
+<!--<p style="color:#888;">市场交易</p>-->
+<!--</a>-->
+<!--</if> &ndash;&gt;-->
+<!--&lt;!&ndash; 	<a href="javascript:void(0)" onclick="javascript:alert('加盟商城模块正在更新中，即将开放...')">-->
+<!--<i class="icon iconfont icon-lianmengshangjia"></i>-->
+<!--<p>加盟商城</p>-->
+<!--</a> &ndash;&gt;-->
+<!--<a href="<{:U('content/index/index',array('catid'=>28))}>" <if condition="MODULE_NAME eq 'Content' && CONTROLLER_NAME eq 'index'">class="active"</if>>-->
+<!--<i class="icon iconfont icon-gonggao"></i>-->
+<!--<p>平台公告</p>-->
+<!--</a>-->
+<!--<a href="<{:U('peer/index/index')}>" <if condition="MODULE_NAME eq 'Member' && CONTROLLER_NAME eq 'Order'">class="active"</if>>-->
+<!--<i class="icon iconfont icon-dingdan"></i>-->
+<!--<p>交易区</p>-->
+<!--</a>-->
+
+<!--<a href="<{:U('member/index/index')}>" <if condition="MODULE_NAME eq 'Member' && CONTROLLER_NAME eq 'Index'">class="active"</if>>-->
+<!--<i class="icon iconfont icon-user"></i>-->
+<!--<p>个人中心</p>-->
+<!--</a>-->
+<!--</footer>-->
+
+<div class="lp-footer bg-theme">
+	<div class="lp-tabbar">
+		<a href="<{:U('home/index/index')}>" class="lp-tabbar__item  <if condition="MODULE_NAME eq 'Home' && ACTION_NAME eq 'index'">active</if>">
+		<i class="iconfont icon-home"></i>
+		<span class="lp-tabbar__label">首页</span>
+		</a>
+		<a href="<{:U('content/index/index')}>" class="lp-tabbar__item <if condition="MODULE_NAME eq 'Content'">active</if>">
+		<i class="iconfont icon-message"></i>
+		<span class="lp-tabbar__label">资讯</span>
+		</a>
+		<a href="<{:U('member/memberSort/shequ')}>" class="lp-tabbar__item <if condition="MODULE_NAME eq 'Member' && ACTION_NAME eq 'shequ'">active</if>">
+		<i class="iconfont icon-order"></i>
+		<span class="lp-tabbar__label">社区</span>
+		</a>
+		<a href="<{:U('peer/index/index')}>" class="lp-tabbar__item <if condition="MODULE_NAME eq 'Peer'">active</if>">
+		<i class="iconfont icon-trade"></i>
+		<span class="lp-tabbar__label">交易</span>
+		</a>
+		<a href="<{:U('member/index/index')}>" class="lp-tabbar__item  <if condition="MODULE_NAME eq 'Member' && ACTION_NAME neq 'shequ'">active</if>">
+		<i class="iconfont icon-person-center"></i>
+		<span class="lp-tabbar__label">个人</span>
+		</a>
+	</div>
+</div>

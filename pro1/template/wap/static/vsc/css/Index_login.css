@@ -1,0 +1,10 @@
+#login_content {
+    background-image: url('../img/loginBG.png');
+}
+#login_content p{
+    font-size: 24px;
+    color: #fff;
+}
+#login_content input{
+    
+}

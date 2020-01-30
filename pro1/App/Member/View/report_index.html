@@ -1,0 +1,103 @@
+<include file="Admin@Public/header" />
+
+<div class="fixed-nav layout">
+	<ul>
+		<li class="first">团队等级<a id="addHome" title="添加到首页快捷菜单">[+]</a></li>
+		<li class="spacer-gray"></li>
+	</ul>
+	<div class="hr-gray"></div>
+</div>
+<div class="content padding-big have-fixed-nav">
+
+	<!--<div class="table-work border margin-tb">-->
+		<!--<div class="border border-white tw-wrap">-->
+			<!--<a href="<?php echo U('add') ?>"><i class="ico_add"></i>添加</a>-->
+			<!--<div class="spacer-gray"></div>-->
+			<!--<a data-message="是否确定删除所选？" href="<?php echo U('del')?>" data-ajax='id'><i class="ico_delete"></i>删除</a>-->
+			<!--<div class="spacer-gray"></div>-->
+		<!--</div>-->
+	<!--</div>-->
+	<div class="table-wrap member-info-table">
+		<div class="table resize-table check-table paging-table border">
+			<div class="tr">
+						<span class="th check-option" data-resize="false">
+							<span><input id="check-all" type="checkbox" /></span>
+						</span>
+				<span class="th" data-width="5">
+							<span class="td-con">等级名称</span>
+						</span>
+				<span class="th" data-width="5">
+							<span class="td-con">业绩要求</span>
+						</span>
+				<span class="th" data-width="5">
+							<span class="td-con">直推人数</span>
+						</span>
+				<span class="th" data-width="8">
+							<span class="td-con">团队初级主管要求</span>
+						</span>
+				<span class="th" data-width="8">
+							<span class="td-con">团队中级主管要求</span>
+						</span>
+				<span class="th" data-width="8">
+							<span class="td-con">团队高级主管要求</span>
+						</span>
+				<span class="th" data-width="8">
+							<span class="td-con">团队分红收益比率</span>
+						</span>
+				<span class="th" data-width="8">
+							<span class="td-con">全网分红收益比率</span>
+						</span>
+
+					<span class="th" data-width="8">
+							<span class="td-con">平级奖励比例</span>
+						</span>
+
+				<span class="th" data-width="8">
+							<span class="td-con">一级团队奖励比例</span>
+						</span>
+				<span class="th" data-width="8">
+							<span class="td-con">二级团队奖励比例</span>
+						</span>
+				<span class="th" data-width="8">
+							<span class="td-con">三级团队奖励比例</span>
+						</span>
+
+				<span class="th" data-width="5">
+							<span class="td-con">操作</span>
+						</span>
+			</div>
+
+			<?php foreach ($list AS $group): ?>
+			<div class="tr">
+				<span class="td check-option"><input type="checkbox" name="id" value="<?php echo $group['id'] ?>" /></span>
+				<div class="td"><?php echo $group['dj_name'] ?></div>
+				<div class="td"><?php echo $group['money'] ?></div>
+		  	<div class="td"><?php echo $group['zt_num'] ?></div>
+
+				<div class="td"><?php echo $group['pri_num'] ?></div>
+				<div class="td"><?php echo $group['mid_num'] ?></div>
+				<div class="td"><?php echo $group['sen_num'] ?></div>
+
+
+				<div class="td"><?php echo $group['ratio'] ?></div>
+				<div class="td"><?php echo $group['gu_ratio'] ?></div>
+				<div class="td"><?php echo $group['pin_price_rate'] ?></div>
+				<div class="td"><?php echo $group['levela_price_rate'] ?></div>
+				<div class="td"><?php echo $group['levelb_price_rate'] ?></div>
+				<div class="td"><?php echo $group['levelc_price_rate'] ?></div>
+				<div class="td">
+					<a href="<?php echo U('edit', array("id" => $group['id'])) ?>">编辑</a>&nbsp;&nbsp;&nbsp;
+				</div>
+			</div>
+			<?php endforeach ?>
+
+		</div>
+	</div>
+
+</div>
+<script>
+    $(".table").resizableColumns();
+    $(".paging-table").fixedPaging();
+</script>
+</body>
+</html>

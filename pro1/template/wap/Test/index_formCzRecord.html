@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>充值记录</title>
+    <link rel="stylesheet" href="__TMPL__/hb/public/mui/css/mui.min.css">
+    <link rel="stylesheet" href="__TMPL__/hb/public/swiper/css/swiper.min.css">
+    <include file="template/wap/Public/base.html" />
+
+    <!-- 引入头部 -->
+    <include file="template/wap/Public/header.html" />
+
+    <style>
+        html , body{
+            background-color: #fff;
+       }
+        #formtbRecord{
+            height: 100%;
+            padding-top: 0.70rem;
+       }
+       #formtbRecord .contentItem {
+            margin: 0 .15rem;
+            display: flex;
+            flex-direction: column;
+            margin-bottom: .10rem;
+            padding-top: .1rem;   
+            border-bottom: 1px solid #B6B6B6;
+            font-size: .12rem;
+       }
+       #formtbRecord .contentItem .itemEg{
+           flex: 1;
+           display: flex;
+           color: #666;
+       }
+       #formtbRecord .contentItem .itemEg span{
+           color: #333;
+           font-size: .15rem;
+       }
+       #formtbRecord .contentItem .itemEgR span{
+           font-size: .15rem;
+           color: #333;
+       }
+       #formtbRecord .contentItem .itemEg .itemEgR{
+           flex: 1;
+           text-align: right;
+           margin-bottom: .15rem;
+       }
+       #formtbRecord .contentItem .itemEg .bottomLeft{
+           color: #B2B2B2;
+           width: 78%;
+           overflow: hidden;
+           white-space: nowrap;
+           text-overflow:ellipsis;
+       }
+       #formtbRecord .contentItem .itemEg .bottomLeft span{
+           color: #999;
+           font-size: .12rem;
+       }
+       #formtbRecord .contentItem .bottonRight{
+           color: #FF6000 !important;
+           font-size: .12rem;
+       }
+    </style>
+</head>
+
+<body>
+    <div id="formtbRecord">
+        <div class="contentItem">
+            <div class="itemEg itemTop">
+                <span class="time">RMB购买</span>
+                <div class="itemEgR topRight">
+                    <span>+244562 </span> RMB
+                </div>
+            </div>
+            <div class="itemEg itemBottom">
+                <div class="bottomLeft">
+                    <span>2018-10-10 16:00</span>
+                </div>
+                <span class="itemEgR bottonRight">已完成</span>
+            </div>
+        </div>
+        <div class="contentItem">
+            <div class="itemEg itemTop">
+                <span class="time">RMB购买</span>
+                <div class="itemEgR topRight">
+                    <span>+244562 </span> RMB
+                </div>
+            </div>
+            <div class="itemEg itemBottom">
+                <div class="bottomLeft">
+                    <span>2018-10-10 16:00</span>
+                </div>
+                <span class="itemEgR bottonRight">已完成</span>
+            </div>
+        </div>
+
+    </div>
+</body>
+
+<script>
+     $(function () {
+
+     })
+</script>

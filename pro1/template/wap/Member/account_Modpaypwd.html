@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<title>设置二级密码</title>
+		<include file="template/wap/Public/title.html" />
+		<link rel="stylesheet" type="text/css" href="__TMPL__/vsc/css/rechargeonline.css"/>
+	</head>
+	<body>
+		<!--头部-->
+		<header class="prow15 pt15 pb16 flex bgcolortheme01">
+			<div class="header-left percent20">
+				<span class="iconfont icon-fanhui1 c-fff left-back fs20"></span>
+			</div>
+			<div class="header-middle percent60 tac c-fff fs16 fw-b">
+				设置二级密码
+			</div>
+		</header>
+		<!--头部----end-->
+		<div class="prow15 pt20 pb30 bgcolortheme01">
+			<div class="input-group mb20">
+				<input type="password" class="widthp100 inputbg inputbg01  bgcolorrgba03" id="password" placeholder="旧密码">
+			</div>
+			<div class="input-group mb20">
+				<input type="password" class="widthp100 inputbg inputbg01  bgcolorrgba03" id="new_password" placeholder="新密码">
+			</div>
+			<div class="input-group mb20">
+				<input type="password" class="widthp100 inputbg inputbg01  bgcolorrgba03" id="new_password" placeholder="确认密码">
+			</div>
+
+		</div>
+		<div class="prow15 mt50">
+			<button class="btn-gradual-bg widthp100 height40 radius-6" id="submit2">确认修改</button>
+		</div>
+	</body>
+
+</html>
+
+<script>
+    $('#submit2').click(function(){
+        var password=$('#password').val();
+        var new_password=$('#new_password').val();
+
+        var mm=/^[\w\W]{6,}$/;
+        if(password==''){
+            alert('请输入支付密码');
+            return false;
+        }
+        if(new_password==''){
+            alert('请再次输入支付密码');
+            return false;
+        }
+        if(new_password!=password){
+            alert('支付密码两次输入不一致');
+            return false;
+        }
+        if(new_password != "" &&!mm.test(new_password)){
+            alert('支付密码至少为6位字符');
+            return false;
+        }
+        $.post('<{:U("Member/Account/Modpaypwd")}>','&new_password='+new_password,function(data){
+
+            if(data.status=='0'){
+                alert(data.message);
+            }else{
+                alert('设置成功');
+                location.href= "<{:U('Member/index/index')}>";
+            }
+
+        },'json')
+        return false;
+    })
+</script>

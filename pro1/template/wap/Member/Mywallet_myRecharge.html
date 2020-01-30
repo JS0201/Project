@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title><{:L('_recharge_title')}></title>
+    <link rel="stylesheet" href="__TMPL__/hb/public/mui/css/mui.min.css">
+    <link rel="stylesheet" href="__TMPL__/hb/public/swiper/css/swiper.min.css">
+    <include file="template/wap/Public/base.html" />
+    <style>
+        html,body{
+            width: 100%;
+            height: 100%;
+            background-color: #fff;
+       }
+       #myWallet{
+            height: 100%;
+            background: url("template/wap/static/vsc/img/myCzBg.png") no-repeat;
+            background-position: center;
+            background-size: 100%;
+            /* background-size: auto; */
+            position: relative;
+       }
+        #myWallet .myHead .lang{
+            display: flex;
+       }
+        #myWallet .myHead .lang .leftback img{
+            width: .10rem;
+            position: absolute;
+            top: .35rem;
+            left: .20rem;
+            z-index: 999;
+        }
+        #myWallet .myHead .lang h3{
+            font-size: .18rem;
+            color: #FFFFFF;
+            font-weight: 400;
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+            top: .30rem;
+        }
+
+        #myWallet .mycontent{
+            height: 100%;
+            width: 100%;
+            position: absolute;
+            padding-top: 1.40rem;
+       }
+       #myWallet .mycontent .QR{
+           background: url("template/wap/static/vsc/img/myCzQR.png") no-repeat;
+           background-position: center;
+           background-size: 100%;
+           width: 1.36rem;
+           height: 1.29rem;
+           margin: 0 auto;
+           margin-bottom: 34px;
+       }
+       #myWallet .mycontent .address i{
+           font-style: normal;
+           font-size: .18rem;
+           color: #FDF0EE;
+       }
+       #myWallet .mycontent .address .adr{
+            display: flex;
+            margin: .15rem .33rem;
+            position: relative;
+       }
+       #myWallet .mycontent .address .adr .adrLeft{
+            display: flex;
+            flex: 1;
+            align-items: center;
+       }
+       #myWallet .mycontent .address .adr textarea{
+           flex: 1;
+           display: inline-block;
+           resize: none !important;
+           padding: 0;
+           margin: 0;
+           height: .20rem;
+           background-color: transparent;
+           border: none;
+           font-size: .15rem;
+           color: #FFF8F8;
+           overflow: hidden;
+           white-space: nowrap;
+           text-overflow: ellipsis;
+       }
+       #myWallet .mycontent .address .adr span{
+           font-size: .15rem;
+           color: #FFFAEC;
+           border: 1px solid #fff;
+           margin-left: .15rem;
+           padding: .03rem .11rem;
+       }
+       #myWallet .mycontent .address .tips{
+           margin: 0 auto;
+           font-size: .12rem;
+           color: #FFE9D4;
+           margin: 0 .33rem;
+       }
+       #myWallet .myHead .record {
+        display: block;
+        color: #fff;
+        position: absolute;
+        top: .36rem;
+        right: .12rem;
+        z-index: 9999;
+       }
+        </style>
+</head>
+
+<body>
+    <div id="myWallet">
+        <div class="myHead">
+            <div class="lang">
+                <div class="leftback">
+                    <img src="template/wap/static/vsc/img/backIcon.png" id="backcome" onclick="window.history.back(-1);">
+                </div>
+                <h3 id="head-title"><{:L('_recharge_title')}></h3>
+                <a href="<{:U('member/mywallet/formCzRecord')}>" class="record" href=""><{:L('_recharge_5')}></a>
+            </div>
+
+        <div class="mycontent">
+            <div class="QR">
+                <img src="<{$img_url}>" alt="" width="100%">
+            </div>
+            <div class="address">
+                <div class="adr">
+                    <div class="adrLeft">
+                        <i><{:L('_recharge_1')}></i>
+                        <textarea type="number" class="verify-title-2" readonly id="copyTarget2" value="<{$address}>"><{$address}></textarea>
+                    </div>
+                   <span onclick="copy2()"><{:L('_recharge_2')}></span>
+                </div>
+                
+                <div class="tips">
+                    <{:L('_recharge_3')}>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>
+<script>
+     function copy2() { 
+      var target = document.querySelector('#copyTarget2')
+      copy(target)
+    }
+    
+    function copy(target) {
+        var _length = target.value.length
+        if(target.valueOf(' ') >= 0) {
+            _length -= 1;
+        }
+        target.focus();
+        target.setSelectionRange(0, _length);
+
+        document.execCommand('copy', false)
+        layer.msg("<{:L('_recharge_4')}>");
+        target.setSelectionRange(0, 0);
+    }
+</script>

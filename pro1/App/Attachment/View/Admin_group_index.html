@@ -1,0 +1,106 @@
+<include file="Public/header" />	
+	<body>
+		<div class="fixed-nav layout">
+			<ul>
+				<li class="first">权限管理<a id="addHome" title="添加到首页快捷菜单">[+]</a></li>
+				<li class="spacer-gray"></li>
+			</ul>
+			<div class="hr-gray"></div>
+		</div>
+		<div class="content padding-big have-fixed-nav">
+			<div class="table-work border margin-tb">
+				<div class="border border-white tw-wrap">
+					<a href="<{:U('add')}>"><i class="ico_add"></i>添加</a>
+					<div class="spacer-gray"></div>
+					<a data-message="是否确定删除所选？" href="<{:U('del')}>" data-ajax='id'><i class="ico_delete "></i>删除</a>
+					<div class="spacer-gray"></div>
+				</div>
+			</div>
+			<div class="table resize-table check-table border clearfix">
+				<div class="tr">
+					<span class="th check-option" data-resize="false">
+						<span><input id="check-all" type="checkbox" /></span>
+					</span>
+					<span class="th" data-width="20">
+						<span class="td-con">权限名</span>
+					</span>
+					<span class="th" data-width="50">
+						<span class="td-con">权限描述</span>
+					</span>
+					<span class="th" data-width="10">
+						<span class="td-con">是否启用</span>
+					</span>
+					<span class="th" data-width="20">
+						<span class="td-con">操作</span>
+					</span>
+				</div>
+				
+				<volist name="list" id="foo">
+				<div class="tr">
+					<div class="td check-option">
+						<if condition="$foo['id'] eq 1">-<else/><input type="checkbox" name="id" value="<{$foo['id']}>" /></if>
+					</div>
+					<span class="td">
+						<span class="td-con"><{$foo['title']}></span>
+					</span>
+					<span class="td">
+						<span class="td-con"><{$foo['description']}></span>
+					</span>
+					<span class="td">
+					<if condition="$foo['id'] eq 1">
+						--
+					<else/>
+						<if condition="$foo['status'] eq 1">
+						<a class="ico_up_rack" href="javascript:;" title="点击启用/禁用角色" data-id="<{$foo['id']}>"></a>
+						<else/>
+						<a class="ico_up_rack cancel" href="javascript:;" title="点击启用/禁用角色" data-id="<{$foo['id']}>"></a>
+						</if>
+					</if>
+					
+					</span>
+					<span class="td">
+						
+						<if condition="$foo['id'] eq 1">
+						<span class="td-con">--</span>
+						<else/>
+						<span class="td-con"><a href="<{:U('edit',array('id'=>$foo['id']))}>">编辑</a>&nbsp;&nbsp;&nbsp;<a data-confirm="是否确定删除？" href="<{:U('del',array('id'=>$foo['id']))}>">删除</a></span>
+						</if>
+					</span>
+				</div>
+				</volist>
+			</div>
+		</div>
+		<script>
+			var status = true;
+			var post_status_url="<{:U('ajax_status')}>";
+			$(".table").resizableColumns();
+			$(window).load(function(){
+				$(".table .ico_up_rack").bind('click',function(){
+					if(ajax_status($(this).attr('data-id'))=='true'){
+						if(!$(this).hasClass("cancel")){
+							$(this).addClass("cancel");
+						}else{
+							$(this).removeClass("cancel");
+						}
+					}
+				});
+				//改变状态
+				function ajax_status(id){
+				
+					$.post(post_status_url,{'id':id,'formhash':formhash},function(data){
+						
+						if(data == 1){
+							status =  true;
+						}else{
+							status =  false;
+						}
+					},'html');
+					
+					return status;
+				}
+			})
+		</script>
+	</body>
+</html>
+
+

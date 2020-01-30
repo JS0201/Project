@@ -1,0 +1,145 @@
+body,html{
+  
+  
+}
+
+/* 头部 */
+.header{
+  height: 200px;
+  width: 100%;
+  background: url("../img/my/矩形\ 1\ 拷贝@2x.png") no-repeat;
+  background-size: 100% 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.header .head{
+  width: 50px;
+  height: 50px;
+}
+.header .head img{
+  width: 100%;
+  height: 100%;
+}
+.header .name{
+  margin-top: 95px;
+  color: #a47329;
+  font-size: 15px;
+}
+.header .assets{
+  width: 100%;
+  margin-top: 10px;
+  display: flex;
+  color: #fefde2;
+  font-size: 15px;
+}
+.header .assets div{
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+.header .assets div span{
+  
+  flex: 1;
+  text-align: center;
+}
+.header .assets div:nth-of-type(2){
+  border-left: 1px solid #F1E7CC;
+  border-right: 1px solid #eeddad; 
+}
+.header .assets div:nth-of-type(3){
+  border-left: 1px solid #F1E7CC;
+  border-right: 1px solid #eeddad; 
+}
+/* 我的订单 */
+.order{
+  width: 100%;
+  background-color: #fff;
+}
+.order .title{
+  padding: 0 15px;
+  height: 40px;
+  width: 100%;
+  color: #333333;
+  font-weight: bold;
+  font-size: 15px;
+  line-height: 40px;
+  border-bottom: 1px solid #CCCCCC;
+}
+.order .content{
+	width: 100%;
+	display: flex;
+	margin-top: 10px;
+	padding-bottom:10px
+  
+}
+.order .content a{
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+}
+.order .content img{
+  margin: 0 auto;
+  width: 40px;
+  height: 40px;
+  margin-bottom: 7px;
+}
+.order .content span{
+  color: #333333;
+  font-size: 13px;
+}
+/* 我的服务 */
+.service{
+  margin-top: 20px;
+  margin-bottom:60px;
+  
+  background-color: #EFEFF4;
+}
+.service .title{
+  background-color: #fff;
+  padding: 0 15px;
+  height: 40px;
+  width: 100%;
+  color: #333333;
+  font-weight: bold;
+  font-size: 15px;
+  line-height: 40px;
+  border-bottom: 1px solid #CCCCCC;
+}
+.service .content ul{
+  background-color: #EFEFF4;
+}
+.service .content .mui-table-view-cell{
+  background-color: #fff;
+  height: 40px;
+}
+.service .content .mui-table-view-cell img{
+  width: 14px;
+  height: 20px;
+}
+.service .content .mui-table-view-cell p{
+  height: 20px;
+  line-height: 20px;
+  color: #4F4F4F;
+  font-size: 14px;
+}
+.service .content .mui-table-view-cell:last-of-type{
+  margin-top: 0;
+  height: 40px;
+}
+.service .content .mui-table-view-cell:last-of-type img{
+  width: 19px;
+  height: 17px;
+}
+.service .content .mui-table-view-cell:last-of-type p{
+  height: 20px;
+  line-height: 20px;
+  color: #4F4F4F;
+  font-size: 14px;
+}
+.footer ul li:nth-of-type(4) span,.footer ul li:nth-of-type(4) p{
+    color: #DEA567;
+}
+.mui-table-view-cell:after{right:15px}

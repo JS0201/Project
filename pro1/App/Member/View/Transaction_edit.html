@@ -1,0 +1,188 @@
+<include file="Admin@Public/header" />		
+
+		<div class="fixed-nav layout">
+			<ul>
+				<li class="first">参数设置</li>
+			</ul>
+			<div class="hr-gray"></div>
+		</div>
+		<form action="<{:U('save')}>" method="POST" enctype="multipart/form-data">
+		<div class="content padding-big have-fixed-nav">
+		 <div class="content-tabs ">
+			<div class="hidden">
+				<input type="hidden" name="id" value="1">
+			</div>
+
+			 <div class="form-box clearfix">
+				 <?php echo \Org\Util\Form::input('text', 'simu_end', $info['simu_end'] ? $info['simu_end'] : '', '私募期结束时间：', '私募期结束时间'); ?>
+			 </div>
+			 <!--<div class="form-box clearfix">-->
+				 <!--<?php echo \Org\Util\Form::input('text', 'zhaomu', $info['zhaomu'] ? $info['zhaomu'] : '', '招募奖励：', '招募奖励&nbsp;&nbsp;&nbsp;(输入0.1即为10%)'); ?>-->
+			 <!--</div>-->
+			 <!--<div class="form-box clearfix">-->
+				 <!--<?php echo \Org\Util\Form::input('text', 'sqjs', $info['sqjs'] ? $info['sqjs'] : '', '社区建设奖励：', '社区建设奖励&nbsp;&nbsp;&nbsp;(输入0.1即为10%)'); ?>-->
+			 <!--</div>-->
+			 <!--<div class="form-box clearfix">-->
+				 <!--<?php echo \Org\Util\Form::input('text', 'sqfz', $info['sqfz'] ? $info['sqfz'] : '', '社区发展奖励：', '社区发展奖励&nbsp;&nbsp;&nbsp;(输入0.1即为10%)'); ?>-->
+			 <!--</div>-->
+			 <!--<div class="form-box clearfix">-->
+				 <!--<?php echo \Org\Util\Form::input('text', 'jishi', $info['jishi'] ? $info['jishi'] : '', '社区基石奖励：', '社区基石奖励&nbsp;&nbsp;&nbsp;(输入0.1即为10%)'); ?>-->
+			 <!--</div>-->
+			 <!--<div class="form-box clearfix">-->
+				 <!--<?php echo \Org\Util\Form::input('text', 'jishi_count', $info['jishi_count'] ? $info['jishi_count'] : '', '基石奖励人数要求：', '基石奖励人数要求'); ?>-->
+			 <!--</div>-->
+			 <!--<div class="form-box clearfix">-->
+				 <!--<?php echo \Org\Util\Form::input('text', 'tdfz', $info['tdfz'] ? $info['tdfz'] : '', '团队发展奖励：', '团队发展奖励&nbsp;&nbsp;&nbsp;(输入0.1即为10%)'); ?>-->
+			 <!--</div>-->
+			 <!--<div class="form-box clearfix">-->
+				 <!--<?php echo \Org\Util\Form::input('text', 'sqgx', $info['sqgx'] ? $info['sqgx'] : '', '社区贡献奖励：', '社区贡献奖励&nbsp;&nbsp;&nbsp;(输入0.1即为10%)'); ?>-->
+			 <!--</div>-->
+			 <!--<div class="form-box clearfix">-->
+				 <!--<?php echo \Org\Util\Form::input('text', 'sqgxyq', $info['sqgxyq'] ? $info['sqgxyq'] : '', '社区贡献奖励ETH数量要求：', '社区贡献奖励ETH数量要求&nbsp;&nbsp;&nbsp;'); ?>-->
+			 <!--</div>-->
+			 <!--<div class="form-box clearfix">-->
+				 <!--<?php echo \Org\Util\Form::input('text', 'sqfzgx', $info['sqfzgx'] ? $info['sqfzgx'] : '', '社区发展贡献奖励：', '社区发展贡献奖励&nbsp;&nbsp;&nbsp;(输入0.1即为10%)'); ?>-->
+			 <!--</div>-->
+
+			 <!--<div class="form-box clearfix">-->
+				 <!--<?php echo \Org\Util\Form::input('text', 'sqfzgxyq', $info['sqfzgxyq'] ? $info['sqfzgxyq'] : '', '社区发展贡献奖励ETH数量要求：', '社区发展贡献奖励ETH数量要求&nbsp;&nbsp;&nbsp;'); ?>-->
+			 <!--</div>-->
+			 <div class="form-box clearfix">
+			 <?php echo \Org\Util\Form::input('text', 'register', $info['register'] ? $info['register'] : '', '招募奖励：', '招募奖励&nbsp;&nbsp;&nbsp;(输入0.1即为10%)'); ?>
+			 </div>
+			 <div class="form-box clearfix">
+			 <?php echo \Org\Util\Form::input('text', 'team', $info['team'] ? $info['team'] : '', '建设奖励：', '建设奖励&nbsp;&nbsp;&nbsp;(输入0.1即为10%)'); ?>
+			 </div>
+			 <div class="form-box clearfix">
+				 <?php echo \Org\Util\Form::input('radio', 'team_status', $info['team_status'] ? $info['team_status'] : '', '建设奖励：', '建设奖励是否开启',array('items'=>array('关闭','开启'), 'colspan' => 3,)); ?>
+			 </div>
+			 
+			 <div class="form-box clearfix">
+				 <?php echo \Org\Util\Form::input('text', 'zz_fee', $info['zz_fee'] ? $info['zz_fee'] : '', 'HM转账手续费比例：', 'HM转账手续费比例&nbsp;&nbsp;&nbsp;(输入0.1即为10%)'); ?>
+			 </div>
+			 
+			 <div class="form-box clearfix">
+				 <?php echo \Org\Util\Form::input('text', 'gr_jihuo', $info['gr_jihuo'] ? $info['gr_jihuo'] : '', '个人激活Token比例：', '个人激活Token比例&nbsp;&nbsp;&nbsp;(输入0.1即为10%)'); ?>
+			 </div>
+			 
+			 
+
+			 <div class="form-box clearfix">
+				 <?php echo \Org\Util\Form::input('text', 'zt_jihuo', $info['zt_jihuo'] ? $info['zt_jihuo'] : '', '直推激活Token比例：', '直推激活Token比例&nbsp;&nbsp;&nbsp;(输入0.1即为10%)'); ?>
+			 </div>
+
+			 <div class="form-box clearfix">
+				 <?php echo \Org\Util\Form::input('text', 'sj_jihuo', $info['sj_jihuo'] ? $info['sj_jihuo'] : '', '十级激活Token比例：', '十级激活Token比例&nbsp;&nbsp;&nbsp;(输入0.1即为10%)'); ?>
+			 </div>
+
+			 <div class="form-box clearfix">
+				 <?php echo \Org\Util\Form::input('textarea', 'padian', $info['padian'] ? $info['padian'] : '', '每日帕点会员：', '输入会员的手机号用“|”隔开'); ?>
+			 </div>
+
+			 <div class="form-box clearfix">
+				 <?php echo \Org\Util\Form::input('radio', 'shequ1', $info['shequ1'] ? $info['shequ1'] : '', '第一社区战绩：', '',array('items'=>array('隐藏','显示'), 'colspan' => 3,)); ?>
+			 </div>
+			 <div class="form-box clearfix">
+				 <?php echo \Org\Util\Form::input('radio', 'shequ2', $info['shequ2'] ? $info['shequ2'] : '', '第二社区战绩：', '',array('items'=>array('隐藏','显示'), 'colspan' => 3,)); ?>
+			 </div>
+			 <div class="form-box clearfix">
+				 <?php echo \Org\Util\Form::input('radio', 'shequ3', $info['shequ3'] ? $info['shequ3'] : '', '第三社区战绩：', '',array('items'=>array('隐藏','显示'), 'colspan' => 3,)); ?>
+			 </div>
+			 <div class="form-box clearfix">
+				 <?php echo \Org\Util\Form::input('radio', 'shequ4', $info['shequ4'] ? $info['shequ4'] : '', '第四社区战绩：', '',array('items'=>array('隐藏','显示'), 'colspan' => 3,)); ?>
+			 </div>
+			 <div class="form-box clearfix">
+				 <?php echo \Org\Util\Form::input('radio', 'shequ5', $info['shequ5'] ? $info['shequ5'] : '', '第五社区战绩：', '',array('items'=>array('隐藏','显示'), 'colspan' => 3,)); ?>
+			 </div>
+			 <div class="form-box clearfix">
+				 <?php echo \Org\Util\Form::input('radio', 'shequ6', $info['shequ6'] ? $info['shequ6'] : '', '第六社区战绩：', '',array('items'=>array('隐藏','显示'), 'colspan' => 3,)); ?>
+			 </div>
+			 <div class="form-box clearfix">
+				 <?php echo \Org\Util\Form::input('radio', 'shequ7', $info['shequ7'] ? $info['shequ7'] : '', '第七社区战绩：', '',array('items'=>array('隐藏','显示'), 'colspan' => 3,)); ?>
+			 </div>
+			 <div class="form-box clearfix">
+				 <?php echo \Org\Util\Form::input('radio', 'shequ8', $info['shequ8'] ? $info['shequ8'] : '', '第八社区战绩：', '',array('items'=>array('隐藏','显示'), 'colspan' => 3,)); ?>
+			 </div>
+			 <div class="form-box clearfix">
+				 <?php echo \Org\Util\Form::input('radio', 'shequ9', $info['shequ9'] ? $info['shequ9'] : '', '第九社区战绩：', '',array('items'=>array('隐藏','显示'), 'colspan' => 3,)); ?>
+			 </div>
+			 <div class="form-box clearfix">
+				 <?php echo \Org\Util\Form::input('radio', 'shequ10', $info['shequ10'] ? $info['shequ10'] : '', '第十社区战绩：', '',array('items'=>array('隐藏','显示'), 'colspan' => 3,)); ?>
+			 </div>
+		</div>
+			<div class="padding">
+				<input type="submit" class="button bg-main" value="确认" name="dosubmit" />
+				<input type="button" class="button margin-left bg-gray" value="返回" />
+			</div>
+		</div>
+		</form>
+		<script>
+		
+			var editor = UE.getEditor('content');		
+			
+			$("input[name=parent]").attr("readonly","readonly");
+			$("input[name=parent]").live('click',function(){
+			
+				var data = $(this).attr('data-ids');
+				top.dialog({
+					url: '<{:U('category_choose',array('type'=>'category'))}>&formhash='+formhash,
+					title: '加载中...',
+					width: 930,
+					data:data,
+					onclose: function () {
+						if(this.returnValue){
+							$("input[name=parent]").attr('data-ids',this.returnValue.split("category_ids=")[1].split(',').reverse());
+							$("#choosecat").val(html_encode(this.returnValue,0));
+							$("input[name=parent_id]").val(html_encode(this.returnValue,1));
+						}
+					}
+				})
+				.showModal();
+			})
+			//选择分类操作
+			function html_encode(str,i){ 
+			    str = str.split("category_ids=")[i];
+				if(i == 1){
+					var id = "<?php echo $_GET['id']?>";
+					var arr_str = str.split(",");
+					if(arr_str[arr_str.length-1] == id){
+						return;
+					}
+					return arr_str[arr_str.length-1];
+				}
+				str = str.replace(/&gt;/g, ">"); 
+				str = str.replace(/&lt;/g, "<");   
+				str = str.replace(/&gt;/g, ">");   
+				str = str.replace(/&nbsp;/g, " ");   
+				str = str.replace(/&#39;/g, "\'");   
+				str = str.replace(/&quot;/g, "\""); 
+				return str;
+			}
+			
+			function select_tpl(modelid,id){
+				$.post('<{:U('select_tpl')}>','modelid='+modelid+'&id='+id+'&formhash='+formhash,function(data){
+					
+					$('input[name="category_template"]').val(data['category_tpl']);
+					$('input[name="list_template"]').val(data['list_tpl']);
+					$('input[name="show_template"]').val(data['show_tpl']);
+				},'json');
+			}
+			$(function(){
+				//模板选择
+				$('.listbox-items').click(function(){
+					var modelid=$('input[name="modelid"]').val();
+					select_tpl(modelid,'');
+				});
+				
+				//加载模板
+				<if condition="ACTION_NAME eq 'add'">
+				select_tpl(<{$info['modelid']|default='1'}>,<{$_GET['parent_id']}>);
+				
+				<else/>
+				select_tpl(<{$info['modelid']|default='1'}>,<{$info['id']}>);
+				
+				</if>
+			})
+		</script>
+	</body>
+</html>

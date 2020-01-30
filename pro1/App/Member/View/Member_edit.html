@@ -1,0 +1,34 @@
+<include file="Admin@Public/header" />
+
+<form  method="POST" name="fomr-validate">
+	<input type="hidden" name="id" value="<?php echo $member['id'] ?>">
+	<div class="fixed-nav layout">
+		<ul>
+			<li class="first">编辑会员</li>
+			<li class="spacer-gray"></li>
+		</ul>
+		<div class="hr-gray"></div>
+	</div>
+	<div class="content padding-big have-fixed-nav">
+		<div class="form-box clearfix">
+			<?php echo \Org\Util\Form::input('text', 'username', $member['username'], '用户名：', '用户名(用户名需与手机号码保持一致)'); ?>
+			<?php echo \Org\Util\Form::input('password', 'password', '', '密码：', '设置用户登录密码，不修改请留空'); ?>
+			<?php echo \Org\Util\Form::input('password', 'twopassword', '', '交易密码：', '设置用户交易密码，不修改请留空'); ?>
+			<?php echo \Org\Util\Form::input('text', 'realname', $member['realname'], '真实姓名：', '真实姓名'); ?>
+			<?php echo \Org\Util\Form::input('text', 'mobile', $member['mobile'], '手机号码：', '手机号码(手机号码需与用户名保持一致)'); ?>
+			<!--<?php echo \Org\Util\Form::input('text', 'card', $member['card'], '身份证号码：', '身份证号码'); ?>-->
+			<!--<?php echo \Org\Util\Form::input('radio', 'group_id', isset($member['group_id']) ? $member['group_id']: 0, '会员身份：', '会员身份', array('items' => array('0'=>'普通会员','1'=>'铜主会员','2'=>'银主会员','3'=>'金主会员'), 'colspan' => 2,));?>-->
+			<?php echo \Org\Util\Form::input('text', '', getdatetime($member['register_time']), '注册时间：', '会员注册时间',array('disabled'=>'disabled')); ?>
+			<?php echo \Org\Util\Form::input('text', '', $member['register_ip'], '注册IP：', '会员注册IP',array('disabled'=>'disabled')); ?>
+			<?php echo \Org\Util\Form::input('text', '', getdatetime($member['login_time']) ,'登录时间：', '会员最后一次登录时间',array('disabled'=>'disabled')); ?>
+
+			<!--<?php //echo \Org\Util\Form::input('select', 'group_id', $member['group_id'] ? $member['group_id'] : '0', '等级：', '等级',array('items'=>array('0'=>'普通会员','1'=>'初级会员','2'=>'中级会员','3'=>'高级会员'))); ?>-->
+		</div>
+		<div class="padding">
+			<input type="submit" name="dosubmit" class="button bg-main" value="确定" />
+			<input type="reset" name="back" class="button margin-left bg-gray" value="返回" />
+		</div>
+	</div>
+</form>
+</body>
+</html>

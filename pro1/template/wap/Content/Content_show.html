@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+
+    <head>
+        <meta charset="utf-8">
+        <title>系统公告</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
+        <meta name="apple-mobile-web-app-capable" content="yes">
+        <meta name="apple-mobile-web-app-status-bar-style" content="black">
+
+<include file="template/wap/Public/title.html" />
+        <script src="__TMPL__/js/mui_comment.js" type="text/javascript" charset="utf-8"></script>
+        <script src="__TMPL__/js/mui.picker.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="__TMPL__/js/modal.js" type="text/javascript" charset="utf-8"></script>
+        <link rel="stylesheet" type="text/css" href="__TMPL__/css/mui.picker.min.css"/>
+    </head>
+
+<style>
+    /*系统公告*/
+
+    .onticeh3 {
+        border-bottom: 1px solid #dcdcdc;
+        text-align: center;
+    }
+
+    .onticeh3 h3 {
+        color: #111111;
+        font-size: 4.5vmin;
+    }
+
+
+    .onticeh3 p {
+        color: #6b6b6d;
+        line-height: 10vmin;
+    }
+    /*系统公告完*/
+</style>
+
+    <body>
+
+            <!--侧滑菜单部分-->
+<include file="template/wap/Public/middle.html" />
+            <!--主界面部分-->
+                        <div class="mui-content-padded">
+
+                                <div class="noticedetails">
+                                     <div class="onticeh3">
+                                          <h3><page field="title" action="show" /> </h3>
+                                          <p>发布时间：<page field="add_time" function="getdatetime(###,'Y-m-d')" action="show" /></p>
+                                     </div>
+                                     <div class="content" style="overflow:hidden; padding:0 10px">
+                                      <page field="content" action="show" />
+                                    </div>
+                                </div>
+
+                        </div>
+
+                <!-- off-canvas backdrop -->
+<include file="template/wap/Public/footer.html" />
+
+    </body>
+</html>

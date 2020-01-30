@@ -1,0 +1,255 @@
+body,
+html {
+  overflow: auto;
+}
+.page-bg{
+	background:url(../img/index/page-bg01.jpg) no-repeat;
+	background-size:100% 100%;
+	padding-bottom:65px;
+}
+/* 顶部 */
+.header {
+  height: 60px;
+  width: 100%;
+  background-color: transparent;
+  padding: 0 15px;
+  padding-top:5px
+}
+.header-img{
+	width:50%;
+	margin:20px auto 0;
+}
+.header-img img{
+	width:100%
+}
+
+
+.header a {
+  padding: 8px 10px;
+  float: right;
+  height: 35px;
+  width: 35px;
+}
+
+.header a img {
+  width: 16px;
+  height: 19px;
+}
+
+/* 轮播图 */
+.carousel {
+  position: relative;
+  padding: 0 15px;
+  height: 160px;
+  width: 100%;
+  background-color: #47443E;
+  /* background-color: #fff; */
+}
+
+.swiper-container {
+  width: 100%;
+  height: 100%;
+}
+
+.swiper-container .swiper-slide .box {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+.swiper-container .swiper-slide:nth-of-type(1) .box {
+  background: url('../img/index/carousel/顶部会员卡6500.png') no-repeat;
+  background-size: cover;
+}
+
+.swiper-container .swiper-slide:nth-of-type(2) .box {
+  background: url('../img/index/carousel/顶部会员卡26000.png') no-repeat;
+  background-size: cover;
+}
+
+.swiper-container .swiper-slide:nth-of-type(3) .box {
+  background: url('../img/index/carousel//顶部会员卡13000.png') no-repeat;
+  background-size: cover;
+}
+
+.swiper-container .swiper-slide:nth-of-type(4) .box {
+  background: url('../img/index/carousel/顶部会员卡6500.png') no-repeat;
+  background-size: cover;
+}
+
+.swiper-container .swiper-slide:nth-of-type(5) .box {
+  background: url('../img/index/carousel/顶部会员卡26000.png') no-repeat;
+  background-size: cover;
+}
+
+.swiper-container .swiper-slide:nth-of-type(6) .box {
+  background: url('../img/index/carousel//顶部会员卡13000.png') no-repeat;
+  background-size: cover;
+}
+
+.swiper-container .box .title {
+  padding: 10px 15px;
+  height: 60px;
+  width: 75px;
+  display: flex;
+  flex-direction: column;
+}
+
+.swiper-container .box .title .head {
+  width: 35px;
+  height: 35px;
+}
+
+.swiper-container .box .title .name {
+  margin-top: 5px;
+  font-size: 12px;
+}
+
+.swiper-container img {
+  width: 100%;
+  height: 100%;
+}
+
+.carousel .bottom {
+  z-index: 10;
+  height: 35px;
+  left: -15px;
+  position: absolute;
+  bottom: 0;
+  width: 105%;
+  /* opacity: 0.5; */
+  /* pointer-events:none; */
+  background: url('../img/index/carousel/覆盖弧形.png') no-repeat;
+  background-size: cover;
+}
+
+.carousel .shadow {
+  z-index: 0;
+  background: url(../img/index/carousel/投影.png) no-repeat;
+  background-size: 100% 100%;
+  position: absolute;
+  left: 0px;
+  bottom: -5px;
+  height: 80px;
+  width: 100%;
+}
+
+/* 商城list */
+.list1 {
+  box-sizing: border-box;
+  padding: 13px 15px;
+  height: 90px;
+  width: 100%;
+  background-color: transparent;
+}
+
+.list1 ul {
+  display: flex;
+}
+
+.list1 ul li {
+  flex: 1;
+  display: flex;
+}
+
+.list1 ul li a {
+  display: block;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+}
+
+.list1 ul li a img {
+  width: 40px;
+  height: 40px;
+  margin: 0 auto;
+}
+
+.list1 ul li a span {
+  margin-top: 5px;
+  font-size: 12px;
+  color: #FEF1C6;
+}
+
+/* 奖励记录list2 */
+.list2 {
+  padding: 22.5px 15px;
+  box-sizing: border-box;
+  height: 115px;
+  width: 100%;
+  background-color: #fff;
+}
+
+.list2 ul {
+  display: flex;
+}
+
+.list2 ul li {
+  flex: 1;
+  display: flex;
+}
+
+.list2 ul li a {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+}
+
+.list2 ul li a img {
+  width: 50px;
+  height: 50px;
+  margin: 0 auto;
+}
+
+.list2 ul li a span {
+  margin-top: 5px;
+  font-size: 13px;
+  color: #33342E;
+}
+
+/* 温馨提示 */
+.tips {
+  width: 100%;
+  padding: 0 15px;
+  height: 180px;
+  
+  background-color: #fff;
+}
+
+.tips .box {
+  box-sizing: border-box;
+  padding-top: 10px;
+  margin-bottom:60px;
+  /* border-radius: 15px; */
+  height: 100%;
+  width: 100%;
+  background: url(../img/index/carousel/-s-提示边框.png) no-repeat;
+  background-size: 100% 100%;
+}
+
+.tips .box h2 {
+  color: #dd524d;
+  font-size: 13px;
+  text-align: center;
+}
+
+.tips .box .content {
+  width: 210px;
+  margin: 0 auto;
+  margin-top: 30px;
+  color: #33342E;
+  font-size: 13px;
+}
+
+.tips .box .content span {
+  letter-spacing: 1px;
+  line-height: 15px;
+}
+
+.footer ul li:nth-of-type(1) span,.footer ul li:nth-of-type(1) p{
+    color: #DEA567;
+}
+
+

@@ -1,0 +1,68 @@
+<include file="Admin@Public/header" />		
+
+		<div class="fixed-nav layout">
+			<ul>
+				<li class="first">账户释放</li>
+			</ul>
+			<div class="hr-gray"></div>
+		</div>
+		<form action="<{:U('save')}>" method="POST" enctype="multipart/form-data">
+		<div class="content padding-big have-fixed-nav">
+		 <div class="content-tabs ">
+			<div class="hidden">
+				<input type="hidden" name="id" value="1">
+			</div>
+			 <style>
+				 .sf_a{border:1px #417eb7 solid; cursor: pointer; margin-left: 80px; display: inline-block; width: 80px; height: 30px; background: #417eb7; color: white;text-align: center; line-height: 30px; border-radius: 3px;}
+				 .sf_a:hover{color: white;}
+				 .form-box{margin-top: 20px;}
+			 </style>
+			 <div class="form-box clearfix">
+				 <span>认购第一期</span><a class="sf_a" onclick="sf(0,1);">释放</a><span style="display: inline-block; margin-left: 80px;"></span>
+				 <span>奖励第一期</span><a class="sf_a" onclick="sf(1,1);">释放</a><span style="display: inline-block; margin-left: 80px;"></span>
+				 <span>奖励第七期</span><a class="sf_a" onclick="sf(1,7);">释放</a>
+			 </div>
+			 <div class="form-box clearfix">
+				 <span>认购第二期</span><a class="sf_a" onclick="sf(0,2);">释放</a><span style="display: inline-block; margin-left: 80px;"></span>
+				 <span>奖励第二期</span><a class="sf_a" onclick="sf(1,2);">释放</a><span style="display: inline-block; margin-left: 80px;"></span>
+				 <span>奖励第八期</span><a class="sf_a" onclick="sf(1,8);">释放</a>
+			 </div>
+			 <div class="form-box clearfix">
+				 <span>认购第三期</span><a class="sf_a" onclick="sf(0,3);">释放</a><span style="display: inline-block; margin-left: 80px;"></span>
+				 <span>奖励第三期</span><a class="sf_a" onclick="sf(1,3);">释放</a><span style="display: inline-block; margin-left: 80px;"></span>
+				 <span>奖励第九期</span><a class="sf_a" onclick="sf(1,9);">释放</a>
+			 </div>
+			 <div class="form-box clearfix">
+				 <span>认购第四期</span><a class="sf_a" onclick="sf(0,4);">释放</a><span style="display: inline-block; margin-left: 80px;"></span>
+				 <span>奖励第四期</span><a class="sf_a" onclick="sf(1,4);">释放</a><span style="display: inline-block; margin-left: 80px;"></span>
+				 <span>奖励第十期</span><a class="sf_a" onclick="sf(1,10);">释放</a>
+			 </div>
+			 <div class="form-box clearfix">
+				 <span>认购第五期</span><a class="sf_a" onclick="sf(0,5);">释放</a><span style="display: inline-block; margin-left: 80px;"></span>
+				 <span>奖励第五期</span><a class="sf_a" onclick="sf(1,5);">释放</a><span style="display: inline-block; margin-left: 68px;"></span>
+				 <span>奖励第十一期</span><a class="sf_a" onclick="sf(1,11);">释放</a>
+			 </div>
+			 <div class="form-box clearfix">
+				 <span>认购第六期</span><a class="sf_a" onclick="sf(0,6);">释放</a><span style="display: inline-block; margin-left: 80px;"></span>
+				 <span>奖励第六期</span><a class="sf_a" onclick="sf(1,6);">释放</a><span style="display: inline-block; margin-left: 68px;"></span>
+				 <span>奖励第十二期</span><a class="sf_a" onclick="sf(1,12);">释放</a>
+			 </div>
+		</div>
+		</div>
+		</form>
+		<script>
+			function sf(type,qi){
+				if(confirm("确认释放吗？")){
+                    $.post('<{:U("Member/member/sf_exce")}>','type='+type+"&qi="+qi,function(data){
+						if(data.status=='0'){
+							console.log(data.message);//异常
+							alert(data.message);
+						}else{
+							alert("释放成功");
+						}
+					},'json');
+				}
+			}
+		</script>
+	</body>
+</html>

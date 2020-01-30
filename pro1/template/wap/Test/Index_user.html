@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>首页</title>
+    <link rel="stylesheet" href="__TMPL__/hb/public/mui/css/mui.min.css">
+    <link rel="stylesheet" href="__TMPL__/hb/public/start.css">
+    <link rel="stylesheet" href="__TMPL__/hb/css/index.css">
+    <link rel="stylesheet" href="__TMPL__/hb/public/swiper/css/swiper.min.css">
+    <link rel="stylesheet" href="__TMPL__/hb/css/common.css">
+    <include file="template/wap/Public/base.html" />
+</head>
+
+<body>
+
+<div class="page-bg">
+	<!-- 顶部 -->
+	<header class="header">
+		<span></span>
+		<a href="<{:U('content/index/show',array('id'=>1))}>"><img src="__TMPL__/hb/img/index/客服图标@2x.png" alt=""></a>
+	</header>
+	<div class="header-img">
+		<img src="__TMPL__/hb/img/index/page-img.png" class="">
+	</div>
+
+	<section class="list1">
+		<ul>
+			<li>
+				<a href="<{:U('home/index/shop')}>">
+					<img src="__TMPL__/hb/img/index/icon01.png" alt="">
+					<span>商城</span>
+				</a>
+			</li>
+			<li>
+				 <a href="<{:U('member/memberSort/point')}>">
+					<img src="__TMPL__/hb/img/index/icon02.png" alt="">
+					<span>充值</span>
+				</a>
+			</li>
+			<li>
+				<a href="<{:U('member/memberSort/clientsee')}>">
+					<img src="__TMPL__/hb/img/index/icon03.png" alt="">
+					<span>分享排位</span>
+				</a>
+			</li>
+			<li>
+				<a href="<{:U('member/memberSort/commidetbi')}>">
+					<img src="__TMPL__/hb/img/index/icon04.png" alt="">
+					<span>提资产</span>
+				</a>
+			</li>
+		</ul>
+	</section>
+</div>
+
+<!-- 奖励记录lsit -->
+<section class="list2">
+    <ul>
+        <li>
+            <a href="<{:U('member/memberSort/returnka')}>">
+                <img src="__TMPL__/hb/img/index/奖励@2x.png" alt="">
+                <span>资格记录</span>
+            </a>
+        </li>
+        <li>
+            <a href="<{:U('member/memberSort/xian')}>">
+                <img src="__TMPL__/hb/img/index/资金互转@2x.png" alt="">
+                <span>资产互转</span>
+            </a>
+        </li>
+        <li>
+            <a href="<{:U('member/memberSort/recharge')}>">
+                <img src="__TMPL__/hb/img/index/购买区块包@2x.png" alt="">
+                <span>购买区块包</span>
+            </a>
+        </li>
+        <li>
+            <a href="<{:U('content/index/index',array('type'=>3))}>">
+                <img src="__TMPL__/hb/img/index/资讯@2x.png" alt="">
+                <span>资讯</span>
+            </a>
+        </li>
+    </ul>
+</section>
+<!-- 温馨提示 -->
+<section class="tips">
+    <div class="box">
+        <h2>温馨提示</h2>
+        <div class="content">
+            <span><{$tishi}></span>
+        </div>
+    </div>
+</section>
+<include file="template/wap/Public/footer.html" />
+
+<script src="__TMPL__/hb/public/mui/js/mui.min.js"></script>
+<script src="__TMPL__/hb/public/swiper/js/swiper.min.js"></script>
+<script src="__TMPL__/hb/public/zepto/zepto.min.js"></script>
+<script>
+    var swiper = new Swiper('.swiper-container', {
+        slidesPerView: 1,
+        spaceBetween: 30,
+        loop: true,
+        autoplay: {
+            delay: 2500,
+            disableOnInteraction: false,
+        },
+        pagination: {
+            el: '.swiper-pagination',
+            clickable: true,
+        },
+    });
+</script>
+</body>
+
+</html>
+<script>
+   
+</script>

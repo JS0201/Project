@@ -1,0 +1,362 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>朋友</title>
+    <link rel="stylesheet" href="__TMPL__/hb/public/mui/css/mui.min.css">
+    <link rel="stylesheet" href="__TMPL__/hb/public/swiper/css/swiper.min.css">
+    <include file="template/wap/Public/base.html" />
+    <style>
+        html,body{
+            width: 100%;
+            height: 100%;
+            background-color: #fff;
+        }
+        #myProfit .myHead .lang{
+            display: flex;
+        }
+        #myProfit .myHead .lang .leftback img{
+            width: .10rem;
+            position: absolute;
+            top: .35rem;
+            left: .20rem;
+        }
+        #myProfit .myHead .lang h3{
+            font-size: .18rem;
+            color: #FFFFFF;
+            font-weight: 400;
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+            top: .30rem;
+        }
+        #myProfit .myHead .lang p{
+            display: block;
+            color: #fff;
+            position: absolute;
+            top: .36rem;
+            right: .12rem;
+        }
+        #myProfit .myHead .lang p select{
+            margin: 0;
+            color: #fff;
+            background: rgba(0, 0, 0, 0);
+            border: 0;
+            appearance: none;
+            -moz-appearance: none;
+            -webkit-appearance: none;
+            font-size: 0.14rem;
+            padding: 0 !important;
+        }
+        #myProfit .myHead{
+            height: 1.98rem;
+            width: 100%;
+            position: fixed;
+            background: url("template/wap/static/vsc/img/my-bg.png");
+            background-position: center;
+            background-size: 100%;
+            z-index: 999;
+        }
+        #myProfit .myHead .myMsg{
+            position: absolute;
+            width: 100%;
+            color: #fff;
+            display: flex;
+        }
+        #myProfit .myHead .myTag{
+            font-size: 0.15rem;
+            color: #333;
+            font-weight: 600;
+            position: absolute;
+            top: .87rem;
+            width: 3.37rem;
+            min-height: 1.63rem;
+            left: 50%;
+            transform: translateX(-50%);
+            background: url("template/wap/static/vsc/img/myTeamBg.png") no-repeat;
+            background-position: bottom;
+            background-size: contain;
+        }
+        #myProfit .myHead .myTag .tagTop{
+            font-size: .12rem;
+            color: #666666;
+            display: flex;
+            padding: .25rem .30rem .1rem;
+            background: url("template/wap/static/vsc/img/myTeamBg.png") no-repeat;
+            background-position: top;
+            background-size: cover;
+        }
+        #myProfit .myHead .myTag .tagTop .toptop1{
+            flex: 1;
+            text-align: left;
+            display: flex;
+            flex-direction: column;
+        }
+        #myProfit .myHead .myTag .tagTop .toptop1 span{
+            font-weight: 500;
+        }
+        #myProfit .myHead .myTag .tagTop .toptop1 span:last-of-type{
+            font-size: .18rem;
+            color: #EC572D;
+        }
+        #myProfit .myHead .myTag .tagBottom{
+            display: flex;
+            padding-bottom: .16rem;
+        }
+        #myProfit .myHead .myTag .line1{
+            padding-top: .1rem;
+        }
+        #myProfit .myHead .myTag .line{
+            display: inline-block;
+            width: 0.01rem;
+            height: 0.34rem;
+            background-color: #EB522D;
+            margin-bottom: 1px;
+        }
+        #myProfit .myHead .myTag .my1{
+            flex: 1;
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+        }
+        #myProfit .myHead .myTag .my1 span:nth-of-type(2){
+            font-size: .12rem;
+            font-weight: 400;
+            color: #878787;
+        }
+        #myProfit .myHead .myTag .my1 span:last-of-type{
+            font-weight: 400;
+            font-size: .14rem;
+            color: #878787;
+        }
+        #myProfit .mycontent{
+            padding-top: 3.4rem;
+        }
+        #myProfit .mycontent .mybutton{
+            border: 1px solid #ED622D;
+            border-radius: .08rem;
+            box-shadow: 0px 2px 19px -6px #F9AF2D;
+            padding: 0 .22rem 0 .26rem;
+            margin: 0 .13rem .10rem;
+        }
+        #myProfit .mycontent .mybutton .myitem{
+            height: .70rem;
+            line-height: .70rem;
+            display: flex;
+        }
+        #myProfit .mycontent .mybutton .myitem .itemLeft{
+            position: relative;
+        }
+        #myProfit .mycontent .mybutton .myitem .itemLeft img{
+            width: .27rem;
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+        }
+        #myProfit .mycontent .mybutton .myitem .itemLeft span{
+            margin-left: .35rem;
+            font-size: .18rem;
+            color: #333;
+        }
+        #myProfit .mycontent .mybutton .myitem .itemright{
+            flex: 1;
+            text-align: right;
+        }
+        #myProfit .mycontent .mybutton .myitem .itemright img{
+            width: .1rem;
+        }
+        #myProfit .mycontent .mybutton .myTeam-content{
+            overflow: scroll;
+            display: none;
+        }
+        #myProfit .mycontent .mybutton .myTeam-content .contentItem{
+            border-top: 1px solid #999;
+            display: flex;
+            height: .48rem;
+            line-height: .48rem;
+            padding: 0 .03rem;
+        }
+        #myProfit .mycontent .mybutton .myTeam-content .contentItem:last-of-type{
+            border-bottom: 1px solid #999;
+            margin-bottom: .25rem;
+        }
+        #myProfit .mycontent .mybutton .myTeam-content .contentItem .itemS{
+            width: 100%;
+            font-size: .18rem;
+            color: #333;
+            flex: 1;
+        }
+        #myProfit .mycontent .mybutton .myTeam-content .contentItem .itemS{
+            color: #EA4A2C;
+        }
+        #myProfit .mycontent .mybutton .myTeam-content .contentItem .itemS:last-of-type{
+            text-align: right;
+        }
+        #myProfit .mycontent .mybutton .myTeam-content .contentItem .itemS span{
+            font-size: .15rem;
+            color: #999;
+        }
+        #myProfit .mycontent .mybutton .myTeam-content .contentItem .itemS:last-of-type span:last-of-type{
+            font-size: .12rem;
+        }
+        #myProfit .myHead .moneybox{
+            position: absolute;
+            top: .6rem;
+            width: 100%;
+            font-size: .14rem;
+            color: #fff;
+            display: flex;
+        }
+        #myProfit .fenhong{
+            position: relative;
+            padding-top: .18rem;
+        }
+    </style>
+</head>
+
+<body>
+<div id="myProfit">
+    <div class="myHead">
+        <div class="lang">
+            <div class="leftback">
+                <img src="template/wap/static/vsc/img/backIcon.png" id="backcome" onclick="window.history.back(-1);">
+            </div>
+            <h3 id="head-title"><{:L('profit0')}></h3>
+        </div>
+        <div class="myMsg">
+            <div class="myTag">
+                <div class="tagTop">
+                    <div class="toptop1">
+                        <span><{:L('profit1')}></span>
+                        <span><{$userName}></span>
+                    </div>
+                    <div class="toptop1">
+                        <span><{:L('team3')}></span>
+                        <span style="font-size:0.15rem;"><{$id}></span>
+                    </div>
+                </div>
+                <div class="tagBottom">
+                    <div class="my1 myWallet1">
+                        <span><{$todaysy}></span>
+                        <span>(USDT)</span>
+                        <span><{:L('profit8')}></span>
+                    </div>
+                    <div class="line1">
+                        <i class="line"></i>
+                    </div>
+                    <div class="my1 myTeam1">
+                        <span><{$yesterdaysy}></span>
+                        <span>(USDT)</span>
+                        <span><{:L('profit9')}></span>
+                    </div>
+                    <div class="line1">
+                        <i class="line"></i>
+                    </div>
+                    <div class="my1 fenhong">
+                        <span></span>
+                        <span> </span>
+                        <span><{:L('profit10')}></span>
+                    </div>
+                </div>
+                <div class="tagBottom">
+                    <div class="my1 myWallet1">
+                        <span><{$todaysy}></span>
+                        <span>(USDT)</span>
+                        <span><{:L('profit2')}></span>
+                    </div>
+                    <div class="line1">
+                        <i class="line"></i>
+                    </div>
+                    <div class="my1 myTeam1">
+                        <span><{$yesterdaysy}></span>
+                        <span>(USDT)</span>
+                        <span><{:L('profit3')}></span>
+                    </div>
+                    <div class="line1">
+                        <i class="line"></i>
+                    </div>
+                    <div class="my1 myprofit1">
+                        <span><{$allsy}></span>
+                        <span>(USDT)</span>
+                        <span><{:L('profit4')}></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="mycontent">
+        <div class="mybutton">
+            <div class="myitem" onclick="openDetail('<{:U('Member/account/tdlist')}>&type=2,4')">
+                <div class="itemLeft">
+                    <img src="template/wap/static/vsc/img/profit-zhitui.png" alt="">
+                    <span><{:L('profit5')}></span>
+                </div>
+                <div class="itemright">
+                    <img class="right" src="template/wap/static/vsc/img/team-arrow.png" alt="">
+                </div>
+            </div>
+
+        </div>
+        <div class="mybutton">
+            <div class="myitem" onclick="openDetail('<{:U('Member/account/tdlist')}>&type=3')">
+                <div class="itemLeft">
+                    <img src="template/wap/static/vsc/img/profit-share.png" alt="">
+                    <span><{:L('profit6')}></span>
+                </div>
+                <div class="itemright">
+                    <img class="right" src="template/wap/static/vsc/img/team-arrow.png" alt="">
+                </div>
+            </div>
+
+        </div>
+        <div class="mybutton">
+            <div class="myitem" onclick="openDetail('<{:U('Member/account/tdlist')}>&type=5,6')">
+                <div class="itemLeft">
+                    <img src="template/wap/static/vsc/img/profit-teamService.png" alt="">
+                    <span><{:L('profit7')}></span>
+                </div>
+                <div class="itemright">
+                    <img class="right" src="template/wap/static/vsc/img/team-arrow.png" alt="">
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <script type="text/javascript" src="__ROOT__/statics/js/jquery-1.7.2.min.js"></script>
+    <script src="__TMPL__/hb/public/mui/js/mui.min.js"></script>
+    <script src="__TMPL__/hb/public/swiper/js/swiper.min.js"></script>
+    <script src="__TMPL__/hb/public/zepto/zepto.min.js"></script>
+</body>
+
+</html>
+<script>
+    var helpcenterArrowList = document.getElementsByClassName('right')
+    var helpCenterlis = document.querySelectorAll('.myTeam-content')
+    var status = false;
+
+    function openDetail(i) {
+        location.href = i;
+        return false;
+        for (let index = 0; index < helpcenterArrowList.length; index++) {
+            const element = helpcenterArrowList[i];
+            helpcenterArrow = element
+        }
+
+        $('.myitem .itemright img').css('width', '0.10rem').attr('src', 'template/wap/static/vsc/img/team-arrow.png');
+        $('.myTeam-content:eq(' + status + ')').css('display', 'none')
+        if (status != i) {
+            $('.myTeam-content:eq(' + i + ')').css('display', 'initial')
+            helpcenterArrow.src = 'template/wap/static/vsc/img/team-arrow2.png'
+            helpcenterArrow.style.width = '0.15rem'
+            status = i
+        } else {
+            helpcenterArrow.src = 'template/wap/static/vsc/img/team-arrow.png'
+            helpcenterArrow.style.width = '0.10rem'
+            status = false
+        }
+    }
+</script>

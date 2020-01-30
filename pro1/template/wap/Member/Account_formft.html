@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title><{:L('_formft_title')}></title>
+    <link rel="stylesheet" href="__TMPL__/hb/public/mui/css/mui.min.css">
+    <link rel="stylesheet" href="__TMPL__/hb/public/swiper/css/swiper.min.css">
+    <include file="template/wap/Public/base.html" />
+
+    <!-- 引入头部 -->
+    <include file="template/wap/Public/header.html" />
+    <style>
+        html , body{
+            background-color: #fff;
+       }
+        .xfmzc{
+            height: 100%;
+            padding-top: 0.64rem;
+       }
+       .content {
+            margin: 0 .18rem;
+            margin-top: .15rem;
+       }
+       .input-wrapper {
+            display: flex;
+            margin-bottom: .15rem;
+            padding: .23rem .15rem;   
+            border: 1px solid #F2902D;
+            font-size: 0;
+            border-radius: .08rem;
+            box-shadow: 0px 3px 8px 0px rgba(249,175,45,0.26);
+            position: relative;
+        }
+        input {
+            font-size: 0;
+            border: 0;
+            outline: none;
+        }
+        .input-wrapper .title{
+            flex: 0 0 .8rem;
+            white-space: nowrap;
+            font-size: .18rem;
+            color: #333333;
+        }
+        .input-wrapper input {
+            flex: 1;
+            font-size: .15rem;
+            color: #333333;
+        }
+        .input-wrapper input.right {
+            flex: 1;
+            font-size: .15rem;
+            color: #333333;
+            text-align: right;
+        }
+        .input-wrapper input::placeholder {
+            font-size: .15rem;
+            color: #666666;
+        }
+        .tips {
+            color: #EA452C;
+            font-size: .13rem;
+            margin-left: .05rem;
+        }
+        .submit {
+            padding: .12rem 0;
+            margin-top: .54rem;
+            width: 100%;
+            font-size: .18rem;
+            line-height: .18rem;
+            color: #fff;
+            background:linear-gradient(107deg,rgba(232,53,44,1) 0%,rgba(243,154,45,1) 100%);
+            border-radius:.20rem;
+            text-align: center;
+        }
+        #kuang_type{
+			position: absolute;
+			width: 57%;
+    		right: 52px;
+    		top: 11px;
+			
+		}
+        #danwei{
+			font-size: .15rem;
+			color: #666;
+			position: absolute;
+			right: .28rem;
+			top: .22rem;
+			
+		}
+    </style>
+</head>
+
+<body>
+    <div class="xfmzc">
+        <div class="content">
+            
+            <div class="input-wrapper">
+                    <span class="title"><{:L('_formft_1')}>:</span>
+                    <select id="kuang_type">
+                        <volist name="mb_group" id="foo">
+                        <option  data-id="<{$foo.id}>" value="<{$foo.id}>" >
+                            <{$foo.money}>  
+                        </option>
+                        </volist>
+                    </select>
+                    <div id="danwei">  <{:L('wallet7')}></div>
+            </div>
+            <div class="tips">
+                <{:L('_formft_2')}><br><{:L('_formft_3')}>
+            </div>
+            <div class="submit" ><{:L('_formft_4')}></div>
+        </div>
+    </div>
+    <script>
+      /*  function ft() {
+            layeropen.password('123', function(param) {                
+                layer.msg(param)
+            })
+        }
+       
+        function checkform(form){
+            var old_password = form.old_password.value;
+            var new_password = form.new_password.value;
+            var new_password2 = form.new_password2.value;
+        //   var reg = /(^[1-9]([0-9]+)?(\.[0-9]{1,2})?$)|(^(0){1}$)|(^[0-9]\.[0-9]([0-9])?$)/;
+        
+            var param = $('#formid').serialize();
+            var formurl = "<{:U('member/account/updateTwoPwd')}>";
+            var locurl = "<{:U('Member/Account/myIdex')}>";
+                
+          //  Wtpost(formurl,param,locurl)
+            layeropen.password(function(password) {
+                param = param +"&pwd="+ password
+                Wtpost(formurl,param,locurl)
+            })
+            return false;
+        }
+
+        function Wtpost(formurl,param,locurl){
+            $.post(formurl,param,function(data){
+                if (data.status == 2) {
+                    var msgs="<{:L('tibi11')}>";
+                    layer.msg(msgs, {icon: 1,time: 2000},function(){
+                        if(locurl){
+                            window.location.href=locurl;
+                        }else{
+                            return true;
+                        }
+                    });
+                }else if(data.status == 1){
+                    layer.msg(data.info); 
+                }
+            });
+        }*/
+       var data_money="";
+       var kuang_type="";
+       var type="";
+       var reg = /(^[1-9]\d*$)/;
+       $('.submit').on('click',function(){
+           kuang_type=$("#kuang_type").val();
+           var number=1;
+           var type=2;
+         //  var pwd=$("#pay-psd").val();
+                layeropen.password(function(password) {
+                   $.post('<{:U("Member/account/formft")}>', {'number':1,'pwd':password,'type':type,'kuang_type':kuang_type}, function (data) {
+                       if (data.status == '0') {
+                        layer.msg(data.message);
+                       } else {
+                        layer.msg(data.message);
+                          location.href="<{:U('Member/memberSort/vsclist')}>";
+                       }
+                   }, 'json')
+            })
+
+        //   $('.buy-catogoly').eq(1).val(buy_catoly);
+       //    $('.deduct-num').eq(1).val(data_money);
+       })
+
+    </script>
+</body>

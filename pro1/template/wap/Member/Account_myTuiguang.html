@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title><{:L('_tuiguang_1')}></title>
+    <link rel="stylesheet" href="__TMPL__/hb/public/mui/css/mui.min.css">
+    <link rel="stylesheet" href="__TMPL__/hb/public/swiper/css/swiper.min.css">
+    <include file="template/wap/Public/base.html" />
+    <style>
+        html,body{
+            width: 100%;
+            height: 100%;
+            background-color: #fff;
+        }
+        #myWallet{
+            height: 100%;
+            background-image: url("template/wap/static/vsc/img/tuiguangfen-<{:L('_cookie_')}>.png");
+            background-repeat: no-repeat;
+            background-position: center;
+            background-size: 100%;
+            /* background-size: auto; */
+            position: relative;
+        }
+        #myWallet .myHead .lang{
+            display: flex;
+        }
+        #myWallet .myHead .lang .leftback img{
+            width: .10rem;
+            position: absolute;
+            top: .35rem;
+            left: .20rem;
+        }
+
+        #myWallet .mycontent{
+            height: 100%;
+            width: 100%;
+            padding-top: 2.77rem;
+        }
+        #myWallet .mycontent .titleQR{
+            font-size: .11rem;
+            color: #141414;
+            text-align: center;
+        }
+        #myWallet .mycontent .QR{
+            background: url("template/wap/static/vsc/img/myCzQR.png") no-repeat;
+            background-position: center;
+            background-size: 100%;
+            width: 1.36rem;
+            height: 1.29rem;
+            margin: .11rem auto;
+            margin-bottom: 34px;
+        }
+        #myWallet .mycontent .QR img{
+            width: 100%;
+            height: 100%;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="myWallet">
+        <div class="myHead">
+            <div class="lang">
+                <div class="leftback">
+                    <img src="template/wap/static/vsc/img/backIcon.png" id="backcome" onclick="window.history.back(-1);">
+                </div>
+            </div>
+
+            <div class="mycontent">
+                <div class="titleQR">
+                    <{:L('_tuiguang_1')}>
+                </div>
+                <div class="QR">
+                    <img src="<{$img_url}>" alt="">
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

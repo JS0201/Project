@@ -1,0 +1,314 @@
+<include file="Admin@Public/header" />	
+
+		<div class="fixed-nav layout">
+			<ul>
+				<li class="first">内容管理<a id="addHome" title="添加到首页快捷菜单">[+]</a></li>
+				<li class="spacer-gray"></li>
+			</ul>
+			<div class="hr-gray"></div>
+		
+		</div>
+		<div class="content padding-big have-fixed-nav">
+			<div class="tips margin-tb">
+				<div class="tips-info border">
+					<h6>温馨提示</h6>
+					<a id="show-tip" data-open="true" href="javascript:;">关闭操作提示</a>
+				</div>
+				<div class="tips-txt padding-small-top layout">
+					<p>- 内容管理</p>
+				</div>
+			</div>
+			<div class="hr-gray"></div>
+			
+			<div class="goods-list-search margin-top clearfix">
+			 <form method="GET">
+	 
+		 
+			 <input type="hidden" value="1" name="label">
+				<div class="top layout margin-bottom fl">
+					<div style="z-index: 13;" class="form-group form-layout-rank border-none">
+						<span class="label">按分类查看</span>
+						<div class="box ">
+							<div class="field">
+								<div class="goods-search-class-wrap">
+									<div class="form-buttonedit-popup">
+										<input type="text" data-reset="false" readonly="readonly" value="<if condition="isset($_GET['cid'])"><{:M('category')->where(array('id'=>$_GET['cid']))->getfield('name')}><else/>请选择分类</if>" name="" class="input">
+										<span class="ico_buttonedit"></span>
+										<input type="hidden" value="<{$_GET['cid']}>" name="cid">
+									</div>
+									<div class="goods-search-class-content hidden">
+										<div class="goods-add-class-wrap layout bg-white">
+											<div class="border-light-gray clearfix">
+												<div class="form-box padding-none clearfix">
+													<div  name="select1" class="hd-select" id="select" label="常用分类："></div>
+												</div>
+											</div>
+											<div class="goods-add-class clearfix">
+												<div class="root border focus"></div>
+												<div class="child border focus">
+												</div>
+												<div class="child border focus">
+												</div>
+												<div class="child border focus">
+												</div>
+												<p class="layout fl margin-top goods-class-choose">您当前已选择的分类：<span></span>&emsp;<a href="javascript:;" id="confirm-class" class="button bg-main fr margin-right">确认选择</a></p>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				
+				    <div class="form-group form-layout-rank border-none">
+						<span class="label">搜索</span>
+						<div class="box ">
+							<div class="field">
+								<input type="text" tabindex="0" placeholder="输入标题/关键词" data-reset="false" value="<{$_GET['keyword']}>" name="keyword" class="input">
+							</div>
+						</div>
+					</div>
+				    <input type="submit" value="查询" class="button bg-sub fl">
+				</div>
+				<input type="hidden" value="qz19jd" name="formhash">
+				
+				</form>
+			</div>	
+			
+			
+			<div class="table-work border margin-tb">
+				<div class="border border-white tw-wrap">
+					<a href="<?php echo U('add') ?>"><i class="ico_add"></i>添加</a>
+					<div class="spacer-gray"></div>
+					<a data-message="是否确定删除所选？" href="<?php echo U('del')?>" data-ajax='id'><i class="ico_delete"></i>删除</a>
+					<div class="spacer-gray"></div>
+				</div>
+			</div>
+			<div class="table resize-table check-table treetable border clearfix">
+				<div class="tr border-none">
+					<div class="th check-option" data-resize="false">
+						<input id="check-all" type="checkbox" />
+					</div>
+					<div class="th" data-width="5"><span class="td-con">ID</span></div>
+					<div class="th" data-width="7"><span class="td-con">排序</span></div>
+					<div class="th" data-width="8"><span class="td-con">缩略图</span></div>
+					<div class="th" data-width="20"><span class="td-con">标题</span></div>
+					<div class="th" data-width="15"><span class="td-con">文章分类</span></div>
+					<div class="th" data-width="15"><span class="td-con">发布时间</span></div>
+					<div class="th" data-width="10"><span class="td-con">显示</span></div>
+					<div class="th" data-width="10"><span class="td-con">推荐</span></div>
+					<div class="th" data-width="10"><span class="td-con">操作</span></div>
+				</div>
+				<?php foreach ($list as $key => $value) {?>
+				<div class="tr" data-tree-id="<?php echo $value['id']?>">
+					<div class="td check-option"><input type="checkbox" name="id" value="<?php echo $value['id']?>" /></div>
+					<div class="td">
+						<span class="td-con"><?php echo $value['id']?></span>
+					</div>
+					<div class="td">
+						<div class="td-con">
+							<div class="double-click">
+								<a class="double-click-button margin-none padding-none" title="双击可编辑" href="javascript:;"></a>
+								<input name="sort" class="input double-click-edit text-ellipsis" type="text" style="text-align:center;" value="<?php echo $value['sort']?>" />
+							</div>
+						</div>
+					</div>
+					<div class="td" valign="middle">
+						<span class="td-con" >
+						
+						<img src="<if condition="$value['thumb']"><{$value['thumb']}><else/>__ROOT__/statics/images/default_no_upload.png</if>" width="25" height="25" style="position:relative;top:8px;">
+						
+						</span>
+					</div>
+					<div class="td">
+						<div class="td-con">
+							<div class="double-click">
+								<a class="double-click-button margin-none padding-none" title="双击可编辑" href="javascript:;"></a>
+								<input name="title" class="input double-click-edit text-ellipsis" type="text" value="<?php echo $value['title']?>" />
+							</div>
+						</div>
+					</div>
+					<div class="td">
+						<span class="td-con"><?php echo $value['category']?></span>
+					</div>
+					<div class="td">
+						<span class="td-con"><?php echo getdatetime($value['add_time'])?></span>
+					</div>
+					<div class="td">
+					<?php if($value['display']==0){?>
+						<a class="ico_up_rack cancel" href="javascript:;" title="点击显示"></a>
+					<?php }else{?>
+					    <a class="ico_up_rack" href="javascript:;" title="点击关闭"></a>
+					<?php }?>
+					</div>
+					<div class="td">
+					<?php if($value['recommend']==0){?>
+						<a class="ico_up_rack cancel" href="javascript:;" title="点击显示"></a>
+					<?php }else{?>
+					    <a class="ico_up_rack" href="javascript:;" title="点击关闭"></a>
+					<?php }?>
+					</div>
+					<div class="td">
+						<span class="td-con"><span class="td-con"><a href="<?php echo U('edit',array('id'=>$value['id']))?>">编辑</a>&nbsp;&nbsp;&nbsp;<a href="<?php echo U('del',array('id[]'=>$value['id']))?>" data-confirm="是否确认删除？">删除</a></span></span>
+					</div>
+				</div>
+				<?php }?>
+			</div>
+				<div class="paging padding-tb body-bg clearfix">
+					<?php echo $pages;?>
+					<div class="clear"></div>
+				</div>
+		</div>
+		<script>
+			$(window).load(function(){
+				$(".table").resizableColumns();
+				$(".table").treetable();
+				$('.table .tr:last-child').addClass("border-none");
+				//启用与关闭
+				$(".table .ico_up_rack").bind('click',function(){
+					if(!$(this).hasClass("cancel")){
+						$(this).addClass("cancel");
+						$(this).attr("title","点击显示");
+					}else{
+						$(this).removeClass("cancel");
+						$(this).attr("title","点击关闭");
+					}
+				});
+			})
+
+			$(window).load(function(){
+				$(".table").resizableColumns();
+				$(".table").treetable();
+				$('.table .tr:last-child').addClass("border-none");
+				//启用与关闭
+				$(".table .ico_put").bind('click',function(){
+					if(!$(this).hasClass("cancel")){
+						$(this).addClass("cancel");
+						$(this).attr("title","点击显示");
+					}else{
+						$(this).removeClass("cancel");
+						$(this).attr("title","点击关闭");
+					}
+				});
+			})
+
+			//ajax编辑文章信息
+			var ajax_edit = "<?php echo U('ajax_edit')?>";
+			$("input[name=title]").bind('blur',function(){
+			   var title=$(this).val();
+			   var id = $(this).parents('.tr').attr('data-tree-id');
+			   $.post(ajax_edit,{'id':id,'title':title},function(data){
+				  
+			   });
+			})
+			$("input[name=sort]").bind('blur',function(){
+				var sort = $(this).val();
+				var id = $(this).parents('.tr').attr('data-tree-id');
+				$.post(ajax_edit,{'id':id,'sort':sort},function(data){
+					if(data == 1){
+						return true;
+					}else{
+						return false;
+					}
+				})
+			})
+			$(".ico_up_rack").bind('click',function(){
+				var display=$(this).attr('class') == 'ico_up_rack' ? 0:1;
+				var id= $(this).parents('.tr').attr('data-tree-id');
+				$.post(ajax_edit,{'id':id,'display':display},function(data){
+					
+				})
+			})
+
+
+			$(".ico_put").bind('click',function(){
+				var recommend=$(this).attr('class') == 'ico_put' ? 0:1;
+				var id= $(this).parents('.tr').attr('data-tree-id');
+				$.post(ajax_edit,{'id':id,'recommend':recommend},function(data){
+					
+				})
+			})
+		</script>
+		
+		<script>
+			$(function(){
+					var label = "<?php echo $_GET['label']?$_GET['label']:1?>";
+			if(label){
+				$.each($('.labelbox'),function(i,item){
+					if($(item).attr('data-id') == label){
+						$(item).addClass('current');
+					}
+				})
+			}
+
+			 //格式化分类
+			jsoncategory = <?php echo json_encode($category) ?> ;
+		    nb_category(0, '.root'); 
+		    
+			$('.goods-add-class .root a, .goods-add-class .child a').live('click',function(){
+				//在下方已选择分类显示
+				$('.goods-search-class-wrap .goods-class-choose span').html(classNameText());
+				
+				$('input[name=cid]').val(classId());
+			});
+			$('#confirm-class').click(function(){
+				if(classNameText()==""){
+					$('.goods-search-class-wrap .form-buttonedit-popup .input').val("请选择分类");
+				}else{
+					$('.goods-search-class-wrap .form-buttonedit-popup .input').val(classNameText());
+				}
+				$('.goods-search-class-wrap .form-buttonedit-popup').removeClass("buttonedit-popup-hover");
+				$('.goods-search-class-content').addClass('hidden');
+			});
+			
+			function classNameText(){
+				var _txt = '';
+				$('.goods-add-class div.focus').each(function(){
+					if($(this).find("a.focus").html()!=null){
+						if($(this).index()==0){
+							_txt += $(this).find("a.focus").html();
+						}else{
+							_txt += '>'+$(this).find("a.focus").html();
+						}
+					}
+				})
+				return _txt;
+			}
+			function classId(){
+				var _txt = '';
+				$('.goods-add-class div.focus').each(function(){
+					if($(this).find("a.focus").html()!=null){
+						_txt = $(this).find("a.focus").attr('data-id');
+					}
+				})
+				return _txt;
+			}
+			
+			$('.goods-search-class-wrap .form-buttonedit-popup').click(function(){
+				if($('.goods-search-class-content').hasClass('hidden')){
+					$(this).addClass("buttonedit-popup-hover");
+					$('.goods-search-class-content').removeClass('hidden');
+				}else{
+					$(this).removeClass("buttonedit-popup-hover");
+					$('#confirm-class').trigger('click');
+					$('.goods-search-class-content').addClass('hidden');
+				}
+			});
+			
+			
+				$('.bg-sub').click(function(){
+					var cid=$('input[name=cid]').val();
+					var keyword=$('input[name=keyword]').val();
+					location.href="<{:U('index')}>&cid="+cid+'&keyword='+keyword;
+					return false;
+				})
+			
+			})
+			
+		 
+			
+		</script>
+		
+		
+	</body>
+</html>

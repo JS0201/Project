@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title><{:L('_footer_3')}></title>
+    <link rel="stylesheet" href="__TMPL__/hb/public/mui/css/mui.min.css">
+    <link rel="stylesheet" href="__TMPL__/hb/public/swiper/css/swiper.min.css">
+    <include file="template/wap/Public/base.html" />
+    <!-- 引入头部 -->
+    <include file="template/wap/Public/header.html" />
+    
+    <style>
+        html , body{
+            background-color: #fff;
+       }
+        #search{
+            background-color: #fff;
+            height: 100%;
+            padding-top: 0.64rem;
+            margin-bottom: 0.77rem;
+       }
+        #search .banner{
+            height: 1.63rem;
+            background: url("/template/wap/static/hb/img/home_banner_<{:L('_cookie_')}>.png") no-repeat;
+            background-size: cover;
+            background-position: center center;
+            margin: .10rem .16rem;
+            margin-bottom: 0.13rem;
+            border-radius: .10rem;
+       }
+        #search .searchBox{
+            padding: 0 0.16rem;
+       }
+        #search .searchBox .item{
+            width: 100%;
+            height: 0.52rem;
+            line-height: 0.52rem;
+            border: 0.01rem solid #ED622D;
+            box-shadow: 0rem 0.02rem 0.15rem -0.04rem #F9AF2D;
+            border-radius: 0.08rem;
+            display: flex;
+            padding: 0 0.17rem 0 0.15rem;
+            margin-bottom: 0.12rem;
+       }
+        #search .searchBox .item .left{
+            flex: 1;
+            text-align: left;
+            position: relative;
+       }
+        #search .searchBox .item .left img{
+            width: 0.25rem;
+            line-height: 0.52rem;
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+       }
+        #search .searchBox .item .left span{
+            font-size: 0.18rem;
+            color: #333;
+            margin-left: 0.36rem;
+       }
+        #search .searchBox .item .right{
+            text-align: right;
+            margin-left: 0.15rem;
+            padding-top: 0.2rem;
+            position: relative;
+       }
+        #search .item .right img{
+            width: 0.1rem;
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            right: 0;
+       }
+        </style>
+</head>
+
+<body>
+    <div id="search" class="mobile-content">
+        <div class="banner"></div>
+        <div class="searchBox">
+            <div class="item" onclick="self.location.href = '<{:U('home/search/searchHaowan')}>'">
+                <div class="left">
+                    <img src="template/wap/static/vsc/img/haowanIcon.png" alt="">
+                    <span><{:L('_find_1')}></span>
+                </div>
+                <a href="<{:U('home/search/searchHaowan',['cate_id' => $cate[1]['id']])}>" class="right">
+                    <img src="template/wap/static/vsc/img/torightIcon.png" alt="">
+                </a>
+            </div>
+            <div class="item" onclick="self.location.href = '<{:U('home/search/searchSXY')}>'">
+                <div class="left">
+                    <img src="template/wap/static/vsc/img/shangxiaoIcon.png" alt="">
+                    <span><{:L('_find_2')}></span>
+                </div>
+                <a href="<{:U('home/search/searchSXY',['cate_id'=>$cate[2]['id']])}>" class="right">
+                    <img src="template/wap/static/vsc/img/torightIcon.png" alt="">
+                </a>
+            </div>
+            <div class="item" onclick="self.location.href = '<{:U('home/search/searchKefu')}>'">
+                <div class="left">
+                    <img src="template/wap/static/vsc/img/kefuIcon.png" alt="">
+                    <span><{:L('_find_3')}></span>
+                </div>
+                <a href="<{:U('home/search/searchKefu',['cate_id'=>$cate[0]['id']])}>" class="right">
+                    <img src="template/wap/static/vsc/img/torightIcon.png" alt="">
+                </a>
+            </div>
+            <div class="item" onclick="self.location.href = '<{:U('home/search/searchCaibao')}>'">
+                <div class="left">
+                    <img src="template/wap/static/vsc/img/caibaoIcon.png" alt="">
+                    <span><{:L('_find_4')}></span>
+                </div>
+                <a href="<{:U('home/search/searchCaibao',['cate_id'=>$cate[3]['id']])}>" class="right">
+                    <img src="template/wap/static/vsc/img/torightIcon.png" alt="">
+                </a>
+            </div>
+            <div class="item" onclick="self.location.href = '<{:U('home/search/searchZhaobiao')}>'">
+                <div class="left">
+                    <img src="template/wap/static/vsc/img/zhaobiaoIcon.png" alt="">
+                    <span><{:L('_find_5')}></span>
+                </div>
+                <a href="<{:U('home/search/searchZhaobiao',['cate_id'=>$cate[5]['id']])}>" class="right">
+                    <img src="template/wap/static/vsc/img/torightIcon.png" alt="">
+                </a>
+            </div>
+            <div class="item" onclick="self.location.href = '<{:U('home/search/searchJiedai')}>'">
+                <div class="left">
+                    <img src="template/wap/static/vsc/img/jiedaiIcon.png" alt="">
+                    <span><{:L('_find_6')}></span>
+                </div>
+                <a href="<{:U('home/search/searchJiedai',['cate_id'=>$cate[4]['id']])}>" class="right">
+                    <img src="template/wap/static/vsc/img/torightIcon.png" alt="">
+                </a>
+            </div>
+            <div class="item" onclick="self.location.href = '<{:U('home/search/searchActive')}>'">
+                <div class="left">
+                    <img src="template/wap/static/vsc/img/activeIcon.png" alt="">
+                    <span><{:L('_find_7')}></span>
+                </div>
+                <a href="<{:U('home/search/searchActive',['cate_id'=>$cate[6]['id']])}>" class="right">
+                    <img src="template/wap/static/vsc/img/torightIcon.png" alt="">
+                </a>
+            </div>
+        </div>
+    </div>
+
+
+    <include file="template/wap/Public/footer.html" />
+    <script src="__TMPL__/hb/public/swiper/js/swiper.min.js"></script>
+</body>
+
+</html>

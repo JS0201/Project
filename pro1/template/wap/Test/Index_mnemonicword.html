@@ -1,0 +1,66 @@
+    <include file="template/wap/Public/base.html" />
+    <!-- 引入头部 -->
+    <include file="template/wap/Public/headerLogin.html" />
+    
+    <style>
+        #mnemonicword{
+            position: absolute;
+            top: 0;
+            background-color: #fff;
+            height: 100%;
+            padding: 0.89rem 0.35rem 0;
+            width: 100%;
+            box-sizing: border-box;
+
+       }
+        #mnemonicword .wordBox{
+            padding: .13rem .24rem;
+            border: 0.02rem solid #F2902D;
+            border-radius: 0.1rem;
+            font-size: 0.15rem;
+            color: #333333;
+            font-weight: 500;
+            word-spacing: 0.1rem;
+            margin-bottom: 0.1rem;
+       }
+       #mnemonicword .wordBox span{
+           margin-right: .10rem;
+           margin-bottom: .10rem;
+           display: inline-block;
+
+       }
+        #mnemonicword .tishi{
+            margin-bottom: 0.5rem;
+       }
+        #mnemonicword .tishi p{
+            font-size: 0.12rem;
+            color: #F71919;
+            line-height: 0.17rem;
+       }
+        #mnemonicword a{
+            height: 0.4rem;
+            width: 100%;
+            display: inline-block;
+       }
+        #mnemonicword button{
+            width: 100%;
+            font-size: 0.18rem;
+            color: #fff;
+            border: none;
+            border-radius: 0.4rem;
+            background: -moz-linear-gradient(left, #E8352C 0%, #F39A2D 100%);
+            background: -o-linear-gradient(left, #E8352C 0%,#F39A2D 100%);
+            background: -ms-linear-gradient(left, #E8352C 0%,#F39A2D 100%);
+            background: linear-gradient(to right, #E8352C 0%,#F39A2D 100%);
+       }
+    </style>
+    <div id="mnemonicword">
+        <div class="wordBox remember-words-wrapper"></div>
+        <div class="tishi">
+            <p>助记词将被用来恢复钱包或重置钱包密码</p>
+            <p>如果您的助记词被他人获取，您的财产可能受到损失</p>
+            <p>不要截图或传送给他人</p>
+            <p>推荐朗读并背诵全文，或者抄写并放在安全的地方</p>
+        </div>
+        <a> <button  onclick="showRemember2()">下一步</button></a>
+    </div>

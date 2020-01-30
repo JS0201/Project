@@ -1,0 +1,83 @@
+
+    <style>
+        #mnemonicword2{
+            position: absolute;
+            top: 0;
+            background-color: #fff;
+            height: 100%;
+            padding: 0.89rem 0.35rem 0;
+            width: 100%;
+            box-sizing: border-box;
+       }
+        #mnemonicword2 .wordBox{
+            padding: .13rem .24rem;
+            border: 0.02rem solid #F2902D;
+            border-radius: 0.1rem;
+            font-size: 0.15rem;
+            color: #333333;
+            font-weight: 500;
+            word-spacing: 0.1rem;
+            margin-bottom: 0.1rem;
+            min-height: 1rem;
+       }
+        #mnemonicword2 .wordBox2 span{
+            display: inline-block;
+            margin-bottom: .10rem;
+            font-size: 0.15rem;
+            color: #E93C2C;
+            border: 0.01rem solid #E93C2C;
+            padding: 0.09rem 0.17rem;
+            border-radius: 0.08rem;
+            margin-right: 0.1rem;
+       }
+        #mnemonicword2 .wordBox2{
+            margin-bottom: 0.77rem;
+            word-break: break-word;
+            
+       }
+       
+        #mnemonicword2 .wordBox span{
+            margin-right: .10rem;
+            margin-bottom: .10rem;
+            display: inline-block;
+            font-size: 0.15rem;
+            color: #FEFEFE;
+            padding: 0.09rem 0.17rem;
+            background-color: #E93C2C;
+            border-radius: 0.08rem;
+            margin-right: 0.1rem;
+       }
+        #mnemonicword2 .tishi{
+            margin-bottom: 0.25rem;
+       }
+        #mnemonicword2 .tishi p{
+            font-size: 0.12rem;
+            color: #F71919;
+            line-height: 0.12rem;
+       }
+        #mnemonicword2 a{
+            height: 0.4rem;
+            width: 100%;
+            display: inline-block;
+       }
+        #mnemonicword2 button{
+            width: 100%;
+            font-size: 0.18rem;
+            color: #fff;
+            border: none;
+            border-radius: 0.4rem;
+            background: -moz-linear-gradient(left, #E8352C 0%, #F39A2D 100%);
+            background: -o-linear-gradient(left, #E8352C 0%,#F39A2D 100%);
+            background: -ms-linear-gradient(left, #E8352C 0%,#F39A2D 100%);
+            background: linear-gradient(to right, #E8352C 0%,#F39A2D 100%);
+       }
+    </style>
+
+    <div id="mnemonicword2">
+        <div class="wordBox remember-words-wrapper2"></div>
+        <div class="tishi">
+            <p><{:L('remember4')}></p>
+        </div>
+        <div class="wordBox2 remember-words-wrapper3"></div>
+        <a href="#"><button onclick="return checkRemember()"><{:L('remember5')}></button></a>
+    </div>

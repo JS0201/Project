@@ -1,0 +1,73 @@
+body{background-color: #3a3b51}
+header .header{padding:10px 15px;}
+/*活动中心选项卡标题*/
+/*.tab-title{box-shadow: 0 4px 10px #ebf2ff;}*/
+.tab-title .flex-item{height: 45px;line-height: 45px;text-align: center;color: #d3d5ff;font-size: 14px;font-weight: 600;border-bottom: 1px solid transparent;background-color: #303145}
+.tab-title .flex-item.active{color: #f18e03;border-bottom: 1px solid #f18e03;}
+
+
+
+/*选项卡详情*/
+.list-detail .row-end span{color:#3FD7DE}
+.colorblue03{color: #4483e5;}
+/*活动中心拼团列表单元*/
+.similarity{width:75px;position: absolute;right:15px;bottom:20px;color:#333;font-size: 12px;font-weight: bold;background-color: #f7df00;}
+.tab-content .tab-detail:not(:nth-child(1)){display: none;}
+
+
+/*安全中心*/
+.tab-title .flex-item.flex-item01.active{color:#333;border-bottom: 1px solid transparent;}
+
+.tab-title01.active{border-bottom: 1px solid #4787ed;color:#4787ed ;}
+.input.bgcgray01::-webkit-input-placeholder{color: #061229;}
+.input.bgcgray02::-webkit-input-placeholder{color: #9eacd5;}
+.btn-login{border:none;background: -webkit-linear-gradient(left, #92aeff, #4877ff)}
+
+/*注册*/
+.modal-body{background-color: #f5f5f5}
+.input-group-addon {
+	width: 100px;
+    color: #1382f4;
+    font-weight: bold;
+    text-decoration: underline;
+}
+.colorblue{color: #4c8bee;}
+.colorblack01{color: #061229;}
+.colorgray01{color: #7989ac;}
+.colorred04{color: #fd6598;}
+
+.bgcgray01{background-color: #eef0f6!important}
+.bgcgray02{background-color: #f4f6f9!important}
+
+
+/*我的团队交易详情*/
+.colorblue01{color: #4787ED;}
+.box-shadow01{box-shadow: 0 4px 6px #eaeef8;}
+
+
+
+/*互转   --------------s*/
+input[type="text"], input[type="password"], input[type="number"], input[type="url"], 
+input[type="email"], input[type="month"], input[type="search"], 
+input[type="tel"], input[type="week"], select{background-color: transparent;border: none ;}
+button{border: none;}
+select.inputbg{padding-top: 0;background-color: #f1f0f6;}
+input[type='text'].inputbg,
+input[type='password'].inputbg{background-color: #f1f0f6;color: #3a3b51;}
+input::-webkit-input-placeholder,
+textarea::-webkit-input-placeholder {color:#c7c8d8;font-size:14px}
+
+/*互转   --------------e*/
+
+
+
+
+
+
+
+
+
+
+
+
+

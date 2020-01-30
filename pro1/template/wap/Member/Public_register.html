@@ -1,0 +1,670 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>注册</title>
+    <link rel="stylesheet" href="__TMPL__/hb/public/mui/css/mui.min.css">
+    <link rel="stylesheet" href="__TMPL__/hb/public/swiper/css/swiper.min.css">
+    <include file="template/wap/Public/base.html" />
+    <style>
+        .layui-layer {
+            background: rgba(0,0,0, .6) !important;
+        }
+        .box {
+            background-image: url('template/wap/static/vsc/img/loginBG.png');
+            background-size: 100%;
+            padding: 0.8rem 0.43rem 0 0.37rem;
+            width: 100%;
+            height: 100%;
+            overflow-y: scroll;
+            -webkit-overflow-scrolling: touch;
+       }
+        .box .lang{
+            margin-bottom: 0.13rem;
+            position: absolute;
+            top: 0.48rem;
+            right: 0.3rem;
+       }
+        .box .lang p{
+            display: block;
+            color: #fff;
+            text-align: center;
+            margin-bottom: .03rem;
+       }
+        .box .lang p select{
+            margin: 0;
+            color: #fff;
+            text-align: center;
+            background: rgba(0, 0, 0, 0);
+            border: 0;
+            appearance: none;
+            -moz-appearance: none;
+            -webkit-appearance: none;
+            font-size: 0.18rem;
+            padding: 0 !important;
+       }
+        #register_content{
+        }
+        #register_content p{
+            font-size: 0.24rem;
+            color: #fff;
+            margin-bottom: 0.19rem;
+       }
+        #register_content .userMsg{
+            display: flex;
+            position: relative;
+       }
+        #register_content .userMsg img{
+            height: 0.17rem;
+            position: absolute;
+            top: 0.14rem;
+       }
+        #register_content .userMsg input{
+            background-color: transparent;
+            border: none;
+            border-bottom: 0.01rem solid #fff;
+            border-radius: 0;
+            flex: 1;
+            font-size: 0.17rem;
+            color: #fff;
+            padding: 0.23rem 0 0.23rem 0.05rem !important;
+            margin-left: 0.26rem;
+       }
+        #register_content .userMsg input::placeholder{
+            color: #fff;
+       }
+        #register_content .lastM{
+            margin-bottom: 0.31rem;
+       }
+        #register_content button{
+            font-size: 0.15rem;
+            color: #FF6B00;
+            background-color: #fff;
+            border-radius: 0.37rem;
+            border-color: #fff;
+            width: 100%;
+            margin-bottom: 0.15rem;
+            margin-left: 0.08rem;
+       }
+        .bottom-box{
+            text-align: left;
+            margin-bottom: 0.28rem;
+       }
+        .bottom-box a{
+            font-size: 0.12rem;
+            color: #fff;
+            margin-left: -0.05rem;
+       }
+        .bottom-box img{
+            display: inline-block;
+            width: 0.11rem;
+            height: 0.11rem;
+       }
+       .bottom-box img.active{
+           border: 1px solid #fff
+       }
+        .backLogin{
+            text-align: center;
+       }
+        .backLogin a{
+           /* font-size: 0.12rem;
+            */
+            color: #fff;
+       }
+    </style>
+    <style>
+        .remember1 {
+            display: none;
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            left: 0;
+            top: 0;
+            overflow-y: scroll;
+            -webkit-overflow-scrolling: touch;
+        }
+        .remember2 {
+            display: none;
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            left: 0;
+            top: 0;
+            overflow-y: scroll;
+            -webkit-overflow-scrolling: touch;
+        }
+        .verifycode {
+            right: 0;
+            margin-left: .10rem;
+            width: 1rem;
+            top: 0.10rem !important;
+            height: .30rem !important; 
+        }
+    </style>
+</head>
+
+<body>
+    
+    <div class="box">
+        <form method="POST" id="formid">
+             
+
+            <include file="template/wap/Public/lang.html" />
+            
+            <div id="register_content">
+                <p><{:L('_register0')}></p>
+                <div class="userMsg">
+                    <img src="template/wap/static/vsc/img/userNameIcon.png" alt="">
+                    <input name="username"  onblur="checkName(this.value)" type="text" placeholder="<{:L('_register1')}>">
+                </div>
+                <div class="userMsg ">
+                    <img src="template/wap/static/vsc/img/pwdIcon.png" alt="">
+                    <input name="upwd" onblur="checkPwd(this.value)" type="password" placeholder="<{:L('_register9')}>">
+                </div>
+                <div class="userMsg ">
+                    <img src="template/wap/static/vsc/img/pwdIcon.png" alt="">
+                    <input name="upwd2" onblur="checkPwd2(this.value)" type="password" placeholder="<{:L('_register2')}>">
+                </div>
+                <div class="userMsg ">
+                    <img src="template/wap/static/vsc/img/payPwd.png" alt="">
+                    <input name="upwdcoin" onblur="checkPwdPay(this.value)" type="password" placeholder="<{:L('_register3')}>">
+                </div>
+                <div class="userMsg">
+                    <img src="template/wap/static/vsc/img/payPwd.png" alt="">
+                    <input name="upwdcoin2" onblur="checkPwdPay2(this.value)" type="password" placeholder="<{:L('_register4')}>">
+                </div>
+                <div class="userMsg">
+                    <img src="template/wap/static/vsc/img/payPwd.png" alt="">
+                    <input name="oid" type="text" {if isset($oid) && $oid} value="<{$oid}>"  {/if}  placeholder="<{:L('_register5')}>">
+                </div>
+                <div class="userMsg lastM">
+                    <img src="template/wap/static/vsc/img/icon-verifycode.png" alt="">
+                    <input name="verifyCode" type="text" type="text" placeholder="<{:L('_register17')}>">
+                    <img class="verifycode" src="<{:U('code',array('go'=>qcgs))}>" id='verifyCodePic' onclick='changeVerifyCode()'>
+                </div>
+                
+                <button onclick="return checkformRegister(this.form)"> <{:L('_register6')}></button>
+            </div>
+            <div class="bottom-box">
+                <span class="conner-register">
+                    <img src="" class="active" alt="" id="agreement" onclick="toggleAgreement()">
+                    <a href="#"><{:L('_register7')}></a>
+                </span>
+            </div>
+            <div class="backLogin">
+                <a href="<{:U('member/public/login')}>"><{:L('_register8')}></a>
+            </div>
+        </form>
+    </div>
+
+    <div class="remember1">
+        <include file="template/wap/Public/base.html" />
+        <!-- 引入头部 -->
+        <include file="template/wap/Public/headerLogin.html" />
+
+        <style>
+            #mnemonicword{
+                position: absolute;
+                top: 0;
+                background-color: #fff;
+                height: 100%;
+                padding: 0.89rem 0.35rem 0;
+                width: 100%;
+                box-sizing: border-box;
+
+            }
+            #mnemonicword .wordBox{
+                padding: .13rem .24rem;
+                border: 0.02rem solid #F2902D;
+                border-radius: 0.1rem;
+                font-size: 0.15rem;
+                color: #333333;
+                font-weight: 500;
+                word-spacing: 0.1rem;
+                margin-bottom: 0.1rem;
+            }
+            #mnemonicword .wordBox span{
+                margin-right: .10rem;
+                margin-bottom: .10rem;
+                display: inline-block;
+
+            }
+            #mnemonicword .tishi{
+                margin-bottom: 0.5rem;
+            }
+            #mnemonicword .tishi p{
+                font-size: 0.12rem;
+                color: #F71919;
+                line-height: 0.17rem;
+            }
+            #mnemonicword a{
+                height: 0.4rem;
+                width: 100%;
+                display: inline-block;
+            }
+            #mnemonicword button{
+                width: 100%;
+                font-size: 0.18rem;
+                color: #fff;
+                border: none;
+                border-radius: 0.4rem;
+                background: -moz-linear-gradient(left, #E8352C 0%, #F39A2D 100%);
+                background: -o-linear-gradient(left, #E8352C 0%,#F39A2D 100%);
+                background: -ms-linear-gradient(left, #E8352C 0%,#F39A2D 100%);
+                background: linear-gradient(to right, #E8352C 0%,#F39A2D 100%);
+            }
+        </style>
+        <div id="mnemonicword">
+            <div class="wordBox remember-words-wrapper"></div>
+            <div class="tishi">
+                <p><{:L('remember0')}></p>
+                <p><{:L('remember1')}></p>
+                <p><{:L('remember2')}></p>
+                <p><{:L('remember3')}></p>
+            </div>
+            <a> <button  onclick="showRemember2()"><{:L('_register6')}></button></a>
+        </div>
+    </div>
+    <div class="remember2">
+
+        <style>
+            #mnemonicword2{
+                position: absolute;
+                top: 0;
+                background-color: #fff;
+                height: 100%;
+                padding: 0.89rem 0.35rem 0;
+                width: 100%;
+                box-sizing: border-box;
+            }
+            #mnemonicword2 .wordBox{
+                padding: .13rem .24rem;
+                border: 0.02rem solid #F2902D;
+                border-radius: 0.1rem;
+                font-size: 0.15rem;
+                color: #333333;
+                font-weight: 500;
+                word-spacing: 0.1rem;
+                margin-bottom: 0.1rem;
+                min-height: 1rem;
+            }
+            #mnemonicword2 .wordBox2 span{
+                display: inline-block;
+                margin-bottom: .10rem;
+                font-size: 0.15rem;
+                color: #E93C2C;
+                border: 0.01rem solid #E93C2C;
+                padding: 0.09rem 0.17rem;
+                border-radius: 0.08rem;
+                margin-right: 0.1rem;
+            }
+            #mnemonicword2 .wordBox2{
+                margin-bottom: 0.77rem;
+                word-break: break-word;
+
+            }
+            #mnemonicword2 .wordBox2 .remember-words-item-active3{
+                background: #E93C2C;
+                color: #fff;
+            }
+
+            #mnemonicword2 .wordBox span{
+                margin-right: .10rem;
+                margin-bottom: .10rem;
+                display: inline-block;
+                font-size: 0.15rem;
+                color: #333;
+                border-radius: 0.08rem;
+                margin-right: 0.1rem;
+            }
+            #mnemonicword2 .tishi{
+                margin-bottom: 0.25rem;
+            }
+            #mnemonicword2 .tishi p{
+                font-size: 0.12rem;
+                color: #F71919;
+                line-height: 0.12rem;
+            }
+            #mnemonicword2 a{
+                height: 0.4rem;
+                width: 100%;
+                display: inline-block;
+            }
+            #mnemonicword2 button{
+                width: 100%;
+                font-size: 0.18rem;
+                color: #fff;
+                border: none;
+                border-radius: 0.4rem;
+                background: -moz-linear-gradient(left, #E8352C 0%, #F39A2D 100%);
+                background: -o-linear-gradient(left, #E8352C 0%,#F39A2D 100%);
+                background: -ms-linear-gradient(left, #E8352C 0%,#F39A2D 100%);
+                background: linear-gradient(to right, #E8352C 0%,#F39A2D 100%);
+            }
+        </style>
+
+        <div id="mnemonicword2">
+            <div class="wordBox remember-words-wrapper2"></div>
+            <div class="tishi">
+                <p><{:L('remember4')}></p>
+            </div>
+            <div class="wordBox2 remember-words-wrapper3"></div>
+            <a href="#"><button onclick="return checkRemember()"><{:L('remember5')}></button></a>
+        </div>
+
+    </div>
+
+</body>
+
+</html>
+
+<script src="/static/public/js/function.js"></script>
+<script>
+var rememberList = []
+var comfirmRememberList = []
+var checkAgreement = false
+var _pwd = ''
+var _pwdp = ''
+
+function checkNameServe(v, fn) {
+    $.post('<{:U("Member/Public/verityusername")}>','username='+v,function(data){
+        if (data.type == 1) {
+            fn && fn()
+        }else if(data.type == -1){
+            layer.msg('<{:L('register7')}>');
+            }
+        },'json');
+}
+
+function checkOidServe(v, fn) {
+    $.post('<{:U("Member/Public/verityOid")}>','oid='+v,function(data){
+        if (data.type == 1) {
+            fn && fn()
+        }else if(data.type == -1){
+            layer.msg('<{:L('register8')}>');
+            }
+        },'json');
+}
+
+function checkverityyzm(v, fn) {
+    $.post('<{:U("Member/Public/verityyzm")}>','verifyCode='+v,function(data){
+        if (data.type == 1) {
+            fn && fn()
+        }else if(data.type == -1){
+            layer.msg('<{:L('register6')}>');
+            changeVerifyCode();
+         }
+        },'json');
+}
+
+function changeVerifyCode() {
+    $('#verifyCodePic').attr('src', $('#verifyCodePic').attr('src') + "&t=" + Math.random())
+}
+
+function checkName(v) {
+    fixedTop()
+    var reg = /^[a-zA-Z]([-_a-zA-Z0-9]{5,19})$/;
+    if(!reg.test(v)) {
+        layer.msg("<{:L('register0')}>")
+        return false;
+    }
+    return true;
+}
+function checkPwd(v) {
+    fixedTop()
+    var reg = /^[a-zA-Z]([-_a-zA-Z0-9]{7,11})$/;
+    if(!reg.test(v)) {
+        layer.msg("<{:L('register1')}>")
+        return false
+    }
+    _pwd = v;
+    return true;
+}
+function checkPwd2(v) {
+    fixedTop()
+    var reg = /^[a-zA-Z]([-_a-zA-Z0-9]{7,11})$/;
+    if(!reg.test(v)) {
+        layer.msg("<{:L('register1')}>")
+        return false
+    }
+    if(_pwd !== v) {
+        layer.msg("<{:L('register2')}>")
+        return false
+    }
+    return true;
+}
+function checkPwdPay(v) {
+    fixedTop()
+    var reg = /^[0-9]{6}$/;
+    if(!reg.test(v)) {
+        layer.msg("<{:L('register4')}>")
+        return false
+    }
+    _pwdp = v;
+    return true;
+}
+function checkPwdPay2(v) {
+    fixedTop()
+    var reg = /^[0-9]{6}$/;
+    if(!reg.test(v)) {
+        layer.msg("<{:L('register4')}>")
+        return false
+    }
+    if(_pwdp !== v) {
+        layer.msg("<{:L('register5')}>")
+        return false
+    }
+    return true;
+}
+function toggleAgreement() {
+    fixedTop()
+    checkAgreement = !checkAgreement
+    var agreement = document.querySelector('#agreement');
+    agreement.src = checkAgreement ? 'template/wap/static/vsc/img/tuijianma.png' : ''
+    agreement.className = checkAgreement ? '' : 'active'
+}
+
+function setCookie (name, value) {  
+       var exp = new Date();  
+       exp.setTime(exp.getTime() + 3 * 24 * 60 * 60 * 1000); //3天过期  
+       document.cookie = name + "=" + encodeURI(value) + ";expires=" + exp.toGMTString()+";path=/"; 
+       return true;  
+   };  
+
+//读取cookies 
+function getCookie(name) 
+{ 
+    var arr,reg=new RegExp("(^| )"+name+"=([^;]*)(;|$)");
+ 
+    if(arr=document.cookie.match(reg))
+ 
+        return unescape(arr[2]); 
+    else 
+        return null; 
+} 
+$(function() {
+
+ 
+    var lang = getCookie('think_language')
+    $("#selectLang").val(lang)
+
+    $('#selectLang').change(function(){
+    document.cookie = setCookie('think_language', $(this).val())
+    location.reload()
+    });
+})
+function checkformRegister(form) {
+    fixedTop()
+    var username = form.username.value || '';
+    var upwd = form.upwd.value || '';
+    var upwd2 = form.upwd2.value || '';
+    var paywd = form.upwdcoin.value || '';
+    var paywd2 = form.upwdcoin2.value || '';
+    var oid = form.oid.value || '';
+    var verifyCode = form.verifyCode.value || '';
+    if (!username) {
+        layer.msg("<{:L('Please enter a user name')}>")
+        return false;
+    }
+    if(!checkName(username)) {
+        return false;
+    }
+    if (!upwd) {
+        layer.msg("<{:L('password')}>")
+        return false;
+    }
+
+    if(!checkPwd(upwd)) {
+        return false;
+    }
+    if (!upwd2) {
+        layer.msg("<{:L('Please enter the login password again')}>")
+        return false;
+    }
+    if(!checkPwd2(upwd2)) {
+        return false;
+    }
+
+    if (upwd.length < 6 || upwd2.length < 6) {
+        layer.msg("<{:L('The password length is more than 6 bits')}>")
+        return false;
+    }
+    if (upwd != upwd2) {
+        layer.msg("<{:L('You have entered two different passwords')}>")
+        return false;
+    }
+
+
+    if (!paywd) {
+        layer.msg("<{:L('paymentPassword')}>")
+        return false;
+    }
+    
+    if(!checkPwdPay(paywd)) {
+        return false;
+    }
+
+
+    if (!paywd2) {
+        layer.msg('confirmPaymentPassword');
+        return false;
+    }
+    
+    if(!checkPwdPay2(paywd2)) {
+        return false;
+    }
+    if (paywd.length < 6 || paywd2.length < 6) {
+        layer.msg("<{:L('The password length is more than 6 bits')}>")
+        return false;
+    }
+    if (paywd != paywd2) {
+        layer.msg("<{:L('You have entered two different passwords')}>")
+        return false;
+    }
+    if(!checkAgreement) {
+        layer.msg("<{:L('agr1')}>")
+        return false;
+    }
+    
+    checkverityyzm(verifyCode, function() {
+        checkNameServe(username, function() {
+            checkOidServe(oid, function() {
+                showRemember();
+            })
+        })
+        
+    })
+    return false
+}
+function checkRemember() {
+    if (rememberList.toString() === comfirmRememberList.toString()) {
+        layer.msg("<{:L('_register10')}>")
+            //确认助记词
+            var data = $('#formid').serialize();
+           // var formurl = "{:Url('login/register')}";
+           var formurl = "<{:U('member/public/register')}>";
+        if(location.pathname.indexOf('app') >= 0) {
+            var locurl = 'https://www.zuoapp.com/app/ETF';
+
+        }else {
+         //   var locurl = "{:Url('index/login')}";
+            var locurl = "<{:U('member/index/index')}>";
+        }    
+        var __token__= $("input[name='__token__']").val();
+        data += '&helpRememberWords=' + rememberList.toString().replace(/,/g, '')
+        data += '&__token__='+__token__;
+        WPpost(formurl, data, locurl);
+    } else {
+        layer.msg("<{:L('_register11')}>")
+    }
+    return false
+}
+
+
+var loginPage = 1;
+function showRemember() {
+    $(".remember1").show()
+    loginPage = 1;
+    $('#head-title').text("<{:L('_register12')}>")
+}
+function showRemember2() {
+    $(".remember2").show()
+    loginPage = 2;
+    $('#head-title').text("<{:L('_register13')}>")
+}
+function backPage(page) {
+    $('.remember' + page).hide()
+}
+$(function() {
+    $('#backcome').click(function() {
+        backPage(loginPage);
+        loginPage--;
+    })
+
+    var rememberDom2 = document.querySelector('.remember-words-wrapper2')
+    var rememberDom3 = document.querySelector('.remember-words-wrapper3')
+    rememberDom3.addEventListener('click', function (e) {
+        var ev = ev || window.event;
+        var target = ev.target || ev.srcElement;
+        if (target.nodeName.toLocaleLowerCase() == 'span') {
+            var state = target.className
+            var rememberWordsDom = ''
+            if (state.indexOf('remember-words-item-active3') > -1) {
+                comfirmRememberList = comfirmRememberList.filter(function (item) {
+                    return item != target.textContent
+                });
+                target.className = "remember-words-item3"
+            } else {
+                comfirmRememberList.push(target.textContent)
+                target.className = "remember-words-item3 remember-words-item-active3"
+            }
+            for (var i = 0; i < comfirmRememberList.length; i++) {
+                rememberWordsDom += '<span class="remember-words-item2">' + comfirmRememberList[i] +
+                    '</span>'
+            }
+            rememberDom2.innerHTML = rememberWordsDom
+        }
+    }, false)
+    
+    var getwordUrl = "index.php?m=member&c=api&a=getword";
+    $.get(getwordUrl, function(res) {
+        var list = JSON.parse(res)
+        var list2 = [].concat(list)
+        list2.sort()
+        rememberList = list;
+        var _words = ''
+        var _words2 = ''
+        var wordsList = document.querySelector('.remember-words-wrapper')
+        var wordsList2 = document.querySelector('.remember-words-wrapper3')
+        for(var i in list) {
+            _words += '<span class="remember-words-item">' + list[i] + '</span>'
+            _words2 += '<span class="remember-words-item">' + list2[i] + '</span>'
+        }
+        wordsList.innerHTML = _words
+        wordsList2.innerHTML = _words2
+    })
+})
+</script>

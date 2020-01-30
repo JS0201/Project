@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+		<title>申请提币</title>
+		<include file="template/wap/Public/title.html" />
+
+		<link rel="stylesheet" type="text/css" href="__TMPL__/vsc/css/rechargeonline.css"/>
+	</head>
+	<body>
+		<!--头部-->
+		<header class="prow15 pt15 pb16 bgcolortheme03 flex">
+			<div class="header-left percent20">
+				<span class="iconfont icon-fanhui1 c-fff left-back fs20"></span>
+			</div>
+			<div class="header-middle percent60 tac c-fff fs16 fw-b">
+				申请提币
+			</div>
+			<div class="header-middle percent20 tar">
+				<a href="<{:U('Member/MemberSort/withbilist')}>" class="colortheme05">更多记录</a>
+			</div>
+		</header>
+		<!--头部----end-->
+		<!--提取form-->
+		<div class="prow15 pb32 mb10">
+			<form action="" method="post">
+				<div class="input-group">
+					<label for="" class="divline pt20 pb10 colortheme05 fs16">提币币种</label>
+					<select id="erer" name="erer" class="widthp100 inputbg">
+						<option value="">请选择</option>
+						<option value ="1">VSC</option>
+						<option value ="2">USDT</option>
+					</select>
+				</div>
+				<div class="input-group">
+					<label for="" class="divline pt20 pb10 colortheme05 fs16">钱包地址</label>
+					<input type="text" class="widthp100 inputbg  bgcolorrgba03" name="address" id="address" value="" />
+				</div>
+				<div class="input-group">
+					<label for="" class="divline pt20 pb10 colortheme05 fs16">提取数量</label>
+					<input type="text" class="widthp100 inputbg  bgcolorrgba03" id="nums" name="nums" placeholder="输入提取数量"/>
+				</div>
+				<div class="input-group">
+					<label for="" class="divline pt20 pb10 colortheme05 fs16">输入支付密码</label>
+					<input type="password" class="widthp100 inputbg  bgcolorrgba03" id="pwd" name="pwd" placeholder="请输入支付密码">
+				</div>
+				<button class="btn-gradual-bg mt30 un-border radius-4" id="btnSubmit1">确认申请</button>
+			</form>
+		</div>
+		<!--提取form-----------------------end-->
+		
+		<!--活动中心选项卡内容-->
+
+		<!--活动中心选项卡内容-----------------------end-->
+	</body>
+
+
+	<script type="text/javascript">
+		//点击返回上一页
+		$("header .header-left .left-back").off().on("click",function(){
+			window.history.back(-1);
+			console.log(0)
+		})
+        // 提现
+        $('#btnSubmit1').click(function(){
+            var type=$('#erer').val();//二二复制
+            if(type==''){
+                alert('请选择提取币种');
+                return false;
+            }
+            var moneynums = $('#nums').val();
+            var address = $('#address').val();   //地址recharge_code
+            var pwd=$('#pwd').val();
+            var reg = /(^[1-9]([0-9]+)?(\.[0-9]{1,2})?$)|(^(0){1}$)|(^[0-9]\.[0-9]([0-9])?$)/;
+
+            if (!(reg.test(moneynums))) {
+                alert("提现金额输入有错,请重新输入");
+                return false;
+            }
+
+            if(pwd==""){
+                alert("请输入支付密码");
+                return false;
+            }
+            if(confirm('确认要执行提现吗？')) {
+                $.ajax({
+                    url: "<{:U('Member/MemberSort/dowithdrawalsbi')}>",
+                    type: "post",
+                    data: {'address': address, 'moneynums': moneynums,'type':type,'pwd':pwd},
+                    datatype: 'json',
+                    success: function (data) {
+                        console.log(data);
+                        if(data.status==1){
+                            alert(data.info);
+                            return false;
+                        }else if(data.status==2){
+                            var nums =  data.mes;
+                            var jf = data.jifen;
+                            alert("您已成功提现"+nums+jf+"请注意到账");
+                            location.href="<{:U('Member/MemberSort/commidetbi')}>";
+                        }
+                    }
+                })
+            }
+        })
+
+	</script>
+</html>
+

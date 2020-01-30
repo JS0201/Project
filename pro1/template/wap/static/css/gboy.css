@@ -1,0 +1,39 @@
+.gboy_msg{background: #000 !important;opacity: 0.5;color:#fff;padding: 20px!important;box-shadow:0 0 0 0!important;border-radius:5px;text-align: center;}
+
+.gboy_confirm{
+
+    max-width: 640px;
+    width: 90%;
+    position: relative;
+    display: inline-block;
+    text-align: left;
+    background-color: #fff;
+    font-size: 14px;
+    border-radius: 5px;
+    box-shadow: 0 0 8px rgba(0,0,0,.1);
+    pointer-events: auto;
+    -webkit-overflow-scrolling: touch;
+    -webkit-animation-fill-mode: both;
+    animation-fill-mode: both;
+    -webkit-animation-duration: .2s;
+    animation-duration: .2s
+
+}
+.gboy_confirm .layui-layer-btn{display:box;display:-moz-box;display:-webkit-box;font-size:0;border-top:1px solid #D0D0D0;background-color:#F2F2F2;padding:  0!important; border-bottom-right-radius: 5px;border-bottom-left-radius: 5px;}
+.gboy_confirm .layui-layer-content {
+    padding: 30px 30px;
+    line-height: 22px;
+    text-align: center;
+    color:#333;
+    font-weight: normal;
+}
+.gboy_confirm .layui-layer-btn a{
+    display:block;-moz-box-flex:1;box-flex:1;-webkit-box-flex:1;font-size:14px;cursor:pointer;
+    padding:5px 0;background: none;font-weight: normal;margin: 0;color:#333;
+}
+
+
+.gboy_confirm .layui-layer-btn0 {
+    border-radius: 0 0 0 5px;
+    border-right: 1px solid #d0d0d0;
+}

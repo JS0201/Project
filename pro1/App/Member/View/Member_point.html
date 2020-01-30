@@ -1,0 +1,98 @@
+<include file="Admin@Public/header" />	
+<style>
+.high-table .tr .td{line-height:50px;min-height:auto;}
+</style>
+<div class="fixed-nav layout">
+    <ul>
+        <li class="first">会员排位图<a id="addHome" title="添加到首页快捷菜单">[+]</a></li>
+        <li class="spacer-gray"></li>
+    </ul>
+    <div class="hr-gray"></div>
+</div>
+
+<div class="content padding-big have-fixed-nav">
+    <div class="tips margin-tb">
+        <div class="tips-info border">
+            <h6>温馨提示</h6>
+            <a id="show-tip" data-open="true" href="javascript:;">关闭操作提示</a>
+        </div>
+    </div>
+    <div class="table-wrap member-info-table">
+        <div class="table resize-table paging-table check-table high-table border clearfix">
+            <div class="tr">
+                <span class="th check-option" data-resize="false"><span><input id="check-all" type="checkbox" /></span></span>
+                <span class="th" data-width="25"><span class="td-con">会员姓名</span></span>
+                <span class="th" data-width="20"><span class="td-con">排位ID</span></span>
+                <span class="th" data-width="15"><span class="td-con">已满层数</span></span>
+                <span class="th" data-width="20"><span class="td-con">复购情况</span></span>
+                <span class="th" data-width="10"><span class="td-con">冻结资金</span></span>
+                <span class="th" data-width="10" style="width: 183px;"><span class="td-con">系统所在层</span></span>
+            </div>
+            <?php foreach ($list AS $member): ?>
+            <div class="tr">
+                <span class="td check-option"><input type="checkbox" name="ids" value="<?php echo $member['member_sortid'] ?>" /></span>
+                <span class="td"><?php echo $member['realname'] ?></span>
+				<span class="td"><?php echo $member['member_sortid'] ?></span>
+                <span class="td">第<?php echo $member['member_enougulayer'] ?>位</span>
+                <span class="td">
+					<?php 
+						if(empty($member['member_popup'] )){
+							echo '未达到复购条件';
+						}elseif($member['member_popup'] ==1){
+							echo '复购中';
+						}elseif($member['member_popup'] ==2){
+							echo '复购成功';
+						}
+						
+					?>
+				</span>
+                <span class="td">
+                    <span class="td-con">￥<?php echo $member['member_freezingmoney'];?></span>
+                </span>   
+				<span class="td">
+                    <span class="td-con">第<?php echo $member['member_layer'];?>层</span>
+                </span>
+            </div>
+            <?php endforeach ?>
+            <div class="paging padding-tb body-bg clearfix">
+                <?php echo $pages;?>
+                <div class="clear"></div>
+            </div>
+        </div>
+    </div>
+</div>
+<script type="text/javascript">
+
+    $(window).load(function () {
+        $(".table").resizableColumns();
+        $(".paging-table").fixedPaging();
+        $(".member-info-tip").hover(function () {
+            $(this).children("span").show();
+        }, function () {
+            $(this).children("span").hide();
+        });
+        $(".member-list-search .form-group").each(function (i) {
+            $(this).addClass("form-group-id" + (i + 1));
+        });
+        $("a.member_update").click(function () {
+            top.dialog({
+                url: $(this).attr("data-url"),
+                title: '修改会员信息',
+                width: 460,
+                onclose: function () {
+                    if (this.returnValue) {
+                        window.location.href = this.returnValue.referer;
+                    }
+                }
+            })
+                    .showModal();
+        });
+        return false;
+    })
+    $(function () {
+        var $val = $("input[type=text]").eq(1).val();
+        $("input[type=text]").eq(1).focus().val($val);
+    })
+</script>
+</body>
+</html>

@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+    <title>账户</title>
+   	<include file="template/wap/Peer/title.html" />
+</head>
+<body>
+	<header class="mui-bar mui-bar-nav">
+	  
+	    <h1 class="mui-title">账户</h1>
+	    
+	</header>
+	<div class="mui-content">
+		<div class="panel-bar user-bar">
+			 <span>账户</span><span class="mui-pull-right"><{$member['username']|yc_phone=###}></span>
+		</div>
+	    <ul class="mui-table-view list list-order">
+		  	<li class="mui-table-view-cell list-item icon-left">
+		  		<i class="list-icon bg-icon-01"></i>
+		        <a class="mui-navigate-right" href="Order_myMoney.html">我的资产</a>
+		    </li>
+		</ul>
+	 	<ul class="mui-table-view list list-order">
+		   	<li class="mui-table-view-cell list-item icon-left">
+		  		<i class="list-icon bg-icon-02"></i>
+		        <a class="mui-navigate-right" href="Order_xnbIn.html">数字资产转入</a>
+		    </li>
+		   	<li class="mui-table-view-cell list-item icon-left">
+		  		<i class="list-icon bg-icon-03"></i>
+		        <a class="mui-navigate-right" href="Order_xnbOut.html">数字资产转出</a>
+		    </li>
+		</ul>
+		<ul class="mui-table-view list list-order">
+	  		<li class="mui-table-view-cell list-item icon-left">
+		  		<i class="list-icon bg-icon-04"></i>
+		        <a class="mui-navigate-right" href="Order_depute.html">委托管理</a>
+		    </li>
+	    	<li class="mui-table-view-cell list-item icon-left">
+		  		<i class="list-icon bg-icon-05"></i>
+		        <a class="mui-navigate-right" href="Order_tradeRecord.html">成交记录</a>
+		    </li>
+		  
+		</ul>
+	</div>
+	<include file="template/wap/Peer/footer.html" />
+</body>
+</html>

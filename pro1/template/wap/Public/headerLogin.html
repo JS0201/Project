@@ -1,0 +1,50 @@
+<style>
+    #header{
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 64px;
+        line-height: 64px;
+        padding: 30px 0 0 20px;
+        text-align: center;
+        z-index: 99999;
+    }
+    #header img{
+        width: 10px;
+        height: 18px;
+        float: left;
+
+    }
+    #header h3{
+        font-size: 18px;
+        color: #FFFFFF;
+        font-weight: 400;
+        position: absolute;
+        left: 50%;
+        transform: translateX(-50%);
+
+        top: 25px;
+        white-space: nowrap;
+        top: .3rem;
+    }
+    #header #rightText{
+        position: absolute;
+        right: 16px;
+        top: 10px;
+        color: #fff;
+        font-size: 15px;
+        display: none;
+    }
+</style>
+<div id="header">
+   <img src="template/wap/static/vsc/img/backIcon-white.png" id="backcome" onclick="window.history.back(-1);">
+   <h3 id="head-title"></h3>
+   <a id="rightText" >常见问题</a>
+</div>
+<script>
+    $(function () {
+        $('#head-title').text(document.title)
+        $('.mobile-content').addClass('has-head')
+    })
+</script>

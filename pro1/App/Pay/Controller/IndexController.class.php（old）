@@ -1,0 +1,609 @@
+<?php
+
+namespace Pay\Controller;
+
+use Think\Controller;
+
+class IndexController extends Controller
+{
+
+	public function _initialize()
+	{
+
+		$this->order_service = D('Order/Order', 'Service');
+		$this->order_sku_service = D('Order/Order_sku', 'Service');
+		$this->order_sub_service = D('Order/Order_sub', 'Service');
+		$this->member_sort = D('Member/Sort', 'Service');
+	}
+
+
+	public function dnotify() {
+		//$this->member_sort->confires();
+
+
+		$sqlmap = array();
+		$sqlmap['sn'] = $_GET['order_sn'];
+		// $sqlmap['pay_status']=0;
+		// $sqlmap['status']=1;
+
+		if (!$order = $this->order_service->find($sqlmap)) {
+			echo '订单不存在或已支付过了';
+			// return false;
+		}
+
+
+
+		$params = array();
+
+		$params['paid_amount'] = sprintf("%0.2f", (float) $order['paid_amount']);
+		$params['pay_method'] = 'wechat_js';
+		$params['pay_sn'] = '';
+		$params['msg'] = '';
+
+
+
+		$result = $this->order_sub_service->set_order($order['sn'], 'pay', '', $params);
+		if (!$result) {
+			// echo $this->order_sub_service->errors;
+			// return false;
+		}
+
+		$order_sku_info = $this->order_sku_service->get_by_order_sn($order['sn']);
+		$buy_nums=0;
+		foreach($order_sku_info as $k=>$v){
+			$goods_price=$v['real_price'];
+			$buy_nums+=$v['buy_nums'];
+		}
+		$userid = $order['buyer_id'];
+		$moneys = $goods_price;
+		$goodsnums = $buy_nums;
+
+		$userid = array('userid'=>$userid,'moneys'=>$moneys,'goodsnums'=>$goodsnums);
+
+		if($order['order_type']==1){
+			$userid = array('userid'=>$userid,'moneys'=>$order['real_price']);
+
+		}else{
+			$this->domore($userid);
+		}
+	}
+
+
+	private function domore($userid)
+	{
+		$nums = $userid['goodsnums'];
+		for ($gg = 1; $gg <= $nums; $gg++) {
+			/*调用一级，二级拨比分算方法，给对应上级加钱*/
+			$this->recase($userid);
+//			/*根据新进用户购买数量生成对应排位点*/
+			$this->after_register_add($userid);
+//			/*递归查询用户信息，改变用户等级*/
+			$this->findlevel($userid);
+			/*按照用户层级分红*/
+			$this->sortlevel($userid);
+		}
+		redirect(U('member/index/index'));
+	}
+
+	//注册后
+	private function after_register_add($userid)
+	{
+		/*接收买多少套,然后插入对应多少个会员到排位表里面去*/
+		if ($userid == '') {
+			$userid = 0;
+		}else{
+			$userid = $userid['userid'];
+		}
+
+		/*程序判断排位位置*/
+		$sorts = M('member_sorts');
+		$joins = M('member_joinsorts');
+		$u = M('member');
+
+		/*判断是否参与过排位商城购买*/
+		$paiwei_zhi = $u->where(array('id' => $userid))->getField('member_paiwei');
+		if ($paiwei_zhi == 0) {
+			/*是的话 改变用户表字段改成参与过排位商城购买*/
+			$u->where(array('id' => $userid))->setField('member_paiwei', 1);
+		}
+
+		/*将表内容改变*/
+		$sorts_det = $sorts->where(array('id' => 1))->find();
+
+		/*判断是否满足加2条件*/
+		if ($sorts_det['member_bigposition'] == 1) {
+			$b=fopen('dd.txt','w+');
+			fwrite($b,$sorts_det['member_bigposition']);
+			/*左边位置切割*/
+			$sorts_det_position = explode(',', $sorts_det['member_leftposition']);
+
+			$huoqu = $sorts_det['member_leftposition'];
+
+			if ($sorts_det_position[1] == 2) {
+				$det_position = $sorts_det_position[0] + 2;
+				/*将左边+2进行定位到排位表里面去*/
+				$sorts_det_new = $det_position . ',' . '1';
+				$sorts_id = 2;
+				$sorts->where(array('id' => 1))->setField(array('member_leftposition' => $sorts_det_new, 'member_bigposition' => $sorts_id));
+				/*排位表*/
+				$join['member_id'] = $userid;
+				/*path路径*/
+				$shangjpth = $joins->where(array('member_sortid' => $sorts_det_position[0]))->getField('member_pathid');
+				$layers = $joins->where(array('member_sortid' => $sorts_det_position[0]))->getField('member_layer');
+				$allpathid = $shangjpth . $sorts_det_position[0] . ',';
+				$join['member_pathid'] = $allpathid;
+				/*上级排位id*/
+				$join['member_pid'] = $sorts_det_position[0];
+				$join['member_layer'] = $layers + 1;
+				$join['member_jointime'] = date('Y-m-d');
+				$joins->add($join);
+			} else {
+
+				/*修改为右边位置*/
+				$sorts_det_new = $sorts_det_position[0] . ',' . '2';
+				$sorts_id = 2;
+				$sorts->where(array('id' => 1))->setField(array('member_leftposition' => $sorts_det_new, 'member_bigposition' => $sorts_id));
+				/*排位表*/
+
+				$join['member_id'] = $userid;
+
+				/*path路径*/
+				$shangjpth = $joins->where(array('member_sortid' => $sorts_det_position[0]))->getField('member_pathid');
+				$layers = $joins->where(array('member_sortid' => $sorts_det_position[0]))->getField('member_layer');
+
+				$allpathid = $shangjpth . $sorts_det_position[0] . ',';
+				$join['member_pathid'] = $allpathid;
+
+
+				/*上级排位id*/
+				$join['member_pid'] = $sorts_det_position[0];
+				$join['member_layer'] = $layers + 1;
+				$join['member_jointime'] = date('Y-m-d');
+				$joins->add($join);
+			}
+		}
+
+		if ($sorts_det['member_bigposition'] == 2) {
+			$b=fopen('aa.txt','w+');
+			fwrite($b,$sorts_det['member_bigposition']);
+			/*右边位置切割*/
+			$sorts_det_right = explode(',', $sorts_det['member_rightposition']);
+			$sorts_det = $sorts->where(array('id' => 1))->find();
+			$huoqu = $sorts_det['member_rightposition'];
+
+			if ($sorts_det_right[1] == 1) {
+				$sorts_right = $sorts_det_right[0] + 2;
+				/*奖左边加2*/
+				$sorts_right_new = $sorts_right . ',' . '2';
+				$sorts_id = 1;
+				$sorts->where(array('id' => 1))->setField(array('member_rightposition' => $sorts_right_new, 'member_bigposition' => $sorts_id));
+				/*排位表*/
+				$join['member_id'] = $userid;
+				/*path路径*/
+				$shangjpth = $joins->where(array('member_sortid' => $sorts_det_right[0]))->getField('member_pathid');
+				$layers = $joins->where(array('member_sortid' => $sorts_det_right[0]))->getField('member_layer');
+				$allpathid = $shangjpth . $sorts_det_right[0] . ',';
+				$join['member_pathid'] = $allpathid;
+				/*上级排位id*/
+				$join['member_pid'] = $sorts_det_right[0];
+				$join['member_layer'] = $layers + 1;
+				$join['member_jointime'] = date('Y-m-d');
+				$joins->add($join);
+			} else {
+				/*只更新右边参数*/
+				$sorts_right_new = $sorts_det_right[0] . ',' . '1';
+				$sorts_id = 1;
+				$sorts->where(array('id' => 1))->setField(array('member_rightposition' => $sorts_right_new, 'member_bigposition' => $sorts_id));
+				/*排位表*/
+				$join['member_id'] = $userid;
+				/*path路径*/
+				$shangjpth = $joins->where(array('member_sortid' => $sorts_det_right[0]))->getField('member_pathid');
+				$layers = $joins->where(array('member_sortid' => $sorts_det_right[0]))->getField('member_layer');
+				$allpathid = $shangjpth . $sorts_det_right[0] . ',';
+				$join['member_pathid'] = $allpathid;
+				/*上级排位id*/
+				$join['member_pid'] = $sorts_det_right[0];
+				$join['member_layer'] = $layers + 1;
+				$join['member_jointime'] = date('Y-m-d');
+				$joins->add($join);
+			}
+		}
+		/*给自己加上总共购买套数*/
+		$u->where(array('id' => $userid))->setInc('member_buynums', 1);
+	}
+
+	/*新增加排位会员时递归查询上级满足拿钱所需要人数以及给钱（当某层最后一个加入时给钱,否则不给）*/
+	private function getParent($sortid)
+	{
+		$membermsg = M('member');
+		$join_member = M('member_joinsorts');
+		$moneytypes = M('money_types');
+		$googds_price = $sortid['moneys'];
+
+		/*找到自己最后插入的排位数据信息*/
+		$lastone = $join_member->where(array('member_id' => $sortid['mineuserid']))->order('member_sortid DESC')->limit(1)->find();
+		$layer = $lastone['member_layer'];
+
+
+		/*找到上一级的所有信息*/
+		$sort_lecel = $join_member->where(array('member_sortid' => $sortid['sortpid']))->find();
+
+		/*找上一级的排位id*/
+		$sortpid = $sortid['sortpid'];
+		/*找到上一级层数*/
+		$layer_prev = $sort_lecel['member_layer'];
+
+		/*层数差别*/
+		$layer_diff = $layer - $layer_prev;
+		/*筛选path路径条件*/
+		$ty = array('like', '%,' . $sortpid . ',%');
+
+
+		if ($layer_diff > 0) {
+			/*满足该层所需人数*/
+			$layer_diff_pers = 1 << $layer_diff;
+
+			/*找到该层已经存在人数*/
+			$isexis = $join_member->where(array('member_pathid' => $ty, 'member_layer' => $layer))->count();
+
+			if ($layer_diff < 10) {
+				if ($layer_diff_pers == $isexis) {
+					$num = $layer_diff + 1;
+					$moneynum = (1 << $num) * 10;
+					/*拿第十层以及以下的分红*/
+
+					$membermsg->where(array('id' => $sort_lecel['member_id']))->setInc('member_money', $moneynum);
+					$membermsg->where(array('id' => $sort_lecel['member_id']))->setInc('member_jifen', $moneynum);
+					/*给他加上已满第几层*/
+
+					$join_member->where(array('member_sortid' => $sort_lecel['member_sortid']))->setField('member_enougulayer', $layer_diff);
+					/*加进层级分红明细表*/
+
+					$data['member_getid'] = $sort_lecel['member_id'];
+					$data['member_giveid'] = $sortid['mineuserid'];
+					$data['money_produtime'] = date('Y-m-d H:i:s');
+					$data['money_nums'] = $moneynum;
+					$data['money_sortid'] = $sort_lecel['member_sortid'];
+					$data['money_type'] = 3;
+					$moneytypes->add($data);
+				}
+			} else if ($layer_diff == 10) {
+
+				if ($layer_diff_pers == $isexis) {
+					$num = $layer_diff + 1;
+					$moneynum = (1 << $num) * 10;
+					/*将member_popup状态改为1为弹窗状态,并且购买者的排位id一起更改*/
+					$join_member->where(array('member_id' => $sortpid))->setField(array('member_popup' => 1, 'member_feznumber' => $layer_diff, 'member_freezingmoney' => $googds_price * 2));
+
+					/*给他加上已满第几层*/
+					$join_member->where(array('member_sortid' => $sort_lecel['member_sortid']))->setField('member_enougulayer', 10);
+					/*将member_popup状态改为1为弹窗状态,并且购买者的排位id一起更改冻结资金保存到排位表里面去*/
+					$moneynum = $moneynum - ($googds_price * 2);
+
+					$membermsg->where(array('id' => $sort_lecel['member_id']))->setInc('member_money', $moneynum);
+					$membermsg->where(array('id' => $sort_lecel['member_id']))->setInc('member_jifen', $moneynum);
+
+					$data['member_getid'] = $sort_lecel['member_id'];
+					$data['member_giveid'] = $sortid['mineuserid'];
+					$data['money_produtime'] = date('Y-m-d H:i:s');
+					$data['money_nums'] = $moneynum;
+					$data['money_sortid'] = $sort_lecel['member_sortid'];
+					$data['money_type'] = 3;
+					$moneytypes->add($data);
+
+					/*排位id满十层,将绑定用户头衔改为准合伙人6*/
+					if($sort_lecel['ischange_status']==0){
+						$membermsg ->where(array('id'=>$sort_lecel['member_id']))->setField('member_paiwei',6);
+					}
+
+				}
+			} else if ($layer_diff > 10 && $layer_diff <= 19) {
+
+				/*判断该层是否满足分红所需要要的套数*/
+				/*该层所需要人数*/
+				$chaji = $layer_diff - 10;
+				/*需要满足的复购套数*/
+				$nespnum = (1 << $chaji) + $sort_lecel['member_addsh'];
+				if ($sort_lecel['member_buyallnum'] >= $nespnum) {
+					/*判断该层人数是否满*/
+
+					if ($layer_diff_pers == $isexis) {
+						$num = $layer_diff + 1;
+						$moneynum = (1 << $num) * 10;
+
+						/*购买对应层数量所需要数了量*/
+						$user_ness_info = 1 << $chaji;
+						/*将member_popup状态改为1为弹窗状态,并且购买者的排位id一起更改冻结资金保存到排位表里面去*/
+						$join_member = $join_member->where(array('member_id' => $sortpid))->setField(array('member_popup' => 1, 'member_feznumber' => $layer_diff, 'member_freezingmoney' => $googds_price * $user_ness_info));
+
+						/*给他加上已满第几层*/
+						$join_member->where(array('member_sortid' => $sort_lecel['member_sortid']))->setField('member_enougulayer', $layer_diff);
+
+						$moneynum = $moneynum - ($googds_price * $user_ness_info);
+						$membermsg->where(array('id' => $sort_lecel['member_id']))->setInc('member_money', $moneynum);
+						$membermsg->where(array('id' => $sort_lecel['member_id']))->setInc('member_jifen', $moneynum);
+
+
+						$data['member_getid'] = $sort_lecel['member_id'];
+						$data['member_giveid'] = $sortid['mineuserid'];
+						$data['money_produtime'] = date('Y-m-d H:i:s');
+						$data['money_sortid'] = $sort_lecel['member_sortid'];
+						$data['money_nums'] = $moneynum;
+						$data['money_type'] = 3;
+						$moneytypes->add($data);
+
+					}
+				}
+			}
+		}
+	}
+
+	/*foreach寻找上级的id*/
+	private function sortlevel($userid)
+	{
+		$joins = M('member_joinsorts');
+		$mineuserid = $userid['userid'];
+		/*找到自己最后插入的排位数据信息*/
+		$lastone = $joins->where(array('member_id' => $mineuserid))->order('member_sortid DESC')->limit(1)->find();
+
+
+		$path_lj = rtrim($lastone['member_pathid'], ',');
+		$path_lj = explode(',', $path_lj);
+		arsort($path_lj);
+		foreach ($path_lj as $k => $v) {
+			if ($v > 0) {
+				/*拼接三个（初始userid,path路径id,金额）传过去*/
+				$sortid = array('mineuserid' => $mineuserid, 'moneys' => $userid['moneys'], 'sortpid' => $v);
+				$this->getParent($sortid);
+			}
+		}
+	}
+
+	/*通过用户确定复购按钮来进行复购插入排位操作*/
+	private function confires($info_sort)
+	{
+		$sort_pwid = explode(',', $info_sort);
+		$joins = M('member_joinsorts');
+
+		/*当状态2执行复购*/
+		if ($sort_pwid[1] == 2) {
+			/*去排位表里面找到最后一个人的层数*/
+			$sortid_max = $joins->order('member_sortid DESC')->limit(1)->getfield('member_layer');
+
+
+			/*找到自己冻结时的层数*/
+			$mine_sortid = $joins->where(array('member_sortid' => $sort_pwid[0]))->getField('member_feznumber');
+			$mine_sortid = $mine_sortid + 1;
+			$mine_sortid = 12;
+			if ($mine_sortid - $sortid_max >= 0) {
+
+				/*判断对应层数需要复购多少个位置*/
+				$nesfugou = $mine_sortid - 10;
+				$nes_per_num = 1 << $nesfugou;
+
+				/*找到该层现有人数*/
+				$member_cengshu_pers = $joins->where(array('member_layer' => $mine_sortid))->count(1);
+
+				/*算出填满该层总人数*/
+				$all_tm = 1 << $mine_sortid;
+				/*当总人数减现有人数大于等于所需复购人数成立*/
+				if ($all_tm - $member_cengshu_pers >= $nes_per_num) {
+					/*执行注册会员*/
+					$knum = $nes_per_num;
+
+					for ($i = 1; $i <= $knum; $i++) {
+						/*复购时的userid为0*/
+						$userid = 0;
+						$this->after_register_add($userid);
+					}
+
+					/*插入到数据库*/
+					$allnums = $joins->where(array('member_sortid' => $sort_pwid[0]))->getField('member_buyallnum');
+					/*对应上一次累计套数*/
+					$joins->where(array('member_sortid' => $sort_pwid['0']))->setField('member_addsh', $allnums);
+					/*实际购买套数*/
+					$joins->where(array('member_sortid' => $sort_pwid['0']))->setInc('member_buyallnum', $nes_per_num);
+
+					/*复购成功清零冻结资金*/
+					$joins->where(array('member_sortid' => $sort_pwid[0]))->setField('member_freezingmoney', 0);
+				}
+			} else {
+				echo '亲,您已经错过复购机会了哦,请重新开始';
+				return false;
+			}
+		}
+		/*当状态3执行放弃*/
+		if ($sort_pwid[1] == 3) {
+			/*将该排位会员的总复购套数改为负数*/
+			$dodec = $joins->where(array('member_sortid' => $sort_pwid[0]))->setField('member_buyallnum', -10);
+			/*把冻结的钱加到会员钱包里面去*/
+			$userid = $joins->where(array('member_sortid' => $sort_pwid[0]))->find();
+			/*加到用户钱包里面去*/
+			$users = M('member');
+			$users->where(array('id' => $userid['member_id']))->setInc('member_money', $userid['member_freezingmoney']);
+			/*钱给客户之后清空冻结资金池*/
+			$joins->where(array('member_sortid' => $sort_pwid[0]))->setField('member_freezingmoney', 0);
+		}
+	}
+
+	/*购买排位商城一二级计算提成*/
+	private function recase($userid)
+	{
+		$moneytypes = M('money_types');
+		$members = M('member');
+		$money = $userid['moneys'];
+		/*自己的信息*/
+		$userid = $userid['userid'];
+		$minemsg = $members->where(array('id' => $userid))->find();
+		/*找寻上级会员*/
+		$prevmsg = $members->where(array('id' => $minemsg['pid'], 'member_paiwei' => array('neq', 0)))->find();
+
+
+		/*找寻上上级的信息*/
+		$nextprevmsg = $members->where(array('id' => $prevmsg['pid'], 'member_paiwei' => array('neq', 0)))->find();
+
+		/*一级抽成钱数*/
+		$moneynumsone = $money * 0.3;
+		/*二级拿钱提成*/
+		$moneynumtwo = $money * 0.05;
+
+		if ($minemsg['member_paiwei'] == 0) {
+			/*一级拿30%*/
+			$oneres = $members->where(array('id' => $prevmsg['id']))->setInc('member_money', $moneynumsone);
+
+			$oneres = $members->where(array('id' => $prevmsg['id']))->setInc('member_yj', $moneynumsone);
+
+			if ($oneres) {
+				$data['member_getid'] = $prevmsg['id'];
+				$data['money_nums'] = $moneynumsone;
+				$data['member_giveid'] = $userid;
+				$data['money_produtime'] = date('Y-m-d H:i:s');
+				$data['money_type'] = 1;
+				$moneytypes->add($data);
+			}
+
+			/*二级拿5%*/
+			$gettwo = $members->where(array('id' => $nextprevmsg['id']))->setInc('member_money', $moneynumtwo);
+			$gettwo = $members->where(array('id' => $nextprevmsg['id']))->setInc('member_yj', $moneynumtwo);
+			if ($gettwo) {
+				$data['member_getid'] = $nextprevmsg['id'];
+				$data['money_nums'] = $moneynumtwo;
+				$data['member_giveid'] = $userid;
+				$data['money_produtime'] = date('Y-m-d H:i:s');
+				$data['money_type'] = 2;
+				$moneytypes->add($data);
+			}
+		} else {
+			/*一级拨比给自己（30%）*/
+			$oneres = $members->where(array('id' => $minemsg['id']))->setInc('member_money', $moneynumsone);
+			$oneres = $members->where(array('id' => $minemsg['id']))->setInc('member_yj', $moneynumsone);
+			if ($oneres) {
+				$data['member_getid'] = $minemsg['id'];
+				$data['money_nums'] = $moneynumsone;
+				$data['member_giveid'] = $userid;
+				$data['money_produtime'] = date('Y-m-d H:i:s');
+				$data['money_type'] = 1;
+				$moneytypes->add($data);
+			}
+			/*二级拿5%*/
+			$twores = $members->where(array('id' => $prevmsg['id']))->setInc('member_money', $moneynumtwo);
+			$twores = $members->where(array('id' => $prevmsg['id']))->setInc('member_yj', $moneynumtwo);
+			if ($twores) {
+				$data['member_getid'] = $prevmsg['id'];
+				$data['money_nums'] = $moneynumtwo;
+				$data['member_giveid'] = $userid;
+				$data['money_produtime'] = date('Y-m-d H:i:s');
+				$data['money_type'] = 2;
+				$moneytypes->add($data);
+			}
+		}
+	}
+
+	/*处理会员等级关系*/
+	private function findprmsg($userid)
+	{
+
+		$members = M('member');
+		$joins = M('member_joinsorts');
+
+		/*已参加排位团队人数*/
+		$tj = array('like', '%,' . $userid . ',%');
+		$group_num = $members->where(array('path_id' => $tj, 'member_paiwei' => array('neq', 0), 'id' => array('neq', $userid)))->count();
+
+
+		/*找到我直推的人*/
+		$direct_push = $members->where(array('pid' => $userid, 'member_paiwei' => array('neq', 0)))->select();
+		$direct_push_num = count($direct_push);
+
+		/*查我自己购买的套数*/
+		$minedirec_push = $members->where(array('id' => $userid))->getField('member_buynums');
+
+		/*直推总套数*/
+		$direct_all = $minedirec_push + $direct_push_num;
+
+
+		/*找到自己下面有几个合伙人*/
+		$hehuoren_num = $members->where(array('pid' => $userid, 'member_paiwei' => 3))->count();
+		/*找到自己下面有几个高级合伙人*/
+		$gjhehuoren_num = $members->where(array('pid' => $userid, 'member_paiwei' => 4))->count();
+
+
+		/*根据直推和团队人数判断用户等级*/
+		if ($direct_all >= 2 && $group_num >= 2) {
+			if ($direct_all >= 100 && $group_num >= 200) {
+				if ($hehuoren_num >= 3 && $group_num >= 500) {
+					if ($gjhehuoren_num >= 3 && $group_num >= 2000) {
+						$members->where(array('id' => $userid))->setField('member_paiwei', 5);
+						return;
+					} else {
+						$members->where(array('id' => $userid))->setField('member_paiwei', 4);
+					}
+				} else {
+					$members->where(array('id' => $userid))->setField('member_paiwei', 3);
+				}
+			} else {
+				$res = $members->where(array('id' => $userid))->setField('member_paiwei', 2);
+			}
+		} else {
+			$members->where(array('id' => $userid))->setField('member_paiwei', 1);
+		}
+	}
+
+	/*递归查找上级userid*/
+	private
+	function findlevel($userid)
+	{
+		$userid = $userid['userid'];
+		$msg = M('member');
+		$users_paiwei = $msg->where(array('id' => $userid))->getField('member_paiwei');
+
+		$pid = $msg->where(array('id' => $userid))->getField('path_id');
+		$pid = rtrim($pid, ',');
+		$prev_path = explode(',', $pid);
+		rsort($prev_path);
+		foreach ($prev_path as $k => $v) {
+			$userid = $v;
+			/*上级是否参与排位*/
+			$previspw = $msg->where(array('id' => $v))->getField('member_paiwei');
+			if ($previspw > 0) {
+				$this->findprmsg($userid);
+			}
+		}
+	}
+
+
+	private function givemoneys($userid)
+	{
+		$moneytypes = M('money_types');
+		$members = M('member');
+		$money = $userid['moneys'];
+		/*自己的信息*/
+		$userid = $userid['userid'];
+		$minemsg = $members->where(array('id' => $userid))->find();
+		/*找寻上级会员*/
+		$prevmsg = $members->where(array('id' => $minemsg['pid'], 'member_paiwei' => array('neq', 0)))->find();
+
+
+		/*找寻上上级的信息*/
+		$nextprevmsg = $members->where(array('id' => $prevmsg['pid'], 'member_paiwei' => array('neq', 0)))->find();
+
+		/*一级抽成钱数*/
+		$moneynumsone = $money * 0.3;
+		/*二级拿钱提成*/
+		$moneynumtwo = $money * 0.05;
+
+		/*一级拿30%*/
+		$oneres = $members->where(array('id' => $prevmsg['id']))->setInc('member_money', $moneynumsone);
+
+		$oneres = $members->where(array('id' => $prevmsg['id']))->setInc('member_yj', $moneynumsone);
+
+		if ($oneres) {
+			$data['member_getid'] = $prevmsg['id'];
+			$data['money_nums'] = $moneynumsone;
+			$data['member_giveid'] = $userid;
+			$data['money_produtime'] = date('Y-m-d H:i:s');
+			$data['money_type'] = 4;
+			$moneytypes->add($data);
+		}
+	}
+}

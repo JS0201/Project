@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>微信付款</title>
+    <link rel="stylesheet" href="__TMPL__/hb/public/mui/css/mui.min.css">
+    <link rel="stylesheet" href="__TMPL__/hb/public/swiper/css/swiper.min.css">
+    <include file="template/wap/Public/base.html" />
+
+    <!-- 引入头部 -->
+    <include file="template/wap/Public/header.html" />
+
+    <style>
+        html,
+        body {
+            background-color: #fff;
+            width: 100%;
+        }
+
+        #myAlipay {
+            position: fixed;
+            width: 100%;
+            height: 100%;
+            padding-top: 0.8rem;
+        }
+        #myAlipay .form{
+            padding: 0 .22rem;
+            margin-bottom: .8rem;
+        }
+        #myAlipay .form input{
+            font-size: .15rem;
+            color: #666;
+            border: none;
+            border-radius: 0;
+            border-bottom: 1px solid #B6B6B6;
+            padding: .17rem 0.05rem;
+            height: auto;
+            font-weight: 500;
+            margin-bottom: .2rem;
+        }
+        #myAlipay .btn{
+            padding: 0 .24rem;
+        }
+        #myAlipay .btn span{
+            font-size: .18rem;
+            color: #fff;
+            background-color: #FF5224;
+            border-radius: .03rem;
+            display: inline-block;
+            height: .5rem;
+            line-height: .5rem;
+            width: 100%;
+            text-align: center;
+        }
+        #myAlipay .form .yzcode{
+            position: relative;
+        }
+        #myAlipay .form .yzcode i{
+            font-style: normal;
+            color: #FF5224;
+            position: absolute;
+            top: .18rem;
+            right: .02rem;
+        }
+         #myAlipay .form .upload{
+             position: relative;
+             margin-bottom: .2rem;
+         }
+         #myAlipay .form .upload .shangchuan{
+             position: relative;
+         }
+         #myAlipay .form .upload p{
+             text-align: center;
+             font-size: .12rem;
+             color: #666;
+             position: relative;
+         }
+         #result{
+            width: 2rem;
+            height:2rem;
+            border:1px solid #B6B6B6;
+            position: relative;
+            left: 50%;
+            transform: translateX(-50%);
+            margin-bottom: .1rem;
+        }
+        #result img{
+            width: 200px;
+        }
+        #pic{
+            width: 70px;
+            margin-top: 10px;
+            position: absolute;
+            z-index: 99;
+            top: 78px;
+            left: 50%;
+            transform: translateX(-50%);
+            border-bottom: none;
+            display: none;
+        }
+        #result .line{
+            position: absolute;
+            background: url("template/wap/static/vsc/img/shizi.png");
+            background-size: 100%;
+            background-position: center;
+            width: .40rem;
+            height: .40rem;
+            left: 50%;
+            top: 40%;
+            transform: translate(-50%);
+        }
+    </style>
+</head>
+
+<body>
+    <div id="myAlipay">
+        <div class="form">
+            <input type="text" placeholder="请输入微信姓名">
+            <div class="upload">
+                <div class="shangchuan">
+                    <div id="result">
+                        <div class="line" onclick="onloadpic()">
+
+                        </div>
+                    </div>
+                    <input id="pic" type="file" name='pic' accept="image/*" onchange="selectFile()" />
+                </div>
+                <p id="ponload">请上传支付宝收款二维码</p>
+            </div>
+            <div class="yzcode">
+                <input type="text" placeholder="请输入短信验证码">
+                <i>发送验证码</i>
+            </div>
+        </div>
+        <div class="btn"><span>确认</span></div>
+    </div>
+</body>
+
+<script>
+    // 上传图片
+    function onloadpic() {
+        $('#pic').click();
+        $('#result').css('border-color', 'transparent')
+        $('#ponload').css('display', 'none')
+    }
+
+    function selectFile() {
+        var files = document.getElementById('pic').files;
+        console.log(files[0]);
+        if (files.length == 0) {
+            return;
+        }
+        var file = files[0];
+        //把上传的图片显示出来
+        var reader = new FileReader();
+        // 将文件以Data URL形式进行读入页面
+        console.log(reader);
+        reader.readAsBinaryString(file);
+        reader.onload = function (f) {
+            var result = document.getElementById("result");
+            var src = "data:" + file.type + ";base64," + window.btoa(this.result);
+            result.innerHTML = '<img src ="' + src + '"/>';
+        }
+        console.log('file', file);
+        form.append('file', file);
+        console.log(form.get('file'));
+    }
+</script>

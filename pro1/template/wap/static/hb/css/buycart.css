@@ -1,0 +1,197 @@
+body,
+html {
+  overflow: hidden;
+  background-color: #F4F4F4;
+}
+
+
+
+/* 顶部 */
+#header .edit {
+  float: right;
+  line-height: 45px;
+}
+
+/* 滚动区域 */
+.mui-scroll-wrapper {
+  margin-top: 45px;
+}
+
+/* 商品 */
+.goods {
+  background-color: #fff;
+  margin-top: 15px;
+  height: 100%;
+  width: 100%;
+  overflow: hidden;
+}
+
+.goods ul li {
+  height: 110px;
+  width: 100%;
+}
+
+.goods ul li label {
+  border-top: 1px solid #ccc;
+  display: flex;
+}
+
+.goods ul li input {
+  line-height: 100px;
+}
+
+.goods ul li img {
+  width: 80px;
+  height: 80px;
+}
+
+.goods ul li .content {
+  padding: 5px 5px 0 5px;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.goods ul li .content .name {
+  color: #555555;
+  font-size: 13px;
+  text-overflow: -o-ellipsis-lastline;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+}
+
+.goods ul li .content .tag {
+  margin-top: 5px;
+  height: 13px;
+  color: #999999;
+  font-size: 13px;
+}
+.goods ul li .content .value {
+  margin-top: 15px;
+  font-size: 17px;
+  color: #E91A1A;
+  font-weight: bold;
+  display: flex;
+  position: relative;
+}
+.goods ul li .content .value i{
+  color: #E91A1A;
+  font-weight: normal;
+  font-size: 12px;
+}
+.goods ul li .content .value .mui-numbox{
+  width: 120px;
+  height: 30px;
+  position: absolute;
+  top: -7px;
+  right: -5px;
+  color: #555555;
+}
+/* 结算 */
+.pay{
+  border-top: 1px solid #ccc;
+  z-index: 100;
+  height: 50px;
+  width: 100%;
+  position: fixed;
+  left: 0;
+  bottom: 60px;
+  background-color: #fff;
+}
+.pay input {
+  line-height: 50px;
+}
+.pay label{
+  display: flex;
+}
+.pay label span:nth-of-type(1){
+  color: #555555;
+  font-size: 16px;
+  line-height: 30px;
+}
+.pay label span:nth-of-type(2){
+  color: #555555;
+  font-size: 13px;
+  line-height: 30px;
+  margin-left: 30px;
+}
+.pay label span:nth-of-type(2) b{
+  color: #E91A1A;
+  font-size: 16px;
+  line-height: 30px;
+}
+.pay label span:nth-of-type(2) i{
+  color: #E91A1A;
+  font-size: 13px;
+  line-height: 30px;
+}
+.pay .mui-input-row{
+  display: flex;
+}
+.pay .mui-input-row .btn{
+  background-color: #E91A1A;
+  color: #fff;
+  width: 120px;
+  height: 50px;
+  line-height: 50px;
+  text-align: center;
+}
+/* 删除 */
+.del{
+  padding-right: 30px;
+  border-top: 1px solid #ccc;
+  z-index: 100;
+  height: 50px;
+  width: 100%;
+  position: fixed;
+  left: 0;
+  bottom: 60px;
+  background-color: #fff;
+}
+.del input {
+  line-height: 50px;
+}
+.del label{
+  display: flex;
+}
+.del label span:nth-of-type(1){
+  color: #555555;
+  font-size: 16px;
+  line-height: 30px;
+}
+.del label span:nth-of-type(2){
+  color: #555555;
+  font-size: 13px;
+  line-height: 30px;
+  margin-left: 30px;
+}
+.del label span:nth-of-type(2) b{
+  color: #E91A1A;
+  font-size: 16px;
+  line-height: 30px;
+}
+.del label span:nth-of-type(2) i{
+  color: #E91A1A;
+  font-size: 13px;
+  line-height: 30px;
+}
+.del .mui-input-row{
+  display: flex;
+}
+.del .btn{
+  width: 72px;
+  height: 24px;
+  border: 1px solid #E91A1A;
+  text-align: center;
+  color: #E91A1A;
+  font-size: 12px;
+  border-radius: 15px;
+  margin-top: 12.5px;
+}
+.footer ul li:nth-of-type(3) span,.footer ul li:nth-of-type(3) p{
+    color: #DEA567;
+}
+

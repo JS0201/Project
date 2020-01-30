@@ -1,0 +1,87 @@
+#bd{
+  background-color: #fff;
+}
+/* 左右区 */
+.lr{
+  margin-top: 45px;
+  padding: 20px 35px;
+  height: 100px;
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  color:#5CACF6;
+  font-size: 15px;
+  text-align: center;
+}
+.lr span{
+  margin: 4px 0px;
+}
+.lr .left{
+  width: 100px;
+  height: 60px;
+  border: #5CACF6 1px solid;
+  display: flex;
+  flex-direction: column;
+}
+.lr .right{
+  width: 100px;
+  height: 60px;
+  border: #5CACF6 1px solid;
+  display: flex;
+  flex-direction: column;
+}
+/* 排位 */
+/* 第一层 */
+.first{
+  width: 110px;
+  margin: 0 auto;
+}
+.parent{
+  margin: 0 auto;
+  width: 90px;
+  height: 25px;
+  text-align: center;
+  line-height: 25px;
+  border-radius: 7px;
+  color: #fff;
+  font-size: 12px;
+  background-color: #5CACF6;
+}
+.children{
+  margin: 0 auto;
+  width: 90px;
+  height: 25px;
+  text-align: center;
+  line-height: 25px;
+  border-radius: 7px;
+  color: #5CACF6;
+  font-size: 12px;
+  background-color: #F2F8FD;
+}
+.jiantou1{
+  width: 110px;
+  height: 20px;
+  background: url('../img/iocn/jiantou\ @2x.png') no-repeat;
+  background-size: contain;
+}
+/* 第二层 */
+.second .top{
+  margin: 0 auto;
+  width: 200px;
+  display: flex;
+  justify-content: space-between;
+}
+.jiantou2{
+  margin: 0 auto;
+  width: 285px;
+  height: 20px;
+  background: url('../img/iocn/jiantou\ \ 拷贝@2x.png') no-repeat;
+  background-size: 100% 100%;
+}
+/* 第三层 */
+.third{
+  margin: 0 auto;
+  width: 375px;
+  display: flex;
+  justify-content: space-between;
+}

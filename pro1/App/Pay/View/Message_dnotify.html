@@ -1,0 +1,63 @@
+<?php 
+require_once "data/pay/wxpay/lib/WxPay.Api.php";
+$result = xmltoarray($GLOBALS["HTTP_RAW_POST_DATA"]);
+$input = new WxPayOrderQuery();
+$input->SetTransaction_id($result['transaction_id']);
+
+$order_info = WxPayApi::orderQuery($input);
+
+//查询到此订单再修改订单
+if ($order_info['result_code'] == 'SUCCESS') {
+	fopen('pay_aaaa.txt', 'w+');
+	$order_sn = $result['attach'];
+
+	$sqlmap = array();
+	$sqlmap['sn'] = $order_sn;
+	$sqlmap['pay_status'] = 0;
+	$sqlmap['status'] = 1;
+
+	if (!$order = D('Order/Order', 'Service')->find($sqlmap)) {
+	
+		return false;
+	}
+
+
+	$params = array();
+
+	$params['paid_amount'] = sprintf("%0.2f", (float) $order['paid_amount']);
+	$params['pay_method'] = 'wechat_js';
+	$params['pay_sn'] = '';
+	$params['msg'] = '';
+
+
+
+	$result = D('Order/Order_sub', 'Service')->set_order($order['sn'], 'pay', '', $params);
+	if (!$result) {
+		// echo $this->order_sub_service->errors;
+		// return false;
+	}
+
+	$order_sku_info = D('Order/Order_sku', 'Service')->get_by_order_sn($order['sn']);
+	$buy_nums = 0;
+
+	foreach ($order_sku_info as $k => $v) {
+		$goods_price = $v['sku_price'];
+		$buy_nums += $v['buy_nums'];
+	}
+	$userid = $order['buyer_id'];
+	$moneys = $goods_price;
+	$goodsnums = $buy_nums;
+
+
+
+	if ($order['order_type'] == 1) {
+		$userid = array('userid' => $userid, 'moneys' => $order['paid_amount']);
+
+		HOOK('givemoneys', $userid);
+	} else {
+		$userid = array('userid' => $userid, 'moneys' => $moneys, 'goodsnums' => $goodsnums);
+		HOOK('domore', $userid);
+	}
+}
+
+?>

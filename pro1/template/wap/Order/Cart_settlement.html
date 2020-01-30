@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>订单结算</title>
+    <link rel="stylesheet" href="__TMPL__/hb/public/start.css">
+    <link rel="stylesheet" href="__TMPL__/hb/css/orderPay.css">
+    <link rel="stylesheet" href="__TMPL__/hb/css/common.css">
+    <link rel="stylesheet" href="__TMPL__/hb/public/mui/css/mui.min.css">
+    <link rel="stylesheet" href="__TMPL__/hb/css/gboy.css">
+    <script type="text/javascript" src="__TMPL__/js/jquery-3.2.1.min.js"></script>
+    <script type="text/javascript" src="__TMPL__/js/gboy.js"></script>
+    <script type="text/javascript" src="__TMPL__/js/gboy.cart.js"></script>
+    <script type="text/javascript" src="__ROOT__/statics/js/layer/layer.min.js"></script>
+</head>
+
+<body>
+<!-- 顶栏 -->
+<header id="header" class="mui-bar mui-bar-nav">
+    <a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+    <h1 class="mui-title">订单结算</h1>
+</header>
+<!-- 区域内容 -->
+<div class="mui-scroll-wrapper">
+    <div class="mui-scroll">
+        <!-- 订单头 -->
+        <if condition="$member['_address']">
+            <input type="hidden" id="address_id" value="<{$address['id']}>">
+            <a href="<{:U('member/address/index')}>">
+                <div class="info">
+                    <div class="top">
+                        <span class="name">收货人:<{$address['name']}></span>
+                        <span class="phone"><{$address['mobile']}></span>
+                    </div>
+                    <div class="bottom">
+                        <img src="__TMPL__/hb/img/iocn/收货地址iocn.png" alt="">
+                        <span>地址：</span>
+                        <span> <{$address['province']}>&nbsp;<{$address['city']}>&nbsp;<{$address['county']}>&nbsp;<{$address['address']}></span>
+                    </div>
+                    <div class="bar"></div>
+                </div>
+            </a>
+            <else/>
+            <div style="text-align:center" class="mt15 fs16">
+                <a href="<{:U('member/address/index')}>">请完善联系信息</a>
+            </div>
+            <div class="bar"></div>
+        </if>
+        <!-- 订单商品 -->
+        <foreach name="data" item="vo">
+            <div class="content">
+
+                <img src="<{$vo['_sku_']['thumb']}>" alt="">
+                <div class="new">
+                    <div class="name">
+                        <{$vo['_sku_']['sku_name']}>
+                    </div>
+                    <div class="tap">
+                        <span>   </span>
+                        <span>   </span>
+                    </div>
+                    <div class="val">
+                        <span><i>￥</i><{$vo['_sku_']['shop_price']}></span>
+                        <span>X<{$vo['number']}></span>
+                    </div>
+                </div>
+
+            </div>
+        </foreach>
+        <!--支付方式-->
+        <div class="prow15">
+            <h3 class="c-333 fs14 mb10">支付方式</h3>
+            <div class="pl8">
+                <div class="flex-justify pcol5 bbgray pay01" data-pay="1">
+                    <div class="height24 tal">
+                        <span class="iconfont icon-waibi-zijinchihuazhuan colorblue01 mr10 posi-rela top4 right4"></span>
+                        <span class="fs14">ACNY(<{$donjie['money']|default='0.00'}>)</span>
+                    </div>
+                    <div class="height24 tar c-999 fs16">
+                        <div class="merchant-icon active divline tac mr10 fr">
+                            <span class="iconfont c-fff icon-dagou"></span>
+                        </div>
+                    </div>
+                </div>
+                <div class="flex pcol5 bbgray pay01" data-pay="2">
+                    <div class="flex-item height24 tal">
+                        <span class="iconfont  icon-waibi-zijinchizhanghujixianechaxun colorblue01 mr10 posi-rela top3"></span>
+                        <span class="fs14">USDT(<{$donjie['usdt']|default='0.0000'}>)</span>
+                    </div>
+                    <div class="flex-item height24 tar c-999 fs16">
+                        <div class="merchant-icon divline tac mr10 fr">
+                            <span class="iconfont c-fff icon-dagou"></span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 配送方式 -->
+        <div class="transport">
+            <span>支付配送：免运费</span>
+            <span>在线支付</span>
+        </div>
+    </div>
+</div>
+<!-- 结算 -->
+<section class="pay">
+    <div class="val">
+        共<i><{$info['sku_numbers']}></i>件
+        合计<i>￥</i><span id="all"><{$info['all_prices']}></span>
+    </div>
+
+
+    <div class="btn"><span href="javascript:;"  data-event="create_order" >确认订单</span></div>
+
+    </div>
+</section>
+
+<!--<script src="__TMPL__/hb/public/zepto/zepto.min.js"></script>-->
+<script src="__TMPL__/hb/public/mui/js/mui.min.js"></script>
+
+</body>
+<script type="text/javascript">
+    var usdt_price=<{$usdt_price}>  ;
+    var order_zong=<{$info['all_prices']}>;
+    //单选
+    $('.pay01').off().on('click',function(){
+
+        if(!$(this).hasClass('active')){
+            $(this).find('.merchant-icon').addClass('active');
+
+            $(this).siblings().find('.merchant-icon').removeClass('active');
+        }
+        var type=$(this).attr('data-pay');
+        if(type == 2){
+            var usdt=((order_zong / usdt_price).toFixed(4));    //usdt个数
+
+            $('#all').text(usdt);
+        }else{
+            $('#all').text(order_zong);
+        }
+
+    })
+
+
+
+</script>
+</html>

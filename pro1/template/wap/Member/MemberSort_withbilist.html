@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+    <title>提现明细</title>
+    <include file="template/wap/Public/title.html" />
+    <link rel="stylesheet" type="text/css" href="__TMPL__/vsc/css/dealdetail.css"/>
+    <script type="text/javascript" src="__TMPL__/js/gboy.js"></script>
+    <script type="text/javascript" src="__TMPL__/js/jquery-form.js"></script>
+</head>
+<body>
+<!--头部-->
+<header class="prow15 pt15 pb16 bgcolortheme03 flex">
+    <div class="header-left percent20">
+        <span class="iconfont icon-fanhui1 c-fff left-back fs20"></span>
+    </div>
+    <div class="header-middle percent60 tac c-fff fs16 fw-b">
+                        提现明细
+    </div>
+    <div class="header-middle percent20 tar">
+
+    </div>
+</header>
+<!--头部----end-->
+<div class="prow15 pt10">
+    <div class="prow15 ">
+
+        <if condition="$data">
+            <!--交易记录详情组件-->
+            <volist name="data" id="foo">
+                <div class="category-list bgcolorfff">
+                    <div class="category-detail flex-justify01">
+                        <div class="flex">
+                            <span class="iconfont iconleft icon-shizhong"></span>
+                            <div class="category-list-border borderbottomgray01 pt4 pb20">
+                                <div class="h34">
+                                    <h3 class="tategory-word height14 mt0 mb8"><{$foo['zb_address']}></h3>
+                                    <span class="height12  fs12 colortheme07"><{$foo['withdrawals_time']}></span>
+                                </div>
+
+                            </div>
+                        </div>
+                        <div class="height14 fs14 colortheme06 pt4"><{$foo['withdrawals_nums']}></div>
+                    </div>
+                </div>
+            </volist>
+        <else/>
+            <div class="tac colortheme01 fs12 pcol15">暂无提现记录</div>
+        </if>
+        <!--交易记录详情组件end-->
+    </div>
+
+
+</div>
+</body>
+
+</html>
+

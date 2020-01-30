@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>
+        < {:L('_home_title')}>
+    </title>
+    <link rel="stylesheet" href="__TMPL__/hb/public/mui/css/mui.min.css">
+    <link rel="stylesheet" href="__TMPL__/hb/public/start.css">
+    <link rel="stylesheet" href="__TMPL__/hb/css/index.css">
+    <link rel="stylesheet" href="__TMPL__/hb/public/swiper/css/swiper.min.css">
+    <link rel="stylesheet" href="__TMPL__/hb/css/common.css">
+    <style>
+        #footer a img {
+            width: auto;
+        }
+
+        a.active {
+            color: #FE480A !important;
+
+        }
+        .grounding {}
+
+        .groundContent {
+            display: flex;
+            flex-direction: column;
+            padding: 0 .15rem 0 .18rem;
+        }
+
+        .groundContent .item {
+            width: 100%;
+            display: flex;
+            margin-bottom: .12rem;
+            padding-bottom: .15rem;
+            border-bottom: 1px solid #CCC;
+        }
+
+        .groundContent .item1 {
+            margin-right: .1rem;
+        }
+
+        .groundContent .item1 img {
+            width: .71rem;
+        }
+
+        .groundContent .item2 {
+            padding-top: .1rem;
+            flex: 1;
+        }
+
+        .groundContent .item2 h4 {
+            font-size: .15rem;
+            color: #333
+        }
+
+        .groundContent .item2 span {
+            color: #FF5224
+        }
+
+        .groundContent .item2 p {
+            font-size: .12rem;
+            color: #999;
+        }
+
+        .groundContent .item3 {
+            text-align: right;
+            position: relative;
+            padding-top: .06rem;
+        }
+
+        .groundContent .item3 .install span {
+            padding: .03rem .15rem;
+            background-color: #eee;
+            border-radius: .11rem;
+            color: #333;
+            font-size: .12rem;
+        }
+        .item3 .price{
+            color: #FE480A;
+            margin-bottom: .2rem;
+        }
+        .item3 .price span{
+            font-size: .18rem;
+        }
+        .item3 .price i{
+            font-size: .15rem;
+        }
+    </style>
+    <include file="template/wap/Public/base.html" />
+</head>
+
+<body>
+    <include file="template/wap/Public/head.html" />
+    <div class="mobile-content" style="padding-top: .75rem !important;">
+        <div class="bottom">
+            <div class="grounding">
+                <div class="groundContent">
+                    <div class="item">
+                        <div class="item1">
+                            <i><img src="template/wap/static/vsc/img/mywalletcode.png" alt=""></i>
+                        </div>
+                        <div class="item2">
+                            <h4>竞品手游</h4>
+                            <span>*****</span>
+                            <p>124次下载量</p>
+                        </div>
+                        <div class="item3">
+                            <div class="price">
+                                <span>+10</span><i>￥</i>
+                            </div>
+                            <div class="install">
+                                <span>安装</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="item">
+                        <div class="item1">
+                            <i><img src="template/wap/static/vsc/img/mywalletcode.png" alt=""></i>
+                        </div>
+                        <div class="item2">
+                            <h4>竞品手游</h4>
+                            <span>*****</span>
+                            <p>124次下载量</p>
+                        </div>
+                        <div class="item3">
+                            <div class="price">
+                                <span>+10</span><i>￥</i>
+                            </div>
+                            <div class="install">
+                                <span>安装</span>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+    <include file="template/wap/Public/footer.html" />
+    <script>
+        //  顶部tab栏切换
+        function checkout(index) {
+            if (index == 0) {
+                $('.line-wrapper').css('left', '0')
+            } else if (index == 1) {
+                $('.line-wrapper').css('left', '25%')
+            } else if (index == 2) {
+                $('.line-wrapper').css('left', '50%')
+            } else if (index == 3) {
+                $('.line-wrapper').css('left', '75%')
+            }
+            $('nav-item a').toggleClass('active');
+        }
+    </script>
+</body>
+
+</html>

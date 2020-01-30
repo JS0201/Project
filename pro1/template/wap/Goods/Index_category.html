@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html class="no-js" style="font-size: 56.25px;"><!--<![endif]-->
+<head>
+<style type="text/css">
+@charset "UTF-8";[ng\:cloak],[ng-cloak],[data-ng-cloak],[x-ng-cloak],.ng-cloak,.x-ng-cloak,.ng-hide:not(.ng-hide-animate){display:none !important;}
+ng\:form{display:block;}
+.ng-animate-shim{visibility:hidden;}
+.ng-anchor{position:absolute;}
+</style>
+    
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=8">
+    <meta http-equiv="Expires" content="0">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Cache-control" content="no-cache">
+    <meta http-equiv="Cache" content="no-cache">
+    <!-- <base href="/"> -->
+    <meta name="HandheldFriendly" content="True">
+    <meta name="format-detection" content="telephone=no">
+    <meta content="yes" name="apple-mobile-web-app-capable">
+    <meta content="yes" name="apple-touch-fullscreen">
+    <meta name="MobileOptimized" content="320">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0,user-scalable=no">
+    <meta http-equiv="cleartype" content="on">
+    <title>win</title>
+    <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
+	<script type="text/javascript" src="__TMPL__/js/jquery.js"></script>
+    <link rel="stylesheet" href="__TMPL__/css/a4f2d85e.app.css">
+    <link rel="stylesheet" type="text/css" href="__TMPL__/css/foot.css">
+    <link rel="stylesheet" href="__TMPL__/css/head.css">
+    <link rel="stylesheet" href="__TMPL__/iconfont/iconfont.css">
+</head>
+
+<body ng-app="integralMallApp" class="ng-scope">
+  <div ui-view="" class="main-content ng-scope" id="_main_content">
+      <div class="header">
+      <div class="header_l">
+        <a href="javascript:history.back();"><img src="__TMPL__/images/lpg.png" alt=""></a>
+      </div>
+      <div class="header_c"> <h1>商品分类</h1></div>
+      <div class="header_r"></div>
+  </div>
+  <div class="product-list-container ng-scope" id="new_mainProduct-list-container" style="height: 592px; position: relative;">
+<?php 
+	if(isset($_SESSION['category_id'])){
+		$classid=(int)$_SESSION['category_id'];
+	}else{
+		$classid=1;
+	}
+	
+?>
+<ul id="ul">
+	<sql db="goods_category" where="parent_id = $classid  and `status`=1 " order="sort desc,id desc">
+	
+	<volist name="result" id="foo">
+	  <li <if condition="$key eq 0">class="current"</if>><{$foo['name']}></li>
+	  </volist>
+  </sql>
+</ul>
+<div id ="content">
+<sql db="goods_category" where="parent_id = $classid  and `status`=1 " order="sort desc,id desc">
+<volist name="result" id="foo">
+  <div class="show ad" <if condition="$key eq 0">style="display:block;"<else/>style="display:none;"</if>> 
+	
+		<div class="sp_right" style="display: block;">
+		  <h3><{$foo['name']}></h3>
+			<sql db="goods_category" where="parent_id = $foo[id]  and `status`=1 " order="sort desc,id desc" limit="2" >
+				<volist name="result" id="g">
+					
+					<span class="bottom_cp">
+						<a href="<{:U('goods/index/index',array('catid'=>$g['id']))}>">
+							<em><img src="<{$g['img']}>"></em>
+							<p class="ming"><{$g['name']}></p>
+						</a>
+					</span>
+				</volist>
+			</sql>
+			
+		</div>
+
+</div>
+	</volist>
+</sql>
+
+
+</div>
+<div style="height: 13vmin;clear: both;"></div>
+</div>
+<style>
+  .sp_right{border:none;}
+  #content div{padding:0!important;}
+  .sp_right h3{font-size:0.25rem;color:#555;border-bottom:1px solid #ddd;padding: 0.1rem;margin-bottom:10px;line-height: 10vmin;}
+   .bottom_cp{float:left;width:50%;text-align:center;}
+  .sp_right em img{width:95%;}
+  .ming{color:#a4a4a4;font-size:12px;width:100%;padding:5px;width:95%;text-overflow:ellipsis; white-space:nowrap; overflow:hidden;}
+</style>
+
+<include file="template/wap/Public/footer.html" />
+<script>
+$('#ul>li').click(function(){
+   $(this).addClass('current').siblings().removeClass('current');
+   $('.ad').eq($(this).index()).show().siblings().hide();
+
+})
+
+</script>
+
+
+<div class="text-ellipsis"></div>
+</body>
+</html>

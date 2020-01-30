@@ -1,0 +1,113 @@
+body,
+html {
+  overflow: hidden;
+  background-color: #F4F4F4;
+}
+
+/* 顶部 */
+#header .edit {
+  float: right;
+  line-height: 45px;
+}
+
+/* 滚动区域 */
+.mui-scroll-wrapper {
+  margin-top: 55px;
+}
+
+/* 订单商品 */
+.content {
+  height: 100px;
+  width: 100%;
+  display: flex;
+  background-color: #fff;
+  padding: 10px 20px;
+  border-bottom: 1px solid #EEEEEE;
+}
+
+.content img {
+  height: 80px;
+  width: 80px;
+}
+
+.content .new {
+  margin-left: 10px;
+  flex: 1;
+}
+
+.content .new .name {
+  display: flex;
+}
+
+.content .new .name span:nth-of-type(1) {
+  color: #666666;
+  font-size: 13px;
+  width: 135px;
+  text-overflow: -o-ellipsis-lastline;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+}
+.content .new .name span:nth-of-type(2) {
+  color: #666666;
+  font-size: 12px;
+  flex: 1;
+  text-align: right;
+}
+
+.content .new .tap {
+  color: #999999;
+  font-size: 12px;
+}
+
+.content .new .val {
+  display: flex;
+  margin-top: 5px;
+}
+.content .new .val .statu{
+  color: #E91A1A;
+  font-size: 12px;
+  flex: 1;
+}
+.content .new .val .quxiao{
+  width: 60px;
+  height: 20px;
+  border: 1px solid #666666;
+  color: #666666;
+  font-size: 12px;
+  border-radius: 10px;
+  text-align: center;
+}
+.content .new .val .lookNew{
+  margin-left: 10px;
+  width: 60px;
+  height: 22px;
+  color: #E9801A;
+  font-size: 12px;
+  border: 1px solid #E9801A;
+  border-radius: 10px;
+  text-align: center;
+}
+/*确认订单*/
+.merchant-icon.active {
+  border: 1px solid transparent;
+  background-color: #62dc02;
+}
+
+.merchant-icon {
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  border: 1px solid #ddd;
+}
+
+.layui-layer{width:80%!important;left: 10%!important;}
+.layui-layer-page .layui-layer-content{overflow: hidden}
+.merchant-icon span{position: relative;top: -2px;left:2px}
+.pay-way span{margin-right: 10px}
+.layui-layer-title{height: 50px;
+  line-height: 50px;    text-align: center;
+  font-size: 16px;padding: 0}
+.layui-layer-setwin .layui-layer-close1{display: none}

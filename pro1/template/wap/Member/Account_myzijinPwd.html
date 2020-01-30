@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title><{:L('_changepaypassword_title')}></title>
+    <link rel="stylesheet" href="__TMPL__/hb/public/mui/css/mui.min.css">
+    <link rel="stylesheet" href="__TMPL__/hb/public/swiper/css/swiper.min.css">
+    <include file="template/wap/Public/base.html" />
+
+    <!-- 引入头部 -->
+    <include file="template/wap/Public/header.html" />
+
+    <style>
+        html , body{
+            background-color: #fff;
+       }
+        #myzijinPwd{
+            height: 100%;
+            padding-top: 0.64rem;
+       }
+        #myzijinPwd h4{
+            margin-bottom: 0.09rem;
+       }
+        #myzijinPwd .line2{
+            background-color: #E3E1E1;
+            width: 100%;
+            height: 0.1rem;
+       }
+        #myzijinPwd .submitRes{
+            padding: 0.16rem 0.17rem 0 0.17rem;
+       }
+        #myzijinPwd .submitRes h4{
+            font-size: .15rem;
+            color: #333;
+            font-weight: 500;
+        }
+        #myzijinPwd .submitRes textarea{
+            font-size: 0.18rem;
+            color: #333;
+            border: 0.01rem solid#F2902D;
+            border-radius: 0.05rem;
+       }
+        #myzijinPwd .submitRes textarea{
+            height: 1.39rem;
+       }
+        #myzijinPwd button{
+            width: 100%;
+            font-size: 0.18rem;
+            color: #fff;
+            border: none;
+            border-radius: 0.4rem;
+            background: -moz-linear-gradient(left, #E8352C 0%, #F39A2D 100%);
+            background: -o-linear-gradient(left, #E8352C 0%,#F39A2D 100%);
+            background: -ms-linear-gradient(left, #E8352C 0%,#F39A2D 100%);
+            background: linear-gradient(to right, #E8352C 0%,#F39A2D 100%);
+       }
+       #myzijinPwd .submitRes .myitem{
+            height: .44rem;
+            line-height: .44rem;
+            display: flex;
+            border: 1px solid #ED622D;
+            border-radius: .08rem;
+            box-shadow: 0px 2px 19px -6px #F9AF2D;
+            margin-bottom: .10rem;
+       }
+       #myzijinPwd .submitRes .myitem:last-of-type{
+           margin-bottom: .23rem;
+       }
+        #myzijinPwd .submitRes .myitem .itemLeft{
+            flex: 1;
+            text-align: left;
+            position: relative;
+            overflow: hidden;
+       }
+       #myzijinPwd .submitRes .myitem .itemLeft img{
+           width: .13rem;
+           position: absolute;
+           top: 50%;
+           transform: translateY(-50%);
+           left: .13rem;
+       }
+       #myzijinPwd .submitRes .myitem .itemLeft input{
+           border: none;
+           border-radius: .08rem;
+           margin-left: .20rem;
+           width: 93%;
+           font-size: .15rem;
+           color: #666;
+       }
+        </style>
+</head>
+
+<body>
+    <div id="myzijinPwd">
+        <div class="submitRes">
+            <!--<form action="<{:U('member/account/updateTwoPwd')}>" method="post"> -->
+            <form method="POST" id="formid">
+            <div class="myitem">
+                <div class="itemLeft">
+                    <img src="template/wap/static/vsc/img/myrePwd.png" alt="">
+                    <input type="password" name="old_password" onblur="checkPwdPay(this.value)" placeholder="<{:L('_changepaypassword_2')}>" maxlength="6">
+                </div>
+            </div>
+            <div class="myitem">
+                <div class="itemLeft">
+                    <img src="template/wap/static/vsc/img/myrePwd.png" alt="">
+                    <input type="password" name="new_password"  onblur="checkPwdPay(this.value)" placeholder="<{:L('_changepaypassword_3')}>" maxlength="6">
+                </div>
+            </div>
+            <div class="myitem">
+                <div class="itemLeft">
+                    <img src="template/wap/static/vsc/img/myrePwd.png" alt="">
+                    <input type="password" name="new_password2"  onblur="checkPwdPay2(this.value)" placeholder="<{:L('_changepaypassword_4')}>" maxlength="6">
+                </div>
+            </div>
+            <button onclick="return checkform(this.form)"><{:L('_changepaypassword_5')}></button>
+            </form>
+        </div>
+
+    </div>
+    <script>
+        function checkPwdPay(v) {
+            var reg = /^[0-9]{6}$/;
+            if(!reg.test(v)) {
+                layer.msg("<{:L('register4')}>")
+                return false
+            }
+            _pwdp = v;
+            return true;
+        }
+        function checkPwdPay2(v) {
+            var reg = /^[0-9]{6}$/;
+            if(!reg.test(v)) {
+                layer.msg("<{:L('register4')}>")
+                return false
+            }
+            if(_pwdp !== v) {
+                layer.msg("<{:L('register5')}>")
+                return false
+            }
+            return true;
+        }
+
+        function checkform(form){
+            var old_password = form.old_password.value;
+            var new_password = form.new_password.value;
+            var new_password2 = form.new_password2.value;
+            if(!checkPwdPay(old_password)) {
+                return false
+            }
+            if(!checkPwdPay(new_password)) {
+                return false
+            }
+            if(old_password == new_password) {
+                layer.msg('<{:L('_register14')}>')
+                return false
+            }
+            if(!checkPwdPay2(new_password2)) {
+                return false
+            }
+
+            var param = $('#formid').serialize();
+            var formurl = "<{:U('member/account/updateTwoPwd')}>";
+            var locurl = "<{:U('member/mywallet/formtb')}>";
+            
+            Wtpost(formurl,param,locurl)
+            
+            return false;
+        }
+        function Wtpost(formurl,param,locurl){
+            $.post(formurl,param,function(data){
+                if(data.status == 0) {
+                    layer.msg("<{:L('_register15')}>")
+                }else {
+                    layer.msg("<{:L('_register16')}>")
+                    setTimeout(function() {
+                        history.go(-1)
+                    }, 1000)
+                }
+            });
+        }
+    </script>
+</body>
+</html>

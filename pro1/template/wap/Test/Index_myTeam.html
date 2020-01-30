@@ -1,0 +1,325 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title></title>
+    <link rel="stylesheet" href="__TMPL__/hb/public/mui/css/mui.min.css">
+    <link rel="stylesheet" href="__TMPL__/hb/public/swiper/css/swiper.min.css">
+    <include file="template/wap/Public/base.html" />
+    <style>
+        html,body{
+            width: 100%;
+            height: 100%;
+            background-color: #fff;
+       }
+        #myTeam .mycontent{
+            padding-top: 2.2rem;
+       }
+        #myTeam .mycontent .mybutton{
+            border: 1px solid #FF8802;
+            box-shadow: 0 0 3px -1px #FF8802;
+            border-radius: .05rem;
+            padding: 0 .13rem 0 .1rem;
+            margin: 0 .27rem .10rem;
+       }
+        #myTeam .mycontent .mybutton .myitem{
+            display: flex;
+            height: .5rem;
+            line-height: .5rem;
+       }
+        #myTeam .mycontent .mybutton .myitem .itemLeft{
+            flex: 1;
+            text-align: left;
+            position: relative;
+            font-size: .15rem;
+            color: #333;
+       }
+       #myTeam .mycontent .mybutton .myitem .itemLeft img{
+           width: .23rem;
+           position: absolute;
+           top: 50%;
+           transform: translateY(-50%);
+       }
+       #myTeam .mycontent .mybutton .myitem .itemLeft i{
+           color: #999;
+           font-style: normal;
+       }
+        #myTeam .mycontent .mybutton .myitem .itemright{
+            flex: 1;
+            text-align: right;
+        }
+        #myTeam .mycontent .mybutton .myitem .itemright img{
+            width: .1rem;
+        }
+        #myTeam .mycontent .mybutton .myTeam-content{
+            overflow: scroll;
+            display: none;
+        }
+        #myTeam .mycontent .mybutton .myTeam-content .contentItem{
+            border-top: 1px solid #FF8802;
+            display: flex;
+            height: .41rem;
+            line-height: .41rem;
+            padding: 0 .03rem;
+            margin-left: .46rem;
+        }
+        #myTeam .mycontent .mybutton .myTeam-content .contentItem .itemS{
+            width: 100%;
+            font-size: .15rem;
+            color: #333;
+            flex: 1;
+        }
+        #myTeam .myHead{
+            height: 1.6rem;
+            width: 100%;
+            position: fixed;
+            background: url("template/wap/static/vsc/img/bannerbg.png");
+            background-position: center;
+            background-size: 100%;
+            z-index: 999;
+       }
+        #myTeam .myHead .myMsg{
+            position: absolute;
+            width: 100%;
+            top: 0.58rem;
+            left: 0.23rem;
+            display: flex;
+       }
+       
+        #myTeam .myHead .myMsg .myleft img{
+            width: 0.6rem;
+       }
+        #myTeam .myHead .myMsg .myright{
+            flex: 1;
+            text-align: left;
+            margin-left: 0.14rem;
+       }
+        #myTeam .myHead .myMsg .myright .mytop{
+            font-size: 0.17rem;
+            margin-bottom: 0.06rem;
+            position: relative;
+            color: #fff;
+       }
+       #myTeam .myHead .myMsg .myright .mybottom span{
+           border: 1px solid #FFE400;
+           border-radius: .1rem;
+           color: #fff;
+           font-size: .1rem;
+           padding: .02rem .06rem;
+       }
+       .myTag{
+           position: absolute;
+           width: 100%;
+           top: 1.24rem;
+           padding: 0 .19rem;
+       }
+       .myTag .tagmy{
+           background: url("template/wap/static/vsc/img/teamcbg.png") no-repeat;
+           background-position: center;
+           background-size:contain;
+           height: .91rem;
+           padding: .22rem .15rem 0;
+       }
+       .myTag .tagmy .tagul{
+           display: flex;
+       }
+       .myTag .tagmy .tagul li{
+           text-align: center;
+           display: flex;
+           flex-direction: column;
+           
+       }
+       .myTag .tagmy .tagul li:nth-of-type(2n-1){
+           flex: 1;
+       }
+       .myTag .tagmy .tagul .line{
+           height: .35rem;
+           width: .01rem;
+           background-color: #EB522D;
+       }
+       .myTag .tagmy .tagul li span{
+           font-size: .14rem;
+           color: #333;
+           margin-bottom: .08rem;
+       }
+       .myTag .tagmy .tagul li i{
+           font-size: .12rem;
+           color: #666;
+           font-style: normal;
+       }
+        </style>
+</head>
+
+<body>
+     <!-- 引入头部 -->
+    <include file="template/wap/Public/headerLogin.html" />
+    <div id="myTeam">
+        <div class="myHead">
+            <div class="myMsg">
+                <div class="myleft">
+                    <img src="template/wap/static/vsc/img/my-headIcon.png" alt="">
+                </div>
+                <div class="myright">
+                    <div class="mytop">
+                        <span>133****1234</span>
+                    </div>
+                    <div class="mybottom">
+                        <span>会员</span>
+                        <span>VIP</span>
+                        <span>金猪</span>
+                        <span>银猪</span>
+                    </div>
+                </div>
+            </div>
+            <div class="myTag">
+                <div class="tagmy">
+                    <ul class="tagul">
+                        <li>
+                            <span>5人</span>
+                            <i>今日成交</i>
+                        </li>
+                        <li class="line"></li>
+                        <li>
+                            <span>5人</span>
+                            <i>累计成交</i>
+                        </li>
+                        <li class="line"></li>
+                        <li>
+                            <span>5人</span>
+                            <i>直推总人数</i>
+                        </li>
+                        <li class="line"></li>
+                        <li>
+                            <span>10人</span>
+                            <i>团队总人数</i>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="mycontent">
+                <div class="mybutton">
+                    <div class="myitem" onclick="openDetail(0)">
+                        <div class="itemLeft">
+                           <i>直推：</i>
+                            <span>共5人</span>
+                        </div>
+                        <div class="itemright">
+                            <img class="right" src="template/wap/static/vsc/img/team-arrow.png" alt="">
+                        </div>
+                    </div>
+                    
+                    <div class="myTeam-content" index='2'>
+                        <div class="contentItem">
+                            <div class="itemS">
+                                <span>VIP:134****1235</span>
+                            </div>
+                        </div>
+                        <div class="contentItem">
+                            <div class="itemS">
+                                <span>金猪:134****1235</span>
+                            </div>
+                        </div>
+                        <div class="contentItem">
+                            <div class="itemS">
+                                <span>金猪:134****1235</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="mybutton">
+                    <div class="myitem" onclick="openDetail(1)">
+                        <div class="itemLeft">
+                           <i>二级：</i>
+                            <span>共5人</span>
+                        </div>
+                        <div class="itemright">
+                            <img class="right" src="template/wap/static/vsc/img/team-arrow.png" alt="">
+                        </div>
+                    </div>
+                    
+                    <div class="myTeam-content" index='2'>
+                        <div class="contentItem">
+                            <div class="itemS">
+                                <span>VIP:134****1235</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="mybutton">
+                    <div class="myitem" onclick="openDetail(2)">
+                        <div class="itemLeft">
+                           <i>三级：</i>
+                            <span>共5人</span>
+                        </div>
+                        <div class="itemright">
+                            <img class="right" src="template/wap/static/vsc/img/team-arrow.png" alt="">
+                        </div>
+                    </div>
+                    
+                    <div class="myTeam-content" index='2'>
+                        <div class="contentItem">
+                            <div class="itemS">
+                                <span>VIP:134****1235</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="mybutton">
+                    <div class="myitem" onclick="openDetail(3)">
+                        <div class="itemLeft">
+                           <i>平级：</i>
+                            <span>共5人</span>
+                        </div>
+                        <div class="itemright">
+                            <img class="right" src="template/wap/static/vsc/img/team-arrow.png" alt="">
+                        </div>
+                    </div>
+                    
+                    <div class="myTeam-content" index='2'>
+                        <div class="contentItem">
+                            <div class="itemS">
+                                <span>VIP:134****1235</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+        </div>
+        </div>
+
+        <script type="text/javascript" src="__ROOT__/statics/js/jquery-1.7.2.min.js"></script>
+        <script src="__TMPL__/hb/public/mui/js/mui.min.js"></script>
+        <script src="__TMPL__/hb/public/swiper/js/swiper.min.js"></script>
+        <script src="__TMPL__/hb/public/zepto/zepto.min.js"></script>
+</body>
+
+</html>
+<script>  
+    var helpcenterArrowList = document.getElementsByClassName('right')
+    var helpCenterlis = document.querySelectorAll('.myTeam-content')
+    var status = false;
+    function openDetail(i) {
+
+        for (let index = 0; index < helpcenterArrowList.length; index++) {
+            const element = helpcenterArrowList[i];
+            helpcenterArrow = element
+        }
+        
+        $('.myitem .itemright img').css('width', '0.10rem').attr('src','template/wap/static/vsc/img/team-arrow.png');
+        $('.myTeam-content:eq(' + status + ')').css('display','none') 
+        if (status != i) {
+            $('.myTeam-content:eq(' + i + ')').css('display', 'initial')
+            helpcenterArrow.src = 'template/wap/static/vsc/img/team-arrow2.png'
+            helpcenterArrow.style.width = '0.15rem'
+            status = i
+        } else {
+            helpcenterArrow.src = 'template/wap/static/vsc/img/team-arrow.png'
+            helpcenterArrow.style.width = '0.10rem'
+            status = false
+        }
+    }
+</script>

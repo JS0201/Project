@@ -1,0 +1,136 @@
+<include file="Admin@Public/header" />	
+<style>
+.high-table .tr .td{line-height:50px;min-height:auto;}
+.member-list-search .form-group .box{width: 160px}
+.member-list-search .form-group-id2 .box {width: 180px;}
+.member-list-search .form-group {  width: 223px;  }
+.member-list-search .form-group-id1{ width: 230px;}
+.member-list-search .form-group-id1 .box{ width:150px;}
+.member-list-search .form-group-id2{ width: 250px;}
+</style>
+<div class="fixed-nav layout">
+    <ul>
+        <li class="first">奖金明细<a id="addHome" title="添加到首页快捷菜单">[+]</a></li>
+        <li class="spacer-gray"></li>
+    </ul>
+    <div class="hr-gray"></div>
+</div>
+
+<div class="content padding-big have-fixed-nav">
+    <div class="tips margin-tb"> </div>
+    <div class="member-list-search clearfix">
+        <form action="" method="get">
+            <input type="hidden" name="m" value="<{:MODULE_NAME}>">
+            <input type="hidden" name="c" value="<{:CONTROLLER_NAME}>">
+            <input type="hidden" name="a" value="<{:ACTION_NAME}>">
+         
+           <div class="form-box form-layout-rank clearfix border-bottom-none" style="width:480px;">
+
+                <?php echo  \Org\Util\Form::input('select','type',$_GET['type'] ? $_GET['type'] : 0,'按类型查看','',array('items' =>array('0'=>'可选择','1'=>'每日释放静态收益','2'=>'直推下单5%加速释放','3'=>'下单无限分享到锁仓钱包','4'=>'直推下单返锁仓钱包','5'=>'团队奖励释放','6'=>'红利董事每日全网分红')))?>
+                <?php echo  \Org\Util\Form::input('text', 'keyword', $_GET['keyword'], '搜索', '', array('placeholder' => '获得用户'));?>
+            </div>
+            <div style="z-index: 4;" id="form-group-id1" class="form-group form-layout-rank group1">
+                <span class="label">获得时间</span>
+                <div class="box margin-none">
+                    <?php echo \Org\Util\Form::calendar('start',!empty($_GET['start']) ? $_GET['start']:'',array('format' => 'YYYY-MM-DD'))?>
+                </div>
+            </div>
+            <div style="z-index: 3;" id="form-group-id2" class="form-group form-layout-rank group2">
+                <span class="label">~</span>
+                <div class="box margin-none">
+                    <?php echo \Org\Util\Form::calendar('end',!empty($_GET['end'])? $_GET['end']:'',array('format' => 'YYYY-MM-DD'))?>
+                </div>
+            </div>
+            <input class="button bg-sub fl" type="submit" value="查询">
+			<div class="button bg-sub" style="margin-left:20px"><a href="javascript:void(0)" style="color:#fff" id="out">导出excel</a></div>
+        </form>
+    </div>
+
+    <div class="table-wrap member-info-table">
+        <div class="table resize-table paging-table check-table high-table border clearfix">
+            <div class="tr" style="padding-left: 0px;">
+                <span class="th" data-width="10"><span class="td-con">订单id</span></span>
+                <span class="th" data-width="10"><span class="td-con">获得用户</span></span>
+                <span class="th" data-width="10"><span class="td-con">提供会员</span></span>
+                <span class="th" data-width="10"><span class="td-con">获取类型</span></span>
+                <span class="th" data-width="10"><span class="td-con">释放到钱包</span></span>
+
+                <span class="th" data-width="10"><span class="td-con">释放金额</span></span>
+                <span class="th" data-width="15"><span class="td-con">提供者购买金额</span></span>
+                <!--<span class="th" data-width="10"><span class="td-con">出售单价</span></span>-->
+                <span class="th" data-width="15"><span class="td-con">时间</span></span>
+            </div>
+            <?php foreach ($list AS $member): ?>
+            <div class="tr" style="padding-left: 0px;">
+                <span class="td"><?php echo $member['oid'] ?></span>
+                <span class="td"><?php if($member['member_getid']==''){?>无<?php }else{?><?php echo $member['member_getid']; ?><?php }?></span>
+                <span class="td"><?php echo $member['member_giveid'] ?></span>
+                <span class="td"><?php echo types_of($member['money_type']); ?></span>
+                <span class="td"><?php echo wallet_ypes_of($member['money_wallet']) ?></span>
+
+                <span class="td"><?php echo $member['money_nums'] ?></span>
+                <span class="td"><?php echo $member['money_hcb'] ?></span>
+                <!--<span class="td"><?php echo $member['money_price'] ?></span>-->
+                <span class="td">
+                    <span class="td-con"><{$member['money_produtime']|date="Y-m-d H:i:s",###}></span>
+                </span>
+            </div>
+            <?php endforeach ?>
+            <div class="paging padding-tb body-bg clearfix">
+                <span style="float:left;padding-left:10px;">总释放：<{$count_money|default=0.00}></span>
+				<!--<span style="float:left;padding-left:10px;">直推区块包总收益：<{$zhitui_money|default=0.00}></span>-->
+                <!--<span style="float:left;padding-left:10px;">团队区块包总收益：<{$tuan_money|default=0.00}></span>-->
+                <!--<span style="float:left;padding-left:10px;">自购赠送区块包总收益：<{$zj_money|default=0.00}></span>-->
+				<!--<span style="float:left;padding-left:10px;"> 点位结算奖励总收益：<{$reward_money|default=0.00}></span>-->
+                <?php echo $pages;?>
+                <div class="clear"></div>
+            </div>
+        </div>
+    </div>
+</div>
+<script type="text/javascript">
+
+    $(window).load(function () {
+        $(".table").resizableColumns();
+        $(".paging-table").fixedPaging();
+        $(".member-info-tip").hover(function () {
+            $(this).children("span").show();
+        }, function () {
+            $(this).children("span").hide();
+        });
+        $(".member-list-search .form-group").each(function (i) {
+            $(this).addClass("form-group-id" + (i + 1));
+        });
+        $("a.member_update").click(function () {
+            top.dialog({
+                url: $(this).attr("data-url"),
+                title: '修改会员信息',
+                width: 460,
+                onclose: function () {
+                    if (this.returnValue) {
+                        window.location.href = this.returnValue.referer;
+                    }
+                }
+            })
+                    .showModal();
+        });
+        return false;
+    })
+    $(function () {
+        var $val = $("input[type=text]").eq(1).val();
+        $("input[type=text]").eq(1).focus().val($val);
+    })
+	$('#out').live('click',function(){
+
+        var keyword=$("input[name='keyword']").val();
+        var type = "<{$_GET['type']}>";
+        var start="<{$_GET['start']}>";
+        var end="<{$_GET['end']}>";
+      
+        location.href="<{:U("exports")}>&keyword="+keyword+"&type="+type+"&start="+start+"&end="+end;
+
+
+    })
+</script>
+</body>
+</html>

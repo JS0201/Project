@@ -1,0 +1,310 @@
+<include file="Admin@Public/header" />	
+<style type="text/css">
+.member-list-search .form-group{
+	width: 192px;}
+
+.member-list-search .form-box{
+	width: 400px;
+}
+</style>
+		<div class="fixed-nav layout">
+			<ul>
+				<li class="first">参数设置<a id="addHome" title="添加到首页快捷菜单">[+]</a></li>
+				<li class="spacer-gray"></li>
+			</ul>
+			<div class="hr-gray"></div>
+		
+		</div>
+		<div class="content padding-big have-fixed-nav">
+			<div class="tips margin-tb">
+				<div class="tips-info border">
+					<h6>温馨提示</h6>
+					<a id="show-tip" data-open="true" href="javascript:;">关闭操作提示</a>
+				</div>
+			
+			</div>
+			<div class="hr-gray"></div>
+
+			<div class="table resize-table check-table treetable border clearfix">
+				<div class="tr border-none">
+					<div class="th check-option" data-resize="false">
+						<input id="check-all" type="checkbox" />
+					</div>
+					<div class="th" data-width="3"><span class="td-con">ID</span></div>
+					<div class="th" data-width="6"><span class="td-con">多少天自动返卡</span></div>
+					<div class="th" data-width="6"><span class="td-con">自动返卡的张数</span></div>
+					<div class="th" data-width="7"><span class="td-con">直推返卡的张数</span></div>
+					<div class="th" data-width="7"><span class="td-con">团队累计多少天返卡</span></div>
+					<div class="th" data-width="7"><span class="td-con">团队返卡的张数</span></div>
+					<div class="th" data-width="7"><span class="td-con">设置一共多少张卡</span></div>
+					<div class="th" data-width="7"><span class="td-con">当天团队返卡周封顶</span></div>
+					<div class="th" data-width="7"><span class="td-con">限制出售的个数</span></div>
+					<div class="th" data-width="8"><span class="td-con">出售获得的商城链</span></div>
+					<div class="th" data-width="8"><span class="td-con">出售获得的数字资产</span></div>
+					<div class="th" data-width="7"><span class="td-con">是否开启互转鸿承币</span></div>
+					<div class="th" data-width="7"><span class="td-con">购币优惠是否开启</span></div>
+					<div class="th" data-width="7"><span class="td-con">购币优惠/个</span></div>
+					<div class="th" data-width="5"><span class="td-con">操作</span></div>
+				</div>
+				<?php foreach ($list as $key => $value) {?>
+				<div class="tr" data-tree-id="<?php echo $value['id']?>">
+					<div class="td check-option"><input type="checkbox" name="id" value="<?php echo $value['id']?>" /></div>
+					<div class="td">
+						<span class="td-con"><?php echo $value['id']?></span>
+					</div>
+					<div class="td">
+						<div class="td-con">
+							<?php echo $value['every']?>
+						</div>
+					</div>
+					<div class="td">
+						<div class="td-con">
+							<?php echo $value['zt_push']?>
+						</div>
+					</div>
+					<div class="td">
+						<div class="td-con">
+							<?php echo $value['zhitui_fan']?>
+						</div>
+					</div>
+					<div class="td">
+						<div class="td-con">
+							<?php echo $value['t_every']?>
+						</div>
+					</div>
+					<div class="td">
+						<div class="td-con">
+							<?php echo $value['tuantui_fan']?>
+						</div>
+					</div>
+					<div class="td" valign="middle">
+						<span class="td-con" >
+						
+						<?php echo $value['jt_push']?>
+						
+						</span>
+					</div>						
+					<div class="td" valign="middle">
+						<span class="td-con" >
+						
+						<?php echo $value['f_ding']?>
+						
+						</span>
+					</div>
+					<div class="td" valign="middle">
+						<span class="td-con" >
+						
+						<?php echo $value['limit']?>
+						
+						</span>
+					</div>
+					<div class="td" valign="middle">
+						<span class="td-con" >
+						
+						<?php echo $value['sell_get_mall']?>
+						
+						</span>
+					</div>
+					<div class="td" valign="middle">
+						<span class="td-con" >
+						
+						<?php echo $value['sell_get_money']?>
+						
+						</span>
+					</div>
+					<div class="td">
+						<?php  
+							switch($value['hzjf_status']){
+								case 0:
+									echo '关闭';
+								break;	
+								case 1:
+									echo '开启';
+								break;	
+							}
+						?>
+					</div>
+					<div class="td">
+						<?php  
+							switch($value['gou_status']){
+								case 0:
+									echo '关闭';
+								break;	
+								case 1:
+									echo '开启';
+								break;	
+							}
+						?>
+					</div>
+					<div class="td" valign="middle">
+						<span class="td-con" >
+						
+						<?php echo $value['gou_price']?>
+						
+						</span>
+					</div>
+					<div class="td">
+						<span class="td-con"><span class="td-con"><a href="<?php echo U('edit',array('id'=>$value['id']))?>">编辑</a></span></span>
+					</div>
+				</div>
+				<?php }?>
+			</div>
+				<div class="paging padding-tb body-bg clearfix">
+				
+					<?php echo $pages;?>
+					<div class="clear"></div>
+				</div>
+		</div>
+		<script>
+			$(window).load(function(){
+				$(".table").resizableColumns();
+				$(".table").treetable();
+				$('.table .tr:last-child').addClass("border-none");
+				//启用与关闭
+				$(".table .ico_up_rack").bind('click',function(){
+					if(!$(this).hasClass("cancel")){
+						$(this).addClass("cancel");
+						$(this).attr("title","点击显示");
+					}else{
+						$(this).removeClass("cancel");
+						$(this).attr("title","点击关闭");
+					}
+				});
+			})
+
+			$(window).load(function(){
+				$(".table").resizableColumns();
+				$(".table").treetable();
+				$('.table .tr:last-child').addClass("border-none");
+				//启用与关闭
+				$(".table .ico_put").bind('click',function(){
+					if(!$(this).hasClass("cancel")){
+						$(this).addClass("cancel");
+						$(this).attr("title","点击显示");
+					}else{
+						$(this).removeClass("cancel");
+						$(this).attr("title","点击关闭");
+					}
+				});
+			})
+
+			//ajax编辑文章信息
+			var ajax_edit = "<?php echo U('ajax_edit')?>";
+			$("input[name=title]").bind('blur',function(){
+			   var title=$(this).val();
+			   var id = $(this).parents('.tr').attr('data-tree-id');
+			   $.post(ajax_edit,{'id':id,'title':title},function(data){
+				  
+			   });
+			})
+			$("input[name=sort]").bind('blur',function(){
+				var sort = $(this).val();
+				var id = $(this).parents('.tr').attr('data-tree-id');
+				$.post(ajax_edit,{'id':id,'sort':sort},function(data){
+					if(data == 1){
+						return true;
+					}else{
+						return false;
+					}
+				})
+			})
+			$(".ico_up_rack").bind('click',function(){
+				var display=$(this).attr('class') == 'ico_up_rack' ? 0:1;
+				var id= $(this).parents('.tr').attr('data-tree-id');
+				$.post(ajax_edit,{'id':id,'display':display},function(data){
+					
+				})
+			})
+
+
+			$(".ico_put").bind('click',function(){
+				var recommend=$(this).attr('class') == 'ico_put' ? 0:1;
+				var id= $(this).parents('.tr').attr('data-tree-id');
+				$.post(ajax_edit,{'id':id,'recommend':recommend},function(data){
+					
+				})
+			})
+		</script>
+		
+		<script>
+			$(function(){
+					var label = "<?php echo $_GET['label']?$_GET['label']:1?>";
+			if(label){
+				$.each($('.labelbox'),function(i,item){
+					if($(item).attr('data-id') == label){
+						$(item).addClass('current');
+					}
+				})
+			}
+
+			 //格式化分类
+			jsoncategory = <?php echo json_encode($category) ?> ;
+		    nb_category(0, '.root'); 
+		    
+			$('.goods-add-class .root a, .goods-add-class .child a').live('click',function(){
+				//在下方已选择分类显示
+				$('.goods-search-class-wrap .goods-class-choose span').html(classNameText());
+				
+				$('input[name=cid]').val(classId());
+			});
+			$('#confirm-class').click(function(){
+				if(classNameText()==""){
+					$('.goods-search-class-wrap .form-buttonedit-popup .input').val("请选择分类");
+				}else{
+					$('.goods-search-class-wrap .form-buttonedit-popup .input').val(classNameText());
+				}
+				$('.goods-search-class-wrap .form-buttonedit-popup').removeClass("buttonedit-popup-hover");
+				$('.goods-search-class-content').addClass('hidden');
+			});
+			
+			function classNameText(){
+				var _txt = '';
+				$('.goods-add-class div.focus').each(function(){
+					if($(this).find("a.focus").html()!=null){
+						if($(this).index()==0){
+							_txt += $(this).find("a.focus").html();
+						}else{
+							_txt += '>'+$(this).find("a.focus").html();
+						}
+					}
+				})
+				return _txt;
+			}
+			function classId(){
+				var _txt = '';
+				$('.goods-add-class div.focus').each(function(){
+					if($(this).find("a.focus").html()!=null){
+						_txt = $(this).find("a.focus").attr('data-id');
+					}
+				})
+				return _txt;
+			}
+			
+			$('.goods-search-class-wrap .form-buttonedit-popup').click(function(){
+				if($('.goods-search-class-content').hasClass('hidden')){
+					$(this).addClass("buttonedit-popup-hover");
+					$('.goods-search-class-content').removeClass('hidden');
+				}else{
+					$(this).removeClass("buttonedit-popup-hover");
+					$('#confirm-class').trigger('click');
+					$('.goods-search-class-content').addClass('hidden');
+				}
+			});
+			
+			
+				$('.bg-sub').click(function(){
+					var cid=$('input[name=cid]').val();
+					var keyword=$('input[name=keyword]').val();
+					location.href="<{:U('index')}>&cid="+cid+'&keyword='+keyword;
+					return false;
+				})
+			
+			})
+			
+		 
+			
+		</script>
+		
+		
+	</body>
+</html>

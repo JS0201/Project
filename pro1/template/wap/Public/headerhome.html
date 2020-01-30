@@ -1,0 +1,63 @@
+<style>
+    #header{
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 64px;
+        line-height: 64px;
+        padding: .30rem .20rem 0 .16rem;
+        text-align: center;
+        z-index: 99999;
+        background-color: transparent;
+    }
+    #header img{
+        width: .14rem;
+        height: .15rem;
+        position: absolute;
+        top: .31rem;
+        left: 8%;
+        z-index: 99;
+    }
+    #header input{
+        font-size: 15px;
+        color: #BCBCBC;
+        position: absolute;
+        left: 45%;
+        transform: translateX(-50%);
+        top: 25px;
+        white-space: nowrap;
+        padding-left: .36rem;
+        border-color: #fff;
+        border-radius: .15rem;
+        height: .28rem;
+        line-height: .28rem;
+    }
+    #header #rightText{
+        position: absolute;
+        right: 16px;
+        top: .06rem;
+        color: #FE480A;
+        font-size: 15px;
+    }
+    #header .searchH{
+        width: 100% !important;
+        background-color: #EAEAEA !important;
+    }
+</style>
+<div id="header">
+   <h3 id="head-title">标题</h3>
+   <a id="rightText" >常见问题</a>
+    <div class="serachH">
+        <img src="template/wap/static/vsc/img/fangdajing.png" alt="">
+        <input type="text" placeholder="请输入要搜索的游戏名称">
+    </div>
+   <a href="index.php?m=Test&c=Index&a=searchKefu" id="rightText" >搜索</a>
+</div>
+
+<script>
+    $(function() {
+        $('#head-title').text(document.title)
+        $('.mobile-content').addClass('has-head')
+    })
+</script>

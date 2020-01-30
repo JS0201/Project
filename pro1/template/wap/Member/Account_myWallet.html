@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>钱包</title>
+    <link rel="stylesheet" href="__TMPL__/hb/public/mui/css/mui.min.css">
+    <link rel="stylesheet" href="__TMPL__/hb/public/swiper/css/swiper.min.css">
+    <include file="template/wap/Public/base.html" />
+    <style>
+        html,body{
+            width: 100%;
+            height: 100%;
+            background-color: #fff;
+        }
+        #myWallet .myHead .lang{
+            display: flex;
+        }
+        #myWallet a {
+            color: #333;
+        }
+        #myWallet .myHead .lang .leftback img{
+            width: .10rem;
+            position: absolute;
+            top: .35rem;
+            left: .20rem;
+            z-index: 999;
+        }
+        #myWallet .myHead .lang h3{
+            font-size: .18rem;
+            color: #FFFFFF;
+            font-weight: 400;
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+            top: .30rem;
+        }
+        #myWallet .myHead .lang p{
+            display: block;
+            color: #fff;
+            position: absolute;
+            top: .36rem;
+            right: .12rem;
+        }
+        #myWallet .myHead .lang p select{
+            margin: 0;
+            color: #fff;
+            background: rgba(0, 0, 0, 0);
+            border: 0;
+            appearance: none;
+            -moz-appearance: none;
+            -webkit-appearance: none;
+            font-size: 0.14rem;
+            padding: 0 !important;
+        }
+        #myWallet .myHead{
+            height: 1.98rem;
+            width: 100%;
+            position: fixed;
+            background: url("template/wap/static/vsc/img/my-bg.png");
+            background-position: center;
+            background-size: 100%;
+        }
+        #myWallet .myHead .myMsg{
+            position: absolute;
+            width: 100%;
+            padding: 0 0.35rem;
+            padding-top: 0.74rem;
+            box-sizing: border-box;
+            color: #fff;
+            display: flex;
+            justify-content: space-between;
+        }
+        #myWallet .myHead .myMsg .myleft{
+            margin-right: .30rem;
+            overflow: hidden;
+        }
+        #myWallet .myHead .myMsg .myleft span {
+            font-size: .12rem;
+            color: #F1C2BB;
+            white-space: nowrap;
+        }
+        #myWallet .myHead .myMsg .fenhong{
+            position: absolute;
+            left: .35rem;
+            top: 1.50rem;
+            font-size: .12rem;
+            color: #F1C2BB;
+            white-space: nowrap;
+        }
+        #myWallet .myHead .myMsg .fenhong span{
+            color: #fff;
+        }
+        #myWallet .myHead .myMsg .myleft p{
+            font-size: .24rem;
+            color: #fff;
+            margin: .13rem 0 .10rem 0;
+        }
+        #myWallet .myHead .myTag{
+            background: url("template/wap/static/vsc/img/my-yuanjiao.png") no-repeat;
+            background-position: center;
+            background-size: 100%;
+            font-size: 0.14rem;
+            color: #333;
+            display: flex;
+            position: absolute;
+            top: 1.8rem;
+            width: 3.37rem;
+            height: 0.91rem;
+            padding-top: 0.17rem;
+            left: 50%;
+            transform:translateX(-50%)
+        }
+        #myWallet .myHead .myTag a {
+            flex: 1;
+        }
+        #myWallet .myHead .myTag .line{
+            width: 0.01rem;
+            height: 0.32rem;
+            background-color: #EB522D;
+        }
+        #myWallet .myHead .myTag .my1{
+            flex: 1;
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+        }
+        #myWallet .myHead .myTag .my1 a{
+            color: #333;
+        }
+        #myWallet .myHead .myTag .my1 img{
+            height: 0.21rem;
+        }
+        #myWallet .myHead .myTag .myTeam1 img{
+            width: 0.25rem;
+        }
+        #myWallet .myHead .myTag .myprofit1 img{
+            width: 0.22rem;
+        }
+        #myWallet .mycontent{
+            padding-top: 2.88rem;
+            padding-bottom: .10rem; 
+        }
+        #myWallet .mycontent .mybutton .myitem{
+            background: url("template/wap/static/vsc/img/my-tectangle.png") no-repeat;
+            background-position: center;
+            background-size: 100%;
+            height: .70rem;
+            line-height: .70rem;
+            display: flex;
+            padding: 0 .22rem 0 .26rem;
+        }
+        #myWallet .mycontent .mybutton .myitem .itemLeft{
+
+            text-align: left;
+            position: relative;
+        }
+        #myWallet .mycontent .mybutton .myitem .itemLeft img{
+            height: .25rem;
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+        }
+        #myWallet .mycontent .mybutton .myitem .itemLeft span{
+            margin-left: .35rem;
+            font-size: .18rem;
+            color: #333;
+        }
+        #myWallet .mycontent .mybutton .myitem .itemright{
+            flex: 1;
+            text-align: right;
+        }
+        #myWallet .mycontent .mybutton .myitem .itemright span{
+            font-size: .14rem;
+            color: #2D83EE;
+            display: inline-block;
+            width: .60rem;
+            height: .24rem;
+            line-height: .24rem;
+            border: .01rem solid #2D83EE;
+            border-radius: .12rem;
+            text-align: center;
+        }
+    </style>
+</head>
+
+<body>
+<div id="myWallet">
+    <div class="myHead">
+        <div class="lang">
+            <div class="leftback">
+                <img src="template/wap/static/vsc/img/backIcon.png" id="backcome" onclick="window.history.back(-1);">
+            </div>
+            <h3 id="head-title"><{:L('wallet0')}></h3>
+
+             <include file="template/wap/Public/lang.html" />
+
+        </div>
+        <div class="myMsg">
+            <div class="myleft">
+                <span><{:L('wallet12')}>(USDT)</span>
+                <p><{$tou}></p>
+            </div>
+            <div class="myleft">
+                <span><{:L('wallet3')}>(USDT)</span>
+                <p><{$userinfo['usdt_wallet']}></p>
+            </div>
+            <span class="fenhong"><{:L('wallet2')}><span>0.00USDT</span>&nbsp;&nbsp; <{:L('wallet1')}><span> <{$tou}>USDT</span></span>
+            <div class="myTag">
+                <a href="<{:U('member/memberSort/vsc_buy')}>">
+                    <div class="my1 myWallet1">
+                        <span><img src="template/wap/static/vsc/img/my-wallet.png" alt=""></span>
+                        <span><{:L('wallet4')}></span>
+                    </div>
+                </a>
+                <div class="line"></div>
+                <a href="<{:U('member/mywallet/myRecharge')}>">
+                    <div class="my1 myTeam1">
+                        
+                            <span><img src="template/wap/static/vsc/img/my-team.png" alt=""></span>
+                            <span><{:L('wallet5')}></span>
+                        
+                    </div>
+                </a>
+                <div class="line"></div>
+                <a href="<{:U('member/mywallet/formtb')}>">
+                    <div class="my1 myprofit1">
+                        
+                            <span><img src="template/wap/static/vsc/img/my-profit.png" alt=""></span>
+                            <span><{:L('wallet6')}></span>
+                    
+                    </div>
+                </a>
+        </div>
+    </div>
+    <div class="mycontent">
+        <div class="mybutton">
+            <div class="myitem">
+                <div class="itemLeft">
+                    <img src="template/wap/static/vsc/img/wallet-futou.png" alt="">
+                    <span>
+                        <{:L('wallet7')}>
+                            <{$userinfo['futou_wallet']}>
+                    </span>
+                </div>
+                <div class="itemright">
+                    <a href="<{:U('member/account/formft')}>">
+                        <span>
+                            <{:L('wallet8')}>
+                        </span>
+                    </a>
+                </div>
+            </div>
+            <div class="myitem">
+                <div class="itemLeft">
+                    <img src="template/wap/static/vsc/img/wallet-bocai.png" alt="">
+                    <span>
+                        <{:L('wallet9')}> <{$userinfo['bocai_wallet']}>
+                    </span>
+                </div>
+                <div class="itemright">
+                    <a href="<{:U('member/account/formbcmzc')}>">
+                        <span>
+                            <{:L('wallet10')}>
+                        </span>
+                    </a>
+                </div>
+            </div>
+<!--            <div class="myitem">
+                <div class="itemLeft">
+                    <img src="template/wap/static/vsc/img/wallet-xiaofei.png" alt="">
+                    <span>
+                        <{:L('wallet11')}>
+                            <{$userinfo['shop_wallet']}>
+                    </span>
+                </div>
+                <div class="itemright">
+                    <a href="<{:U('member/account/formxfmzc')}>">
+                        <span>
+                            <{:L('wallet10')}>
+                        </span>
+                    </a>
+                </div>
+            </div>-->
+        </div>
+    </div>
+    <script type="text/javascript" src="__ROOT__/statics/js/jquery-1.7.2.min.js"></script>
+    <script src="__TMPL__/hb/public/mui/js/mui.min.js"></script>
+    <script src="__TMPL__/hb/public/swiper/js/swiper.min.js"></script>
+    <script src="__TMPL__/hb/public/zepto/zepto.min.js"></script>
+</body>
+
+</html>
+<script>
+</script>

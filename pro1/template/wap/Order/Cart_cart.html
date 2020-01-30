@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <title>win购物车</title>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+        <meta name="apple-mobile-web-app-capable" content="yes" />
+        <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+        <meta name="format-detection" content="telephone=no" />
+        <include file="template/wap/Public/title.html" />
+</head>
+<?php 
+   // print_r($_SESSION['cart_info_to']);
+?>
+<body style="background: #f6f5f5;">
+    <div class="header">
+        <div class="header_l">
+             <a href="<{:U('home/index/index')}>"><img src="__TMPL__/images/lpg.png" alt=""></a>
+        </div>
+        <div class="header_c"> <h1>消费购物车</h1></div>
+        <div class="header_r"><a href="<{:U('index')}>">积分购物车</a></div>
+
+    </div>
+    <volist name="goods_info" id="foo">
+    <div class="order_main cart_list">
+        <ul>
+
+            <volist name="foo['sku_list']" id="fooo">
+                <li>
+                   <!-- <h3><{$fooo['_sku_']['sku_name']}></h3>-->
+                    <div class="order_main_l"><img src="<{$fooo['_sku_']['thumb']}>" alt=""></div>
+                    <div class="order_main_r">
+                        <h4><{$fooo['_sku_']['sku_name']}></h4>
+                        <em><i class="iconfont font_gb" data-event="delpro" data-skuids="<{$fooo['_sku_']['sku_id']}>" >&#xe609</i></em>
+
+                        <div class="order_main_r_b">
+                            <span>价格：<i data-price="<{$fooo['_sku_']['shop_price']}>">$<{$fooo['_sku_']['shop_price']}></i></span>
+                            <div id="content">
+                                <div class='aab' >
+                                    <span class='jian' data-event="number"  data-adjust="reduce" data-skuids="<{$fooo['_sku_']['sku_id']}>" >-</span>
+                                    <input  class='num adjust-input' data-id="buy-num" name="number" data-max="<{$fooo['_sku_']['number']}>" data-skuids="<{$fooo['_sku_']['sku_id']}>"  type='text' value='<{$fooo['number']}>'>
+                                    <span  class='jia'data-event="number" data-adjust="add" data-skuids="<{$fooo['_sku_']['sku_id']}>" >+</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </li>
+                <div style="height: 3vmin;background: #f3f3f3;clear: both;"></div>
+
+            </volist>
+        </ul>
+    </div>
+</volist>  
+<if condition="$goods_info">
+<div style="height: 10vmin;"></div>
+<div class="order_fxed">
+    合计：<i data-id="totle">$<{$all_prices}></i>
+    <span><a href="<{:U('order/cart/settlement1')}>">结算</a></span>
+</div>
+</if>
+
+
+
+
+</body>
+</html>

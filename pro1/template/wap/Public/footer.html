@@ -1,0 +1,138 @@
+<style>
+#footer{
+    position: fixed;
+    height: .54rem;
+    bottom: 0;
+    width: 100%;
+    z-index: 9999;
+    background-color: #FAFAFA;
+}
+#footer ul{
+    display: flex;
+<<<<<<< HEAD
+    width: 100%;
+    height: 100%;
+    padding: 0;
+    padding-top: 6px;
+    
+}
+#footer ul li {
+    height: 100%;
+
+    margin: 0;
+    padding: 6px 0 10px 0;
+    width: 100%;
+    height: 100%;
+    color: #B2B2B2;
+    list-style: none;
+
+}
+#footer ul li a{
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    position: relative;
+    font-size: 0;
+    height: 100%;
+}
+#footer ul li p{
+    /* color: #FD571D; */
+    font-size: 11px;
+    margin-top: 0;
+    font-size: 12px;
+    line-height: 12px;
+    position: absolute;
+    bottom: -4px;
+    margin: 0;
+}
+.active{
+    color: #FF5224 !important;
+}
+#footer a{ 
+    display: inline-block;
+}
+#footer ul li{
+    flex: 1;
+}
+#footer ul li img{
+    height: 24px;
+}
+#footer a img {
+    width: auto;
+}
+</style>
+<footer id="footer">
+    <ul>
+        <li>
+            <a href="index.php?m=member&c=index&a=index">
+				<img src="__TMPL__/hb/img/iocn/myIcon/icon1@3x.png">
+				<p id="indexB" name='index'><{:L('_footer_1')}></p>
+            </a>
+        </li>
+        <li>
+            <a href="index.php?m=Member&c=Index&a=friend">
+				<img src="__TMPL__/hb/img/iocn/myIcon/icon2@3x.png">
+                <p id="friendB" name='frident'><{:L('_footer_2')}></p>
+            </a>
+        </li>
+         <li>
+            <a href="index.php?m=home&c=search&a=search">
+                
+				<img src="__TMPL__/hb/img/iocn/myIcon/icon3@3x.png">
+                <p id="searchB" name='search'><{:L('_footer_3')}></p>
+            <a href="index.php?m=Test&c=Index&a=index">
+				<img src="__TMPL__/hb/img/iocn/myIcon/icon1@3x.png"><p id="indexB" name='index'>DAPP</p>
+            </a>
+        </li>
+        <li>
+            <a href="index.php?m=Test&c=Index&a=c2c">
+				<img src="__TMPL__/hb/img/iocn/myIcon/icon2@3x.png"><p id="friendB" name='frident'>C2C</p>
+            </a>
+        </li>
+         <li>
+            <a href="index.php?m=Test&c=Index&a=task">
+				<img src="__TMPL__/hb/img/iocn/myIcon/icon3@3x.png"><p id="searchB" name='search'>任务</p>
+
+            </a>
+        </li>
+
+            <a href="index.php?m=member&c=Account&a=myIdex">
+                <img src="__TMPL__/hb/img/iocn/myIcon/icon4@3x.png">
+                <p id="myIdexB" name='mymy'><{:L('_footer_4')}></p>
+            <a href="index.php?m=Test&c=Index&a=myIdex">
+                <img src="__TMPL__/hb/img/iocn/myIcon/icon4@3x.png"><p id="myIdexB" name='mymy'>我的</p>
+            </a>
+        </li>
+    </ul>
+</footer>
+<script>
+    $(function() {
+        var urlArr = window.location.search.split('=');
+        var activeUrl = document.title;
+        if (activeUrl == '<{:L('_footer_1')}>') {
+           $('#indexB').addClass('active').siblings().attr('src','__TMPL__/hb/img/iocn/myIcon-active/icon1-active@3x.png')
+
+        } else  if (activeUrl == '<{:L('_footer_2')}>') {
+           $('#friendB').addClass('active').siblings().attr('src','__TMPL__/hb/img/iocn/myIcon-active/icon2-active@3x.png')
+        } else  if (activeUrl == '<{:L('_footer_3')}>') {
+           $('#searchB').addClass('active').siblings().attr('src','__TMPL__/hb/img/iocn/myIcon-active/icon3-active@3x.png')
+        } else  if (activeUrl == '<{:L('_footer_4')}>') {
+           $('#myIdexB').addClass('active').siblings().attr('src','__TMPL__/hb/img/iocn/myIcon-active/icon4-active@3x.png')
+
+        } else  if (activeUrl == 'c2c') {
+           $('#friendB').addClass('active').siblings().attr('src','__TMPL__/hb/img/iocn/myIcon-active/icon2-active@3x.png')
+        } else  if (activeUrl == 'task') {
+           $('#searchB').addClass('active').siblings().attr('src','__TMPL__/hb/img/iocn/myIcon-active/icon3-active@3x.png')
+        } else  if (activeUrl == 'myIdex') {
+            $('#myIdexB').addClass('active').siblings().attr('src','__TMPL__/hb/img/iocn/myIcon-active/icon4-active@3x.png')
+        }
+
+        if (urlArr == 'friendB') {
+            $('#friendB').addClass('active')
+        }
+        $('.mobile-content').addClass('has-footer')
+    })
+
+</script>

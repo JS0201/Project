@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+    <title>互兑明细</title>
+    <include file="template/wap/Public/title.html" />
+    <link rel="stylesheet" type="text/css" href="__TMPL__/vsc/css/dealdetail.css"/>
+    <script type="text/javascript" src="__TMPL__/js/gboy.js"></script>
+    <script type="text/javascript" src="__TMPL__/js/jquery-form.js"></script>
+</head>
+<body>
+<!--头部-->
+<header class="prow15 pt15 pb16 bgcolortheme03 flex">
+    <div class="header-left percent20">
+        <span class="iconfont icon-fanhui1 c-fff left-back fs20"></span>
+    </div>
+    <div class="header-middle percent60 tac c-fff fs16 fw-b">
+        互兑明细
+    </div>
+    <div class="header-middle percent20 tar">
+
+    </div>
+</header>
+<!--头部----end-->
+<div class="prow15 pt10">
+	<if condition="$data">
+        <volist name="data" id="foo" >
+
+            <div class="bbcolortheme01 flex-justify pt10 pb8">
+                <div class="body-img width30">
+                    <img src="/hb.hongmun.io/template/wap/static/hb/img/iocn/personal-head01.png">
+                </div>
+                <div class="body-right flex-justify calc30">
+                    <div class="body-middle widthp75 pl5">
+                        <div class="flex">
+                            <span class="fs16 colortheme01">-<{$foo['num']}></span>
+                            <if condition="$foo['type'] == 0">
+                                <span class="colortheme01 fs12 height24 ml8">USDT</span>
+                                <else/>
+                                <span class="colortheme01 fs12 height24 ml8">VSC</span>
+                            </if>
+                        </div>
+                        <if condition="$foo['type'] == 0">
+                            <p class="colortheme01 fs10 ellipsis">转为VSC：+<{$foo['money']}></p>
+
+                        <else/>
+                            <p class="colortheme01 fs10 ellipsis">转为USDT：+<{$foo['money']}></p>
+
+                        </if>
+
+
+                    </div>
+                    <div class="body-right01 widthp25 tac">
+                        <p class="colortheme01 fs10"><{$foo['time']|date="Y-m-d H:i:s",###}></p>
+
+                    </div>
+                </div>
+            </div>
+        </volist>
+        <else/>
+        <div class="tac colortheme01 fs12 pcol15">暂无互转明细</div>
+    </if>
+
+</div>
+</body>
+
+</html>
+

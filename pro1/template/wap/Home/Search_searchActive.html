@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title><{:L('_find_7')}></title>
+    <link rel="stylesheet" href="__TMPL__/hb/public/mui/css/mui.min.css">
+    <link rel="stylesheet" href="__TMPL__/hb/public/swiper/css/swiper.min.css">
+    <include file="template/wap/Public/base.html" />
+
+    <!-- 引入头部 -->
+    <include file="template/wap/Public/header.html" />
+
+    <style>
+        html , body{
+            background-color: #fff;
+            line-height: normal !important;
+        }
+        #searchHaowan1{
+            background-color: #fff;
+            height: 100%;
+            padding-top: 0.7rem;
+        }
+        #searchHaowan1 .searchBox{
+            padding: 0 0.08rem;
+        }
+        #searchHaowan1 .searchBox .item{
+            height: 1.2rem;
+            background: url("template/wap/static/vsc/img/rectangleBg2.png") no-repeat;
+            background-size: 100%;
+            background-position: center;
+            display: flex;
+            padding: 0.12rem 0.25rem 0.18rem 0.18rem;
+        ;
+        }
+        #searchHaowan1 .searchBox .item .left img{
+            width: 0.9rem;
+        }
+        #searchHaowan1 .searchBox .item .right{
+            margin-left: 0.07rem;
+        }
+        #searchHaowan1 .searchBox .item .right .title{
+            font-size: 0.18rem;
+            color: #333;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+            overflow: hidden;
+            width: 1.98rem;
+            margin-bottom: 0.06rem;
+        }
+        #searchHaowan1 .searchBox .item .right .msgDet{
+            font-size: 0.12rem;
+            color: #666;
+            overflow: hidden;
+            display: -webkit-box;
+            text-overflow: ellipsis;
+            -webkit-box-orient: vertical;
+            -webkit-line-clamp: 2;
+            width: 1.2rem;
+            margin-bottom: 0.13rem;
+        }
+        #searchHaowan1 .searchBox .item .right .rightTime{
+            font-size: 0.12rem;
+            color: #999;
+        }
+    </style>
+</head>
+
+<body>
+<div id="searchHaowan1" class="mobile-content">
+    <div class="searchBox">
+        <volist name="con" id="vo">
+            <a href="<{:U('home/search/searchHWDetail',['id'=>$vo['id']])}>">
+                <div class="item" onclick="todetail()">
+                    <div class="left">
+                        <img src="<{$vo['thumb']}>" alt="">
+                    </div>
+                    <div class="right">
+                        <div class="title"><span><{$vo['title']}></span></div>
+                        <div class="msgDet"><span><{$vo['description']}></span></div>
+                        <div class="rightTime"><span><{$vo['add_time']|date="Y-m-d",###}></span></div>
+                    </div>
+                </div>
+            </a>
+        </volist>
+    </div>
+</div>
+
+<script type="text/javascript" src="__ROOT__/statics/js/jquery-1.7.2.min.js"></script>
+<script src="__TMPL__/hb/public/mui/js/mui.min.js"></script>
+<script src="__TMPL__/hb/public/swiper/js/swiper.min.js"></script>
+<script src="__TMPL__/hb/public/zepto/zepto.min.js"></script>
+</body>
+
+</html>
+<script>
+    function todetail() {
+        window.location.href = "<{:U('home/search/searchHWDetail')}>";
+    }
+</script>

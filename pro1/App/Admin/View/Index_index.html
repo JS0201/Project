@@ -1,0 +1,143 @@
+<include file="Public/header" />
+<script>
+    window.onload = function () { //JS实现文档加载完成后执行代码
+        document.onkeydown = function (e) {
+            var ev = window.event || e;
+            var code = ev.keyCode || ev.which;
+
+
+            if (code == 116) {
+                if (ev.preventDefault) {
+                    main_frame.location.reload(true);
+                    ev.preventDefault();
+                } else {
+                    main_frame.location.reload(true);
+                    ev.keyCode = 0;
+                    ev.returnValue = false;
+                }
+            }
+        }
+    };
+</script>
+<div class="header layout">
+    <div class="logo"><img src="__ROOT__/statics/images/logo.png" /></div>
+    <div class="site-menu border-menu">
+        <ul>
+            <li><a class="current" href="javascript:;" data-id="0">首页</a></li>
+            <volist name="node" id="foo">
+                <li><a href="javascript:;" data-id="<{$foo['id']}>"><{$foo['name']}></a></li>
+            </volist>
+        </ul>
+    </div>
+    <div class="welcome layout">
+        <ul class="clearfix">
+            <li><p>欢迎您：<{:session('gboy_admin_login.username')}></p></li>
+            <li class="spacer-gray"></li>
+            <li><a href="<{:U('admin_user/edit')}>" data-frame="main_frame">账户管理</a></li>
+            <li class="spacer-gray"></li>
+            <li><a href="__ROOT__/" target="_blank">网站前台</a></li>
+            <li class="spacer-gray"></li>
+            <li><a href="<{:U('cache/clear')}>" data-frame="main_frame">更新缓存</a></li>
+            <li class="spacer-gray"></li>
+            <li><a href="<{:U('admin_user/logout',array('go'=>'qcgs'))}>">安全退出</a></li>
+        </ul>
+        <!--<div class="hr-gray"></div>-->
+    </div>
+    <div class="header-hr layout"></div>
+</div>
+
+<div class="side">
+    <div class="head border radius border-small padding-little">
+        <img src="__ROOT__/statics/images/head.jpg" />
+    </div>
+    <div class="hr-black"></div>
+    <h3 class="side-top text-small text-white">角色：超级管理员</h3>
+    <div class="custom-menu"><em class="ico_left_arrow"></em>自定义快捷菜单</div>
+    <div id="side-scroll">
+        <div class="side-menu-height">
+            <div class="hr-blue"></div>
+            <ul data-submenu="0">
+                <li class="custom-wrap">
+                    <a class="focus" href="<{:U('Index/home')}>">后台首页</a>
+                </li>
+                <div id="diy_menu">
+                    <?php foreach ($menus as $menu): ?>
+                    <li><a href="<?php echo $menu['url'] ?>"><?php echo $menu['title'] ?></a></li>
+                    <?php endforeach ?>
+                </div>
+            </ul>
+            <volist name="node" id="foo">
+                <ul class="hidden" data-submenu="<{$foo['id']}>">
+                    <?php
+                    $node_child=M('node')->where(array('parent_id'=>$foo['id'],'status'=>1))->order('sort desc,id asc')->select();
+                    ?>
+                    <volist name="node_child" id="foo">
+                        <?php
+
+                        $url=U($foo['m'].'/'.$foo['c'].'/'.$foo['a']);
+                        ?>
+                        <li><a href="<{$url}>"><{$foo['name']}></a></li>
+                        <if condition="$foo['split']"><div class="hr-blue"></div></if>
+                    </volist>
+                </ul>
+            </volist>
+
+        </div>
+    </div>
+    <!--<div class="show-side">-->
+        <!--<a class="top" href="javascript:;"></a>-->
+        <!--<a class="bottom" href="javascript:;"></a>-->
+    <!--</div>-->
+</div>
+
+
+<div class="wrapper" id="main">
+    <a class="ico-left" href="javascript:;"></a>
+    <iframe id="main_frame" name="main_frame" frameborder="0" src="<{:U('home',array('formhash'=>FORMHASH))}>"></iframe>
+</div>
+<script type="text/javascript">
+
+    $(".custom-wrap .custom-link").hover(function () {
+        $(".side .custom-menu").show();
+    }, function () {
+        $(".side .custom-menu").hide();
+    });
+    $(".custom-link").click(function () {
+        dialog({
+            id: 'menu_index',
+            url: '<{:U('Public / menu')}>&formhash=' + formhash,
+            title: 'loading',
+            width: 681,
+            cancelValue: '取消',
+            cancel: function () {},
+            okValue: '确认',
+            ok: function () {
+                ajax_diymenu_del(this.returnValue);
+            }
+        })
+                .showModal();
+        return false;
+    });
+//删除自定义菜单
+    function ajax_diymenu_del(ids) {
+        $.post(menudelurl, {'ids': ids}, function (data) {
+            refresh_diymenu();
+        });
+    }
+    $(".site-menu ul a").click(function () {
+        var node_id = $(this).attr('data-id');
+        $(".site-menu ul a").removeClass('current');
+        $(this).addClass('current');
+        $(".side-menu-height ul[data-submenu='" + node_id + "']").removeClass('hidden');
+        $(".side-menu-height ul[data-submenu!='" + node_id + "']").addClass('hidden');
+        /* 模拟点击左侧第一个菜单 */
+        $(".side-menu-height ul[data-submenu='" + node_id + "']").find('li a').eq(0).click()
+    })
+
+    $("a[data-frame]").click(function () {
+        $("#" + $(this).data('frame')).attr("src", $(this).attr('href'));
+        return false;
+    })
+</script>
+</body>
+</html>

@@ -1,0 +1,50 @@
+
+/*登录 ---------------------s*/
+body{background-color:#2b2b35}
+/*logo*/
+.logo{width:50%;margin-bottom:15px}
+.logo a img{width:100%}
+button{border: none;}
+/*登录组件*/
+input[type=text].input-group-br,
+input[type=password].input-group-br{padding-left:12px;margin-bottom:0;border-radius:0;border-bottom:1px solid;border-color:#6d6c69;background-color:transparent}
+
+
+
+
+/*登录 -------------------------e*/
+
+.warpper{
+	min-height:100%;
+	
+}
+
+input::-webkit-input-placeholder{color: #fff;opacity:.5;}
+input[type='text'],input[type='password']{color:#fff;opacity:1;border:1px solid rgba(0,0,0,.1)}
+.btn-login{border:none;background-color: #feda2e}
+.register-once{text-decoration:underline}
+.logo-case .colortheme16{font-size:40px}
+
+/*注册*/
+.input-group-addon {
+    color: #1382f4;
+    font-weight: bold;
+    text-decoration: underline;
+}
+.text-deco{text-decoration: underline;}
+.modal-body{background-color: #f5f5f5}
+.input-group-addon{width: 100px;}
+
+.colorblue{color: #4c8bee;}
+.colorblack01{color: #061229;}
+.colorgray01{color: #7989ac;}
+.colorblue03{color: #4483e5;}
+.coloryellow01{color:#fde62f}
+.coloryellow02{color:#fff07a}
+.coloryellow03{color:#fde62f}
+
+.bgcgray01{background-color: #eef0f6!important}
+.bgcgray02{background-color: #f4f6f9!important}
+
+
+

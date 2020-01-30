@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+	<meta charset="UTF-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	<meta http-equiv="X-UA-Compatible" content="ie=edge" />
+	<title>个人资料</title>
+	<include file="template/wap/Public/title.html" />
+	<link rel="stylesheet" type="text/css" href="__TMPL__/vsc/css/index.css"/>
+	
+</head>
+<body>
+	<!--头部-->
+	<header class="prow15 pt15 pb16 bgcolortheme01 flex">
+		<div class="header-left percent20">
+			<a class="iconfont icon-fanhui1 colortheme01 fs20" href="<{:U('member/index/index')}>"></a>
+		</div>
+		<div class="header-middle percent60 tac colortheme01 fs16 fw-b">
+			个人资料
+		</div>
+	</header>
+	<!--头部----end-->
+	
+	<!--个人资料 列表 s-->
+	<div class="prow15 mb10 bgcolortheme01">
+		<a href="<{:U('member/account/nicheng')}>">
+			<div class="flex">
+				<div class="width30 flex-center01 pcol15">
+					<span class="iconfont icon-userName colortheme01 fs20"></span>
+				</div>
+				<div class="calc30 flex-justify bbcolortheme01 pcol15">
+					<span class="colortheme01 fs14">昵称</span>
+					<div class="colortheme01 fs14">
+						<if condition="$realname">
+							<{$realname}>
+						<else/>
+							点击设置
+						</if>
+						<span class="iconfont icon-arrow-right colortheme01 fs14"></span>
+					</div>
+				</div>
+			</div>
+		</a>
+		<div class="flex">
+			<div class="width30 flex-center01 pcol15">
+				<span class="iconfont icon-lang colortheme01 fs20"></span>
+			</div>
+			<div class="calc30 flex-justify bbcolortheme01 pcol15">
+				<span class="colortheme01 fs14">语言</span>
+				<div class="colortheme01 fs14">
+					<a href="javascript:javascript:alert('检查您的IP地址目前是否在中国，为您自动切换到中文')" class="fr fs14">
+						中文
+						<span class="iconfont icon-arrow-right colortheme01 fs14"></span>
+					</a>
+				</div>
+			</div>
+		</div>
+		<a href="<{:U('member/account/address')}>">
+			<div class="flex">
+				<div class="width30 flex-center01 pcol15">
+					<span class="iconfont icon-bankCard colortheme01 fs20"></span>
+				</div>
+				<div class="calc30 flex-justify pcol15">
+					<span class="colortheme01 fs14">钱包地址</span>
+					<div class="colortheme01 fs14">
+						<{$address|restrlen=###,8}>
+						<span class="iconfont icon-arrow-right colortheme01 fs14"></span>
+					</div>
+				</div>
+			</div>
+		</a>
+	</div>
+
+	<div class="prow15 bgcolortheme01">
+		<a href="<{:U('member/account/Modpassword')}>">
+			<div class="flex">
+				<div class="width30 flex-center01 pcol15">
+					<span class="iconfont icon-icon_password colortheme01 fs20"></span>
+				</div>
+				<div class="calc30 flex-justify bbcolortheme01 pcol15">
+					<span class="colortheme01 fs14">登录密码</span>
+					<div class="colortheme01 fs14">
+						点击修改 <span class="iconfont icon-arrow-right colortheme01 fs14"></span>
+					</div>
+				</div>
+			</div>
+		</a>
+		<a href="<{:U('member/account/Modpaypwd')}>">
+
+			<div class="flex">
+				<div class="width30 flex-center01 pcol15">
+					<span class="iconfont icon-icon_password colortheme01 fs20"></span>
+				</div>
+				<div class="calc30 flex-justify pcol15">
+					<span class="colortheme01 fs14">二级密码</span>
+					<div class="colortheme01 fs14">
+						点击设置 <span class="iconfont icon-arrow-right colortheme01 fs14"></span>
+					</div>
+				</div>
+			</div>
+		</a>
+	</div>
+	<!--个人资料 列表 e-->
+	
+	
+	<div class="prow15">
+		<button class="btn-gradual-bg mt30 radius-4 un-border">保存</button>
+	</div>
+	
+</body>
+
+</html>

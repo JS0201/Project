@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>发现</title>
+    <link rel="stylesheet" href="__TMPL__/hb/public/mui/css/mui.min.css">
+    <link rel="stylesheet" href="__TMPL__/hb/public/swiper/css/swiper.min.css">
+    <include file="template/wap/Public/base.html" />
+    <!-- 引入头部 -->
+    <include file="template/wap/Public/head.html" />
+    
+    <style>
+        html , body{
+            background-color: #fff;
+       }
+        #search{
+            background-color: #fff;
+            height: 100%;
+            padding-top: 0.64rem;
+            margin-bottom: 0.77rem;
+       }
+        #search .banner{
+            width: 100%;
+            height: 1.63rem;
+            background: url("template/wap/static/vsc/img/banner.png");
+            background-size: 100%;
+            background-position: center;
+            margin-bottom: 0.13rem;
+       }
+        #search .searchBox{
+            padding: 0 0.16rem;
+       }
+        #search .searchBox .item{
+            width: 100%;
+            height: 0.52rem;
+            line-height: 0.52rem;
+            border: 0.01rem solid #ED622D;
+            box-shadow: 0rem 0.02rem 0.15rem -0.04rem #F9AF2D;
+            border-radius: 0.08rem;
+            display: flex;
+            padding: 0 0.17rem 0 0.15rem;
+            margin-bottom: 0.12rem;
+       }
+        #search .searchBox .item .left{
+            flex: 1;
+            text-align: left;
+            position: relative;
+       }
+        #search .searchBox .item .left img{
+            width: 0.25rem;
+            line-height: 0.52rem;
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+       }
+        #search .searchBox .item .left span{
+            font-size: 0.18rem;
+            color: #333;
+            margin-left: 0.36rem;
+       }
+        #search .searchBox .item .right{
+            flex: 1;
+            text-align: right;
+            margin-left: 0.15rem;
+            padding-top: 0.2rem;
+            position: relative;
+       }
+        #search .item .right img{
+            width: 0.1rem;
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            right: 0;
+       }
+        </style>
+</head>
+
+<body>
+    <div id="search">
+        <div class="banner"></div>
+        <div class="searchBox">
+            <div class="item">
+                <div class="left">
+                    <img src="template/wap/static/vsc/img/haowanIcon.png" alt="">
+                    <span>好玩</span>
+                </div>
+                <a href="index.php?m=Test&c=Index&a=searchHaowan" class="right">
+                    <img src="template/wap/static/vsc/img/torightIcon.png" alt="">
+                </a>
+            </div>
+            <div class="item">
+                <div class="left">
+                    <img src="template/wap/static/vsc/img/shangxiaoIcon.png" alt="">
+                    <span>商校</span>
+                </div>
+                <a href="index.php?m=Test&c=Index&a=searchSXY" class="right">
+                    <img src="template/wap/static/vsc/img/torightIcon.png" alt="">
+                </a>
+            </div>
+            <div class="item">
+                <div class="left">
+                    <img src="template/wap/static/vsc/img/kefuIcon.png" alt="">
+                    <span>客服</span>
+                </div>
+                <a href="index.php?m=Test&c=Index&a=searchKefu" class="right">
+                    <img src="template/wap/static/vsc/img/torightIcon.png" alt="">
+                </a>
+            </div>
+            <div class="item">
+                <div class="left">
+                    <img src="template/wap/static/vsc/img/caibaoIcon.png" alt="">
+                    <span>财报</span>
+                </div>
+                <a href="index.php?m=Test&c=Index&a=searchCaibao" class="right">
+                    <img src="template/wap/static/vsc/img/torightIcon.png" alt="">
+                </a>
+            </div>
+            <div class="item">
+                <div class="left">
+                    <img src="template/wap/static/vsc/img/zhaobiaoIcon.png" alt="">
+                    <span>招贤纳士</span>
+                </div>
+                <a href="index.php?m=Test&c=Index&a=searchZhaobiao" class="right">
+                    <img src="template/wap/static/vsc/img/torightIcon.png" alt="">
+                </a>
+            </div>
+            <div class="item">
+                <div class="left">
+                    <img src="template/wap/static/vsc/img/jiedaiIcon.png" alt="">
+                    <span>接待中心</span>
+                </div>
+                <a href="index.php?m=Test&c=Index&a=searchJiedai" class="right">
+                    <img src="template/wap/static/vsc/img/torightIcon.png" alt="">
+                </a>
+            </div>
+            <div class="item">
+                <div class="left">
+                    <img src="template/wap/static/vsc/img/activeIcon.png" alt="">
+                    <span>活动</span>
+                </div>
+                <a href="index.php?m=Test&c=Index&a=searchActive" class="right">
+                    <img src="template/wap/static/vsc/img/torightIcon.png" alt="">
+                </a>
+            </div>
+        </div>
+    </div>
+
+
+    <include file="template/wap/Public/footer.html" />
+
+    <script type="text/javascript" src="__ROOT__/statics/js/jquery-1.7.2.min.js"></script>
+    <script src="__TMPL__/hb/public/mui/js/mui.min.js"></script>
+    <script src="__TMPL__/hb/public/swiper/js/swiper.min.js"></script>
+    <script src="__TMPL__/hb/public/zepto/zepto.min.js"></script>
+</body>
+
+</html>
+<script>
+</script>

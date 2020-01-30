@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>提现记录</title>
+    <link rel="stylesheet" href="__TMPL__/hb/public/mui/css/mui.min.css">
+    <link rel="stylesheet" href="__TMPL__/hb/public/swiper/css/swiper.min.css">
+    <include file="template/wap/Public/base.html" />
+
+    <!-- 引入头部 -->
+    <include file="template/wap/Public/header.html" />
+    <style>
+        .fenhongjilu {
+            position: relative;
+            margin-top: 64px;
+        }
+        .count{
+            border-bottom: 1px solid #B6B6B6;
+            padding: .13rem .35rem .20rem;
+            margin-bottom: .13rem;
+        }
+        .count .countul{
+            display: flex;
+        }
+        .count .countul li{
+            font-size: .15rem;
+            color: #333;
+            display: flex;
+            flex-direction: column;
+            text-align: center;
+        }
+        .count .countul li:nth-of-type(2n){
+            flex: 1;
+        }
+        .count .countul li span{
+            color: #909090;
+            margin-bottom: .05rem;
+        }
+        .count .countul li i{
+            font-style: normal;
+        }
+        .cardDetail{
+            padding: 0 .15rem;
+        }
+        .cardbox{
+            border: 1px solid #BFBFBF;
+            border-radius: .1rem;
+            display: flex;
+            padding: .1rem .10rem .20rem;
+        }
+        .cardDetail .carditem:last-of-type{
+            flex: 1;
+            margin-left: .05rem;
+        }
+        .cardDetail .carditem .msg{
+            font-size: .14rem;
+            margin-bottom: .1rem;
+        }
+        .cardDetail .carditem .msg:first-of-type span{
+            color: #000202 !important;
+        }
+        .cardDetail .carditem .msg span{
+            color: #909090;
+        }
+        .cardDetail .carditem .msg i{
+            font-style: normal;
+            color: #000202;
+        }
+        .msg1{
+            height: .19rem;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="fenhongjilu">
+
+        <div class="count">
+            <ul class="countul">
+                <li>
+                    <span>RMB数量</span>
+                    <i>￥0.998</i>
+                </li>
+                <li>X</li>
+                <li>
+                    <span>RMB单价</span>
+                    <i>2000</i>
+                </li>
+                <li>=</li>
+                <li>
+                    <span>总金额</span>
+                    <i>￥1990.00</i>
+                </li>
+            </ul>
+        </div>
+
+        <div class="cardDetail">
+            <div class="cardbox">
+                <div class="carditem">
+                <div class="msg">
+                    <span>订单号：</span>
+                    <i>13545463</i>
+                </div>
+                <div class="msg">
+                    <span>支付宝账号：</span>
+                    <i>12215632659</i>
+                </div>
+                <div class="msg">
+                    <span>发起时间：</span>
+                    <i>2019-01-02 16:00</i>
+                </div>
+                <div class="msg">
+                    <span>完成时间：</span>
+                    <i>2019-01-02 16:00</i>
+                </div>
+                </div>
+                <div class="carditem">
+                    <div class="msg msg1">
+                    </div>
+                    <div class="msg">
+                        <span>支付宝姓名：</span>
+                        <i>刘金生</i>
+                    </div>
+                    <div class="msg">
+                        <span>订单状态：</span>
+                        <i>已完成</i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>

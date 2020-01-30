@@ -1,0 +1,238 @@
+<include file="Admin@Public/header" />
+<div class="fixed-nav layout">
+    <ul>
+        <li class="first">会员管理<a id="addHome" title="添加到首页快捷菜单">[+]</a></li>
+        <li class="spacer-gray"></li>
+    </ul>
+    <div class="hr-gray"></div>
+</div>
+
+<div class="content padding-big have-fixed-nav">
+    <div class="tips margin-tb">
+        <div class="tips-info border">
+            <h6>温馨提示</h6>
+            <a id="show-tip" data-open="true" href="javascript:;">关闭操作提示</a>
+        </div>
+        <div class="tips-txt padding-small-top layout">
+            <p>- 通过会员管理，你可以进行查看、编辑会员资料以及删除会员等操作</p>
+            <p>- 你可以根据条件搜索会员，然后选择相应的操作</p>
+        </div>
+    </div>
+    <style>
+
+        .member-list-search .form-group-id2 .box,
+        .member-list-search .form-box,
+        .member-list-search .form-group .box,
+        .member-list-search .form-group-id1,
+        .member-list-search .form-group{width:auto}
+        .form-group .box .input{display: inline-block;width:auto;}
+        .form-layout-rank .label{margin-left: 10px}
+        .form-group-id1 .box .input,
+        .form-group-id2 .box .input{width:100px}
+        .form-group-id3 .box .input,
+        .form-group-id4 .box .input{width:150px}
+
+    </style>
+    <div class="member-list-search clearfix">
+        <form action="" method="get">
+            <input type="hidden" name="m" value="<{:MODULE_NAME}>">
+            <input type="hidden" name="c" value="<{:CONTROLLER_NAME}>">
+            <input type="hidden" name="a" value="<{:ACTION_NAME}>">
+            <div class="form-box form-layout-rank clearfix border-bottom-none">
+
+                <?php echo  \Org\Util\Form::input('select','report_id',$_GET['report_id'] ? $_GET['report_id'] : '','按等级查看','',array('items' =>array(''=>'全部','7'=>'游客','1'=>'初级经纪人','2'=>'中级经纪人','3'=>'高级经纪人')))?>
+                <?php echo  \Org\Util\Form::input('select','tuan_id',$_GET['tuan_id'] ? $_GET['tuan_id'] : '','按团队等级查看','',array('items' =>array(''=>'全部','0'=>'暂无等级','1'=>'初级主管','2'=>'中级主管','3'=>'高级主管','4'=>'红利董事')))?>
+                <div style="z-index: 4;" id="form-group-id1" class="form-group form-layout-rank group1">
+                    <div class="box margin-none">
+                        <span style="margin-top: 7px;">注册时间：</span><?php echo \Org\Util\Form::calendar('start',!empty($_GET['start']) ? $_GET['start']:'',array('format' => 'YYYY-MM-DD'))?>
+                    </div>
+                </div>
+                <div style="z-index: 3;" id="form-group-id2" class="form-group form-layout-rank group2">
+                    <span class="label">~</span>
+                    <div class="box margin-none">
+                        <?php echo \Org\Util\Form::calendar('end',!empty($_GET['end'])? $_GET['end']:'',array('format' => 'YYYY-MM-DD'))?>
+                    </div>
+                </div>
+                <div style="z-index: 3;padding: 0px;" id="form-group-id3" class="form-group form-layout-rank group2">
+                    <?php echo  \Org\Util\Form::input('text', 'keyword', $_GET['keyword'], '搜索', '', array('placeholder' => '输入会员名/手机/邮箱/姓名均可搜索'));?>
+                </div>
+            </div>
+            <input class="button bg-sub fl" type="submit" value="查询">
+         <!--   <div class="button bg-sub" style="margin-left:20px"><a href="javascript:void(0)" style="color:#fff" id="out">导出excel</a></div>-->
+        </form>
+    </div>
+    <div class="table-work border margin-tb">
+        <div class="border border-white tw-wrap">
+            <a data-message="是否锁定此用户？" href="<?php echo U('togglelock',array('type'=>1))?>" data-ajax='ids'><i class="ico_lock"></i>锁定</a>
+            <div class="spacer-gray"></div>
+            <a data-message="是否解锁此用户？" href="<?php echo U('togglelock',array('type'=>0))?>" data-ajax='ids'><i class="ico_unlock"></i>解锁</a>
+            <div class="spacer-gray"></div>
+           <!-- <a href="<{:U('Member/public/boss_Fixedprofit')}>"><i class="ico_out"></i>boss团队固定分红测试</a>-->
+            <div class="spacer-gray"></div>
+        </div>
+    </div>
+    <div class="table-wrap member-info-table">
+        <div class="table resize-table paging-table check-table high-table border clearfix">
+            <div class="tr">
+                <span class="th check-option" data-resize="false"><span><input id="check-all" type="checkbox" /></span></span>
+                <span class="th" data-width="10"><span class="td-con">会员</span></span>
+                <span class="th" data-width="10"><span class="td-con">介绍人</span></span>
+            <!--    <span class="th" data-width="10"><span class="td-con">接点人</span></span>-->
+                <span class="th" data-width="10"><span class="td-con">账户余额</span></span>
+                <span class="th" data-width="7"><span class="td-con">推荐人数</span></span>
+                <span class="th" data-width="10"><span class="td-con">业绩</span></span>
+                <span class="th" data-width="5"><span class="td-con">等级</span></span>
+                <span class="th" data-width="5"><span class="td-con">团队等级</span></span>
+                <span class="th" data-width="12"><span class="td-con">注册&登录</span></span>
+                <span class="th" data-width="5"><span class="td-con">状态</span></span>
+                <span class="th" data-width="14" ><span class="td-con">操作</span></span>
+            </div>
+            <?php foreach ($list AS $member): ?>
+            <div class="tr">
+                <span class="td check-option"><input type="checkbox" name="ids" value="<?php echo $member['id'] ?>" /></span>
+                <span class="td">
+                    <div class="td-con td-pic text-left over-initial">
+                        <span class="title txt" style="padding-left: 0px;text-align:left; vertical-align: middle;">
+                            <?php echo $member['username'] ?>（<?php  echo "id: " ;   echo $member['id']; ?>）&nbsp;&nbsp;<!--<em class="text-main" style="display:block;">（登录次数：<?php echo $member['login_num']?>）</em>--></span>
+                    </div>
+                </span>
+                <span class="td">
+                        <?php $j_name=M('member')->where(array('id'=>$member['pid']))->getField('username');
+                            echo $j_name;
+                        ?>
+                     <!--   (<?php $jv_name=M('member')->where(array('id'=>$member['pid']))->getField('realname');
+                            echo $jv_name;
+                        ?>)-->
+                 id:   (<?php    echo $member['pid'];?>)
+                </span>
+    <!--            <span class="td">
+                        <?php $j_name=M('member_sorts')->where(array('uid'=>$member['id']))->getField('pid');
+                            $uuname=M('member_sorts')->where(array('id'=>$j_name))->getField('uid');
+                            $one_name=M('member')->where(array('id'=>$uuname))->find();
+                            echo $one_name['username'];
+                        ?>
+                        (<?php echo $one_name['realname'];?>)
+                </span>-->
+                <span class="td">
+                    <?php  $m_bi=M('money_finance')->where(array('uid'=>$member['id']))->find();?>
+                    <span class="td-con double-row text-left">
+                        <span style="float: left;">USDT余额：<{$m_bi['usdt_wallet']|default='0.00'}></br>
+
+                            锁仓钱包余额：<{$m_bi['lock_wallet']|default='0.0000'}></span>
+
+                    </span>
+
+                </span>
+                <span class="td">
+                <?php
+					$zhizhi=M('member')->where(array('pid'=>$member['id']))->count();
+                ?>
+                    <span class="td-con double-row">
+                        直推人数：<?php echo $zhizhi; ?>
+                    </span>
+                </span>
+                <?php
+                    $zy_money=M('member_sorts')->where(array('uid'=>$member['id']))->find();
+                ?>
+                <span class="td">
+                    <span class="td-con double-row text-center">
+                        <span><{$zy_money['member_lposition']+$zy_money['member_rposition']}></span></span>
+                    </span>
+                </span>
+                <span class="td">
+                    <span class="td-con double-row text-left">
+
+                        <span style=" display: block; width：100% !important;text-align: center !important;"><{$m_bi['grade']|default='0'|agency_level}></span>
+                    </span>
+                </span>
+                <span class="td">
+                    <span class="td-con double-row text-left">
+
+                        <span style=" display: block; width：100% !important;text-align: center !important;"><{$m_bi['agency_level']|default='0'|boss_level}></span>
+                    </span>
+                </span>
+                <span class="td text-center">
+                    <span class="td-con double-row text-center">注册时间：<?php echo date('Y-m-d H:i:s', $member['register_time'])?><br />最后登录：<?php echo date('Y-m-d H:i:s', $member['login_time'])?></span>
+                </span>
+                <span class="td">
+                <?php if($member['islock'] == 1){?>
+                    <font style="color: red">锁定</font>
+                    <?php }else{?>
+                    正常
+                    <?php }?>
+                </span>
+                <span class="td">
+                    <span class="td-con">
+						<a href="javascript:;" class="member_update" data-url="<?php echo U('update', array('id' => $member['id'])) ?>">添加</a>&nbsp;&nbsp;&nbsp;
+						<!--<a href="javascript:;" class="member_update" data-url="<?php echo U('modify_data', array('id' => $member['id'])) ?>">修改资料</a>&nbsp;&nbsp;&nbsp;-->
+
+
+						<a href="<?php echo U('edit',array('id'=>$member['id']));?>"  >编辑</a>&nbsp;&nbsp;&nbsp;
+						<a href="<{:U('login',array('id'=>$member['id']))}>" target="_blank">登入</a>
+                        <a  data-confirm="是否确定删除该用户？" href="<{:U('del_user',array('id' => $member['id']))}>">删除</a>
+                    </span>
+                </span>
+            </div>
+            <?php endforeach ?>
+            <div class="paging padding-tb body-bg clearfix">
+                <p style="float:left;margin:0 10px;">
+
+                    可提现USDT余额：<{$zong['u_count_money']|default='0.0000'}>
+                    <span style="padding-left: 15px;">锁仓钱包余额：<{$zong['q_count_money']|default='0.0000'}></span>
+
+
+
+                </p>
+
+                <?php echo $pages;?>
+                <div class="clear"></div>
+            </div>
+        </div>
+    </div>
+</div>
+<script type="text/javascript">
+
+    $(window).load(function () {
+        $(".table").resizableColumns();
+        $(".paging-table").fixedPaging();
+        $(".member-info-tip").hover(function () {
+            $(this).children("span").show();
+        }, function () {
+            $(this).children("span").hide();
+        });
+        $(".member-list-search .form-group").each(function (i) {
+            $(this).addClass("form-group-id" + (i + 1));
+        });
+        $("a.member_update").click(function () {
+            top.dialog({
+                url: $(this).attr("data-url"),
+                title: '修改会员信息',
+                width: 460,
+                onclose: function () {
+                    if (this.returnValue) {
+                        window.location.href = this.returnValue.referer;
+                    }
+                }
+            })
+                .showModal();
+        });
+        return false;
+    })
+    $(function () {
+        var $val = $("input[type=text]").eq(1).val();
+        $("input[type=text]").eq(1).focus().val($val);
+    });
+
+    $('#out').live('click',function(){
+
+        var keyword=$("input[name='keyword']").val();
+        var start="<{$_GET['start']}>";
+        var end="<{$_GET['end']}>";
+        //location.href="__ROOT__/index.php/Order/Order/exports/start/"+start+"/end/"+end+"/keyword/"+keyword+"/type/"+type;
+        location.href="<{:U("exports_user")}>&keyword="+keyword+"&start="+start+"&end="+end;
+
+        // alert(arr[0]);
+    })
+</script>
+</body>
+</html>

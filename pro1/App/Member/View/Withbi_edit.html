@@ -1,0 +1,181 @@
+<include file="Admin@Public/header" />		
+
+		<div class="fixed-nav layout">
+			<ul>
+				<li class="first">提现管理</li>
+			
+			</ul>
+			<div class="hr-gray"></div>
+		</div>
+		<form action="<{:U('save')}>" method="POST" enctype="multipart/form-data">
+		<div class="content padding-big have-fixed-nav">
+		 <div class="content-tabs ">
+			<div class="hidden">
+			
+				<input type="hidden" name="id" value="<?php echo $_GET['id']; ?>">
+			</div>
+	
+			<div class="form-box clearfix">
+				<?php echo \Org\Util\Form::input('text', 'username', $info['username'] ? $info['username'] : '', '会员用户：', '提现会员名',array('disabled'=>'disabled')); ?>
+			</div>				
+			<div class="form-box clearfix">
+				<?php echo \Org\Util\Form::input('text', 'realname', $info['realname'] ? $info['realname'] : '', '姓名：', '会员姓名',array('disabled'=>'disabled')); ?>
+			</div>				
+			<div class="form-box clearfix">
+				<?php echo \Org\Util\Form::input('text', 'mobile', $info['mobile'] ? $info['mobile'] : '', '会员手机号码：', '会员手机号码',array('disabled'=>'disabled')); ?>
+			</div>			
+			<div class="form-box clearfix">
+				<?php echo \Org\Util\Form::input('text', 'zb_address', $info['zb_address'] ? $info['zb_address'] : '', '钱包地址：', '钱包地址',array('disabled'=>'disabled')); ?>
+			</div>
+			
+			<div class="form-box clearfix">
+				<?php echo \Org\Util\Form::input('text', 'withdrawals_nums', $info['withdrawals_nums'] ? $info['withdrawals_nums'] : '', '提现金额：', '提现金额，已扣手续费',array('disabled'=>'disabled')); ?>
+			</div>				
+			
+<!-- 			<div class="form-box clearfix">
+				<?php echo \Org\Util\Form::input('text', 'fee', $info['fee'] ? $info['fee'] : '0.00', '商城积分：', '商城积分',array('disabled'=>'disabled')); ?>
+			</div>	 -->		
+			
+			<div class="form-box clearfix">
+				<?php echo \Org\Util\Form::input('text', 'withdrawals_time', $info['withdrawals_time'] ? $info['withdrawals_time'] : '', '提现时间：', '提现时间',array('disabled'=>'disabled')); ?>
+			</div>
+		
+			<div class="form-box clearfix">
+				<?php echo \Org\Util\Form::input('text', 'withdrawals_text', $info['withdrawals_text'] ? $info['withdrawals_text'] : '', '提现说明：', '提现文字说明，仅后台查看'); ?>
+			</div>	
+			
+			<div class="form-box clearfix">
+				<?php echo \Org\Util\Form::input('radio', 'withdrawals_paytype', isset($info['withdrawals_paytype']) ? $info['withdrawals_paytype']: 1, '提现类型：', '提现类型', array('items' => array('1'=>'认购HM'), 'colspan' => 2,)); ?>
+				
+				
+			</div>		
+			
+			<div class="form-box clearfix">
+				<?php
+
+					//echo \Org\Util\Form::input('radio', 'withdrawals_types', isset($info['withdrawals_types']) ? $info['withdrawals_types']: 1, '收款类型：', '提现收款类型', array('items' => array('1'=>'HMC地址'), 'colspan' => 2,));
+
+					if($info['withdrawals_types']=='1'){
+						$withdrawals_types='HMC地址';
+					}
+
+					echo \Org\Util\Form::input('text', 'withdrawals_paytype', $withdrawals_types, '收款类型：', '提现收款类型',array('disabled'=>'disabled'));
+
+				?>
+			</div>
+			<!--<div class="form-box clearfix">-->
+				<!--<?php-->
+					<!--if($info['withdrawals_types']=='1'){-->
+						<!--echo \Org\Util\Form::input('text', 'account_name', $bank_info['account_name'], '开户名：', '开户名',array('disabled'=>'disabled'));-->
+						<!--echo \Org\Util\Form::input('text', 'account_bank', $bank_info['account_bank'], '开户行：', '开户行',array('disabled'=>'disabled'));-->
+						<!--echo \Org\Util\Form::input('text', 'bank_account', $bank_info['bank_account'], '银行账号：', '银行账号',array('disabled'=>'disabled'));-->
+					<!--}elseif($info['withdrawals_types']=='2'){-->
+						<!--echo \Org\Util\Form::input('text', 'withdrawals_zfbnums', $bank_infoo['withdrawals_zfbnums'], '支付宝账号：', '支付宝账号',array('disabled'=>'disabled'));-->
+					<!--}elseif($info['withdrawals_types']=='3'){-->
+						<!--echo \Org\Util\Form::input('text', 'withdrawals_wxnums', $bank_info['withdrawals_wxnums'], '微信账号：', '微信账号',array('disabled'=>'disabled'));-->
+					<!--}-->
+
+				<!--?>-->
+			<!--</div>-->
+			<div class="form-box clearfix">
+				<?php 
+				if($info['withdrawals_states']=='0' || $info['withdrawals_states']=='3' ){
+					echo \Org\Util\Form::input('radio', 'withdrawals_states', isset($info['withdrawals_states']) ? $info['withdrawals_states']: 0, '提现状态：', '提现状态', array('items' => array('0'=>'审核中','1'=> '已通过','2'=>'已拒绝','3'=>'核对中'), 'colspan' => 2,)); 
+				}else{
+							switch($info['withdrawals_states']){
+								case 0:
+									$text= '审核中';
+								break;	
+								case 1:
+									$text= '已通过';
+								break;	
+								case 2:
+									$text= '已拒绝';
+								break;
+								
+								case 3:
+									$text= '核对中';
+								break;
+							}
+						echo '<div class="form-group"><span class="label">提现状态：</span><div class="box">'.$text.'</div><p class="desc">提现状态</p></div>';
+				}
+				
+				
+				?>
+			</div>
+				
+		</div>
+			<div class="padding">
+				<input type="submit" class="button bg-main" value="保存" name="dosubmit" />
+				<input type="button" class="button margin-left bg-gray" value="返回" />
+			</div>
+		</div>
+		</form>
+		<script>
+			var editor = UE.getEditor('content');		
+			$("input[name=parent]").attr("readonly","readonly");
+			$("input[name=parent]").live('click',function(){
+			
+				var data = $(this).attr('data-ids');
+				top.dialog({
+					url: '<{:U('category_choose',array('type'=>'category'))}>&formhash='+formhash,
+					title: '加载中...',
+					width: 930,
+					data:data,
+					onclose: function () {
+						if(this.returnValue){
+							$("input[name=parent]").attr('data-ids',this.returnValue.split("category_ids=")[1].split(',').reverse());
+							$("#choosecat").val(html_encode(this.returnValue,0));
+							$("input[name=parent_id]").val(html_encode(this.returnValue,1));
+						}
+					}
+				})
+				.showModal();
+			})
+			//选择分类操作
+			function html_encode(str,i){ 
+			    str = str.split("category_ids=")[i];
+				if(i == 1){
+					var id = "<?php echo $_GET['id']?>";
+					var arr_str = str.split(",");
+					if(arr_str[arr_str.length-1] == id){
+						return;
+					}
+					return arr_str[arr_str.length-1];
+				}
+				str = str.replace(/&gt;/g, ">"); 
+				str = str.replace(/&lt;/g, "<");   
+				str = str.replace(/&gt;/g, ">");   
+				str = str.replace(/&nbsp;/g, " ");   
+				str = str.replace(/&#39;/g, "\'");   
+				str = str.replace(/&quot;/g, "\""); 
+				return str;
+			}
+			
+			function select_tpl(modelid,id){
+				$.post('<{:U('select_tpl')}>','modelid='+modelid+'&id='+id+'&formhash='+formhash,function(data){
+					
+					$('input[name="category_template"]').val(data['category_tpl']);
+					$('input[name="list_template"]').val(data['list_tpl']);
+					$('input[name="show_template"]').val(data['show_tpl']);
+				},'json');
+			}
+			$(function(){
+				//模板选择
+				$('.listbox-items').click(function(){
+					var modelid=$('input[name="modelid"]').val();
+					select_tpl(modelid,'');
+				});
+				
+				//加载模板
+				<if condition="ACTION_NAME eq 'add'">
+				select_tpl(<{$info['modelid']|default='1'}>,<{$_GET['parent_id']}>);
+				
+				<else/>
+				select_tpl(<{$info['modelid']|default='1'}>,<{$info['id']}>);
+				
+				</if>
+			})
+		</script>
+	</body>
+</html>

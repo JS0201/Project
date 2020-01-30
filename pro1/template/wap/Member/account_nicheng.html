@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<title>修改设置昵称</title>
+		<include file="template/wap/Public/title.html" />
+		<link rel="stylesheet" type="text/css" href="__TMPL__/vsc/css/rechargeonline.css"/>
+	</head>
+	<body>
+		<!--头部-->
+		<header class="prow15 pt15 pb16 bgcolortheme01 flex">
+			<div class="header-left percent20">
+				<span class="iconfont icon-fanhui1 c-fff left-back fs20"></span>
+			</div>
+			<div class="header-middle percent60 tac c-fff fs16 fw-b">
+				修改设置昵称
+			</div>
+		</header>
+		
+		<!--头部----end-->
+		<div class="prow15 pt20 pb30 bgcolortheme01">
+			<div class="input-group">
+				<input type="text" class="widthp100  inputbg01  bgcolorrgba03" id="nicheng" name="nicheng" placeholder="<{$member['realname']}>">
+			</div>
+		</div>
+		<div class="prow15 mt50">
+			<button class="btn-gradual-bg widthp100 height40 radius-6" id="send">确认修改</button>
+		</div>
+	</body>
+
+</html>
+<script type="text/javascript">
+    //点击返回上一页
+//    $("header .header-left .left-back").off().on("click",function(){
+//        window.location.href="<{:U('member/account/base')}>";
+//    })
+
+    $(function(){
+        $('#send').click(function(){
+
+            var nicheng=$('#nicheng').val();
+
+            $.post('<{:U("member/account/nicheng")}>','nicheng='+nicheng,function(data){
+                //alert(data);return false;
+                if(data.status=='0'){
+                    alert(data.message);
+                }else{
+                    alert(data.message);
+                    gboy.url('<{:U("member/account/nicheng")}>');
+                }
+
+            },'json')
+            return false;
+        })
+    })
+</script>

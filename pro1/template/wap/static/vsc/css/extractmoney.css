@@ -1,0 +1,43 @@
+body{background-color: #fff}
+header .header{padding:10px 15px;}
+header .header-left .iconfont{line-height: 22px;}
+
+input[type=text].inputbg{
+	border:none;
+	background-color: rgba(0,0,0,.1)
+}
+.box-shadow-bottom {
+    box-shadow: 0 4px 10px #ebf2ff;
+}
+
+/*交易详情*/
+.category-list{display:inline-block;width:100%;}
+.category-detail{width:100%;font-size: 0}
+.category-detail .iconfont{color:#7989AC;font-size: 14px;}
+.category-detail .iconleft{display:inline-block;width:23px;font-size: 23px;}
+.category-list-border{display: inline-block;width:calc(100% - 31px);margin-left: 8px;}
+.category-detail .tategory-word{color:#333;font-size: 14px;font-weight: 600;}
+.borderbottomgray01{border-bottom:1px solid rgba(0,0,0,.1)}
+.category-list-border a{display: inline-block;font-size: 14px}
+.category-list-border a .iconfont{margin-left: 15px;}
+.colorblue01{color:#1382F4}
+.content .category-list:last-child .category-list-border{border:none}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

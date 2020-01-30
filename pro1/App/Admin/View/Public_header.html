@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" >
+		<title>后台首页面板</title>
+		<link type="text/css" rel="stylesheet" href="__ROOT__/statics/css/gboy.css" />
+		<link type="text/css" rel="stylesheet" href="__ROOT__/statics/css/admin.css" />
+		<script type="text/javascript" src="__ROOT__/statics/js/jquery-1.7.2.min.js"></script>
+		<script type="text/javascript" src="__ROOT__/statics/js/gboy.plug.js" ></script>
+		<script type="text/javascript" src="__ROOT__/statics/js/gboy.resizeable.columns.js" ></script>
+		<script type="text/javascript" src="__ROOT__/statics/js/gboy.form.js" ></script>
+		<script type="text/javascript" src="__ROOT__/statics/js/gboy.validate.js?v=5.3.2" ></script>
+		<script type="text/javascript" src="__ROOT__/statics/js/layer/layer.min.js" ></script>
+		<link rel="stylesheet" href="__ROOT__/statics/js/layer/skin/layer.css"/>
+		<link rel="stylesheet" href="__ROOT__/statics/css/validate.css?v=0.0.1"/>
+
+		<script type="text/javascript" src="__ROOT__/statics/js/admin.js" ></script>
+		<script type="text/javascript" src="__ROOT__/statics/js/dialog/dialog-plus-min.js"></script>
+		<link type="text/css" rel="stylesheet" href="__ROOT__/statics/js/dialog/ui-dialog.css" />
+		<script type="text/javascript">
+		var formhash = "<{:FORMHASH}>";
+		var SYS_MODULE_NAME = '<{:MODULE_NAME}>';
+		var SYS_CONTROL_NAME = "<{:CONTROLLER_NAME}>";
+		var SYS_METHOD_NAME = "<{:ACTION_NAME}>";		
+		var menuaddurl = "<{:U('Index/ajax_menu_add')}>&formhash="+formhash;
+		var menurefreshurl = "<{:U('Index/ajax_menu_refresh')}>&formhash="+formhash;
+		var menudelurl = "<{:U('Index/ajax_diymenu_del')}>&formhash="+formhash;
+		var site = {
+			root:'__ROOT__/',
+			app:'__ROOT__/index.php',
+			domain:'index.php?m=admin&c=index&a=index'
+		};
+
+        $(function(){
+        		
+            $('form').each(function(i, n) {
+                $(this).append('<input type="hidden" name="formhash" value="'+ formhash +'"/>');
+            })
+
+            $("a").each(function() {
+            	var _this = $(this);
+                var href = _this.attr('href');
+                if(href && href.indexOf('javascript:') == -1 && href.indexOf('formhash') == -1 && $(this).attr('rel') != 'nofollow') {
+                    if(href.indexOf('?') != -1) {
+                        href += '&formhash='+formhash;
+                    } else {
+                        href += '?formhash='+formhash;
+                    }
+                    $(this).attr('href', href);
+                }
+            })
+
+			$("[data-iframe]").live('click', function() {
+				var href = $(this).data('iframe');
+				if(href == true) {
+					href = $(this).attr('href');
+				}
+				var width = $(this).data('iframe-width') || 500;
+				_iframe(href, width);
+				return false;
+			})
+
+
+			$("[data-confirm]").live('click', function() {
+				var message = $(this).data('confirm') || '您确定执行本操作？';
+				return confirm(message);
+			})
+
+        })
+
+		function _iframe(url, width) {
+			top.dialog({
+				url: url,
+				title: 'loading...',
+				width: width,
+				onclose:function() {
+					//console.log(this.returnValue);
+				}
+			})
+			.showModal();
+		}
+
+		$("form .bg-gray:not([data-back])").live('click',function(){
+			history.go(-1);
+		})
+		</script>
+	</head>
+<body>	

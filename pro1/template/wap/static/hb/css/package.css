@@ -1,0 +1,133 @@
+#bd{
+  background-color: #fff;
+}
+/* 卡片区 */
+.card{
+  box-sizing: border-box;
+  width: 384px;
+  margin: 65px auto 15px;
+  height: 180px;
+  background: url('../img/iocn/卡片@2x.png') no-repeat;
+  background-size: 384px 183px;
+  display: flex;
+  flex-direction: column;
+  color: #DEA567;
+  text-align: center;
+  background-color: #fff;
+}
+.card span:nth-of-type(1){
+  margin-top: 40px;
+  font-size: 22px;
+}
+.card span:nth-of-type(2){
+  font-size: 16px;
+  margin-top: 20px;
+}
+.card span:nth-of-type(3){
+  display: flex;
+  font-size: 10px;
+  margin: 20px auto;
+}
+.card span:nth-of-type(3) div{
+  width: 14px;
+  height: 14px;
+  color: #FF7421;
+  border: 1px solid #FF7421;
+  border-radius: 50%;
+  font-size: 10px;
+  text-align: center;
+  line-height: 14px;
+}
+/* 余额区 */
+.number{
+  background-color: #fff;
+  padding: 0 25px;
+  height: 45px;
+  width: 100%;
+  display: flex;
+}
+.number span:nth-of-type(1){
+  color: #707070;
+  font-size: 14px;
+}
+.number span:nth-of-type(2){
+  color: #333333;
+  font-size: 20px;
+  flex: 1;
+  margin-left: 10px;
+}
+.number span:nth-of-type(3){
+  width: 85px;
+  height: 25px;
+  text-align: center;
+  line-height: 25px;
+  background-color: #6f4a1e;
+  color: #FFFFFF;
+  font-size: 14px;
+  border-radius: 15px;
+}
+/* bar */
+.bar{
+  height: 10px;
+  background-color: #F4F4F4;
+}
+/* 区域滚动 */
+.mui-scroll-wrapper{
+  margin-top: 300px;
+}
+/* 购买记录 */
+.record{
+  box-sizing: border-box;
+  width: 100%;
+  padding: 0 5px;
+  height: 100%;
+}
+.record .box{
+  padding: 0 10px;
+  height: 60px;
+  width: 100%;
+  display: flex;
+  border-bottom: 1px solid #CCCCCC;
+}
+.record .box .left{
+  margin: 10px 0;
+  line-height: 20px;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+.record .box .left span:nth-of-type(1){
+  color: #333333;
+  font-size: 12px;
+}
+.record .box .left span:nth-of-type(2){
+  color: #999999;
+  font-size: 10px;
+}
+.record .box .right{
+  margin: 10px 0;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  text-align: right;
+}
+.record .box .right span:nth-of-type(1){
+  color: #999999;
+  font-size: 12px;
+}
+.record .box .right span:nth-of-type(2){
+  color: #333333;
+  font-size: 12px;
+  font-weight: bold;
+  margin-top: 12px;
+}
+.layui-layer-content{color:#333!important}
+.layui-layer-btn a{width:100%}
+
+.qustion{color:#f00;font-size:18px;}
+.qustion01{
+	text-shadow:#fff 1px 0 0,#fff 0 1px 0,#fff -1px 0 0,#fff 0 -1px 0;
+	
+}
+
+

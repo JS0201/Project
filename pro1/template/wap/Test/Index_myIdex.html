@@ -1,0 +1,325 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>个人中心</title>
+    <link rel="stylesheet" href="__TMPL__/hb/public/mui/css/mui.min.css">
+    <link rel="stylesheet" href="__TMPL__/hb/public/swiper/css/swiper.min.css">
+    <include file="template/wap/Public/base.html" />
+    <style>
+        html,body{
+            width: 100%;
+            height: 100%;
+            background-color: #fff;
+       }
+        #myIdex .myHead{
+            height: 1.6rem;
+            width: 100%;
+            position: fixed;
+            background: url("template/wap/static/vsc/img/my-bg.png");
+            background-position: center;
+            background-size: 100%;
+            z-index: 999;
+       }
+        #myIdex .myHead .myMsg{
+            position: absolute;
+            width: 100%;
+            top: 0.46rem;
+            left: 0.35rem;
+            display: flex;
+       }
+        #myIdex .myHead .myMsg .myleft img{
+            width: 0.58rem;
+       }
+        #myIdex .myHead .myMsg .myright{
+            flex: 1;
+            text-align: left;
+            margin-left: 0.14rem;
+       }
+        #myIdex .myHead .myMsg .myright .mytop{
+            font-size: 0.17rem;
+            margin-bottom: 0.06rem;
+            position: relative;
+            color: #7C3907;
+       }
+       #myIdex .myHead .myMsg .myright .mybottom span{
+           border: 1px solid #FFE400;
+           border-radius: .1rem;
+           color: #fff;
+           font-size: .1rem;
+           padding: .02rem .06rem;
+       }
+       .viplimit{
+           position: absolute;
+           width: 1.18rem;
+           height: .86rem;
+           top: -.23rem;
+           right: .38rem;
+           transform: rotate(45deg);
+	       -webkit-transform: rotate(45deg); /* Safari and Chrome */
+	       -webkit-transform: rotate(45deg); 
+           text-align: center;
+       }
+       .viplimit span{
+           font-size: .15rem;
+           color: #7C3907;
+           padding-top: 10px;
+           display: inline-block;
+           
+       }
+       .viplimit i{
+           font-style: normal;
+           font-size: .14rem;
+           color: #FFE578;
+       }
+       .viplimit img{
+           width: .15rem;
+           transform: rotate(-45deg);
+	       -webkit-transform: rotate(-45deg); /* Safari and Chrome */
+	       -webkit-transform: rotate(-45deg);
+       }
+        #myIdex .myHead .myTag{
+            padding:  0 .32rem;
+            display: flex;
+            position: absolute;
+            top: 1.11rem;
+            width: 100%;
+            padding-top: 0.17rem;
+       }
+       #myIdex .myHead .tagmy{
+           border: 1px solid #FA930A;
+           border-radius: .1rem;
+           height: 1.16rem;
+           width: 100%;
+           background-color: #fff;
+           position: relative;
+           box-shadow: 0 0px 14px 1px #ccc;
+       }
+       .tagmy .yue{
+            font-size: .14rem;
+            color: #FFE578;
+            position: absolute;
+            top: -16px;
+            left: -5px;
+            /* width: .82rem; */
+            padding: 0 15px;
+            height: 40px;
+            line-height: 35px;
+            background: url(template/wap/static/vsc/img/yuebg.png) no-repeat;
+            background-position: center;
+            background-size: 100%;
+       }
+       .tagmy .rimg{
+           position: absolute;
+           top: .09rem;
+           right: .11rem;
+       }
+       .tagmy .rimg i{
+           display: inline-block;
+           width: .26rem;
+           height: .26rem;
+           background: url(template/wap/static/vsc/img/kefuicon.png) no-repeat;
+           background-position: center;
+           background-size: 100%;
+       }
+       .tagmy .total{
+           color: #7C3907;
+           position: absolute;
+           left: 50%;
+           transform: translateX(-50%);
+           top: .32rem;
+       }
+       .tagmy .total span{
+           font-size: .24rem;
+       }
+       .tagmy .total i{
+           font-size: .18rem;
+           font-style: normal;
+       }
+       .tagmy .kind{
+           font-size: .15rem;
+           color: #FF7A0F;
+           position: absolute;
+           bottom: .15rem;
+           left: 10px;
+       }
+       .tagmy .kind span{
+           display: inline-block;
+           padding: .07rem .5rem;
+           border: 1px solid;
+           border-radius: .03rem;
+          -moz-border-top-colors: #FFCE2E #FFA312;
+          -moz-border-right-colors:#FFCE2E #FFA312;
+          -moz-border-bottom-colors:#FFCE2E #FFA312;
+          -moz-border-left-colors:#FFCE2E #FFA312;
+       }
+        #myIdex .mycontent{
+            padding-top: 2.42rem;
+            padding-bottom: 64px;
+       }
+        #myIdex .mycontent .mybutton .myitem{
+            height: .48rem;
+            line-height: .48rem;
+            padding: 0 .22rem 0 .26rem;
+       }
+       .mybutton .myitem .itembox{
+           border-bottom: 1px solid #999999;
+           display: flex;
+       }
+        #myIdex .mycontent .mybutton .myitem .itemLeft{
+            flex: 1;
+            text-align: left;
+            position: relative;
+       }
+       #myIdex .mycontent .mybutton .myitem .itemLeft img{
+           height: .22rem;
+           position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+       }
+       #myIdex .mycontent .mybutton .myitem .itemLeft span{
+           margin-left: .35rem;
+           font-size: 15px;
+           color: #333;
+       }
+        #myIdex .mycontent .mybutton .myitem .itemright{
+            flex: 1;
+            text-align: right;
+        }
+        #myIdex .mycontent .mybutton .myitem .itemright img{
+            width: .1rem;
+        }
+        </style>
+</head>
+
+<body>
+    <div id="myIdex">
+        <div class="myHead">
+            <div class="myMsg">
+                <div class="myleft">
+                    <img src="template/wap/static/vsc/img/my-headIcon.png" alt="">
+                </div>
+                <div class="myright">
+                    <div class="mytop">
+                        <span>133****1234</span>
+                    </div>
+                    <div class="mybottom">
+                        <span>会员</span>
+                        <span>VIP</span>
+                        <span>金猪</span>
+                        <span>银猪</span>
+                    </div>
+                </div>
+                <div class="viplimit">
+                    <img src="template/wap/static/vsc/img/my-huangguan.png" alt=""><br>
+                     <i>兑换课程</i><br>
+                    <span>免费获取VIP权限</span>
+                   
+                </div>
+            </div>
+            <div class="myTag">
+                <div class="tagmy">
+                    <div class="yue"><span>账户余额</span></div>
+                    <div class="rimg"><i></i></div>
+                    <div class="total"><span>198</span><i>RMB</i></div>
+                    <div class="kind">
+                        <span>充值</span>
+                        <span>提现</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="mycontent">
+            <div class="mybutton">
+                <div class="myitem" onclick="window.location.href = 'index.php?m=Test&c=Index&a=myshare'">
+                    <div class="itembox">
+                        <div class="itemLeft">
+                            <img src="template/wap/static/vsc/img/my-share.png" alt="">
+                            <span>分享</span>
+                        </div>
+                        <div class="itemright">
+                            <img src="template/wap/static/vsc/img/my-allow.png" alt="">
+                        </div>
+                    </div>
+                </div>
+                <div class="myitem" onclick="window.location.href = 'index.php?m=Test&c=Index&a=myTeam'">
+                    <div class="itembox">
+                        <div class="itemLeft">
+                            <img src="template/wap/static/vsc/img/my-team.png" alt="">
+                            <span>团队人数</span>
+                        </div>
+                        <div class="itemright">
+                            <img src="template/wap/static/vsc/img/my-allow.png" alt="">
+                        </div>
+                    </div>
+                </div>
+                <div class="myitem" onclick="window.location.href = 'index.php?m=Test&c=Index&a=myReward'">
+                    <div class="itembox">
+                        <div class="itemLeft">
+                            <img src="template/wap/static/vsc/img/my-jiangli.png" alt="">
+                            <span>奖励明细</span>
+                        </div>
+                        <div class="itemright">
+                            <img src="template/wap/static/vsc/img/my-allow.png" alt="">
+                        </div>
+                    </div>
+                </div>
+                <div class="myitem" onclick="window.location.href = 'index.php?m=Test&c=Index&a=mySetting'">
+                    <div class="itembox">
+                        <div class="itemLeft">
+                            <img style="height:.23rem;" src="template/wap/static/vsc/img/my-setting.png" alt="">
+                            <span>个人设置</span>
+                        </div>
+                        <div class="itemright">
+                            <img src="template/wap/static/vsc/img/my-allow.png" alt="">
+                        </div>
+                    </div>
+                </div>
+                <div class="myitem">
+                    <div class="itembox">
+                        <div class="itemLeft">
+                            <img src="template/wap/static/vsc/img/my-helpcenter.png" alt="">
+                            <span>帮助中心</span>
+                        </div>
+                        <div class="itemright">
+                            <img src="template/wap/static/vsc/img/my-allow.png" alt="">
+                        </div>
+                    </div>
+                </div>
+                <div class="myitem">
+                    <div class="itembox" onclick="window.location.href = 'index.php?m=Test&c=Index&a=myapplication'">
+                        <div class="itemLeft">
+                            <img src="template/wap/static/vsc/img/my-shengqing.png" alt="">
+                            <span>申请商家</span>
+                        </div>
+                        <div class="itemright">
+                            <img src="template/wap/static/vsc/img/my-allow.png" alt="">
+                        </div>
+                    </div>
+                </div>
+                <div class="myitem">
+                   <div class="itembox">
+                        <div class="itemLeft">
+                            <img style="height:.19rem" src="template/wap/static/vsc/img/my-vipclass.png" alt="">
+                            <span>VIP课程</span>
+                        </div>
+                        <div class="itemright">
+                            <img src="template/wap/static/vsc/img/my-allow.png" alt="">
+                        </div>
+                   </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <include file="template/wap/Public/footer.html" />
+</body>
+
+</html>
+<script>
+    function toWallet() { window.location.href = 'index.php?m=Test&c=Index&a=myWallet'}
+    function toTeam() { window.location.href = 'index.php?m=Test&c=Index&a=myTeam'}
+    function toProfit() { window.location.href = 'index.php?m=Test&c=Index&a=myProfit'}
+</script>

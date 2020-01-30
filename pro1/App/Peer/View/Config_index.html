@@ -1,0 +1,39 @@
+<include file="Admin@Public/header" />	
+<form action="" method="POST" enctype="multipart/form-data" >
+<div class="content padding-big have-fixed-nav">
+	<volist name="list" id="foo">
+    <div class="content-tabs <if condition="$i neq '1'">hidden</if>">
+		
+        <div class="form-box clearfix">
+		<volist name="foo" id="v">
+		
+		
+		<?php 
+		if(is_array(unserialize($v['value']))){
+			$value=unserialize($v['value']);
+		}else{
+			$value=$v['value'];
+		}
+	
+		if($v['key'] != "p_open_price"){
+		echo \Org\Util\Form::input($v['type'], $v['key'], $value, $v['title'].'：', $v['description'],$v['default_value']);
+		}
+		
+		?>
+		
+		</volist>
+		
+        </div>
+    </div>
+	</volist>
+
+    <div class="padding">
+        <input type="submit" class="button bg-main" value="保存" />
+    </div>
+</div>
+</form>
+
+
+</body>
+</html>
+

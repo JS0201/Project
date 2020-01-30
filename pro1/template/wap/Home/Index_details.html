@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title><{$content['title']}></title>
+    <include file="template/wap/Public/title.html" />
+    <link rel="stylesheet" type="text/css" href="__TMPL__/css/dealdetail.css"/>
+    <style>
+        body {
+            background: #fff;
+        }
+        .content p span{white-space:normal!important}
+    </style>
+</head>
+<body>
+<!--头部-->
+<header class="">
+    <div class="header prow15 pcol15 bgcolortheme03">
+        <div class="widthp100 height24 flex">
+            <div class="header-left percent20 tal height24">
+                <span class="iconfont icon-fanhui1 c-fff left-back fs20"></span>
+            </div>
+            <div class="header-middle percent60 tac c-fff fs16 fw-b">系统公告列表</div>
+            <div class="header-right percent20 tar height24">
+            </div>
+        </div>
+    </div>
+</header>
+<!--头部-end-->
+
+
+<div class="prow15 mt20">
+    <div class="pr10">
+        <div class="mt5" style="text-align:center;">
+            <h3 class="colortheme01 fs14 mb10"><{$content['title']|escapeshow}></h3>
+            <p class="colortheme01 fs12">发布时间：<{$content['add_time']|date="Y-m-d H:i:s",###}></p>
+        </div>
+    </div>
+</div>
+<div class="prow15 mt15 colortheme01"><{$content['content']}></div>
+<!-- 文字 -->
+
+</body>
+<script src="__TMPL__/js/dealdetail.js" type="text/javascript" charset="utf-8"></script>
+<script type="text/javascript">
+    //点击返回上一页
+    $("header .header-left .left-back").off().on("click",function(){
+        window.location.href="<{:U('member/index/index')}>";
+    })
+
+
+</script>
+</html>
+

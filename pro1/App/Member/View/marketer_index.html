@@ -1,0 +1,109 @@
+<include file="Admin@Public/header" />	
+<style>
+.high-table .tr .td{line-height:50px;min-height:auto;}
+</style>
+<div class="fixed-nav layout">
+    <ul>
+        <li class="first">市场交易<a id="addHome" title="添加到首页快捷菜单">[+]</a></li>
+        <li class="spacer-gray"></li>
+    </ul>
+    <div class="hr-gray"></div>
+</div>
+
+<div class="content padding-big have-fixed-nav">
+    <div class="tips margin-tb">
+      
+       
+    </div>
+
+
+    <div class="member-list-search clearfix">
+        <form action="" method="get">
+            <input type="hidden" name="m" value="<{:MODULE_NAME}>">
+            <input type="hidden" name="c" value="<{:CONTROLLER_NAME}>">
+            <input type="hidden" name="a" value="<{:ACTION_NAME}>">
+            <div class="form-box form-layout-rank clearfix border-bottom-none">
+                
+				<?php echo  \Org\Util\Form::input('select','type',$_GET['type'] ? $_GET['type'] : 0,'按类型查看','',array('items' =>array('0'=>'可选择','1'=>'买入','2'=>'卖出')))?>
+                <?php echo  \Org\Util\Form::input('text', 'keyword', $_GET['keyword'], '搜索', '', array('placeholder' => '获得用户'));?>
+            </div>
+            <input class="button bg-sub fl" type="submit" value="查询">
+        </form>
+    </div>
+
+    <div class="table-wrap member-info-table">
+        <div class="table resize-table paging-table check-table high-table border clearfix">
+            <div class="tr">
+                <span class="th check-option" data-resize="false"><span><input id="check-all" type="checkbox" /></span></span>
+				
+                <span class="th" data-width="22"><span class="td-con">用户</span></span>
+                <span class="th" data-width="20"><span class="td-con">待交易</span></span>
+                <span class="th" data-width="15"><span class="td-con">价格</span></span>
+                <span class="th" data-width="20"><span class="td-con">剩余数量</span></span>
+                <span class="th" data-width="15"><span class="td-con">时间</span></span>
+				<span class="th" data-width="8"><span class="td-con">编辑</span></span>
+            </div>
+            <?php foreach ($list AS $member): ?>
+            <div class="tr">
+                <span class="td check-option"><input type="checkbox" name="ids" value="<?php echo $member['member_sortid'] ?>" /></span>
+                <span class="td"><?php $name=M('member')->where(array('id'=>$member['uid']))->getField('username'); echo $name;?></span>
+				<span class="td"><?php if($member['status']==1){?>
+                                        买入
+                                    <?php }elseif($member['status']==2){?>
+                                        卖出
+                                    <?php }?></span>
+                <span class="td"><?php echo $member['price'] ?></span>
+                <span class="td"><?php echo $member['number'] ?></span>
+                <span class="td">
+                    <span class="td-con"><{$member['time']|date="Y-m-d H:i:s",###}></span>
+                </span>   
+                <span class="td">
+                    <span class="td-con">
+                        <a href="<?php echo U('edit',array('id'=>$member['id']));?>">编辑</a>&nbsp;&nbsp;&nbsp;
+                        <a href="<?php echo U('del',array('id'=>$member['id']));?>">撤销</a>
+                    </span>
+                </span>
+            </div>
+            <?php endforeach ?>
+            <div class="paging padding-tb body-bg clearfix">
+                <?php echo $pages;?>
+                <div class="clear"></div>
+            </div>
+        </div>
+    </div>
+</div>
+<script type="text/javascript">
+
+    $(window).load(function () {
+        $(".table").resizableColumns();
+        $(".paging-table").fixedPaging();
+        $(".member-info-tip").hover(function () {
+            $(this).children("span").show();
+        }, function () {
+            $(this).children("span").hide();
+        });
+        $(".member-list-search .form-group").each(function (i) {
+            $(this).addClass("form-group-id" + (i + 1));
+        });
+        $("a.member_update").click(function () {
+            top.dialog({
+                url: $(this).attr("data-url"),
+                title: '修改会员信息',
+                width: 460,
+                onclose: function () {
+                    if (this.returnValue) {
+                        window.location.href = this.returnValue.referer;
+                    }
+                }
+            })
+                    .showModal();
+        });
+        return false;
+    })
+    $(function () {
+        var $val = $("input[type=text]").eq(1).val();
+        $("input[type=text]").eq(1).focus().val($val);
+    })
+</script>
+</body>
+</html>

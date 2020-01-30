@@ -1,0 +1,31 @@
+<include file="Admin@Public/header" />	
+
+<form action="<?php echo U('send') ?>" method="POST" name="fomr-validate">
+<input type="hidden" name="id" value="<?php echo $info['id'] ?>">
+<div class="fixed-nav layout">
+	<ul>
+		<if condition="ACTION_NAME eq 'add'">
+		<li class="first">添加会员等级<a id="addHome" title="添加到首页快捷菜单">[+]</a></li>
+		<else/>
+		<li class="first">编辑会员等级</li>
+		</if>
+		<li class="spacer-gray"></li>
+	</ul>
+	<div class="hr-gray"></div>
+</div>
+<div class="content padding-big have-fixed-nav">
+	<div class="form-box clearfix">
+		<?php echo \Org\Util\Form::input('text', 'dj_name', $info['dj_name'], '等级名称：', '设置会员等级名称'); ?>
+		<?php echo \Org\Util\Form::input('text', 'one_buy', $info['one_buy'], '一次性购买金额：', '一次性购买金额'); ?>
+		<?php echo \Org\Util\Form::input('text', 'ratio', $info['ratio'], '团队收益比率：', '设置团队收益比率'); ?>
+		<?php echo \Org\Util\Form::input('text', 'people', $info['people'], '团队人数：', '团队人数'); ?>
+		<?php echo \Org\Util\Form::input('text', 'sj_tj', $info['sj_tj'], '升级条件人数：', '升级条件人数'); ?>
+	</div>
+	<div class="padding">
+		<input type="submit" name="dosubmit" class="button bg-main" value="确定" />
+		<input type="reset" name="back" class="button margin-left bg-gray" value="返回" />
+	</div>
+</div>
+</form>
+</body>
+</html>

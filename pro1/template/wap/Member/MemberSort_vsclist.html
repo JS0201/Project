@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<meta http-equiv="X-UA-Compatible" content="ie=edge" />
+		<title><{:L('_toudanlist_5')}></title>
+		<include file="template/wap/Public/title.html" />
+		<link rel="stylesheet" type="text/css" href="__TMPL__/vsc/css/rechargeonline.css"/>
+		<link rel="stylesheet" href="__TMPL__/hb/public/mui/css/mui.min.css">
+  		<link rel="stylesheet" href="__TMPL__/hb/public/swiper/css/swiper.min.css">
+		<include file="template/wap/Public/base.html" />
+		<style>
+		.order-list{
+			margin: .10rem .20rem;
+			background:rgba(255,255,255,1);
+			border:1px solid rgba(237,98,45,1);
+			box-shadow:0px 3px 8px 0px rgba(249,175,45,0.26);
+			border-radius:8px;
+		}
+		</style>
+	</head>
+	<body>
+		<!--头部-->
+		<include file="template/wap/Public/header.html" />
+		
+		<!--订单列表 s-->
+		<div class="order-detail mobile-content">
+			<if condition="$list">
+				<volist name="list" id="foo">
+				<div class="order-list mb10 bbcolortheme04">
+				<div class="flex prow15  pt20">
+					<div class="width65 pr10">
+						<div class="body-img">
+							<img src="__TMPL__/vsc/img/goods-item.png"/>
+						</div>
+					</div>
+					<div class="calc65">
+						<div class="flex-justify">
+							<div class="colortheme14 fs16">
+								<p class="fs16"><{:L('_toudanlist_1')}>: <span id="miner-form"><{$foo['kuang_type']}></span></p>
+					<!--		<?php
+							$zhouqi=ceil(($foo['price'] * $foo['beishu']) / $foo['richan']);
+							?>-->
+
+							</div>
+							<div class="colortheme08 fs16">
+									<{:L('_toudanlist_2')}>
+							</div>
+
+
+						</div>
+
+						<div class="flex-justify h20 mt10">
+							<div class="colortheme14 fs16">
+									<{:L('_toudanlist_3')}>
+							</div>
+							<div class="colortheme17 fs16">
+								$<{$foo['kuang_price']}>
+							</div>
+						</div>
+
+						<div class="flex-justify h20 mt10">
+							<div class="colortheme14 fs16">
+								杠杆金额
+							</div>
+							<div class="colortheme17 fs16">
+								$<{$foo['ganggan']}>
+							</div>
+						</div>
+
+					</div>
+				</div>
+				<div class="height52 tar colortheme09 prow15">
+					<span id="order-time"><{$foo['time']|date="Y-m-d H:i:s",###}></span>
+				</div>
+			</div>
+			
+			</volist>
+			<else/>
+				<div class="tac colortheme01 fs12 pcol15"><{:L('_toudanlist_4')}></div>
+			</if>
+		</div>
+		<!--订单列表 e-->
+	</body>
+</html>
