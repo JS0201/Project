@@ -1,0 +1,20 @@
+{extend name="template/wap/public/base.html" /}
+{block name="title"}系统公告{/block}
+
+
+{block name="content"}
+	{gboy:content module="content"  tagfile="content" method="get_lists" field="id,title,add_time" page="1" simple="true" catid="$_GET['catid']" }
+	{if condition="$result['list']['data']"}
+	<ul>
+			{volist name="$result['list']['data']" id="foo"}
+			<li><a href="{:url('content/index/show',['id'=>$foo['id']])}">{$foo['title']}</a></li>
+			{/volist}
+	</ul>
+	{$result['page']}
+	{else/}
+		无记录
+	{/if}
+	{/gboy:content}
+
+{/block}
+

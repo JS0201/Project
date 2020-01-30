@@ -1,0 +1,49 @@
+<div class="widget-box  text-left">
+    <div class="widget-header">
+        <h5 class="widget-title"><span style="font-size:14px; font-family:Microsoft YaHei">框架&amp;系统信息</span></h5>
+
+    </div>
+    <div class="widget-body">
+        <div class="widget-main">
+            <table   class="table  alert alert-info  table-bordered">
+
+
+                <tr>
+                    <td  class="left">gboyShop版本</td>
+                    <td  class="left">1.0.0.180531_beta</td>
+                    <td  class="left">服务器操作系统</td>
+                    <td  class="left"><?PHP echo PHP_OS; ?></td>
+                </tr>
+                <tr>
+                    <td  class="left">Web服务器</td>
+                    <td  class="left"><?php echo $_SERVER['SERVER_SOFTWARE'];?></td>
+                    <td  class="left">PHP版本</td>
+                    <td  class="left"><?php echo  PHP_VERSION;?></td>
+                </tr>
+                <tr>
+                    <td  class="left">MySQL版本</td>
+                    <td  class="left"><?php $mysql_arr=db()->query('select VERSION() as v');echo $mysql_arr[0]['v'];?></td>
+                    <td  class="left">MySQL数据库持续连接</td>
+                    <td  class="left"> <?php echo @get_cfg_var("mysql.max_links")==-1 ? "不限" : @get_cfg_var("mysql.max_links");?></td>
+                </tr>
+
+                <tr>
+                    <td  class="left">最大执行时间</td>
+                    <td  class="left"><?php echo get_cfg_var("max_execution_time")."秒 "; ?></td>
+                    <td  class="left">脚本运行占用最大内存</td>
+                    <td  class="left"><?php echo get_cfg_var ("memory_limit")?get_cfg_var("memory_limit"):"无" ?></td>
+                </tr>
+                <tr>
+                    <td  class="left">GD版本</td>
+                    <td  class="left"><?php $gd_info=gd_info();echo $gd_info['GD Version'];?></td>
+                    <td  class="left">上传附件限制</td>
+                    <td  class="left">{:get_cfg_var('upload_max_filesize')}</td>
+                </tr>
+
+
+
+            </table>
+
+        </div>
+    </div>
+</div>

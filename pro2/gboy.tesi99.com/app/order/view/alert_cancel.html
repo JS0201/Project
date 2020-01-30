@@ -1,0 +1,66 @@
+{extend name="admin@public/base" /}
+{block name="style"}
+body.navbar-fixed{padding-top:0;overflow:hidden;}
+col-sm-10{width:100%;}
+textarea{width:100%!important;}
+{/block}
+{block name="script"}
+<script>
+$(function(){
+
+	$('#breadcrumbs').parent().remove();
+	/*
+	var index = parent.layer.getFrameIndex(window.name);
+	parent.layer.iframeAuto(index);
+	$(window.parent.document.body).find('.layui-layer-iframe').css({'top':'300px'});
+	*/
+	
+	
+})
+</script>
+{/block}
+{block name="main-content"}
+<div class="main-content">
+
+    <div class="main-content-inner">
+
+        <div class="page-content">
+
+            <div class="row">
+                <div class="tabbable">
+  
+                    <form class="form-horizontal" action="{:url('cancel')}"  role="form" method="post">
+                        <input type="hidden" name="sn" value="<?php echo input('sn'); ?>"/>
+                        <div class="tab-content" style="border:0;">
+
+                            <div id="tag1" class="tab-pane active">
+        <?php
+			if($order['pay_status'] == 1){
+				echo  \form\Form::input('radio','isrefund',1,'','',['items' => [1 => '退款到账户余额']]);
+				echo '<p style="color:red;">温馨提示：该订单已支付￥'.$order['real_amount'].'</p>';
+			}else{
+				echo '<p style="color:red;">温馨提示：该订单未支付，无需退款</p>';
+			}
+        
+			echo  \form\Form::input('textarea','msg','','是否确认取消订单','',['placeholder' => '请填写订单操作日志（选填）']);
+  
+        ?>
+
+
+                            </div>
+
+                        </div>
+                    </form>
+                </div>
+
+            </div>
+
+        </div>
+
+
+    </div>
+
+</div>
+
+
+{/block}

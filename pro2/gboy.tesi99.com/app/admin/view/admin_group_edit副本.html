@@ -1,0 +1,107 @@
+{extend name="public/base" /}
+{block name="style"}
+ul{list-style-type:none;margin-left:0;}
+ul.nodes_list>li{float:left;overflow:hidden;width:140px;}
+ul.nodes_list>li>label>.lbl{font-weight:bold!important;}
+{/block}
+{block name="script"}
+<script>
+    $(function(){
+        $('.node').click(function(){
+            $(this).parents("li").find('[name="rules[]"]').prop('checked',$(this).prop('checked'));
+        })
+        $('.node').parent().next().find("input").click(function(){
+            $(this).parent().parent().find('[name="rules[]"]').prop('checked',$(this).prop('checked'));
+
+        })
+        $('.__node,._node').click(function(){
+            $(this).parent().parent().parent().prev().find('[name="rules[]"]').prop('checked',$(this).prop('checked'));
+            $(this).parents('li').find('.node').prop('checked',$(this).prop('checked'));
+
+        })
+    })
+</script>
+{/block}
+{block name="main-content"}
+<div class="main-content">
+
+
+    <div class="main-content-inner">
+
+        <div class="page-content">
+
+            <div class="row">
+                <div class="tabbable">
+
+                    <form class="form-horizontal" role="form" method="post">
+                        <div class="tab-content">
+
+                            <input type="hidden" name="id" value="<?php echo isset($info['id'])?$info['id']:''?>">
+                            <?php echo  \form\Form::input('text','title',isset($info['title'])?$info['title']:'','权限组名','请输入权限组名');?>
+
+                            <?php echo  \form\Form::input('textarea','description',isset($info['description'])?$info['description']:'','权限描述','请输入权限描述');?>
+
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label no-padding-right">权限</label>
+                                <div class="col-sm-10">
+                                <ul class="nodes_list">
+                                    {volist name="nodes" id="node"}
+                                    <li>
+
+                                        <label><input class="ace node" name="rules[]" value="{$node['id']}"  type="checkbox" {if condition="in_array($node['id'],$info['rules'])"}checked="checked"{/if}><span class="lbl">&nbsp;{$node['name']}</span></label>
+                                        {if condition="isset($node['_child'])"}
+                                        <ul>
+                                            {volist name="node['_child']" id="_node"}
+                                            <li>
+                                                <label><input class="ace _node" name="rules[]" value="{$_node['id']}" type="checkbox" {if condition="in_array($_node['id'],$info['rules'])"}checked="checked"{/if}><span class="lbl">&nbsp;{$_node['name']}</span></label>
+                                                {if condition="isset($_node['_child'])"}
+                                                <ul>
+                                                    {volist name="_node['_child']" id="__node"}
+                                                    <li>
+                                                        <label><input class="ace __node" name="rules[]" value="{$__node['id']}" type="checkbox" {if condition="in_array($__node['id'],$info['rules'])"}checked="checked"{/if}><span class="lbl">&nbsp;{$__node['name']}</span></label>
+                                                    </li>
+                                                    {/volist}
+                                                </ul>
+                                                {/if}
+                                            </li>
+                                            {/volist}
+
+                                        </ul>
+                                        {/if}
+                                    </li>
+                                    {/volist}
+
+                                </ul>
+                                </div>
+                            </div>
+
+                        </div>
+
+
+                        <div class="clearfix form-actions">
+                            <div class="col-md-offset-2 col-md-10">
+                                <button class="btn btn-info" type="button">
+                                    <i class="icon-ok bigger-110"></i>
+                                    保存
+                                </button>
+
+                                &nbsp; &nbsp; &nbsp;
+                                <button class="btn" type="reset">
+                                    <i class="icon-undo bigger-110"></i>
+                                    重置
+                                </button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+
+            </div>
+
+        </div>
+
+
+    </div>
+
+</div>
+
+{/block}

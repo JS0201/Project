@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>申请升级</title>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no" />
+		<link rel="stylesheet" href="__ROOT__/template/wap/ninestar/static/css/index.css" />
+		<link rel="stylesheet" type="text/css" href="__ROOT__/template/wap/ninestar/static/css/reset.css" />
+		<link rel="stylesheet" type="text/css" href="__ROOT__/template/wap/ninestar/static/css/iconfont.css"/>
+	</head>
+	<body>
+		<div class="background-main"></div>
+		<div class="header">
+			<a href="/ninestar/index/index"><span class="iconfont icon-fanhui"></span></a>
+			申请升级
+		</div>
+		<div class="upgrade-sub">
+			<div class="target-grade">
+				你当前的等级：<span>{$level}星会员</span>
+			</div>
+			<div class="target-upgrade">
+				你可申请升级为：<span class="active">{$next}</span>
+			</div>
+			<div class="activation-btn">
+				<a href="javascript:void(0);" data-level="{$level}" id="apply">提交申请</a>
+			</div>
+		</div>
+		<div class="apply-record">
+			<div class="apply-record-head">
+				申请记录
+			</div>
+			{volist name="list" id="data"}
+			<div class="apply-record-content">
+				<div class="apply-article-head">
+					{$data.level}星升级信息
+				</div>
+				<div class="apply-article">
+					<ul>
+						{volist name="$data.list" id='v'}
+						<li>
+							<div>
+								姓名：<span class="name-active">{$v.realname}</span>
+							</div>
+							<div>
+								电话：<span>{$v.phone}</span>
+							</div>
+							<div>
+								微信：<span>{$v.wechat}</span>
+							</div>
+						</li>
+						{/volist}
+					</ul>
+				</div>
+			</div>
+			{/volist}
+		</div>
+		<script type="text/javascript" src="__ROOT__/template/wap/ninestar/static/js/jquery.min.js"></script>
+		<script type="text/javascript" src="__ROOT__/template/wap/ninestar/static/js/index.js" ></script>
+		<script>
+			$(function() {
+			    $('#apply').click(function() {
+			        if($(this).attr('data-level') == 9) {
+			            alert('您已达到满星');
+                        $(this).attr('disabled',true);
+					}
+					$.post('/ninestar/index/apply',{},function(data) {
+					    if(!data.status) {
+					        alert(data.message);
+					        return false;
+						}else{
+					        alert('申请成功');
+					        window.location.reload();
+						}
+					},'json');
+				});
+			});
+		</script>
+	</body>
+</html>
+

@@ -1,0 +1,63 @@
+{extend name="admin@public/base" /}
+{block name="style"}
+body.navbar-fixed{padding-top:0;overflow:hidden;}
+col-sm-10{width:100%;}
+input{width:100%!important;}
+{/block}
+{block name="script"}
+<script>
+$(function(){
+
+	$('#breadcrumbs').parent().remove();
+	/*
+	var index = parent.layer.getFrameIndex(window.name);
+	parent.layer.iframeAuto(index);
+	$(window.parent.document.body).find('.layui-layer-iframe').css({'top':'300px'});
+	*/
+})
+</script>
+{/block}
+{block name="main-content"}
+<div class="main-content">
+
+    <div class="main-content-inner">
+
+        <div class="page-content">
+
+            <div class="row">
+                <div class="tabbable">
+  
+                    <form class="form-horizontal"  role="form" method="post">
+                        <input type="hidden" name="id" value="<?php echo $info['id']; ?>"/>
+                        <div class="tab-content" style="border:0;">
+
+                            <div id="tag1" class="tab-pane active">
+        <?php
+      
+  
+         echo  \form\Form::input('text','',implode($parent_pos, ' > '),'上级地区','',array('disabled'=>'disabled'));
+         echo  \form\Form::input('text','location',$info['location'],'地区划分名称（以","隔开）');
+         echo  \form\Form::input('text','name',$info['name'],'地区名称');
+         echo  \form\Form::input('text','pinyin',$info['pinyin'],'地区拼音');
+         echo  \form\Form::input('text','zipcode',$info['zipcode'],'邮政编码');
+  
+        ?>
+
+
+                            </div>
+
+                        </div>
+                    </form>
+                </div>
+
+            </div>
+
+        </div>
+
+
+    </div>
+
+</div>
+
+
+{/block}

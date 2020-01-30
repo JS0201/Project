@@ -1,0 +1,71 @@
+{extend name="admin@public/base" /}
+
+{block name="main-content"}
+<div class="main-content"> 
+  	 
+	<div class="main-content-inner">
+ 
+		<div class="page-content">
+			
+			<div class="row">
+			<div class="tabbable">
+				<ul class="nav nav-tabs" id="myTab">
+			
+					<li class="active"><a data-toggle="tab" href="#tag1">{$payment['pay_name']}设置</a></li>
+					
+				</ul>
+				
+				<form class="form-horizontal"  role="form" method="post" >
+				<input type="hidden" name="code" value="<?php echo $payment['pay_code'] ?>">
+				<div class="tab-content">
+					
+				
+					<div id="tag1" class="tab-pane active">
+						
+						{volist name="payment.setup" id="var" }
+						
+						<?php
+					
+							echo  \form\Form::input($var['type'],'config['.$key.']',$var[$key],$var['name'],$var['tips']);
+							
+						?>
+					
+						{/volist}
+					</div>
+					
+
+				
+				
+				</div>
+				
+				
+				<div class="clearfix form-actions">
+						<div class="col-md-offset-2 col-md-10">
+							<button class="btn btn-info"  type="button">
+								<i class="icon-ok bigger-110"></i>
+								保存
+							</button>
+
+
+							<button class="btn" type="reset">
+								<i class="icon-undo bigger-110"></i>
+								重置
+							</button>
+						</div>
+					</div>
+				</form>
+			</div>
+			
+			</div>
+		
+		</div>
+		
+		
+	</div>
+
+</div> 
+
+
+{/block}
+
+

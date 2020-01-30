@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+	<meta charset="UTF-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	<meta http-equiv="X-UA-Compatible" content="ie=edge" />
+	<title>卖出</title>
+	<link rel="stylesheet" type="text/css" href="__TMPL__/asset/font-awesome/css/font-awesome.min.css"/>
+	<link rel="stylesheet" type="text/css" href="__TMPL__/ATS/css/iconfont.css"/>
+	<link rel="stylesheet" type="text/css" href="__TMPL__/ATS/css/style.css"/>
+	<link rel="stylesheet" type="text/css" href="__TMPL__/ATS/css/common.css"/>
+	<script src="__TMPL__/asset/jquery-3.1.1.min.js" type="text/javascript" charset="utf-8"></script>
+	<script type="text/javascript" src="__TMPL__/js1/gboy.js"></script>
+</head>
+<body>
+<div class="lp-header c-fff">
+	<a href="{:url('/peer/trade/home',array('type'=>$type,'acc_type'=>$acc_type))}" class="lp-back fa fa-angle-left fl"></a>
+	<h1 class="title">发布出售订单</h1>
+</div>
+<div class="mt50">
+	<div class="bgcolortheme02 pb70">
+		<div class="flex pcol10 posi-rela">
+			<div class="flex-item border-after posi-rela">
+				<p class="colortheme10 fs12">
+					{$money_finance['member_bi']}</p>
+				<p class="c-fff fs12">ATS</p>
+			</div>
+			<div class="flex-item">
+				<p class="colortheme10 fs12">{$money_finance['member_z_bi']}</p>
+				<p class="c-fff fs12">AE</p>
+			</div>
+		</div>
+	</div>
+	<div class="mt-70 prow15">
+		<div class="widthp100 btn-gradual-bg01">
+			<div class="pd20">
+				<form id="from" action="" class="pushOrder-form" method="post">
+					<?php if($type == 0 ){?>
+					<p class="c-fff fs12 row tal">当前价格：<span class="f-pink" id="pirceOrigin">{:Config('cache.p_open_price')}</span></p>
+					<?php }?>
+					<?php if($type == 1){?>
+					<p class="c-fff fs12  row tal">当前价格：<span class="f-pink" id="pirceOrigin"{$usdt}</span></p>
+					<?php }?>
+
+					<div class=" flex-justify ">
+						<?php if($type == 0){?>
+						<p class="c-fff fs12  row tal">出售价格：<span id="pirceEnd">{:Config('cache.p_open_price')}</span></p>
+						<?php }?>
+						<?php if($type == 1){?>
+						<p class="c-fff fs12  row tal">出售价格：<span id="pirceEnd">{$usdt}</span></p>
+						<?php }?>
+
+						<?php if($type == 0){?>
+						<input type="hidden" name="price" id="price" value="{:Config('cache.p_open_price')}">
+						<?php }?>
+						<?php if($type == 1){?>
+						<input type="hidden" name="price" id="price" value="{$usdt}">
+						<?php }?>
+					</div>
+					<div class="input-group  un-border-group row">
+							<span class="input-group-addon pd0"  >
+								出售数量：
+							</span>
+						<input type="text" class="input bgtransp bbcolortheme03 " name="num" placeholder="输入出售数量" id="pirceNum" />
+					</div>
+					
+					<div class="input-group  un-border-group row">
+							<span class="input-group-addon pd0"  >
+								出售账户：
+							</span>
+						<!--<select name="account_type">-->
+							<!--<option selected="selected" value="0">ATS</option>-->
+							<!--<option value="1">E P</option>-->
+						<!--</select>-->
+						<?php if($type == 0){?>
+						<p class="ellipsis row tal"><span></span>ATS</p>
+						<input type="hidden" name="account_type" value="0">
+						<?php }?>
+						<?php if($type == 1){?>
+						<p class="ellipsis row tal"><span></span>AE</p>
+						<input type="hidden" name="account_type" value="1">
+						<?php }?>
+					</div>
+					<p class="ellipsis row tal" >购买总额：<span id="pirceCount" class="f-red">0.0000</span></p>
+					<!--<p class="ellipsis f-DeepPink fs12 tal">提示：最少出售数量{$sell_di}，请输入{$sell_bili}的整倍数</p>-->
+					<div class="mt30 mb20">
+						<button class="btn btn-green  h40 l25 fill-block" type="button" onclick="send(this)" data-event="submit">确认发布</button>
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
+</div>
+<script type="text/javascript">
+    var oPirceEnd = $("#pirceEnd"),
+        oPirceCount = $("#pirceCount"),
+        oPirceOrigin = $("#pirceOrigin"),
+        oPirceNum = $("#pirceNum"),
+        pirceFlag = 5;
+
+    $(".btn-range").on("click", function () {
+        var range = $(this).parents(".range-group").find(".range");
+        var result = $(this).parents(".range-group").find(".range-result");
+        var value = range.val();
+        var type = $(this).attr("range-type");
+        value = parseInt(value);
+        if(type == "btn-add"){
+            range.val(value + pirceFlag);
+        }else{
+            range.val(value - pirceFlag);
+        }
+        range.trigger('change');
+    })
+
+    $(".range").on("change",function () {
+        var result = $(this).parents(".range-group").find(".range-result");
+        result.text($(this).val());
+        getPrice.call($(this));
+        getCount();
+    })
+
+    function getPrice() {
+        var pirceOrigin = oPirceOrigin.text();
+        var ratio = $(this).val() * 0.01 + 1;
+        oPirceEnd.text((pirceOrigin * ratio).toFixed(4)) ;
+        $("#price").val((pirceOrigin * ratio).toFixed(4));
+    }
+
+    function getCount() {
+        var pirceNum = oPirceNum.val();
+        var pirceEnd = oPirceEnd.text();
+        var type = "{$type}";
+        if(type == 1){
+            oPirceCount.text((pirceEnd * pirceNum).toFixed(4)+"  USDT");
+		}else{
+            oPirceCount.text((pirceEnd * pirceNum).toFixed(4));
+		}
+    }
+    oPirceNum.on("input",getCount);
+     function send(obj) {
+        var sell_bili = '{$sell_bili}';//出售数量基数
+        var sell_di = '{$sell_di}';	//出售最低数量
+        $(obj).attr('disabled',"true");
+        var price = $("input[name='price']").val();
+        var num = $("input[name='num']").val();
+        var r = /^[0-9]*[1-9][0-9]*$/;
+        var re = r.test(num);
+		var bei = num % sell_bili;
+        if(!re || num < parseInt(sell_di) || bei != 0) {
+            alert('金额输入错误');
+			$(obj).removeAttr('disabled');
+            return false;
+        }
+        var type = $("input[name='account_type']").val();
+			
+       $.post("{Url('Peer/sell/sell')}",{price : price, num : num, account_type : type},function(data) {
+			if(!data.status) {
+				alert(data.message);
+				$(obj).removeAttr('disabled');
+			}else{
+                var type = "{$type}";
+				window.location.href="{:Url('Peer/trade/home')}"+"?type="+type;
+			}
+        },'json');
+    }
+</script>
+</body>
+</html>

@@ -1,0 +1,87 @@
+{extend name="admin@public/base" /}
+
+{block name="script"}
+<script>
+
+</script>
+{/block}
+{block name="main-content"}
+<div class="main-content">
+
+    <div class="main-content-inner">
+
+        <div class="page-content">
+
+            <div class="row">
+                <div class="tabbable">
+                    <ul class="nav nav-tabs" >
+                        <li class="active"><a data-toggle="tab" href="#tag1">基本信息</a></li>
+                        <li><a data-toggle="tab" href="#tag2">内容设置</a></li>
+                    </ul>
+
+                    <form class="form-horizontal"  role="form" method="post">
+                        <input type="hidden" name="id" value="{:isset($info['id'])?$info['id']:''}">
+                        <input type="hidden" name="menuid" value="{:input('menuid',isset($info['category_id'])?$info['category_id']:'')}">
+                        <div class="tab-content">
+
+                            <div id="tag1" class="tab-pane active">
+        <?php
+         echo  \form\Form::input('text','',$category['name'],'所属分类','所属分类',array('disabled'=>'disabled'));
+         echo  \form\Form::input('text','title',isset($info['title'])?$info['title']:'','标题','请填写标题');
+         echo  \form\Form::input('upload','thumb',isset($info['thumb'])?$info['thumb']:'','缩略图','上传封面图片，显示在列表页',array('num'=>1,'input'=>'thumb',''));
+       
+         echo  \form\Form::input('text','url',isset($info['url'])?$info['url']:'','栏目链接','设置后点击标题到指定链接');
+		echo  \form\Form::input('text','hits',isset($info['hits'])?$info['hits']:mt_rand(0,9999),'浏览次数','浏览次数');
+		
+         echo  \form\Form::input('text','sort',isset($info['sort']) ? $info['sort'] :100,'排序','请填写自然数，文字分类列表将会根据排序进行由小到大排列显示');
+		echo  \form\Form::input('text','keywords',isset($info['keywords'])?$info['keywords']:'','关键词','关键词出现在页面头部的标签中，多个关键字请用分隔符分隔');
+         echo  \form\Form::input('textarea','description',isset($info['description'])?$info['description']:'','描述','描述出现在页面头部的标签中，最多不能超过225个字符');
+         echo  \form\Form::input('radio','recommend',isset($info['recommend']) ? $info['recommend'] :1,'是否推荐','是否推荐文章',array('items'=>array('否','是')));
+         echo  \form\Form::input('radio','display',isset($info['display']) ? $info['display'] :1,'是否显示','是否在前台显示',array('items'=>array('否','是')));
+		 
+		 
+        ?>
+
+
+                            </div>
+
+                        
+
+                            <div id="tag2" class="tab-pane">
+        <?php
+        		  echo  \form\Form::editor('content',isset($info['content'])?$info['content']:'');
+        ?>
+                            </div>                         
+							
+	 
+                        </div>
+
+
+                        <div class="clearfix form-actions">
+                            <div class="col-md-offset-2 col-md-10">
+                                <button class="btn btn-info"  type="button">
+                                    <i class="icon-ok bigger-110"></i>
+                                    保存
+                                </button>
+
+
+                                <button class="btn" type="reset">
+                                    <i class="icon-undo bigger-110"></i>
+                                    重置
+                                </button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+
+            </div>
+
+        </div>
+
+
+    </div>
+
+</div>
+
+
+{/block}

@@ -1,0 +1,54 @@
+{extend name="public/base" /}
+
+{block name="main-content"}
+<div class="main-content">
+
+    <div class="main-content-inner">
+
+        <div class="page-content">
+
+            <div class="row">
+                <div class="tabbable">
+
+                    <form class="form-horizontal" role="form" method="post">
+                        <div class="tab-content">
+
+                            <input type="hidden" name="id" value="<?php echo isset($info)?$info['id']:''?>">
+                            <?php echo  \form\Form::input('text','username',isset($info['username'])?$info['username']:'','
+用户名',isset($info)?'用户名不允许修改':'请输入用户名',isset($info)?['disabled'=>'disabled']:'');?>
+
+                            <?php echo  \form\Form::input('password','password','','
+密码',isset($info)?'为空则不进行修改':'请输入登录密码');?>
+
+                            <?php echo  \form\Form::input('select','group_id',isset($info['group_id'])?$info['group_id']:'','
+角色组','',['items' => $group]);?>
+                        </div>
+
+
+                        <div class="clearfix form-actions">
+                            <div class="col-md-offset-2 col-md-10">
+                                <button class="btn btn-info" type="button">
+                                    <i class="icon-ok bigger-110"></i>
+                                    保存
+                                </button>
+
+                                &nbsp; &nbsp; &nbsp;
+                                <button class="btn" type="reset">
+                                    <i class="icon-undo bigger-110"></i>
+                                    重置
+                                </button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+
+            </div>
+
+        </div>
+
+
+    </div>
+
+</div>
+
+{/block}

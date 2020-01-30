@@ -1,0 +1,67 @@
+{extend name="admin@public/base" /}
+{block name="main-content"}
+<div class="main-content">
+
+    <div class="main-content-inner">
+
+        <div class="page-content">
+
+            <div class="row">
+                <div class="tabbable">
+                    <ul class="nav nav-tabs" >
+
+                        <li class="active"><a data-toggle="tab" href="#tag1">基本信息</a></li>
+
+                    </ul>
+
+                    <form class="form-horizontal"  role="form" method="post">
+                        <input type="hidden" name="id" value="{$info['id']}">
+
+                        <div class="tab-content">
+
+                            <div id="tag1" class="tab-pane active">
+        <?php
+     
+         echo  \form\Form::input('text','name',$info['name'],'等级名称','设置会员等级名称');
+         echo  \form\Form::input('text','deposit',$info['deposit'],'押金','用户等级对应押金');
+         echo  \form\Form::input('text','team',$info['team'],'直推人数','推荐下级代理数量');
+         echo  \form\Form::input('text','return',$info['return'],'退还金额','直推人数到达团队指定人数可退还相应金额');
+         echo  \form\Form::input('text','discount',$info['discount'],'返利','每个等级代理相应返利金额');
+         echo  \form\Form::input('textarea','status',$info['description'],'等级描述','会员等级描述信息');
+
+        ?>
+
+
+                            </div>
+
+                        </div>
+
+
+                        <div class="clearfix form-actions">
+                            <div class="col-md-offset-2 col-md-10">
+                                <button class="btn btn-info"  type="button">
+                                    <i class="icon-ok bigger-110"></i>
+                                    保存
+                                </button>
+
+
+                                <button class="btn" type="reset">
+                                    <i class="icon-undo bigger-110"></i>
+                                    重置
+                                </button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+
+            </div>
+
+        </div>
+
+
+    </div>
+
+</div>
+
+
+{/block}

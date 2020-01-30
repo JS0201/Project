@@ -1,0 +1,31 @@
+<style>
+	
+</style>
+<footer>
+	<div class="blank-bar"></div>
+	<nav class="mui-bar mui-bar-tab">
+		<a class="mui-tab-item  <if condition="MODULE_NAME eq 'Peer' && CONTROLLER_NAME eq 'Index' && ACTION_NAME eq 'index'">mui-active"</if>" href="<{:U('index/index')}>">
+			<span class="mui-icon iconfont icon-home"></span>
+			<span class="mui-tab-label">首页</span>
+		</a>
+		<a class="mui-tab-item <if condition="CONTROLLER_NAME eq 'Trade' && (ACTION_NAME eq 'buy' || ACTION_NAME eq 'sell')">mui-active"</if> " href="<{:U('trade/buy')}>">
+		        <span class="mui-icon iconfont icon-trade"></span>
+		        <span class="mui-tab-label">买卖区</span>
+		</a>
+		<a class="mui-tab-item <if condition="CONTROLLER_NAME eq 'Trade' && (ACTION_NAME eq 'index' )">mui-active"</if> " href="<{:U('trade/index')}>">
+			<span class="mui-icon iconfont icon-shop"></span>
+			<span class="mui-tab-label">交易</span>
+		</a>
+		<a class="mui-tab-item" href="<{:U('content/index/index',array('catid'=>28))}>">
+			<span class="mui-icon iconfont icon-Inquiries"></span>
+			<span class="mui-tab-label">公告</span>
+		</a>
+		<a class="mui-tab-item" href="<{:U('member/index/index')}>">
+			<span class="mui-icon iconfont icon-user"></span>
+			<span class="mui-tab-label">我的</span>
+		</a>
+	</nav>
+</footer>
+<script type="text/javascript">
+	mui('footer').on('tap','a',function(){document.location.href=this.href;});
+</script>

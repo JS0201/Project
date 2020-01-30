@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+
+		<title>兑换</title>
+		<link rel="stylesheet" type="text/css" href="__TMPL__/ATS/css/addicon.css"/>
+		<link rel="stylesheet" type="text/css" href="__TMPL__/ATS/css/font-awesome.min.css"/>
+		<link rel="stylesheet" type="text/css" href="__TMPL__/ATS/css/style.css"/>
+		<link rel="stylesheet" type="text/css" href="__TMPL__/ATS/css/alertpay.css"/>
+		<link rel="stylesheet" type="text/css" href="__TMPL__/ATS/css/common.css"/>
+		<link rel="stylesheet" type="text/css" href="__TMPL__/ATS/css/paging.css"/>
+        <script src="__TMPL__/asset/jquery-3.1.1.min.js" type="text/javascript" charset="utf-8"></script>
+        <script>
+            $(function() {
+                $('#sum').blur(function() {
+                    var price = "{:config('cache.p_ai_price')}";
+                    var atsprice = "{:config('cache.p_open_price')}";
+                    var sum = $(this).val();
+                    if(!isNaN(sum)) {
+                        var re = sum * (atsprice / price);
+                        re = re.toFixed(4);
+                        $('#aisum').val(re);
+                    }
+                });
+
+                            $(".close").click(function(){
+                                $(".ftc_wzsf").hide();
+                                $(".mm_box li").removeClass("mmdd");
+                                $(".mm_box li").attr("data","");
+                                i = 0;
+                            });
+                            $(".xiaq_tb").click(function(){
+                                $(".numb_box").slideUp(500);
+                            });
+                            $(".mm_box").click(function(){
+                                $(".numb_box").slideDown(500);
+                            });
+                            var i = 0;
+                            $(".nub_ggg li .zf_num").click(function(){
+
+                                if(i<6){
+                                    $(".mm_box li").eq(i).addClass("mmdd");
+                                    $(".mm_box li").eq(i).attr("data",$(this).text());
+                                    i++
+                                    if (i==6) {
+                                      setTimeout(function(){
+                                        var data = "";
+                                            $(".mm_box li").each(function(){
+                                            data += $(this).attr("data");
+                                        });
+                                          checkps(data);
+                                      },100);
+                                    };
+                                }
+                            });
+
+                            $(".nub_ggg li .zf_del").click(function(){
+                                if(i>0){
+                                    i--
+                                    $(".mm_box li").eq(i).removeClass("mmdd");
+                                    $(".mm_box li").eq(i).attr("data","");
+                                }
+                            });
+
+                            $(".nub_ggg li .zf_empty").click(function(){
+                                $(".mm_box li").removeClass("mmdd");
+                                $(".mm_box li").attr("data","");
+                                i = 0;
+                            });
+            });
+
+            function checkps(password) {
+                $.post("{:Url('/member/index/checkps')}",{twopassword : password},function (data) {
+                    if(!data.status) {
+                         alert(data.message)
+                         window.location.reload();
+                    }else{
+                       var ats = $('#sum').val();
+                       var ai = $('#aisum').val();
+                       var place = $('#place').val();
+                       $.post("{:Url('/peer/trade/withdraw')}",{ats : ats,ai : ai,place : place},function(res) {
+                            if (res.status == 1) {
+                                var info = "申请成功，审核中...";
+                                alert(info);
+                                window.location.reload();
+                            } else {
+                                alert(res.message);
+                                window.location.reload();
+                            }
+                        },'json');
+                    }
+                },'json');
+            }
+            function send() {
+                var ats = $('#sum').val();
+                var ai = $('#aisum').val();
+                var place = $('#place').val();
+                if(ats == 0 || ai == 0) {
+                    alert('请输入兑换金额');
+                    return false;
+                }
+                if(place == '') {
+                    alert('请输入钱包地址');
+                    return false;
+                }
+                $(".ftc_wzsf").show();
+            }
+        </script>
+
+	</head>
+	<body>
+		<div class="lp-header bgcolortheme01 c-fff pcol3 content-box">
+			<a class="lp-back fa fa-angle-left fl" href="/index.php?m=Peer&amp;c=index&amp;a=index"></a>
+			<h1 class="title">ATS</h1>
+	        <a href="/Peer/trade/withdrawlist" class="link fr  pr15 c-fff fs12">兑换记录</a>
+		</div>
+		<div class="prow15 mt80">
+			<form action="" method="post">
+				<div class="input-group01 flex-justify mt30">
+					<div class="width50 c-fff">
+						价格
+					</div>
+					<div class="calc50 posi-rela flex">
+						<div class="input-group01 input-bg  calc25">
+							<input type="text" class="bgtransp input color01" readonly value="ATS:{:config( 'cache.p_open_price')}" placeholder=""/>
+						</div>
+						<div class="width50 flex-center02">
+							<span class="iconfont icon-huzhuan c-fff fs24"></span>
+						</div>
+						<div class="input-group01 input-bg  calc25">
+							<input type="text" class="bgtransp input color01 huzhuan" readonly value="AIC:{:config( 'cache.p_ai_price')}" placeholder=""/>
+						</div>
+					</div>
+				</div>
+				<div class="input-group01 flex-justify mt30">
+					<div class="width50 c-fff">
+						余额
+					</div>
+					<div class="calc50 input-bg posi-rela">
+						<input type="text" class="bgtransp input color02" readonly value="{$money['member_bi']}" placeholder=""/>
+						<span class="posi-abso top0 fonttop right0 z111 c-fff">ATS</span>
+					</div>
+				</div>
+				<div class="input-group01 flex-justify mt30">
+					<div class="width50 c-fff">
+						兑换
+					</div>
+					<div class="calc50 input-bg posi-rela">
+						<input type="text" class="bgtransp input color01" id="sum"  placeholder="请输入数量"/>
+						<span class="posi-abso top0 fonttop right0 z111 c-fff">ATS</span>
+					</div>
+				</div>
+				<div class="input-group01 flex-justify mt30">
+					<div class="width50 c-fff">
+						生成
+					</div>
+					<div class="calc50 input-bg posi-rela">
+						<input type="text" class="bgtransp input color01" id="aisum" value="" placeholder="自动转换"/>
+						<span class="posi-abso top0 fonttop right0 z111 c-fff">AIC</span>
+					</div>
+				</div>
+				<div class="input-group01 flex-justify mt30">
+					<div class="width100 c-fff">
+						钱包地址
+					</div>
+					<div class="calc50 input-bg posi-rela">
+						<input type="text" class="bgtransp input color01" id="place" value="" placeholder=""/>
+					</div>
+				</div>
+				<div class="mt35">
+					<button class="btn btn-green l25 fill-block" type="button" onclick="send()">确定</button>
+				</div>
+			</form>
+		</div>
+		 <div class="ftc_wzsf">
+                <div class="srzfmm_box">
+                    <div class="qsrzfmm_bt clear_wl">
+                        <img src="__TMPL__/images/xx_03.jpg" class="tx close fl">
+                        <span class="fl">请输入支付密码</span></div>
+                    <ul class="mm_box">
+                        <li></li><li></li><li></li><li></li><li></li><li></li>
+                    </ul>
+                </div>
+                <div class="numb_box">
+                    <div class="xiaq_tb">
+                        <img src="__TMPL__/images/jftc_14.jpg" height="10"></div>
+                    <ul class="nub_ggg">
+                        <li><a href="javascript:void(0);" class="zf_num">1</a></li>
+                        <li><a href="javascript:void(0);" class="zj_x zf_num">2</a></li>
+                        <li><a href="javascript:void(0);" class="zf_num">3</a></li>
+                        <li><a href="javascript:void(0);" class="zf_num">4</a></li>
+                        <li><a href="javascript:void(0);" class="zj_x zf_num">5</a></li>
+                        <li><a href="javascript:void(0);" class="zf_num">6</a></li>
+                        <li><a href="javascript:void(0);" class="zf_num">7</a></li>
+                        <li><a href="javascript:void(0);" class="zj_x zf_num">8</a></li>
+                        <li><a href="javascript:void(0);" class="zf_num">9</a></li>
+                        <li><a href="javascript:void(0);" class="zf_empty">清空</a></li>
+                        <li><a href="javascript:void(0);" class="zj_x zf_num">0</a></li>
+                        <li><a href="javascript:void(0);" class="zf_del">删除</a></li>
+                    </ul>
+                </div>
+                <div class="hbbj"></div>
+            </div>
+	</body>
+</html>

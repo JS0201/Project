@@ -1,0 +1,76 @@
+{extend name="admin@public/base" /}
+{block name="style"}
+body.navbar-fixed{padding-top:0;overflow:hidden;}
+col-sm-10{width:100%;}
+input[type="text"],textarea{width:100%!important;}
+{/block}
+{block name="script"}
+<script>
+$(function(){
+
+	$('#breadcrumbs').parent().remove();
+	/*
+	var index = parent.layer.getFrameIndex(window.name);
+	parent.layer.iframeAuto(index);
+	$(window.parent.document.body).find('.layui-layer-iframe').css({'top':'300px'});
+	*/
+	
+	$('[name=is_choise]').bind("change" ,function(){
+		if ($(this).val() == '2') {
+			$("input[name=delivery_sn]").prop('disabled',true);
+			$("select[name=delivery_id]").prop('disabled',true);
+			
+		} else {
+			$("input[name=delivery_sn]").prop('disabled',false);
+			$("select[name=delivery_id]").prop('disabled',false);
+		
+		}
+	})
+	
+	
+})
+</script>
+{/block}
+{block name="main-content"}
+<div class="main-content">
+
+    <div class="main-content-inner">
+
+        <div class="page-content">
+
+            <div class="row">
+                <div class="tabbable">
+  
+                    <form class="form-horizontal" action="{:url('delivery')}"  role="form" method="post">
+                        <input type="hidden" name="sn" value="<?php echo input('sn'); ?>"/>
+                        <div class="tab-content" style="border:0;">
+
+                            <div id="tag1" class="tab-pane active">
+        <?php
+      
+  
+         echo  \form\Form::input('radio','is_choise',1,'','',['items' => [1 => '选择物流公司' , 2 => '无需物流运输']]);
+         echo  \form\Form::input('select','delivery_id','','物流公司','',['items' =>$deliverys]);
+         echo  \form\Form::input('text','delivery_sn','','物流单号');
+         echo  \form\Form::input('textarea','msg','','确认订单发货备注','',['placeholder' => '请填写订单操作日志（选填）']);
+  
+        ?>
+
+
+                            </div>
+
+                        </div>
+                    </form>
+                </div>
+
+            </div>
+
+        </div>
+
+
+    </div>
+
+</div>
+
+
+{/block}

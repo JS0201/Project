@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8" />
+		<title>后台管理</title>
+		<link rel="stylesheet" type="text/css" href="__STATIC__/js/lighttreeview/jquery.lightTreeview.css">
+	
+		<script type="text/javascript" src="__STATIC__/js/ztree_v3/js/jquery-1.4.4.min.js"></script>
+	<script type="text/javascript" src="__STATIC__/js/lighttreeview/jquery.lightTreeview.pack.js"></script>
+	<style>
+
+		.btn{background:url(__STATIC__/js/easyui/themes/icons/large_smartart.png)  left 1px no-repeat;background-size:15px;padding:0 0 5px 25px;font-size:12px;cursor:pointer;}
+	</style>
+	<script>
+        var formhash = "<?php echo FORMHASH ?>";
+		$(function(){
+			$('#category_tree').lightTreeview({
+				collapse: true,
+				line: true,
+				nodeEvent: false,
+				unique: false,
+				style: 'defalut', //red black gray
+				animate: 0,
+				fileico: true,
+				folderico: true
+			});
+
+			$('.load').hide();
+
+
+            $("a").each(function() {
+                var _this = $(this);
+                var href = _this.attr('href');
+                if(href && href.indexOf('javascript:') == -1 && href.indexOf('formhash') == -1  && href.indexOf('#') == -1) {
+                    href += '{:config("pathinfo_depr")}formhash{:config("pathinfo_depr")}'+formhash;
+                    $(this).attr('href', href);
+                }
+            })
+
+		})
+	</script>
+	</head>
+	<body>
+	
+	<div class="description">
+		<div class="load"><img src="__STATIC__/img/loading.gif" /></div>
+		<div class="btn" onclick="$.lightTreeview.toggle('#category_tree ol,#category_tree ul')" >展开/收缩</div>
+			{$data}
+	</div>	
+
+	</body>
+</html>
+

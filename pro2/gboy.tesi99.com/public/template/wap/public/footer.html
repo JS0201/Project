@@ -1,0 +1,29 @@
+<div style="height:15vmin;clear: both;"></div>
+<footer class="foot-fillspace">
+    <nav class="mui-bar mui-bar-tab">
+        <a {if condition="$Think.MODULE_NAME eq 'goods' && $Think.ACTION_NAME eq 'index'"}class="mui-tab-item mui-active"{else/}class="mui-tab-item"{/if}  id="home" href="/goods/index/index">
+            <span class="mui-icon"></span>
+            <span class="mui-tab-label">套餐商城</span>
+        </a>
+        <a {if condition="$Think.MODULE_NAME eq 'goods' && $Think.ACTION_NAME eq 'consume'"}class="mui-tab-item mui-active"{else/}class="mui-tab-item"{/if} id="scdt" href="/goods/index/consume">
+            <span class="mui-icon"></span>
+            <span class="mui-tab-label">消费商城</span>
+        </a>
+        <a class="mui-tab-item" href="/order/cart/index">
+            <span class="mui-icon"></span>
+            <span class="mui-tab-label">购物车</span>
+        </a>
+        <a class="mui-tab-item" id="allorder" href="/member/index/allorder">
+            <span class="mui-icon"></span>
+            <span class="mui-tab-label">我的订单</span>
+        </a>
+        <a {if condition="$Think.MODULE_NAME eq 'member' && $Think.ACTION_NAME eq 'order'"}class="mui-tab-item mui-active"{else/}class="mui-tab-item"{/if} id="order"  href="/member/index/order">
+            <span class="mui-icon"></span>
+            <span class="mui-tab-label">个人中心</span>
+        </a>
+    </nav>
+    <script type="text/javascript">
+        mui('footer').on('tap','a',function(){window.top.location.href=this.href;});
+
+    </script>
+</footer>

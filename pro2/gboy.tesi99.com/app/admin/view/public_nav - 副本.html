@@ -1,0 +1,559 @@
+<a class="menu-toggler" id="menu-toggler" href="#">
+	<span class="menu-text"></span>
+</a>
+<div id="sidebar" class="sidebar sidebar-fixed">
+	<script type="text/javascript">
+		try{ace.settings.loadState('sidebar')}catch(e){}
+	</script>
+
+	<div class="sidebar-shortcuts" id="sidebar-shortcuts">
+		<div class="sidebar-shortcuts-large" id="sidebar-shortcuts-large">
+			<button class="btn btn-success">
+				<i class="icon-signal"></i>
+			</button>
+
+			<button class="btn btn-info">
+				<i class="icon-pencil"></i>
+			</button>
+
+			<button class="btn btn-warning">
+				<i class="icon-group"></i>
+			</button>
+
+			<button class="btn btn-danger">
+				<i class="icon-cogs"></i>
+			</button>
+		</div>
+
+		<div class="sidebar-shortcuts-mini" id="sidebar-shortcuts-mini">
+			<span class="btn btn-success"></span>
+
+			<span class="btn btn-info"></span>
+
+			<span class="btn btn-warning"></span>
+
+			<span class="btn btn-danger"></span>
+		</div>
+	</div><!-- #sidebar-shortcuts -->
+
+	<ul class="nav nav-list">
+		<li  >
+			<a href="javascript:;" class="dropdown-toggle">
+				<i class="icon-cogs"></i>
+				<span class="menu-text"> 系统设置 </span>
+				<b class="arrow icon-angle-down"></b>
+			</a>
+			<ul class="submenu">
+				<li>
+					<a href="#" class="dropdown-toggle">
+						<i class="icon-double-angle-right"></i>
+						
+						<span class="menu-text"> 站点设置 </span>
+						<b class="arrow icon-angle-down"></b>
+					</a>
+					<ul class="submenu">
+						<li>
+							<a href="{:url('admin/site/base')}" target="main_frame">
+								<i class="menu-icon  icon-caret-right"></i>
+								系统设置
+							</a>
+						</li>
+
+					</ul>
+				</li>
+				<li>
+					<a href="###" class="dropdown-toggle">
+						<i class="icon-double-angle-right"></i>
+						
+						<span class="menu-text"> 团队设置 </span>
+						<b class="arrow icon-angle-down"></b>
+					</a>
+					<ul class="submenu">
+						<li>
+							<a href="{:url('admin/admin_user/index')}" target="main_frame">
+								<i class="menu-icon  icon-caret-right"></i>
+								团队列表
+							</a>
+						</li>	
+						
+						<li>
+							<a href="{:url('admin/admin_user/add')}" target="main_frame">
+								<i class="menu-icon  icon-caret-right"></i>
+								添加团队
+							</a>
+						</li>
+
+					</ul>
+				</li>				
+				
+				<li>
+					<a href="#" class="dropdown-toggle">
+						<i class="icon-double-angle-right"></i>
+						
+						<span class="menu-text"> 角色设置 </span>
+						<b class="arrow icon-angle-down"></b>
+					</a>
+					<ul class="submenu">
+						<li>
+							<a href="#">
+								<i class="menu-icon  icon-caret-right"></i>
+								角色列表
+							</a>
+						</li>	
+						
+						<li>
+							<a href="#">
+								<i class="menu-icon  icon-caret-right"></i>
+								添加角色
+							</a>
+						</li>
+
+					</ul>
+				</li>				
+				
+				<li>
+					<a href="#" class="dropdown-toggle">
+						<i class="icon-double-angle-right"></i>
+						
+						<span class="menu-text"> 权限设置 </span>
+						<b class="arrow icon-angle-down"></b>
+					</a>
+					<ul class="submenu">
+						<li>
+							<a href="#">
+								<i class="menu-icon  icon-caret-right"></i>
+								权限列表
+							</a>
+						</li>	
+						
+						<li>
+							<a href="#">
+								<i class="menu-icon  icon-caret-right"></i>
+								添加权限
+							</a>
+						</li>
+
+					</ul>
+				</li>
+				
+				<li>
+					<a href="#" class="dropdown-toggle">
+						<i class="icon-double-angle-right"></i>
+						
+						<span class="menu-text"> 数据库 </span>
+						<b class="arrow icon-angle-down"></b>
+					</a>
+					<ul class="submenu">
+						<li>
+							<a href="#">
+								<i class="menu-icon  icon-caret-right"></i>
+								数据库备份
+							</a>
+						</li>	
+						
+						<li>
+							<a href="#">
+								<i class="menu-icon  icon-caret-right"></i>
+								数据库还原
+							</a>
+						</li>
+
+					</ul>
+				</li>
+			</ul>
+		</li>
+
+		<li>
+			<a href="###" class="dropdown-toggle">
+				<i class="icon-edit"></i>
+				<span class="menu-text"> 站点内容 </span>
+	
+				<b class="arrow icon-angle-down"></b>
+			</a>
+				<ul class="submenu">
+				<li>
+					<a href="elements.html">
+						<i class="icon-double-angle-right"></i>
+						Elements
+					</a>
+				</li>
+
+				<li>
+					<a href="buttons.html">
+						<i class="icon-double-angle-right"></i>
+						Buttons &amp; Icons
+					</a>
+				</li>
+
+
+			</ul>
+		</li>			
+		
+		<li>
+			<a href="###" class="dropdown-toggle">
+				<i class="icon-adjust"></i>
+				<span class="menu-text"> 生成管理 </span>
+	
+				<b class="arrow icon-angle-down"></b>
+			</a>
+				<ul class="submenu">
+				<li>
+					<a href="elements.html">
+						<i class="icon-double-angle-right"></i>
+						Elements
+					</a>
+				</li>
+
+				<li>
+					<a href="buttons.html">
+						<i class="icon-double-angle-right"></i>
+						Buttons &amp; Icons
+					</a>
+				</li>
+
+
+			</ul>
+		</li>
+
+		<li>
+			<a href="#" class="dropdown-toggle">
+				<i class="icon-desktop"></i>
+				<span class="menu-text">商品管理</span>
+
+				<b class="arrow icon-angle-down"></b>
+			</a>
+
+			<ul class="submenu">
+				<li>
+					<a href="elements.html">
+						<i class="icon-double-angle-right"></i>
+						Elements
+					</a>
+				</li>
+
+				<li>
+					<a href="buttons.html">
+						<i class="icon-double-angle-right"></i>
+						Buttons &amp; Icons
+					</a>
+				</li>
+
+				<li>
+					<a href="treeview.html">
+						<i class="icon-double-angle-right"></i>
+						Treeview
+					</a>
+				</li>
+
+				<li>
+					<a href="jquery-ui.html">
+						<i class="icon-double-angle-right"></i>
+						jQuery UI
+					</a>
+				</li>
+
+				<li>
+					<a href="nestable-list.html">
+						<i class="icon-double-angle-right"></i>
+						Nestable Lists
+					</a>
+				</li>
+
+				<li>
+					<a href="#" class="dropdown-toggle">
+						<i class="icon-double-angle-right"></i>
+
+						Three Level Menu
+						<b class="arrow icon-angle-down"></b>
+					</a>
+
+					<ul class="submenu">
+						<li>
+							<a href="#">
+								<i class="icon-leaf"></i>
+								Item #1
+							</a>
+						</li>
+
+						<li>
+							<a href="#" class="dropdown-toggle">
+								<i class="icon-pencil"></i>
+
+								4th level
+								<b class="arrow icon-angle-down"></b>
+							</a>
+
+							<ul class="submenu">
+								<li>
+									<a href="#">
+										<i class="icon-plus"></i>
+										Add Product
+									</a>
+								</li>
+
+								<li>
+									<a href="#">
+										<i class="icon-eye-open"></i>
+										View Products
+									</a>
+								</li>
+							</ul>
+						</li>
+					</ul>
+				</li>
+			</ul>
+		</li>
+
+		<li>
+			<a href="#" class="dropdown-toggle">
+				<i class="icon-list"></i>
+				<span class="menu-text"> 订单管理 </span>
+
+				<b class="arrow icon-angle-down"></b>
+			</a>
+
+			<ul class="submenu">
+				<li>
+					<a href="tables.html">
+						<i class="icon-double-angle-right"></i>
+						Simple &amp; Dynamic
+					</a>
+				</li>
+
+				<li>
+					<a href="jqgrid.html">
+						<i class="icon-double-angle-right"></i>
+						jqGrid plugin
+					</a>
+				</li>
+			</ul>
+		</li>
+
+		<li>
+			<a href="#" class="dropdown-toggle">
+				<i class="icon-user"></i>
+				<span class="menu-text"> 会员管理 </span>
+
+				<b class="arrow icon-angle-down"></b>
+			</a>
+
+			<ul class="submenu">
+				<li>
+					<a href="form-elements.html">
+						<i class="icon-double-angle-right"></i>
+						Form Elements
+					</a>
+				</li>
+
+				<li>
+					<a href="form-wizard.html">
+						<i class="icon-double-angle-right"></i>
+						Wizard &amp; Validation
+					</a>
+				</li>
+
+				<li>
+					<a href="wysiwyg.html">
+						<i class="icon-double-angle-right"></i>
+						Wysiwyg &amp; Markdown
+					</a>
+				</li>
+
+				<li>
+					<a href="dropzone.html">
+						<i class="icon-double-angle-right"></i>
+						Dropzone File Upload
+					</a>
+				</li>
+			</ul>
+		</li>
+
+		<li>
+			<a href="widgets.html">
+				<i class="icon-comments-alt"></i>
+				<span class="menu-text"> 微信管理 </span>
+			</a>
+		</li>
+
+		<li>
+			<a href="calendar.html">
+				<i class="icon-bell"></i>
+
+				<span class="menu-text">
+					促销管理
+				</span>
+			</a>
+		</li>
+
+		<li>
+			<a href="gallery.html">
+				<i class="icon-th"></i>
+				<span class="menu-text"> 模块管理 </span>
+			</a>
+		</li>
+
+		<li>
+			<a href="#" class="dropdown-toggle">
+				<i class="icon-tag"></i>
+				<span class="menu-text"> 插件管理 </span>
+
+				<b class="arrow icon-angle-down"></b>
+			</a>
+
+			<ul class="submenu">
+				<li>
+					<a href="profile.html">
+						<i class="icon-double-angle-right"></i>
+						User Profile
+					</a>
+				</li>
+
+				<li>
+					<a href="inbox.html">
+						<i class="icon-double-angle-right"></i>
+						Inbox
+					</a>
+				</li>
+
+				<li>
+					<a href="pricing.html">
+						<i class="icon-double-angle-right"></i>
+						Pricing Tables
+					</a>
+				</li>
+
+				<li>
+					<a href="invoice.html">
+						<i class="icon-double-angle-right"></i>
+						Invoice
+					</a>
+				</li>
+
+				<li>
+					<a href="timeline.html">
+						<i class="icon-double-angle-right"></i>
+						Timeline
+					</a>
+				</li>
+
+				<li>
+					<a href="login.html">
+						<i class="icon-double-angle-right"></i>
+						Login &amp; Register
+					</a>
+				</li>
+			</ul>
+		</li>						
+	
+		<li>
+			<a href="#" class="dropdown-toggle">
+				<i class="icon-building"></i>
+				<span class="menu-text"> 统计管理 </span>
+
+				<b class="arrow icon-angle-down"></b>
+			</a>
+
+			<ul class="submenu">
+				<li>
+					<a href="profile.html">
+						<i class="icon-double-angle-right"></i>
+						User Profile
+					</a>
+				</li>
+
+				<li>
+					<a href="inbox.html">
+						<i class="icon-double-angle-right"></i>
+						Inbox
+					</a>
+				</li>
+
+				<li>
+					<a href="pricing.html">
+						<i class="icon-double-angle-right"></i>
+						Pricing Tables
+					</a>
+				</li>
+
+				<li>
+					<a href="invoice.html">
+						<i class="icon-double-angle-right"></i>
+						Invoice
+					</a>
+				</li>
+
+				<li>
+					<a href="timeline.html">
+						<i class="icon-double-angle-right"></i>
+						Timeline
+					</a>
+				</li>
+
+				<li>
+					<a href="login.html">
+						<i class="icon-double-angle-right"></i>
+						Login &amp; Register
+					</a>
+				</li>
+			</ul>
+		</li>
+
+		<li>
+			<a href="#" class="dropdown-toggle">
+				<i class="icon-file-alt"></i>
+
+				<span class="menu-text">
+					帮助中心
+				
+				</span>
+
+				<b class="arrow icon-angle-down"></b>
+			</a>
+
+			<ul class="submenu">
+				<li>
+					<a href="faq.html">
+						<i class="icon-double-angle-right"></i>
+						FAQ
+					</a>
+				</li>
+
+				<li>
+					<a href="error-404.html">
+						<i class="icon-double-angle-right"></i>
+						Error 404
+					</a>
+				</li>
+
+				<li>
+					<a href="error-500.html">
+						<i class="icon-double-angle-right"></i>
+						Error 500
+					</a>
+				</li>
+
+				<li>
+					<a href="grid.html">
+						<i class="icon-double-angle-right"></i>
+						Grid
+					</a>
+				</li>
+
+				<li>
+					<a href="blank.html">
+						<i class="icon-double-angle-right"></i>
+						Blank Page
+					</a>
+				</li>
+			</ul>
+		</li>
+	</ul><!-- /.nav-list -->
+
+	<div class="sidebar-collapse" id="sidebar-collapse">
+		<i class="icon-double-angle-left" data-icon1="icon-double-angle-left" data-icon2="icon-double-angle-right"></i>
+	</div>
+
+	<script type="text/javascript">
+		try{ace.settings.check('sidebar' , 'collapsed')}catch(e){}
+	</script>
+</div>

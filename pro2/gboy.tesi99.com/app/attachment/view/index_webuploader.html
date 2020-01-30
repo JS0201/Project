@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8" />
+		<title>后台管理</title>
+		{block name="script"}
+		<script>
+			var config={'filenum':'{:input("num",1)}','input':'{:input("input",'')}','area':'{:input("area",'')}'}
+		</script>
+		<script src="http://cdn.bootcss.com/jquery/1.12.4/jquery.min.js"></script>
+		<script src="__STATIC__/js/webuploader-0.1.5/js/webuploader.min.js"></script>
+		<script src="__STATIC__/js/webuploader-0.1.5/js/upload.js?ver="+Math.random()></script>
+		<script src="__STATIC__/js/layer/layer.js?v="+Math.random()></script>
+		<script src="__STATIC__/js/gboy.js?v="+Math.random()></script>
+		{/block}
+		{block name="main-content"}
+		<link rel="stylesheet" type="text/css" href="__STATIC__/js/webuploader-0.1.5/css/webuploader.css">
+		<link rel="stylesheet" type="text/css" href="__STATIC__/js/webuploader-0.1.5/css/style.css">
+	</head>
+	<body>
+		<script>
+			$(function(){
+				
+			})
+		</script>
+	
+		<div id="uploader">
+			<div class="queueList">
+				<div id="dndArea" class="placeholder">
+					<div id="filePicker"></div>
+					<p>或将图片拖到这里，最多可选{:input('num',1)}张</p>
+				</div>
+			</div>
+			<div class="statusBar" style="display:none;">
+				<div class="progress">
+					<span class="text">0%</span>
+					<span class="percentage"></span>
+				</div><div class="info"></div>
+				<div class="btns">
+					<div id="filePicker2"></div><div class="uploadBtn">开始上传</div>
+				</div>
+			</div>
+		</div>
+	</body>
+</html>	
+{/block}

@@ -1,0 +1,16 @@
+{volist name="goodList" id = 'data'}
+                    <li class="list-goods-item pb10">
+                        <a href="/goods/index/details?id={$data.sku_id}"><img class="fill-block" src="{$data.thumb}"/></a>
+                        <div class="pd10">
+                            <div class="ellipsis-s ">
+                                <p class="ellipsis-text">
+                                    {$data.sku_name}
+                                </p>
+                            </div>
+                        </div>
+                        <div class="flex-justify prow10 f-theme">
+                            <span class="fs16"><span class="fs12">￥</span>{$data.shop_price}</span>
+                            <span class="iconfont icon-ai66"></span>
+                        </div>
+                    </li>
+                {/volist}

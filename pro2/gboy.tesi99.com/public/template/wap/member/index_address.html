@@ -1,0 +1,82 @@
+{extend name="template/wap/public/base.html" /}
+{block name="title"}探索者联盟{/block}
+{block name="css"}
+    <link rel="stylesheet" type="text/css" href="__TMPL__/alert/css/jquery.alertable.css"/>
+{/block}
+{block name="script"}
+<script src="__TMPL__/alert/js/velocity.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="__TMPL__/alert/js/velocity.ui.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="__TMPL__/alert/js/jquery.alertable.min.js" type="text/javascript" charset="utf-8"></script>
+    <script>
+         function set(obj){
+             var id = $(obj).attr('data-id');
+             $.post('/member/index/setdefault',{id : id},function(data) {
+                if(!data.status) {
+                    console.log(data);
+                }
+             });
+         }
+        function del(obj) {
+            id = $(obj).attr('data-id');
+            var option = {
+                cancelButton : "<button class='alertable-cancel' type='button'>取消</button>",
+                okButton: "<button class='alertable-ok' onclick='dell()' type='button'>确认</button>"
+            }
+            $.alertable.confirm('是否确认删除?',option).then(function() {});
+        }
+        function dell() {
+            $.post('/member/index/deladdress',{id : id},function(data) {
+                $.alertable.alert(data.message);
+                window.location.reload();
+            },'json');
+        }
+    </script>
+{/block}
+{block name="header"}
+    <header class="mui-bar mui-bar-nav bg-theme">
+        <a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+        <h1 class="mui-title">收货地址</h1>
+    </header>
+{/block}
+{block name="content"}
+<div class="mui-content">
+    <ul class="address-list">
+        {volist name="list" id="data"}
+        <li class="address-item section mb10">
+            <div class="address-cont pd10">
+                <div class="flex-justify mb5 fs16">
+                    <span>{$data.name}</span>
+                    <span>{$data.mobile}</span>
+                </div>
+                <div class="address-info ellipsis-s">
+                    <p class="ellipsis-text">
+                        {$data.address}
+                    </p>
+                </div>
+            </div>
+
+            <div class="address-down pd10 ">
+                <div class="flex-justify">
+                    <label class="checkbox">
+                        <input type="radio" data-id = "{$data['id']}" onclick="set(this)" {php} if($data['isdefault'] == 1){ echo "checked='checked'";} {/php} name="address"/>
+                        <span class="checkbox-pro checkbox-rect checkbox-address"><i></i></span>
+                    </label>
+                    <div class="btn-box">
+                        <a class="btn btn-sm btn-theme" data-id = "{$data['id']}" onclick="window.location.href = '/member/index/addaddress?id={$data['id']}'">编辑</a>
+                        <button class="btn-sm btn-delete ml20" data-id = "{$data['id']}" onclick="del(this)">删除</button>
+                    </div>
+                </div>
+            </div>
+        </li>
+        {/volist}
+    </ul>
+
+</div>
+<!--<button id='confirmBtn' type="button" class="mui-btn mui-btn-blue mui-btn-outlined">确认消息框</button>-->
+<footer class="foot-fillspace">
+    <div class="fixed-bar pd0 ">
+        <a class="btn btn-block btn-theme btn-address " href="addaddress.html" ><span class="fs20">+</span>添加地址</a>
+    </div>
+</footer>
+{/block}
+<script src="__TMPL__/js/comment.js" type="text/javascript" charset="utf-8"></script>

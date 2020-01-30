@@ -1,0 +1,120 @@
+{extend name="public/base" /}
+
+
+{block name="script"}
+<link rel="stylesheet" href="__STATIC__/js/ztree_v3/css/zTreeStyle/zTreeStyle.css" type="text/css">
+
+<script type="text/javascript" src="__STATIC__/js/ztree_v3/js/jquery.ztree.core.js"></script>
+<script type="text/javascript" src="__STATIC__/js/ztree_v3/js/jquery.ztree.excheck.js"></script>
+<script>
+
+
+    //获取所有选中节点的值
+    function GetCheckedAll() {
+        var treeObj = $.fn.zTree.getZTreeObj("tree");
+        var nodes = treeObj.getCheckedNodes(true);
+        var val = "";
+        for (var i = 0; i < nodes.length; i++) {
+            val += nodes[i].id+',';
+        }
+       $('input[name="rules"]').val(val);
+    }
+
+    //选中指定的节点
+    function AssignCheck() {
+
+        var treeObj = $.fn.zTree.getZTreeObj("tree");
+//        var nodes = treeObj.getNodes();
+
+        {foreach name="info.rules" item="id"}
+          treeObj.checkNode(treeObj.getNodeByParam("id", "{$id}", null), true, true){if condition="count($info['rules']) neq ($key+1)"};{/if}
+        {/foreach}
+    }
+
+    var setting = {
+        view: {
+            dblClickExpand: false
+        },
+        check: {
+            enable: true
+        },callback: {
+            onClick: function (e, treeId, treeNode, clickFlag) {
+
+                zTree.checkNode(treeNode, !treeNode.checked, true);
+                GetCheckedAll();
+            },
+            onCheck:function(){
+
+                GetCheckedAll();
+            }
+        }
+    };
+
+    var zNodes = {$nodes};
+
+
+    var zTree;
+    $(document).ready(function(){
+        $.fn.zTree.init($("#tree"), setting, zNodes);
+        zTree = $.fn.zTree.getZTreeObj("tree");
+        zTree.expandAll(true);
+        AssignCheck();
+    });
+</script>
+{/block}
+{block name="main-content"}
+<div class="main-content">
+    <div class="main-content-inner">
+
+        <div class="page-content">
+
+            <div class="row">
+                <div class="tabbable">
+
+                    <form class="form-horizontal" role="form" method="post">
+                        <input class="ace" name="rules" type="hidden"  value="{$info['rules']|join=',',###}">
+                        <div class="tab-content">
+
+                            <input type="hidden" name="id" value="<?php echo isset($info['id'])?$info['id']:''?>">
+                            <?php echo  \form\Form::input('text','title',isset($info['title'])?$info['title']:'','权限组名','请输入权限组名');?>
+
+                            <?php echo  \form\Form::input('textarea','description',isset($info['description'])?$info['description']:'','权限描述','请输入权限描述');?>
+                            <?php // echo  \form\Form::input('radio','status',$info['status'],'状态','状态',['items'=>['0'=>'关闭','1'=>'开启']]);?>
+
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label no-padding-right">权限</label>
+                                <div class="col-sm-10">
+                                    <ul id="tree" class="ztree"></ul>
+                                </div>
+                            </div>
+
+                        </div>
+
+
+                        <div class="clearfix form-actions">
+                            <div class="col-md-offset-2 col-md-10">
+                                <button class="btn btn-info" type="button">
+                                    <i class="icon-ok bigger-110"></i>
+                                    保存
+                                </button>
+
+                                &nbsp; &nbsp; &nbsp;
+                                <button class="btn" type="reset">
+                                    <i class="icon-undo bigger-110"></i>
+                                    重置
+                                </button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+
+            </div>
+
+        </div>
+
+
+    </div>
+
+</div>
+
+{/block}

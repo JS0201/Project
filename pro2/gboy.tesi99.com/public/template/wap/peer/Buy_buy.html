@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+	<meta charset="UTF-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	<meta http-equiv="X-UA-Compatible" content="ie=edge" />
+	<title>买入</title>
+	<link rel="stylesheet" type="text/css" href="__TMPL__/asset/font-awesome/css/font-awesome.min.css"/>
+	<link rel="stylesheet" type="text/css" href="__TMPL__/ATS/css/iconfont.css"/>
+	<link rel="stylesheet" type="text/css" href="__TMPL__/ATS/css/style.css"/>
+	<link rel="stylesheet" type="text/css" href="__TMPL__/ATS/css/common.css"/>
+	<script src="__TMPL__/asset/jquery-3.1.1.min.js" type="text/javascript" charset="utf-8"></script>
+	<script type="text/javascript" src="__TMPL__/js1/gboy.js"></script>
+</head>
+<body>
+<div class="lp-header c-fff">
+	<a href="{:Url('trade/home',array('type'=>$type,'acc_type'=>$acc_type))}" class="lp-back fa fa-angle-left fl"></a>
+	<h1 class="title">发布买入<?php if($type == 0 ){echo "ATS";}else{echo "AE";}?></h1>
+</div>
+<div class="mt50 prow15">
+	<div class="bgcolortheme02 pb70">
+		<div class="flex pcol10">
+			<div class="flex-item">
+				<p class="colortheme10 fs12">{$money_finance['member_bi']}</p>
+				<p class="c-fff fs12">ATS</p>
+			</div>
+			<div class="flex-item">
+				<p class="colortheme10 fs12">{$money_finance['member_z_bi']}</p>
+				<p class="c-fff fs12">AE</p>
+			</div>
+		</div>
+	</div>
+	<div class="mt-70">
+		<div class="widthp100 btn-gradual-bg01 pd15 pb70">
+			<div class="pd20">
+				<form action="" class="pushOrder-form" method="post">
+					<?php if($type == 0){?>
+					<p class="ellipsis row tal">当前价格：<span class="f-pink" id="pirceOrigin">{:Config('cache.p_open_price')}</span></p>
+					<?php }?>
+					<?php if($type == 1){?>
+					<p class="ellipsis row tal">当前价格：<span class="f-pink" id="pirceOrigin">{$usdt}</span></p>
+					<?php }?>
+					<div class=" flex-justify ">
+						<?php if($type == 0){?>
+						<p class="ellipsis row">购买价格：<span id="pirceEnd">{:Config('cache.p_open_price')}</span></p>
+						<?php }?>
+						<?php if($type == 1){?>
+						<p class="ellipsis row">购买价格：<span id="pirceEnd">{$usdt}</span></p>
+						<?php }?>
+						<?php if($type == 0){?>
+						<input type="hidden" name="price" id="price" value="{:Config('cache.p_open_price')}">
+						<?php }?>
+						<?php if($type == 1){?>
+						<input type="hidden" name="price" id="price" value="1.00">
+						<?php }?>
+						<!--<div class=" range-group">
+							<p class="ellipsis tc range-top"><span class="range-result">0</span>%</p>
+							<div class="flex-justify">
+								<button class="btn btn-range" type="button" range-type="btn-min">-</button>
+								<input class="range" type="range" maxlength="100" value="0" />
+								<button class="btn btn-range" type="button" range-type="btn-add">+</button>
+							</div>
+						</div> -->
+					</div>
+					<div class="input-group  un-border-group row">
+							<span class="input-group-addon pd0"  >
+								购买数量：
+							</span>
+						<input type="text" class="input bgtransp bbcolortheme03" name="num" placeholder="输入购买数量" id="pirceNum" />
+					</div>
+					<?php if($type == 0 && $acc_type == 1){?>
+					<p class="ellipsis row tal" >购买总额：<span id="pirceCount">0.0000 AE</span></p>
+					<?php }else{ ?>
+					<p class="ellipsis row tal" >购买总额：<span id="pirceCount">0.0000 USDT</span></p>
+					<?php }?>
+					<div class="input-group  un-border-group row">
+							<span class="input-group-addon pd0"  >
+								购买账户：
+							</span>
+						<!--<select name="account_type">-->
+							<!--<option selected="selected" value="0">ATS</option>-->
+							<!--<option value="1">E P</option>-->
+						<!--</select>-->
+						<?php if($type == 0){?>
+						<p class="ellipsis row tal"><span></span>ATS</p>
+						<input type="hidden" name="account_type" value="0">
+						<?php }?>
+						<?php if($type == 1){?>
+						<p class="ellipsis row tal"><span></span>AE</p>
+						<input type="hidden" name="account_type" value="1">
+						<?php }?>
+					</div>
+					<!--<p class="ellipsis f-DeepPink fs12">提示：最少购买数量20，请输入20的整倍数</p>-->
+					<div class="mt30 mb20">
+						<button class="btn btn-green h40 l25 fill-block" onclick="send(this)" type="button" data-event="submit">确认发布</button>
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
+</div>
+<script type="text/javascript">
+    var oPirceEnd = $("#pirceEnd"),
+        oPirceCount = $("#pirceCount"),
+        oPirceOrigin = $("#pirceOrigin"),
+        oPirceNum = $("#pirceNum"),
+        pirceFlag = 5;
+
+    $(".btn-range").on("click", function () {
+        var range = $(this).parents(".range-group").find(".range");
+        var result = $(this).parents(".range-group").find(".range-result");
+        var value = range.val();
+        var type = $(this).attr("range-type");
+        value = parseInt(value);
+        if(type == "btn-add"){
+            range.val(value + pirceFlag);
+        }else{
+            range.val(value - pirceFlag);
+        }
+        range.trigger('change');
+    })
+
+    $(".range").on("change",function () {
+        var result = $(this).parents(".range-group").find(".range-result");
+        result.text($(this).val());
+        getPrice.call($(this));
+        getCount();
+    })
+
+    function getPrice() {
+        var pirceOrigin = oPirceOrigin.text();
+        var ratio = $(this).val() * 0.01 + 1;
+        oPirceEnd.text((pirceOrigin * ratio).toFixed(4)) ;
+        $("#price").val((pirceOrigin * ratio).toFixed(4));
+    }
+
+    function getCount() {
+        var pirceNum = oPirceNum.val();
+        var pirceEnd = oPirceEnd.text();
+        var type = "{$type}";
+        var acc_type = "{$acc_type}";
+        if(type == 0 && acc_type == 1){
+            oPirceCount.text((pirceEnd * pirceNum).toFixed(4)+"  AE");
+        }else{
+            oPirceCount.text((pirceEnd * pirceNum).toFixed(4)+"  USDT");
+        }
+    }
+    oPirceNum.on("input",getCount);
+	function send(obj) {
+        $(obj).attr('disabled',"true");
+        var price = $("input[name='price']").val();
+        var num = $("input[name='num']").val();
+        var r = /^[0-9]*[1-9][0-9]*$/;
+        var re = r.test(num);
+		var bei = num % 20;
+        if(!re || num < 20 || bei != 0) {
+            alert('金额输入错误');
+			$(obj).removeAttr('disabled');
+            return false;
+        }
+        var type = $("input[name='account_type']").val();
+        $.post("{:Url('/Peer/buy/buy')}",{price : price, num : num, account_type : type},function(data) {
+            alert(data.message);
+            $(obj).removeAttr('disabled');
+        },'json');
+    }
+</script>
+</body>
+</html>

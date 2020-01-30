@@ -1,0 +1,70 @@
+<!-- 安全检测开始 -->
+<div class="panel {if condition='$system_safe'}panel-default{else /}panel-danger{/if}">
+    <div class="panel-heading">
+        <i class="ace-icon fa fa-bolt"></i>
+        <span class="icon-dashboard"></span> 系统安全检测
+    </div>
+    <div class="panel-body">
+        {if condition="$system_safe"}
+        <p class="text-success"><span class="icon-exclamation-sign"></span> 当前系统安全！</p>
+        {/if}
+        {if condition="$weak_setting_db_password"}
+        <p class="text-danger"><span class="icon-exclamation-sign"></span> 数据库连接密码为弱密码，安全起见，增强密码！</p>
+        {/if}
+
+        {if condition="$danger_mode_debug"}
+        <p class="text-warning"><span class="icon-exclamation-sign"></span> 当前系统运行在调试模式，可能会影响运行性能及安全！<a href="{:url('site/safe')}">去设置</a></p>
+        {/if}
+        {if condition="$system_pageshow"}
+        <p class="text-warning"><span class="icon-exclamation-sign"></span>  当前系统已开SHOW_PAGE_TRACE，请及时关闭 <a href="{:url('site/safe')}">去设置</a></p>
+        {/if}
+        {if condition="$weak_setting_admin_last_change_password"}
+        <p class="text-warning"><span class="icon-exclamation-sign"></span>  您太久没有更换登陆密码了，请定期更换后台登陆密码！</p>
+        {/if}
+
+        {if condition="!$weak_auth_computer_name"}
+        <p class="text-warning"><span class="icon-exclamation-sign"></span>  建议设置后台访问计算名授权 <a href="{:url('site/safe')}">去设置</a></p>
+        {/if}
+        <!--[if lte IE 8]>
+        <p class="text-warning">
+            <span class="glyphicon glyphicon-info-sign"></span> 浏览器版本过低！
+        </p>
+        <![endif]-->
+    </div>
+</div>
+<!-- 安全检测结束 -->
+
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <i class="ace-icon fa fa-wrench"></i>
+        <span class="icon-desktop"></span> 日常维护
+    </div>
+
+    <table class="table">
+        <tbody>
+        <tr>
+            <td colspan="2">
+                <a href="{:addon_url('maintain://admin/maintain',array('action'=>'download_log'))}" target="_blank" class="btn btn-default maintain">下载日志</a>
+                <a href="{:addon_url('maintain://admin/maintain',array('action'=>'view_log'))}" target="_blank" class="btn btn-default maintain">查看日志</a>
+                <a href="{:addon_url('maintain://admin/maintain',array('action'=>'clear_log'))}" class="btn btn-default rst-url-btn maintain">清除日志</a>
+                {if condition="config('app_debug')"}
+                  <a href="{:addon_url('maintain://admin/maintain',array('action'=>'debug_off'))}" class="btn btn-default rst-url-btn maintain">关闭调试</a>
+                {else/}
+                 <a href="{:addon_url('maintain://admin/maintain',array('action'=>'debug_on'))}" class="btn btn-default rst-url-btn maintain">开启调试</a>
+                {/if}
+                {if condition="config('app_trace')"}
+                  <a href="{:addon_url('maintain://admin/maintain',array('action'=>'trace_off'))}" class="btn btn-default rst-url-btn maintain">关闭Trace</a>
+                {else/}
+                  <a href="{:addon_url('maintain://admin/maintain',array('action'=>'trace_on'))}" class="btn btn-default rst-url-btn maintain">开启Trace</a>
+                {/if}
+
+            </td>
+        </tr>
+        <tr>
+            <td>日志大小 : {$log_size|byte_Format=###}</td>
+            <td>日志数 : {$log_file_cnt}</td>
+        </tr>
+        </tbody>
+    </table>
+
+</div>

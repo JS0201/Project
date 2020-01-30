@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+	<meta charset="UTF-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	<meta http-equiv="X-UA-Compatible" content="ie=edge" />
+	<title>探索者联盟</title>
+	<link rel="stylesheet" type="text/css" href="__TMPL__/alert/css/jquery.alertable.css"/>
+	<link rel="stylesheet" type="text/css" href="__TMPL__/css/iconfont.css"/>
+	<link rel="stylesheet" type="text/css" href="__TMPL__/css/style.css"/>
+	<link rel="stylesheet" type="text/css" href="__TMPL__/css/login.css"/>
+</head>
+<body>
+	<header class="fixed-bar head-bar">
+	    <h1 class="title">注册</h1>
+	    <a href="login.html" class="side-link fr">登录</a>
+	    <a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+	</header>
+	<div class="content">
+		<div class="logo-bar mb30">
+			<img src="__TMPL__/images/avatar.jpg" alt="logo" class="logo" />
+		</div>
+	</div>
+			<div class="form-group mb10 prow60">
+				<div class="input-group un-border-group ">
+					<span class="input-group-addon pd0 pr5"><i class="iconfont icon-yonghu fs24"></i></span>
+					<input class="input  un-border" name="mobile" type="text" placeholder="请输入手机号"/>
+				</div>
+				<div class="input-group un-border-group ">
+					<span class="input-group-addon pd0 pr5"><i class="iconfont icon-mima fs24"></i></span>
+					<input class="input  un-border" name="password" type="password" placeholder="请输入密码"/>
+				</div>
+				<div class="input-group un-border-group ">
+					<span class="input-group-addon pd0 pr5"><i class="iconfont icon-mima fs24"></i></span>
+					<input class="input  un-border" name="repassword" type="password" placeholder="请确认密码"/>
+				</div>
+					<div class="input-group un-border-group ">
+					<span class="input-group-addon pd0 pr5"><i class="iconfont icon-shouji fs24"></i></span>
+					<input class="input  un-border" name="pid" value="{$mobile}" type="text" placeholder="请输入推荐人手机号"/>
+				</div>
+				<div class="input-group un-border-group " hidden>
+					<span class="input-group-addon pd0 pr5"><i class="iconfont icon-anquan fs24"></i></span>
+					<input class="input  un-border" type="text" name="vcode" placeholder="请输入验证码"/>
+						<span class="input-group-btn "><button class="btn btn-info btn-md" id="code" onclick="getcode(this)">获取验证码</button></span>
+				</div>
+				<div class="sub-bar pt30">
+					<button onclick="send()" class="btn btn-login">注册</button>
+					<div class="sub-bar-after"></div>
+				</div>
+			</div>
+</body>
+</html>
+<script src="__TMPL__/js/jquery-3.1.1.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="__TMPL__/alert/js/velocity.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="__TMPL__/alert/js/velocity.ui.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="__TMPL__/alert/js/jquery.alertable.min.js" type="text/javascript" charset="utf-8"></script>
+<script>
+    function getcode(obj) {
+        var mobile = $("input[name='mobile']").val();
+        if(!mobile) {
+            $.alertable.alert('请输入手机号');
+            return false;
+        }
+        $.post('/member/publics/getcode',{mobile : mobile}, function(data) {
+            if(!data.status) {
+                $.alertable.alert(data.message);
+            }
+        },'json');
+        $(obj).css('background' ,'#adadad');
+        $(obj).attr("disabled", true);
+        settime(60);
+    }
+    function settime(count) {
+        if(count <= 0) {
+            $('#code').css('background' ,'#31b0d5');
+            $('#code').attr("disabled", false);
+            $('#code').text('获取验证码');
+            return;
+        }else{
+            count -= 1;
+            $('#code').text('重新获取' + count + 's');
+        }
+        setTimeout(function() {
+           settime(count);
+        },1000)
+    }
+    function send () {
+        var mobile = $("input[name='mobile']").val();
+        var password = $("input[name='password']").val();
+        var repassword = $("input[name='repassword']").val();
+        var pid = $("input[name='pid']").val();
+        var vcode = $("input[name='vcode']").val();
+        if(mobile == '') {
+            $.alertable.alert('请输入手机号');
+            return false;
+        }
+        if(password == '') {
+            $.alertable.alert('请输入密码');
+            return false;
+         }
+        if(repassword == '') {
+            $.alertable.alert('请确认密码');
+            return false;
+         }
+        if(pid == '') {
+            $.alertable.alert('请填写推荐人号码');
+            return false;
+         }
+        if(vcode == '') {
+            $.alertable.alert('请输入验证码');
+            return false;
+         }
+        if(password !== repassword) {
+            $.alertable.alert('两次密码不一至');
+            return false;
+        }
+
+      $.ajax({
+         type: "post",
+         url: "/member/publics/register",
+         data: {mobile:mobile, password : password, repassword : repassword, pid : pid, vcode : vcode, type: 'post'},
+         dataType: "json",
+         success: function(data){
+            if(!data.status) {
+                $.alertable.alert(data.message);
+            } else {
+                //注册成功
+                $.alertable.alert('注册成功',{overlay: ''});
+                window.location.href = "/member/index/order";
+            }
+         }
+     });
+    }
+</script>

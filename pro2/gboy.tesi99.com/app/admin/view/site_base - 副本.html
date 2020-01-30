@@ -1,0 +1,101 @@
+{extend name="public/base" /}
+
+{block name="main-content"}
+<div class="main-content"> 
+
+	<div class="main-content-inner">
+
+		<div class="page-content">
+			
+			<div class="row">
+			<div class="tabbable">
+				<ul class="nav nav-tabs" id="myTab">
+					{foreach name="group_list" item="v"}
+					<li {if condition="$key eq 1"}class="active"{/if}><a data-toggle="tab" href="#tag{$key}">{$v}</a></li>
+					{/foreach}
+					
+					</li>
+				</ul>
+				<form class="form-horizontal" role="form">
+				<div class="tab-content">
+					
+					{volist name="list" id="foo"}
+					
+					<div id="tag{$key}" class="tab-pane {if condition="$key eq 1 " }active{/if} ">
+						{volist name="foo" id="v" key="k"}
+				
+						<div class="form-group">
+								<label class="col-sm-2 control-label no-padding-right">{$v['title']}</label>
+								
+								<div class="{if condition="$v['type'] eq 'radio'"}radio{/if} col-sm-10">
+									{if condition="$v['type'] eq 'text'"}
+									<input  placeholder=""  class="col-xs-10 col-sm-5" type="text" value="{$v['value']}">
+									
+									{elseif condition="$v['type'] eq 'textarea'" /}
+									
+									<textarea class="col-xs-10 col-sm-5"  placeholder="" >{$v['value']}</textarea>
+									{elseif condition="$v['type'] eq 'radio'" /}
+									
+										{foreach name="$v['default_value']" item="vv" key="i"}
+										<label>
+											<input name="form-field-radio" value="{$i}" class="ace" type="radio" {if condition="$i eq $v['value']"}checked="checked"{/if}>
+											<span class="lbl"> {$vv}</span>
+										</label>	
+										{/foreach}
+										 
+									{elseif condition="$v['type'] eq 'file'" /}
+
+										<div class="ace-file-input col-xs-10 col-sm-5">
+										<input  type="file" class=""><label class="file-label " data-title="Change"><span class="file-name" data-title=""><i class="icon-picture"></i></span></label><a class="remove" href="#"><i class="icon-remove"></i></a>
+										</div>
+									{/if}
+									{if condition="$v['type'] neq 'radio'"}
+									<span class="help-inline col-xs-12 col-sm-7">
+										<span class="middle">{$v['description']}</span>
+									</span>
+									{/if}
+								</div>
+								
+							 
+						</div>
+						
+						<div class="space-4"></div>	
+											
+						
+					
+						{/volist}
+					</div>
+					{/volist}
+
+				
+				
+				</div>
+				
+				
+				<div class="clearfix form-actions">
+										<div class="col-md-offset-2 col-md-10">
+											<button class="btn btn-info" type="button">
+												<i class="icon-ok bigger-110"></i>
+												保存
+											</button>
+
+											&nbsp; &nbsp; &nbsp;
+											<button class="btn" type="reset">
+												<i class="icon-undo bigger-110"></i>
+												重置
+											</button>
+										</div>
+									</div>
+				</form>
+			</div>
+			
+			</div>
+		
+		</div>
+		
+		
+	</div>
+
+</div> 
+
+{/block}

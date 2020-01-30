@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+    <title>账单</title>
+
+    <script type="text/javascript" src="__TMPL__/js/jquery-3.1.1.min.js"></script>
+    <script src="__TMPL__/js/mui.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="__TMPL__/peer/css/comment.css"/>
+    <link rel="stylesheet" type="text/css" href="__TMPL__/asset/font-awesome/css/font-awesome.min.css"/>
+    <script type="text/javascript" src="__TMPL__/js1/gboy.js"></script>
+    <script type="text/javascript" src="__TMPL__/peer/js/clipboard.min.js"></script>
+	<link rel="stylesheet" type="text/css" href="__TMPL__/ATS/css/style.css"/>
+	<style>
+	.table > tbody > tr > td,.table > thead > tr > th{border-bottom: 1px solid #49435a!important}
+	.percenter20{width:20%}
+	.percenter60{width:60%}
+</style>
+</head>
+<body>
+        <div class="lp-header c-fff bgcolortheme01">
+            <a  href="{:Url('/peer/trade/home',array('type'=>$type,'acc_type'=>$acc_type))}" class="lp-back fa fa-angle-left fl"></a>
+            <h1 class="title">账单</h1>
+        </div>
+	<div class="mui-content" style="height:100%">
+		<if condition="!$list">
+		<div class="noneRecord">
+			<img src="__TMPL__/Peer/images/none.png" height="80px"/>
+			<p class="text c-fff">暂无记录</p>
+		</div>
+		<else/>
+		<div class="mg0">
+			<div class="flex prow15 pcol10">
+                <div class="flex-item c-fff fs13 tal">
+                    账户
+                </div>
+                <div class="flex-item c-fff fs13 tal">
+                    数量
+                </div>
+                <div class="flex-item c-fff fs13">
+                    说明
+                </div>
+                <div class="flex-item c-fff fs13 tar">
+                    时间
+                </div>
+            </div>
+            <div class="list">
+                {volist name="list" id="v"}
+                    <div class="flex bgcolortheme01 prow15 pcol10">
+                        <div class="flex-item c-fff fs13 tal">
+                            <if condition="$v['type'] eq 'member_bi'">ATS<else/>AE</if>
+                        </div>
+                        <div class="flex-item c-fff fs13 tal">
+                            {$v['_money']['money']}
+                        </div>
+                        <div class="flex-item c-fff fs13">
+                            {$v['info']}
+                        </div>
+                        <div class="flex-item c-fff fs13 tar">
+                            {$v['datetime']|getdatetime=###,'Y-m-d'}
+                        </div>
+                    </div>
+                {/volist}
+            </div>
+        </div>
+	</div>
+        </if>
+
+	</body>
+</html>

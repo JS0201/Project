@@ -1,0 +1,177 @@
+{extend name="admin@public/base" /}
+{block name="script"}
+<script>
+$(function(){
+
+    $(document).on('click','.category i',function() {
+
+        var tr = $(this).parents('tr');
+        var _this = $(this);
+        if (_this.attr("data-id") == undefined) return false;
+
+        if($(this).data("loaded")==undefined) {
+
+            var index = parent.layer.load(1, {shade : 0.3});
+            var classname, html;
+            var dlevel = $(this).attr("data-level");
+            if (dlevel == 0) {
+                classname = "tree-one";
+            } else if (dlevel == 1) {
+                classname = "tree-two";
+            } else if (dlevel == 2) {
+                classname = "tree-three";
+            } else if (dlevel == 3) {
+                classname = "tree-four";
+            }
+
+
+            $.get('{:url("ajax_district")}', {id: _this.attr("data-id")}, function (data) {
+                parent.layer.close(index);
+                html = '';
+                _this.attr("data-loaded","true");
+                _this.removeClass('icon-plus').addClass('icon-minus');
+                $.each(data, function (i, v) {
+
+                    html += '<tr data-tree-id="'+v.id+'" data-tree-parent-id="'+v.parent_id+'">';
+                    html += '<td> <label class="check-option"> <input type="checkbox" class="ace"  value="' + v.id + '" /> <span class="lbl"></span> </label> </td>'
+                    html += '<td>' + v.sort + '</td>'
+                    html += '<td>' + v.id + '</td>'
+                    html += '<td class="left">'
+                    html += '<div class="category_tree '+classname+' ">'
+                    html += '<div class="category tree">'
+                    if(v.child_count>0){
+                        html += '<i class="icon-plus" data-level="'+v.level+'"  data-id="' + v.id + '"></i>'
+                    }else{
+                        html += '&nbsp;&nbsp;&nbsp;&nbsp;'
+                    }
+
+
+                    html += '</div>'
+                    html += '<span class="tree-input-status no"></span>'
+                    html += v.name
+                    html += '</div>'
+                    html += '</td>'
+                    html += '<td>'
+                    html += '<div>'
+
+                    html += '<a class="orange" href="{:url(add)}/parent_id/'+v.id+'" data-iframe="true" data-iframe-title="添加地区" data-iframe-width="320" data-iframe-height="530"> <i class="icon-plus-sign bigger-130"></i> 添加子地区</a> &nbsp; <a class="green" href="{:url(edit)}/id/'+v.id+'" data-iframe="true" data-iframe-title="编辑地区" data-iframe-width="320" data-iframe-height="530"> <i class="icon-pencil bigger-130"></i> 编辑</a> &nbsp; <a class="red delete"  href="{:url(edit)}/id/'+v.id+'"  data-id="'+v.id+'"> <i class="icon-trash bigger-130"></i> 删除</a>'
+                    html += '</div>'
+
+                    html += '</td>'
+                    html += '</tr>'
+
+                })
+
+                _this.parents('tr').after(html);
+
+            }, 'json');
+        }else{
+            _this.removeData("loaded").removeAttr('data-loaded').removeClass('icon-minus').addClass('icon-plus');
+            var id=tr.data('tree-id');
+            $('tr[data-tree-parent-id='+id+']').remove();
+
+
+
+        }
+    });
+
+
+    $(document).on('click',".delete",function(){
+        var data = {'id[]':[$(this).data("id")]};
+        if(confirm('确认删除所选地区？删除选择地区，其所有下属地区也将会同步删除且不可恢复。')){
+            $.post("{:url('delete')}",data,function(ret){
+                alert(ret.message);
+            },'json');
+        }
+        return false;
+    });
+
+})
+</script>
+{/block}
+{block name="main-content"}
+<div class="main-content">
+
+	<div class="main-content-inner">
+
+		<div class="page-content">
+
+			<div class="row">
+				<div class="col-xs-12">
+
+
+                    <div class="border clearfix">
+
+                        <a href="{:url('add')}" data-iframe="true" data-iframe-title="添加地区" data-iframe-width="320" data-iframe-height="530" class="btn btn-warning btn-sm"><i class="icon-plus bigger-120"></i> 添加</a>
+                        &nbsp;
+                        <a href="{:url('delete')}" data-ajax="id" class="btn btn-danger btn-sm "><i class="icon-trash bigger-120"></i> 删除</a>
+
+
+
+                    </div>
+
+					<div class="table-responsive">
+					  <table id="sample-table" class="table table-striped table-bordered table-hover">
+   <thead>
+    <tr>
+     <th width="100"> <label> <input type="checkbox" class="ace " id="check-all" /> <span class="lbl"></span> </label> </th>
+     <th width="100">排序</th>
+     <th width="100">ID</th>
+     <th>名称</th>
+     <th width="250">操作</th>
+    </tr>
+   </thead>
+   <tbody>
+
+   {volist name="lists" id="foo"}
+   <tr data-tree-id="{$foo['id']}" data-tree-parent-id="{$foo['parent_id']}">
+       <td> <label class="check-option"> <input type="checkbox" class="ace"  value="{$foo['id']}" /> <span class="lbl"></span> </label> </td>
+       <td>{$foo['sort']}</td>
+       <td>{$foo['id']}</td>
+       <td class="left">
+            <div class="category_tree">
+
+                <div class="category tree" >
+                    <i class="icon-plus" data-level="0"  data-id="{$foo['id']}"></i>
+                </div>
+
+            {$foo['name']}
+
+            </div>
+
+       </td>
+       <td>
+           <div>
+
+               <a class="orange" href="{:url('add',['parent_id'=>$foo['id']])}" data-iframe="true" data-iframe-title="添加地区" data-iframe-width="320" data-iframe-height="530"> <i class="icon-plus-sign bigger-130"></i> 添加子地区</a>
+               &nbsp;
+               <a class="green" href="{:url('edit',['id'=>$foo['id']])}" data-iframe="true" data-iframe-title="编辑地区" data-iframe-width="320" data-iframe-height="530"> <i class="icon-pencil bigger-130"></i> 编辑</a>
+               &nbsp;
+               <a class="red delete"  href="{:url('delete',['id'=>$foo['id']])}" data-id="{$foo['id']}"> <i class="icon-trash bigger-130"></i> 删除</a>
+           </div>
+
+
+       </td>
+   </tr>
+   {/volist}
+
+
+   </tbody>
+  </table>
+					</div>
+
+				</div>
+
+			</div>
+
+
+
+		</div>
+
+
+	</div>
+
+</div>
+
+{/block}
+

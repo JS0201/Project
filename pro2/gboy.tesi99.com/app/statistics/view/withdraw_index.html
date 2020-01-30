@@ -1,0 +1,313 @@
+{extend name="admin@public/base" /}
+
+{block name="main-content"}
+<div class="main-content">
+
+	<div class="main-content-inner">
+
+		<div class="page-content">
+			<div class="alert alert-info" role="alert">注：提现统计不包括“取消提现”和“提现失败”</div>
+			<div class="row">
+				<div class="col-xs-12">
+                    <div class="border clearfix">
+                        <div class="search clearfix">
+                            <form class="form-inline">
+								<span class="btn btn-info btn-sm" onclick="showchart(6,0,0)">最近7天</span>
+								
+								 <span class="btn btn-sm btn-link"  onclick="showchart(29,0,0)">最近30天</span>
+								
+                                   <?php
+                                         echo  \form\Form::input('calendar','stime',input('get.stime'),'时间','');
+                                        echo  \form\Form::input('calendar','etime',input('get.etime'),'','');
+                                    ?>
+
+                                <div class="form-group">
+                                <span class="input-group-btn">
+                                    <button type="submit" class="btn btn-purple btn-sm">
+                                        搜索
+                                        <i class="icon-search icon-on-right bigger-110"></i>
+                                    </button>
+                                 </span>
+                                </div>
+                            </form>
+
+                        </div>
+
+                    </div>
+
+
+
+
+
+
+
+
+					<div class="table-responsive">
+					  <table class="table table-striped table-bordered table-hover">
+						   <thead>
+							<tr>
+							 <th class="center" colspan="6">金额统计</th>
+							</tr>
+						   </thead>
+						   <tbody>
+
+							<tr>
+								 <td class="left">今日提现：{$statistics['sum']['day']}</td>
+								 <td class="left">昨天提现：{$statistics['sum']['yesterday']}</td>
+								 <td class="left">7天提现：{$statistics['sum']['week']}</td>
+								 <td class="left">本月提现：{$statistics['sum']['current_month']}</td>
+								 <td class="left">30天提现：{$statistics['sum']['month']}</td>
+								 <td class="left">提现总额：{$statistics['sum']['count']}</td>
+							</tr>    
+	
+
+						   </tbody>
+					</table>
+					<table class="table table-striped table-bordered table-hover">
+						   <thead>
+							<tr>
+							 <th class="center" colspan="6">笔数统计</th>
+							</tr>
+						   </thead>
+						   <tbody>
+
+							<tr>
+								 <td class="left">今日提现：{$statistics['count']['day']}</td>
+								 <td class="left">昨天提现：{$statistics['count']['yesterday']}</td>
+								 <td class="left">7天提现：{$statistics['count']['week']}</td>
+								 <td class="left">本月提现：{$statistics['count']['current_month']}</td>
+								 <td class="left">30天提现：{$statistics['count']['month']}</td>
+								 <td class="left">提现总额：{$statistics['count']['count']}</td>
+							</tr>    
+	
+
+						   </tbody>
+					</table>
+
+					<table class="table table-striped table-bordered table-hover">
+						   <thead>
+							<tr>
+							 <th class="center" colspan="6">提现类型</th>
+							</tr>
+						   </thead>
+						   <tbody>
+
+							<tr>
+								 <td class="left">银行卡总提现金额：{$statistics['sum']['bank']}</td>
+								 <td class="left">支付宝总提现金额：{$statistics['sum']['alipay']}</td>
+								 <td class="left">微信总提现金额：{$statistics['sum']['wechat']}</td>
+							</tr>
+
+
+						   </tbody>
+					</table>
+
+
+
+
+  					  <table class="table table-striped table-bordered table-hover">
+						   <thead>
+							<tr>
+							 <th class="center" colspan="6">K线图</th>
+							</tr>
+						   </thead>
+						   <tbody>
+							<tr>
+								 <td>
+									<div id="statistics" style="height: 400px;"></div>
+								 </td>
+								
+							</tr>    
+					
+						   </tbody>
+					</table>
+
+
+
+
+
+					</div>
+
+                  
+				</div>
+
+			</div>
+
+
+
+		</div>
+
+
+	</div>
+
+</div>
+
+{/block}
+
+{block name="script"}
+
+	<script type="text/javascript" src="__STATIC__/js/echarts/dist/echarts.js"></script>
+		<script type="text/javascript">
+
+
+
+
+
+			var ret ;
+			showchart(6,0,0);
+			function showchart(days,stime,etime){
+				getdata(days,stime,etime);
+				// 路径配置
+				require.config({
+					paths: {
+						echarts: '__STATIC__/js/echarts/dist' //配置路径
+					}
+				});
+				// 使用
+				require(
+				[
+					'echarts',
+					'echarts/chart/line'// K线图
+				],DrawEChart);
+				function DrawEChart(ec) {
+					//销售统计
+					myChart = ec.init(document.getElementById('statistics'), 'macarons');
+					myChart.setOption({
+						/*title : {
+						text: '销量',//标题
+						subtext: '描述',//文字
+						x:'center'//坐标
+						},*/
+						tooltip: {
+							trigger: 'axis'
+						},
+						legend: {
+							data: ['提现金额','提现笔数','银行卡提现','支付宝提现','微信提现']
+						},
+						toolbox: {
+							show: false
+						},
+						calculable: false,
+						xAxis: [{
+							type: 'category',
+							boundaryGap: false,
+							data: ret.withdraw.xAxis,
+						}],
+						yAxis: [{
+							type: 'value'
+						}],
+						series: [ {
+							name: '提现金额',
+							type: 'line',
+							smooth: true,
+							itemStyle: {
+								normal: {
+									areaStyle: {
+										type: 'default'
+									}
+								}
+							},
+							data: ret.withdraw.money
+						},
+						 {
+							name: '提现笔数',
+							type: 'line',
+							smooth: true,
+							itemStyle: {
+								normal: {
+									areaStyle: {
+										type: 'default'
+									}
+								}
+							},
+							data: ret.withdraw.count
+						},
+                            {
+                                name: '银行卡提现',
+                                type: 'line',
+                                smooth: true,
+                                itemStyle: {
+                                    normal: {
+                                        areaStyle: {
+                                            type: 'default'
+                                        }
+                                    }
+                                },
+                                data: ret.withdraw.sum_bank
+                            }
+                            ,
+                            {
+                                name: '支付宝提现',
+                                type: 'line',
+                                smooth: true,
+                                itemStyle: {
+                                    normal: {
+                                        areaStyle: {
+                                            type: 'default'
+                                        }
+                                    }
+                                },
+                                data: ret.withdraw.sum_alipay
+                            }
+                            ,
+                            {
+                                name: '微信提现',
+                                type: 'line',
+                                smooth: true,
+                                itemStyle: {
+                                    normal: {
+                                        areaStyle: {
+                                            type: 'default'
+                                        }
+                                    }
+                                },
+                                data: ret.withdraw.sum_wechat
+                            }
+
+                        ]
+					});
+				}
+			}
+		
+			//通过Ajax获取数据
+			function getdata(days,stime,etime){
+				$.ajax({
+					type: "get",
+					async: false,
+					//同步执行
+					url: "<?php echo url('ajax_getdata')?>",
+					dataType: "json",
+					data:{days:days,stime:stime,etime:etime,formhash:formhash},
+					success: function(result) {
+						ret = result;
+
+					},
+					error: function(errorMsg) {
+						alert("不好意思，大爷，图表请求数据失败啦!");
+					}
+				});
+			}
+			
+			$(function(){
+				$('.search span').on('click',function(){
+					$(this).addClass('btn-info').removeClass('btn-link').siblings().addClass('btn-link').removeClass('btn-info');
+					return false;
+				})
+				$('[type="submit"]').on('click',function(){
+					var stime = $('input[name="stime"]').val();
+					var etime = $('input[name="etime"]').val();
+					showchart(0,stime,etime);
+					return false;
+				})
+				var $val=$("input[type=text]").first().val();
+			})
+
+
+
+
+
+
+		</script>
+
+{/block}
+

@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Title</title>
+</head>
+<link rel="stylesheet" type="text/css" href="__TMPL__/css/pay.css"/>
+<script src="__TMPL__/js/jquery-3.1.1.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="__TMPL__/js/cnpay.js" type="text/javascript" charset="utf-8"></script>
+<body>
+       <div id="orderInfo">
+           <div class="ico_title">支付测试(提交信息（公众号支付）)</div>
+           <div class="form_wrap account">
+               <div class="form_list">
+                   <span class="list_title">商户订单号：</span>
+                   <span class="list_val">
+                       <input name="orderNo" id="orderNo" value="" maxlength="32" size="32" placeholder="长度32">
+                   </span>
+                   <i>*</i><em>长度32</em>
+               </div>
+               <div class="form_list">
+                   <span class="list_title">用户openid：</span>
+                   <span class="list_val">
+                       <input name="openID" id="openID" value="o4dINwsE_W7U3CBTQy7I6gAT88Ok" maxlength="64" size="32" placeholder="长度127">
+                   </span>
+                   <i>*</i><em>输入用户关注公众号后的openid</em>
+               </div>
+               <div class="form_list">
+                   <span class="list_title">商品描述：</span>
+                   <span class="list_val">
+                       <input name="name" id="name" value="测试购买商品" maxlength="64" size="32" placeholder="长度127">
+                   </span>
+                   <i>*</i><em>长度64</em>
+               </div>
+
+               <div class="form_list">
+                   <span class="list_title">总金额：</span>
+                   <span class="list_val">
+                       <input name="total" id="total" value="1" placeholder="单位：分">
+                   </span>
+                   <i>*</i><em>单位：分 整型</em>
+               </div>
+
+               <div class="form_list">
+                   <span class="list_title">同步回调地址：</span>
+                   <span class="list_val">
+                       <input name="returnUrl" id="returnUrl" value="https://pay.cnmobi.cn" maxlength="64" size="32" placeholder="长度127">
+                   </span>
+                   <i>*</i><em>长度64,必须以http或https开头</em>
+                   <!--  在该回调地址中处理订单支付完成后动作。 -->
+               </div>
+
+
+               <div class="form_list">
+                   <span class="list_title"></span>
+                   <span class="list_val submit btn btn_blue" onclick="submit()">确定</span>
+               </div>
+           </div>
+       </div>
+       <script>
+           //生成订单号
+           var date = Date.parse(new Date());
+
+           $("#orderNo").val(date);
+           function submit() {
+               var data = {
+                   orderNo: $('#orderNo').val(),
+                   name: $('#name').val(),
+                   total: $("#total").val(),
+                   returnUrl: $("#returnUrl").val(),
+                   openID: $("#openID").val()
+               };
+               var mask = $('<div class="mask"></div>');
+               $('body').append(mask);
+               $.ajax({
+                       url: '/demo/index/pay',
+                       type: 'POST',
+                       dataType: 'JSON',
+                       data: data
+                   })
+                   .done(function(res) {
+                       console.log(res);
+                       $('body').find('.mask').remove();
+                       if (res.code == 1) {
+                           $('body').popUpWin({
+                               content: function() {
+                                   return '<p>该地址在微信端打开可发起支付' + '</p>' +
+                                       '<p>' +
+                                       res.result.payInfo + '</p>';
+                               }
+                           });
+                       } else {
+                           $('body').popUpWin({
+                               content: function() {
+                                   return '<p>' + res.msg + '</p> ';
+                               }
+                           });
+                       }
+                   })
+                   .fail(function() {
+                       console.log("error");
+                   })
+                   .always(function() {
+                       setInterval(function() {
+                           payM.orderQuery(orderNo);
+                           console.log('pay test')
+                       }, 3000)
+                   });
+           }
+       </script>
+
+</body>
+</html>

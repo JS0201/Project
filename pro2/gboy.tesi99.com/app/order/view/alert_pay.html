@@ -1,0 +1,77 @@
+{extend name="admin@public/base" /}
+{block name="style"}
+body.navbar-fixed{padding-top:0;overflow:hidden;}
+col-sm-10{width:100%;}
+input[type="text"]{width:100%!important;}
+{/block}
+{block name="script"}
+<script>
+$(function(){
+
+	$('#breadcrumbs').parent().remove();
+	/*
+	var index = parent.layer.getFrameIndex(window.name);
+	parent.layer.iframeAuto(index);
+	$(window.parent.document.body).find('.layui-layer-iframe').css({'top':'300px'});
+	*/
+	
+	$('[name=pay_method]').bind("change" ,function(){
+		if ($(this).val() == 'other') {
+			$("input[name=pay_sn]").prop('disabled',true);
+			
+		} else {
+			$("input[name=pay_sn]").prop('disabled',false);
+		
+		}
+	})
+	
+	
+})
+</script>
+{/block}
+{block name="main-content"}
+<div class="main-content">
+
+    <div class="main-content-inner">
+
+        <div class="page-content">
+
+            <div class="row">
+                <div class="tabbable">
+  
+                    <form class="form-horizontal" action="{:url('pay')}"  role="form" method="post">
+                        <input type="hidden" name="sn" value="<?php echo $order['sn']; ?>"/>
+                        <div class="tab-content" style="border:0;">
+
+                            <div id="tag1" class="tab-pane active">
+        <?php
+      
+  
+         echo  \form\Form::input('calendar','pay_time',date('Y-m-d H:i:s',time()),'付款时间');
+         echo  \form\Form::input('text','paid_amount',$order['real_amount'],'付款金额');
+         array_keys($pays);$first_key = current($pay_keys);
+		  
+         echo  \form\Form::input('select','pay_method','','付款方式','',['items'=>$pays]);
+         echo  \form\Form::input('text','pay_sn','','支付交易号');
+         echo  \form\Form::input('text','msg','','确认付款备注');
+  
+        ?>
+
+
+                            </div>
+
+                        </div>
+                    </form>
+                </div>
+
+            </div>
+
+        </div>
+
+
+    </div>
+
+</div>
+
+
+{/block}

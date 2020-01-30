@@ -1,0 +1,267 @@
+{extend name="template/wap/public/base.html" /}
+{block name="title"}探索者联盟{/block}
+{block name="css"}
+    <link rel="stylesheet" type="text/css" href="__TMPL__/alert/css/jquery.alertable.css"/>
+	<style type="text/css">
+		.mui-bar-nav{opacity: 0;}
+		.radius-left-arrow{position:absolute;z-index:2;left:10px;top:5px;border-radius: 100%;padding:3px;background-color:rgba(0,0,0,0.3);color:#fff}
+		.goods-view{position:relative;}
+		.goods-view .mui-slider-indicator .mui-indicator{width:auto;height:auto;background: transparent;margin:0;border: none;box-shadow: 0 0 0 0;border-radius: 0;display: none;}
+		.goods-view .mui-slider-indicator .mui-indicator.mui-active{display: inline-block;}
+		.slider-indicator-box{background-color:rgba(0,0,0,.5);float:right;border-radius: 10px;line-height: 20px;color:#fff;padding:0 10px;margin-right:10px;}
+		.slider-indicator-box::after{content:'/ 3';display: inline-block;}
+		#conente img {
+		    width: 100%;
+		}
+	</style>
+{/block}
+{block name="script"}
+    <script src="__TMPL__/js/util.js" type="text/javascript" charset="utf-8"></script>
+	<script src="__TMPL__/js/comment.js" type="text/javascript" charset="utf-8"></script>
+	<script src="__TMPL__/alert/js/velocity.min.js" type="text/javascript" charset="utf-8"></script>
+    <script src="__TMPL__/alert/js/velocity.ui.min.js" type="text/javascript" charset="utf-8"></script>
+    <script src="__TMPL__/alert/js/jquery.alertable.min.js" type="text/javascript" charset="utf-8"></script>
+	<script type="text/javascript">
+        message = {};
+        img = '';
+        var sku_id;
+		$(function(){
+			function getScrollTop(){
+		        var scrollTop=0;
+		        if(document.documentElement && document.documentElement.scrollTop){
+		            scrollTop=document.documentElement.scrollTop;
+		        }else if(document.body){
+		            scrollTop=document.body.scrollTop;
+		        }
+		        return scrollTop;
+		    }
+		    document.onscroll = function(){
+         		var scroll = getScrollTop()/120;
+		    	var opacity = (scroll < 1 ? scroll : 1)
+		       $("header").css({"opacity":opacity})
+		    }
+	    	util.tab('.tab-bar','.tab-hd-item','.tab-item');
+		    $('#choose .select-goodssize-box').each(function(k, v) {
+		        var temp = v;
+                var text_key = $(temp).children("span:first").find('label').attr('data-name');
+                var text_value = $(temp).children("span:first").find('label').attr('data-value');
+                message[text_key] = text_value;
+		    });
+		    $('#choose .select-goodscolor-box').each(function(k, v) {
+		        var temp = v;
+                var text_key = $(temp).children("span:first").find('label').attr('data-name');
+                var text_value = $(temp).children("span:first").find('label').attr('data-value');
+                img = $(temp).children("span:first").find('label').attr('data-img');
+                message[text_key] = text_value;
+            });
+		    //console.log();
+            // 请求数据延迟执行
+            setTimeout(function(){ajax_spec();},500);
+		})
+        function urlGet()
+        {
+            var aQuery = window.location.href.split("?");//取得Get参数
+            var aGET = new Array();
+            if(aQuery.length > 1)
+            {
+                var aBuf = aQuery[1].split("&");
+                for(var i=0, iLoop = aBuf.length; i<iLoop; i++)
+                {
+                    var aTmp = aBuf[i].split("=");//分离key与Value
+                    aGET[aTmp[0]] = aTmp[1];
+                }
+            }
+            return aGET;
+        }
+		function buy(){
+            var sum = $("input[name='sum']").val();
+            var GET = urlGet();
+            var spu_id = GET['id'];
+            var data = JSON.stringify(message);
+            window.location.href='/order/order/confirm?spu_id=' + spu_id + '&message='+ data + '&sum=' + sum;
+		}
+		function select_text(obj){ //选择属性
+            var temp = obj;
+            var key = $(temp).find('label').attr('data-name');
+            var value = $(temp).find('label').attr('data-value');
+            img = $(temp).find('label').attr('data-img');
+            message[key] = value;
+            // 请求数据
+            ajax_spec();
+		}
+		function cart(){
+		    var nums = $("input[name='sum']").val();
+            $.post('/order/cart/cart_add',{sku_id:sku_id, nums:nums},function(data) {
+                $.alertable.alert(data.message);
+            },'json');
+		}
+		function ajax_spec(){
+		    // 获取数据
+            var GET = urlGet();
+			var spu_id = GET['id'];
+            var data = JSON.stringify(message);
+            $.ajax({
+                url : '/goods/index/details_spec',
+                data : {spu_id : spu_id, spec : data},
+                type: 'post',
+                dataType: "json",
+                success: function(result){
+                    if(result.status){
+                        sku_id = result.result.sku_id;
+                        $('.shop_price').html(result.result.shop_price);
+                    }
+                }
+            });
+		}
+	</script>
+{/block}
+{block name="header"}
+    <header class="mui-bar mui-bar-nav bg-theme">
+	    <a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+	    <h1 class="mui-title">产品详情</h1>
+	</header>
+{/block}
+{block name="content"}
+<div class="content-wrap" style="height:1000px">
+		<div class="goods-view">
+			<a class="mui-icon mui-icon-left-nav radius-left-arrow"></a>
+			<div id="slider" class="mui-slider" style="height: 400px;">
+				<div class="mui-slider-group mui-slider-loop">
+					<div class="mui-slider-item mui-slider-item-duplicate">
+                        <a href="#">
+                        {php}
+                            $last = $info['imgs'][count($info['imgs'])-1]
+                        {/php}
+							<img src="{$last}">
+						</a>
+					</div>
+                   {volist name="info.imgs" id="data"}
+					<div class="mui-slider-item">
+						<a href="#">
+							<img id="banner" height="400px" src="{$data}">
+						</a>
+					</div>
+                    {/volist}
+					<div class="mui-slider-item mui-slider-item-duplicate">
+                        <a href="#">
+							<img src="{$info.imgs[0]}">
+						</a>
+					</div>
+				</div>
+				<div class="mui-slider-indicator">
+					<div class="slider-indicator-box">
+						<div class="mui-indicator mui-active">1</div>
+						<div class="mui-indicator">2</div>
+						<div class="mui-indicator">3</div>
+					</div>
+				</div>
+			</div>
+			<div class="pd10 section">
+				<div class="mb10 ellipsis-s">
+					<p class="ellipsis-text">{$info.subtitle}</p>
+				</div>
+				<div class="mb10 flex-justify">
+					<span class="f-theme fs20"><span class="fs14">￥</span><span class="shop_price">--</span></span>
+					<span class="">
+						购买数量
+						<div class="mui-numbox " data-numbox-min="1">
+							<button class="mui-btn mui-btn-numbox-minus" type="button">-</button>
+							<input class="mui-input-numbox goods_num" name="sum" type="number" value='1'>
+							<button class="mui-btn mui-btn-numbox-plus" type="button">+</button>
+						</div>
+					</span>
+				</div>
+				<div class="flex-justify fs10 f-darkgray">
+					<span>月销量：{$info.month}</span>
+					<span>快递：{$info.express}</span>
+					<span>{$info.province}{$info.city}</span>
+				</div>
+			</div>
+			<div id="choose" class="section mt10 pd10">
+			{volist name="spec" id = 'data'}
+				{if condition="$data.style eq 0"}<!--文字展示-->
+					<div class="select-goodssize  mt10 ">
+						<span class="fs12 mb5" style="float: left; margin-top: 5px; margin-right: 10px;">选择{$data.name}</span>
+						<div class="select-goodssize-box">
+							{volist name="data['value']" id = 'v'}
+							<span onclick="select_text(this)">
+									   <label class="checkbox" data-name="{$data.name}" data-value="{$v}">
+									   <input type="radio" class="select_size" {if condition="$key==0"}checked{/if} name="select_size_{$data.id}" />
+									   <span class="selet-goodssize-item mui-icon" style="height: 30px; line-height: 25px; border-radius: 5px;">{$v}</span>
+									</label>
+									</span>
+							{/volist}
+						</div>
+					</div>
+				{elseif condition="$data.style eq 1"}<!--颜色展示-->
+					<div class="select-goodssize  mt10 ">
+						<span class="fs12 mb5" style="float: left; margin-top: 5px; margin-right: 10px;">选择{$data.name}</span>
+						<div class="select-goodssize-box">
+							{volist name="data['color']" id = 'vv'}
+									<span onclick="select_text(this)">
+									   <label class="checkbox" data-name="{$data.name}" data-value="{$data['value'][$key]}" data-color="{$vv}">
+									   <input type="radio" class="select_color" {if condition="$key==0"}checked{/if} name="select_color_{$data.id}" />
+									   <span class="selet-goodssize-item mui-icon" style="background-color:{$vv};width: 30px; height: 30px; border-radius: 5px;"></span>
+									</label>
+									</span>
+							{/volist}
+						</div>
+					</div>
+				{elseif condition="$data.style eq 2"}<!--图片展示-->
+					<div class="select-goodscolor" style="margin-top: 10px;">
+						<span class="fs12 mb5" style="float: left; margin-top: 20px; margin-right: 10px;">选择{$data.name}</span>
+						<div class="select-goodscolor-box">
+							{volist name="data['img']" id = 'vvv'}
+							<span onclick="select_text(this)">
+										<label class="checkbox" data-name="{$data.name}" data-value="{$data['value'][$key]}" data-img="{$vvv}">
+										<input type="radio" class="select_img" {if condition="$key==0"}checked{/if} name="select_img_{$data.id}"/>
+											<img class="goods-img" style="border-radius: 5px;" src="{$vvv}"/>
+											<span style="display:inline-block;width: 50px; text-align: center;">{$data['value'][$key]}</span>
+									</label>
+									</span>
+							{/volist}
+						</div>
+					</div>
+				{/if}
+			{/volist}
+			</div>
+			<div class="good-info-comment tab-bar section mt10">
+				<ul class="tab-hd">
+					<li class="tab-hd-item cur">商品详情</li>
+					<li class="tab-hd-item">全部评价</li>
+				</ul>
+				<div class="tab-bd">
+					<div class="tab-item">
+						<div id="conente" style="text-align: center;">
+							{$info.description}
+						</div>
+					</div>
+					<div class="tab-item">
+						<ul class="goods-comment-list">
+						{volist name="comment" id = 'data'}
+                        <li class="goods-comment-item pcol20 prow10">
+                            <div class="flex-justify mb10 f-darkgray">
+                                <div class="user ">
+                                    <img class="user-avatar" src="{$data.face}" />
+                                    <span class="user-name">{$data.realname}</span>
+                                </div>
+                                <span>{$data.created}</span>
+                            </div>
+                            <div class="ellipsis-s">
+                                <p class="ellipsis-text">{$data.content}</p>
+                            </div>
+                           </li>
+						{/volist}
+						</ul>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+		<footer class="foot-fillspace">
+    		<div class="fixed-bar flex  layout-row pd0 ">
+    			<button onclick="cart()" class="btn btn-block col-6 btn-blue fs16" >加入购物车</button>
+    			<button onclick="buy()" class="btn btn-block col-6 btn-theme  fs16">立即购买</button>
+    		</div>
+    	</footer>
+{/block}

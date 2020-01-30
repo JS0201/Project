@@ -1,0 +1,188 @@
+{extend name="admin@public/base" /}
+
+{block name="script"}
+<script>
+
+
+    function get_model(modelid){
+        $.get('{:url("ajax_select_tpl")}','modelid='+modelid+'&formhash='+formhash,function(data){
+
+            $('#category_template,#list_template,#show_template').each(function(k,v){
+
+                var html='';
+                var obj=$(v).attr('id');
+                $.each(data[obj],function(k,v){
+                    var selected='';
+                    if($('#'+obj).data('template')==v){
+                        selected='selected="selected"';
+                    }
+                    html+='<option value="'+v+'" '+selected+'>'+v+'</option>';
+                })
+                $('#'+obj).html(html);
+
+            })
+
+            /*
+            var html='';
+            $.each(data['category_template'],function(k,v){
+                var selected='';
+                if($('#category_template').data('template')==v){
+                    selected='selected="selected"';
+                }
+                html+='<option value="'+v+'" '+selected+'>'+v+'</option>';
+            })
+            $('#category_template').html(html);
+
+            */
+
+        },'json');
+    }
+    $(function(){
+        $('[name="modelid"]').change(function(){
+            var modelid=$(this).val();
+            get_model(modelid);
+        })
+
+        {if condition="isset($parent_info['modelid'])"}
+           get_model({$parent_info['modelid']});
+        {else/}
+
+            get_model($('[name="modelid"] option:selected').val());
+        {/if}
+
+    })
+</script>
+{/block}
+{block name="main-content"}
+<div class="main-content">
+
+    <div class="main-content-inner">
+
+        <div class="page-content">
+
+            <div class="row">
+                <div class="tabbable">
+                    <ul class="nav nav-tabs" >
+
+                        <li class="active"><a data-toggle="tab" href="#tag1">基本信息</a></li>
+                        <li><a data-toggle="tab" href="#tag2">模板设置</a></li>
+
+                        <!--<li><a data-toggle="tab" href="#tag4">内容设置</a></li>-->
+
+                    </ul>
+
+                    <form class="form-horizontal"  role="form" method="post">
+                        <input type="hidden" name="id" value="{:isset($info['id'])?$info['id']:''}">
+                        <div class="tab-content">
+
+                            <div id="tag1" class="tab-pane active">
+        <?php
+         echo  \form\Form::input('select','parent_id',isset($info['id'])?$info['parent_id']:(isset($parent_info['id'])?$parent_info['id']:'0'),'上级分类','请选择上级分类',array('items'=>$category_node));
+         echo  \form\Form::input('select','modelid',isset($info['id'])?$info['modelid']:(isset($parent_info['modelid'])?$parent_info['modelid']:0),'内容模型','请选择内容模型',array('items'=>$model));
+         echo  \form\Form::input('text','name',isset($info['name'])?$info['name']:'','分类名称','分类名称');
+         echo  \form\Form::input('text','dir_name',isset($info['dir_name'])?$info['dir_name']:'','英文名称','英文名称');
+         echo  \form\Form::input('upload','thumb',isset($info['thumb'])?$info['thumb']:'','栏目图片','栏目图片',array('num'=>1,'input'=>'thumb',''));
+         echo  \form\Form::input('text','url',isset($info['url'])?$info['url']:'','栏目链接','设置后点击栏目跳转到指定链接');
+         echo  \form\Form::input('text','sort',isset($info['sort']) ? $info['sort'] :100,'排序','请填写自然数，文字分类列表将会根据排序进行由小到大排列显示');
+         echo  \form\Form::input('radio','navshow',isset($info['navshow']) ? $info['navshow'] :0,'是否导航','是否在前台导航显示',array('items'=>array('否','是')));
+         echo  \form\Form::input('radio','display',isset($info['display']) ? $info['display'] :1,'是否显示','是否在前台显示',array('items'=>array('否','是')));
+        ?>
+
+
+                            </div>
+
+                            <div id="tag2" class="tab-pane">
+
+                              <div class="form-group">
+                                  <label class="col-sm-2 control-label no-padding-right">栏目首页模板</label>
+                                  <div class="col-sm-10">
+                                      <div class="col-xs-10 col-sm-5 gboy-padding-0">
+                                          <select class="form-control" name="category_template" id="category_template" data-template="{:isset($parent_info['category_template'])?$parent_info['category_template']:''}">
+                                              <option value="">请选择模板</option>
+                                          </select>
+                                      </div>
+                                      <span class="help-inline col-xs-12 col-sm-7">
+                                          <span class="middle">请选择模板</span>
+                                      </span>
+                                  </div>
+                              </div>
+
+                                <div class="form-group">
+                                  <label class="col-sm-2 control-label no-padding-right">栏目列表页模板</label>
+                                  <div class="col-sm-10">
+                                      <div class="col-xs-10 col-sm-5 gboy-padding-0">
+                                          <select class="form-control" name="list_template" id="list_template" data-template="{:isset($parent_info['list_template'])?$parent_info['list_template']:''}">
+                                              <option value="">请选择模板</option>
+                                          </select>
+                                      </div>
+                                      <span class="help-inline col-xs-12 col-sm-7">
+                                          <span class="middle">请选择模板</span>
+                                      </span>
+                                  </div>
+                              </div>
+
+                                <div class="form-group">
+                                  <label class="col-sm-2 control-label no-padding-right">内容页模板</label>
+                                  <div class="col-sm-10">
+                                      <div class="col-xs-10 col-sm-5 gboy-padding-0">
+                                          <select class="form-control" name="show_template" id="show_template" data-template="{:isset($parent_info['show_template'])?$parent_info['show_template']:''}">
+                                              <option value="">请选择模板</option>
+                                          </select>
+                                      </div>
+                                      <span class="help-inline col-xs-12 col-sm-7">
+                                          <span class="middle">请选择模板</span>
+                                      </span>
+                                  </div>
+                              </div>
+
+
+                            </div>
+
+                            <div id="tag3" class="tab-pane">
+        <?php
+         echo  \form\Form::input('text','meta_title',isset($info['meta_title'])?$info['meta_title']:'','栏目标题','针对搜索引擎设置的标题');
+         echo  \form\Form::input('text','meta_keywords',isset($info['meta_keywords'])?$info['meta_keywords']:'','栏目关键词','关键字中间用半角逗号隔开');
+         echo  \form\Form::input('textarea','meta_description',isset($info['meta_description'])?$info['meta_description']:'','栏目描述','针对搜索引擎设置的网页描述');
+        ?>
+                            </div>
+
+                            <div id="tag4" class="tab-pane">
+                                <?php
+
+                         //echo  \form\Form::editor('content',isset($info['content'])?$info['content']:'');
+                         ?>
+                            </div>
+
+
+
+                        </div>
+
+
+                        <div class="clearfix form-actions">
+                            <div class="col-md-offset-2 col-md-10">
+                                <button class="btn btn-info"  type="button">
+                                    <i class="icon-ok bigger-110"></i>
+                                    保存
+                                </button>
+
+
+                                <button class="btn" type="reset">
+                                    <i class="icon-undo bigger-110"></i>
+                                    重置
+                                </button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+
+            </div>
+
+        </div>
+
+
+    </div>
+
+</div>
+
+
+{/block}

@@ -1,0 +1,469 @@
+* {
+	margin: 0;
+	padding: 0;
+	font-family: "微软雅黑";
+}
+
+.header{
+	background-color: #fff;
+	color: #191919;
+	height: 48px;
+    line-height: 48px;
+    text-align: center;
+    position: relative;
+}
+
+.header a{
+	position: absolute;
+    left: 15px;
+}
+
+.header a.user-set-btn{
+	right: 15px;
+    left: unset;
+    font-size: 13px;
+    color: #1f1a1c;
+}
+
+
+.background-main {
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    background: #f5f5f5;
+    z-index: -1;
+}
+
+/*用户系统*/
+.user-super{
+	
+    background: #fff;
+    margin: 15px 0;
+    padding: 20px 15px;
+    padding-left: 40px;
+}
+
+.user-super a{
+	display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.user-super div img{
+	display: block;
+	width: 100%;
+	border-radius: 50%;
+}
+
+.user-super div.user-img{
+	width: 1.3rem;
+	height: 1.3rem;
+	padding: 2px;
+    border-radius: 50%;
+    background: #e7e7e7;
+}
+
+.user-super h2{
+	font-size: 16px;
+	font-weight: normal;
+	color: #1f1a1c;
+	margin-bottom: 10px;
+}
+
+.user-super p{
+	font-size: 14px;
+	color: #9d29f6;
+	position: relative;
+}
+
+.user-super p span{
+	position: absolute;
+    font-size: 22px;
+    color: #9d29f6;
+    width: 0;
+    left: -40px;
+    top: -2px;
+}
+
+.user-justvip{
+	padding: 15px;
+	background: #fff;
+}
+
+.user-justvip-head{
+	margin-bottom: 20px;
+}
+
+.user-justvip-head p{
+	font-size: 14px;
+	color: #a1979b;
+}
+
+.user-justvip-item{
+	display: flex;
+	flex-wrap: wrap;
+	align-content: space-between;
+}
+
+.user-justvip-col{
+	flex-basis: 100%;
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 20px;
+}
+
+.user-justvip-col >div{
+	width: 50%;
+	border-radius: 5px;
+	box-shadow: 0 5px 10px #ccc;
+}
+
+.user-justvip-col >div a{
+	display: flex;
+	padding: 20px 0;
+	align-items: center;
+}
+
+.user-activation a div img{
+	width: 18px;
+    height: 18px;
+    display: block;
+    margin: auto;
+    margin-top: 11px;
+}
+
+.user-examine span{
+	color: #36d27c;
+}
+
+.user-apply span{
+	color: #a362f3;
+}
+
+.user-team span{
+	color: #f29d41;
+}
+
+.user-justvip-col >div a div{
+	background: #fff;
+	border-radius: 50%;
+	width: 40px;
+    height: 40px;
+    line-height: 40px;
+    text-align: center;
+    margin: 0 10px;
+}
+
+.user-justvip-col >div a div span{
+	font-size: 24px;
+}
+
+.user-activation{
+	background: #6e8dff;
+	margin-right: 20px;
+}
+
+.user-justvip-col p{
+	font-size: 16px;
+	color: #fff;
+}
+
+
+.user-examine{
+	background: #36d27c;
+}
+
+.user-apply{
+	background: #a362f3;
+	margin-right: 20px;
+}
+
+.user-team{
+	background: #f29d41;
+}
+
+/*激活会员*/
+.activation-input{
+	background: #fff;
+	padding: 20px 15px;
+}
+
+.activation-input p{
+	font-size: 16px;
+	color: #1f1a1c;
+	margin-bottom: 15px;
+}
+
+.activation-input form input{
+	border: none;
+    width: 100%;
+    background: #f7f6f6;
+    line-height: 40px;
+    padding: 0 15px;
+    border-radius: 5px;
+}
+
+.activation-btn{
+	background: url(../img/btn-bj.png) no-repeat;
+    background-size: 100% 100%;
+    text-align: center;
+    padding: 15px 20px;
+    margin: 30px 0;
+}
+
+.activation-btn a{
+	font-size: 16px;
+    color: #fff;
+    display: block;
+}
+
+.activation-jilu{
+	background: #fff;
+    margin-top: 15px;
+    padding: 20px 0;
+}
+
+.activation-jilu >p{
+	font-size: 16px;
+    color: #1f1a1c;
+    border-bottom: 1px solid #ccc;
+    padding: 0 15px;
+    padding-bottom: 10px;
+}
+
+.activation-list{
+	padding: 20px 15px;
+	padding-bottom: 0;
+}
+
+.activation-list-item{
+	display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+
+
+/*审核升级*/
+.mutual-detail-item{
+	margin: 15px 15px 0;
+    background: #fff;
+    border-radius: 5px;
+    box-shadow: 0px 0px 10px #eaeef8;
+}
+
+.mutual-detail-item .examine-list div{
+	font-size: 16px;
+	color: #000000;
+	margin-bottom: 20px;
+}
+
+.mutual-detail-item .examine-list div span{
+	font-size: 16px;
+	color: #000000;
+}
+
+
+.mutual-detail-content >div:last-child{
+	margin-bottom: 40px;
+}
+
+.examine-list{
+	padding: 20px 20px 0 20px;
+	margin-bottom: 20px;
+}
+
+.examine-btn{
+    text-align: center;
+    line-height: 48px;
+    background: #1cc684;
+    box-shadow: 0px 5px 10px #ccc;
+    border-radius: 0 0 5px 5px;
+}
+
+.examine-btn a{
+	font-size: 16px;
+	color: #fff;
+	display: block;
+}
+
+/*设置页面*/
+.set-main{
+	margin-top: 15px;
+	box-shadow: 0px 3px 5px #dadada;
+}
+
+.set-main input{
+	margin-bottom: 20px;
+	font-size: 15px;
+	line-height: 48px !important;
+	color: #1f1a1c;
+	border: 1px solid #dadada !important;
+}
+.set-btn {
+	margin: 30px 15px;
+}
+
+/*申请升级*/
+.upgrade-sub{
+	margin-top: 15px;
+    background: #fff;
+    padding: 20px 15px;
+}
+
+.upgrade-sub >div{
+	font-size: 16px;
+	color: #1f1a1c;
+}
+
+.target-grade{
+	margin-bottom: 15px;
+}
+
+.apply-record{
+	margin-top: 15px;
+    padding: 20px 0px;
+    background: #fff;
+}
+
+.apply-record-head{
+	font-size: 16px;
+    color: #1f1a1c;
+    border-bottom: 1px solid #ccc;
+    padding: 0 15px;
+    padding-bottom: 10px;
+}
+
+.apply-record-content{
+	padding: 15px;
+	padding-bottom: 0;
+}
+
+.apply-article-head{
+	font-size: 12px;
+	color: #ababab;
+	margin-bottom: 10px;
+}
+
+.apply-article{
+	background: #f7f6f6;
+    border-radius: 5px;
+}
+
+.target-upgrade span.active{
+	color: #9d29f6;
+}
+
+.apply-article ul li div span.name-active{
+	color: #9d29f6;
+}
+
+.apply-article ul li div{
+	font-size: 16px;
+    color: #000000;
+    margin-bottom: 20px;
+}
+
+.apply-article ul li div span{
+	font-size: 16px;
+    color: #000000;
+}
+
+.apply-article ul li div:last-child{
+	margin-bottom: 0;
+}
+
+.apply-article ul li{
+	padding-bottom: 20px;
+    border-bottom: 1px solid #ccc;
+    padding: 20px 15px;
+}
+
+.apply-article ul li:last-child{
+	border-bottom: none;
+}
+
+
+/*我的团队*/
+
+.team-record-head{
+	display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 16px;
+    border-bottom: 1px solid #ccc;
+    padding: 0 15px;
+    padding-bottom: 10px;
+}
+
+.team-record-head .teamnum{
+	font-size: 12px;
+	color: #a1979b;
+}
+
+.team-record-head .teamnum span{
+	color: #a1979b;
+}
+
+.team-article ul li{
+	display: flex;
+    justify-content: space-around;
+    align-items: center;
+    padding: 20px 15px;
+    margin: 15px;
+    border: 1px solid #e9e9e9;
+    box-shadow: 0px 3px 4px #e9e9e9;
+    border-radius: 5px;
+	
+}
+
+.team-article ul li div.active{
+	color: #00e3f6;
+}
+
+.team-vip{
+	font-size: 16px;
+	color: #1f1a1c;
+	width: 25%;
+}
+
+.team-notice{
+	width: 60%;
+}
+
+.team-notice div{
+	font-size: 14px;
+	color: #1f1a1c;
+	margin-bottom: 5px;
+	overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.team-notice div span{
+	color: #1f1a1c;
+}
+
+
+
+
+
+@media screen and (max-width: 321px) {
+	body {
+		font-size: 16px
+	}
+}
+
+@media screen and (min-width: 321px) and (max-width:400px) {
+	body {
+		font-size: 17px
+	}
+}
+
+@media screen and (min-width: 400px) {
+	body {
+		font-size: 19px
+	}
+}
+

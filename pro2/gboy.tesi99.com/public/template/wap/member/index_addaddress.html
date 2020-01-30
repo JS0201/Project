@@ -1,0 +1,119 @@
+{extend name="template/wap/public/base.html" /}
+{block name="title"}探索者联盟{/block}
+{block name="css"}
+    <link href="__TMPL__/css/mui.picker.min.css" rel="stylesheet" />
+    <link href="__TMPL__/css/mui.poppicker.css" rel="stylesheet" />
+    <link rel="stylesheet" type="text/css" href="__TMPL__/alert/css/jquery.alertable.css"/>
+{/block}
+{block name="script"}
+    <script src="__TMPL__/js/mui.picker.min.js"></script>
+    <script src="__TMPL__/js/mui.poppicker.js"></script>
+    <script src="__TMPL__/js/city.data.js" type="text/javascript" charset="utf-8"></script>
+    <script src="__TMPL__/js/city.data-3.js" type="text/javascript" charset="utf-8"></script>
+    <script src="__TMPL__/alert/js/velocity.min.js" type="text/javascript" charset="utf-8"></script>
+    <script src="__TMPL__/alert/js/velocity.ui.min.js" type="text/javascript" charset="utf-8"></script>
+    <script src="__TMPL__/alert/js/jquery.alertable.min.js" type="text/javascript" charset="utf-8"></script>
+    <script type="text/javascript">
+        (function($, doc) {
+            $.init();
+            $.ready(function() {
+                var _getParam = function(obj, param) {
+                    return obj[param] || '';
+                };
+                var cityPicker = new $.PopPicker({
+                    layer: 3
+                });
+
+                cityPicker.setData(cityData3);
+                var showCityPickerButton = doc.getElementById('showCityPickerButton');
+    //			var cityResult = doc.getElementById('cityResult');
+                showCityPickerButton.addEventListener('tap', function(event) {
+                    cityPicker.show(function(items) {
+                        showCityPickerButton.value =  _getParam(items[0], 'text') + " " + _getParam(items[1], 'text') + " " + _getParam(items[2], 'text');
+                        //返回 false 可以阻止选择框的关闭
+                        //return false;
+                    });
+                }, false);
+            });
+        })(mui, document);
+
+        /*字数限制*/
+        $("#area").on("input propertychange", function() {
+            var $this = $(this),
+                _val = $this.val(),
+                count = "";
+            if (_val.length > 100) {
+                $this.val(_val.substring(0, 100));
+            }
+            count = 100 - $this.val().length;
+            $("#text-count").text(count);
+        });
+        function send(obj)
+        {
+            var id = $(obj).attr('data-id');
+            var realname = $("input[name='realname']").val();
+            var mobile = $("input[name='mobile']").val();
+            var region = $("input[name='region']").val();
+            var address = $("textarea[name='address']").val();
+            if(!realname || !mobile || !region || !address) {
+                $.alertable.alert('请输入完整信息');
+                return false;
+            }
+           $.post('/member/index/addaddress',{name : realname, mobile : mobile, region : region,address : address,id : id },function(data) {
+                if(!data.status) {
+                    $.alertable.alert(data.message);
+                    return false;
+                }
+                $.alertable.alert('操作成功');
+               window.location.href=document.referrer;
+           },'json');
+        }
+    </script>
+{/block}
+{block name="header"}
+    <header class="mui-bar mui-bar-nav bg-theme">
+        <a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+        <h1 class="mui-title">{php} if(empty($info)){echo "添加地址";}else{echo "编辑地址";}{/php}</h1>
+    </header>
+{/block}
+{block name="content"}
+    <div class="mui-content">
+        <div class="person-data">
+            <form action="" method="post" class="pcol65">
+                <div class="flex-justify layout-row pb10">
+                    <span class="input-label col-4 tr">收件人：</span>
+                    <div class="col-8">
+                        <input class="input  " value="{$info['name']}" name="realname" type="text" placeholder="请输入收件的姓名"/>
+                    </div>
+                </div>
+                <div class="flex-justify layout-row pb10">
+                    <span class="input-label col-4 tr">手机号码：</span>
+                    <div class="col-8">
+                        <input class="input" maxlength="11" name="mobile" value="{$info['mobile']}" type="text" placeholder="请输入您的手机号码"/>
+                    </div>
+                </div>
+                <div class="flex-justify layout-row pb10">
+                    <span class="input-label col-4 tr">选择地区：</span>
+                    <div class="col-8">
+                        <input class="input  "  readonly="readonly" value="{$info['place']}" type="text" name="region" placeholder="请选择地区" id="showCityPickerButton"/>
+                    </div>
+                </div>
+                <div class="flex-justify layout-row pb10">
+                    <span class="input-label col-4 tr">详细地址：</span>
+                    <div class="col-8">
+                        <div class="layout-textarea radius-3 textarea-box" >
+                            <textarea id="area" rows="2" name="address" class="input mb0 pd5" placeholder="限100字以内">{$info.address} </textarea>
+                            <p class="f-darkgray textarea-count"><span id="text-count">100</span>/100</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="flex-justify layout-row pcol10">
+                    <span class="input-label col-4 tr">&nbsp;</span>
+                    <div class="col-8">
+                        <button type="button" onclick="send(this)" data-id="{$info['id']}" class="btn btn-theme input">提交</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+{/block}

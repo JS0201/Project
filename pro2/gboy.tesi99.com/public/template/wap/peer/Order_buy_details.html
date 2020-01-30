@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+	<meta charset="UTF-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	<meta http-equiv="X-UA-Compatible" content="ie=edge" />
+	<title>订单详情</title>
+	{include file="template/wap/Peer/title.html"}
+	<style>
+		.table-tit a{color:#333;display:block;}
+		
+		.table-tit a.cur{background:#ffd070;}
+	</style>
+	<script src="__TMPL__/js/jquery-form.js"></script>
+	<script>
+		$(function(){
+			$('.to_os').click(function(){
+				if(confirm('是否确认？')){
+					var oid=$(this).data('oid');
+					$.post('{:Url("/peer/order/buy")}','oid='+oid,function(data){
+						if(data.status=='0'){
+							alert(data.message);
+						}else{
+							alert(data.message);
+							location.href='{:Url("/peer/order/index")}';
+						}
+					},'json');
+				}
+			})
+		})
+	</script>
+	<style>
+		.fr{float:right;}
+		.fl{float: left;}
+		.copy{margin-right:10px;}
+		.trade-info-box .input{
+			border:1px solid #ccc;font-size:12px; border-radius: 5px;
+			width:46vw;;height:32px;line-height32px;padding-top:0;padding-bottom:0;
+		}
+		.trade-info-box .input-row{
+			height:auto;
+		}
+	</style>
+</head>
+<body>
+	<header class="mui-bar mui-bar-nav">
+	    <a class="mui-action-back mui-icon mui-icon-arrowleft mui-pull-left"></a>
+	    <h1 class="mui-title">订单详情</h1>
+	</header>
+	
+	<div class="mui-content trade-info-box">
+		<form class="c2c-trand myform" enctype="multipart/form-data" action=""  method="post">
+			<input name="sn" value="{$info['order_no']}" type="hidden">
+			<div class="form-group">
+				<div class="input-bar">
+					<label class="input-row">订单号：{$info['order_no']}</label>
+				</div>	
+				
+				<div class="input-bar">
+					<label class="input-row">数量：{$info['num']}</label>
+				</div>
+				<div class="input-bar">
+					<label class="input-row">价格：{$info['price']}</label>
+				</div>
+				<div class="input-bar">
+					<label class="input-row">总价：{$info['count_price']}</label>
+				</div>
+					<div class="input-bar">
+					<label class="input-row">订单状态：{$info['_status']}</label>
+				</div>
+				{if condition="$info['order_status'] gt 0 && $info['order_status'] lt 3"}
+					<div class="input-bar">
+						<label class="input-row">姓名：{$info['seller_realname']}</label>
+					</div>
+					<div class="input-bar">
+						<label class="input-row">手机号：{$seller['mobile']}</label>
+					</div>
+					<div class="input-bar">
+						<!--<div class="input-row mui-clearfix">-->
+							<!--<div class="input-lable-lin fl">微信号：<input class="input" type="text" id="foo1" value="<{$info['_bank']['wechat']}>" readonly="readonly"></div>-->
+							<!--<button type="button" class="copy fr" data-clipboard-target="#foo1" data-clipboard-action="copy">点击复制</button>-->
+						<!--</div>-->
+						
+					</div>
+					<div style="clear:both;"></div>
+					<div class="input-bar">
+						<!--<div class="input-row mui-clearfix">-->
+							<!--<div class="input-lable-lin fl">支付宝：<input type="text"  class="input" id="foo2" value="<{$info['_bank']['alipay']}>" readonly="readonly"></div>-->
+							<!--<button type="button" class="copy fr" data-clipboard-target="#foo2" data-clipboard-action="copy">点击复制</button>-->
+						<!--</div>-->
+					<div style="clear:both;"></div>
+					<div class="input-bar">
+						<div class="input-row mui-clearfix">
+							<div class="input-lable-lin fl">USDT地址：<input class="input" style="display: inline;" type="text" id="foo3" value="{$seller['account_bank']}" readonly="readonly"></div>
+							<button type="button" class="copy fr" data-clipboard-target="#foo3" data-clipboard-action="copy">点击复制</button>
+						</div>
+					</div>
+					<div style="clear:both;"></div>
+			{/if}
+				<div class="input-bar" style="padding-bottom:10px;">
+					<div class="input-row mui-clearfix">
+						上传凭证：
+						{if condition="$info['order_status'] eq 1"}<input name="pic" type="file" style="display:inline-table;" >
+							<!--<img src="__ROOT__/statics/images/default_no_upload.png" width="60">-->
+
+							{else/}
+
+							<a href="{$info['pay_pic']}"><img src="{$info['pay_pic']}" width="60"></a>
+						{/if}
+					</div>
+				</div>
+				<!--
+				<div class="input-bar">
+					<label class="input-row">备注</label>
+					<textarea class="input-row input" rows="4" style="height:auto" placeholder="备注"></textarea>
+				</div>-->
+			</div>
+			<input type="hidden" id="check_type" name="type" value="0" />
+			{if condition="$info['order_status'] eq 1"}
+			<div class="down-sub" style=" position: absolute; bottom:0px;">
+				<button class="btn" type="button" id="submit">确定打款</button>
+			</div>
+			{elseif condition="$info['order_status'] eq 0" /}
+			<div class="down-sub" style=" position: absolute; bottom:0px;">
+				<button class="btn" type="button" id="submit">撤销订单</button>
+			</div>
+			{/if}
+			{if condition="$info['order_status'] eq 2"}
+				<div class="down-sub"style=" position: absolute; bottom:0px;">
+					<button class="btn" type="button" id="shensu" >申诉</button>
+				</div>
+			{/if}
+			<div id="shensu_div">
+				<div class="shensu_title">申诉理由</div>
+				<textarea name="liyou" class="liyou" placeholder="请输入申诉理由"></textarea>
+				<div class="btn_div">
+					<button class="btn" type="button" id="submit2">确定申诉</button>
+					<button class="btn" type="button" id="shensu_close">取消</button>
+				</div>
+			</div>
+		</form>
+	</div>
+	<style>
+		#shensu_div{ background: white; border:1px rgb(66,138,229) solid; display:none; height: 225px; position: absolute; bottom:70px; z-index: 99999; left: 10%; width: 80%; border-radius: 12px 12px 12px 12px;}
+		.shensu_title{ width: 100%; height: 40px; line-height: 40px; text-align: center; color: white; background: rgb(66,138,229);  border-radius: 10px 10px 0px 0px;}
+		.liyou{  display:block;width: 94%; margin: 0 auto; margin-top: 10px; height: 50%;}
+		#shensu_div .btn{ background:rgb(66,138,229); color: white; height: 40px; line-height: 25px; width: 100px; border-radius: 5px 5px 5px 5px; }
+		#shensu_div .btn_div{ text-align: center; margin-top: 10px;  }
+	</style>
+		
+		<script>
+		$(function(){
+			$("#submit").click(function () {
+				var obj=$(this).parents('form');
+					obj.ajaxSubmit(function(data){
+						data=eval("("+data+")")
+						if(data.status==0){
+							alert(data.message);
+						}else{
+							alert(data.message);
+							location.href="{:Url('/peer/order/buy_details')}?sn={$info['order_no']}";
+						}
+					});
+				});
+		})
+        $("#submit2").click(function () {
+            $("#check_type").val("1");
+            var obj=$(this).parents('form');
+            obj.ajaxSubmit(function(data){
+                data=eval("("+data+")")
+                if(data.status==0){
+                    alert(data.message);
+                }else{
+                    alert(data.message);
+                    location.href="{:Url('/peer/order/buy')}";
+                }
+            });
+        });
+        $("#shensu").click(function(){
+            $("#shensu_div").slideToggle(300);
+        })
+        $("#shensu_close").click(function(){
+            $("#shensu_div").slideToggle(300);
+        })
+		
+		// 手机快速复制插件
+		var clipboard = new ClipboardJS('.copy');
+		clipboard.on('success', function(e) {
+			console.log(e);
+			alert('复制成功');
+		});
+
+		clipboard.on('error', function(e) {
+			console.log(e);
+			alert('请手动复制');
+		});
+		
+		</script>
+</body>
+</html>

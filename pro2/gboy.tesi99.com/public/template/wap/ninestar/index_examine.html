@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>审核升级</title>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no" />
+		<link rel="stylesheet" href="__ROOT__/template/wap/ninestar/static/css/index.css" />
+		<link rel="stylesheet" type="text/css" href="__ROOT__/template/wap/ninestar/static/css/reset.css" />
+		<link rel="stylesheet" type="text/css" href="__ROOT__/template/wap/ninestar/static/css/iconfont.css"/>
+	</head>
+	<body>
+		<div class="background-main"></div>
+		<div class="header">
+			<a href="/ninestar/index/index"><span class="iconfont icon-fanhui"></span></a>
+			审核升级
+		</div>
+		<div class="mutual-detail-content">
+			{volist name="list" id="data"}
+			<div class="mutual-detail-item">
+				<div class="examine-list">
+					<div>
+						姓名：<span>{$data.realname}</span>
+					</div>
+					<div>
+						电话：<span>{$data.phone}</span>
+					</div>
+					<div>
+						微信：<span>{$data.wechat}</span>
+					</div>
+					<div>
+						申请时间：<span>{$data.created}</span>
+					</div>
+				</div>
+				<div class="examine-btn">
+					<a class="send" data-uid="{$data.uid}" href="javascript:void(0);">审核通过</a>
+				</div>
+			</div>
+			{/volist}
+		</div>
+		<script type="text/javascript" src="__ROOT__/template/wap/ninestar/static/js/jquery.min.js"></script>
+		<script type="text/javascript" src="__ROOT__/template/wap/ninestar/static/js/index.js" ></script>
+		<script>
+			$(function() {
+			    $('.send').click(function() {
+					var uid = $(this).attr('data-uid');
+					$.post('/ninestar/index/examine',{uid : uid},function(data) {
+						if(!data.status) {
+							alert(data.message);
+							return false;
+						}
+						alert('审核成功');
+						window.location.reload();
+					},'json');
+				});
+			});
+		</script>
+	</body>
+</html>
+

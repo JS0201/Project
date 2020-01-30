@@ -1,0 +1,192 @@
+{extend name="template/wap/public/base.html" /}
+{block name="title"}探索者联盟{/block}
+{block name="css"}
+  <link rel="stylesheet" type="text/css" href="__TMPL__/alert/css/jquery.alertable.css"/>
+{/block}
+{block name="script"}
+<script src="__TMPL__/alert/js/velocity.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="__TMPL__/alert/js/velocity.ui.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="__TMPL__/alert/js/jquery.alertable.min.js" type="text/javascript" charset="utf-8"></script>
+    <script type="text/javascript">
+		var is_add_order = 0;
+            /*字数限制*/
+            $("#area").on("input propertychange", function() {
+                var $this = $(this),
+                    _val = $this.val(),
+                    count = "";
+                if (_val.length > 100) {
+                    $this.val(_val.substring(0, 100));
+                }
+                count = 100 - $this.val().length;
+                $("#text-count").text(count);
+            });
+            function send(isbuy) {
+                // 判断是否重复建立订单
+				if(is_add_order){
+                    $.alertable.alert('订单已提交成功，不可重复建立订单');
+				}
+				else{
+                    var isbuy = isbuy;
+                    var remark = $('#area').val();
+                    var params = {};
+                    var div = $("div[name='name']");
+                    div.each(function(k, v) {
+                        var skuid = $(v).attr('data-skuid');
+                        var sum = $(v).attr('data-sum');
+                        var specid = $(v).attr('data-specid');
+                        var msg = $(v).attr('data-msg');
+                        var thumb = $(v).attr('data-thumb');
+                        params[k] = {"sku_id" : skuid, "sum" : sum, "message" : msg, "specid" : specid,"thumb" : thumb};
+                    })
+                    var addressid = $('#address').val();
+                    $.ajax({
+                        type: "post",
+                        url: "/order/order/create",
+                        data: { params : params, remark: remark,addressid: addressid, isbuy: isbuy},
+                        dataType: "json",
+                        success: function(data){
+                            if(!data.status) {
+                                // 判断是否支付失败
+                                if(data.referer === 1 ){ // 支付失败
+                                    is_add_order = 1;
+                                    $.alertable.confirm(data.message, {
+                                        cancelButton : "<button class='alertable-cancel' onclick='' type='button'>取消</button>",
+                                        okButton: "<button class='alertable-ok' onclick='jump_allorder()' type='button'>确认</button>"}
+                                    ).then(function() {});
+                                }else{
+                                	$.alertable.alert(data.message);
+                                }
+                            }else{
+                                is_add_order = 1;
+								//创建成功
+								$.alertable.alert(data.message);
+								window.location.href = data.referer;
+                            }
+                        }
+                    });
+				}
+            }
+        function jump_allorder(){
+                window.location.href = '/member/index/allorder'
+		}
+            function confirm() {
+                var addressid = $('#address').val()
+                if(!addressid) {
+                    $.alertable.confirm('请添加收货地址',{
+                        cancelButton : "<button class='alertable-cancel' type='button'>取消</button>",
+                        okButton: "<button class='alertable-ok' onclick='jump()' type='button'>确认</button>"
+                    })
+                    return false;
+                }
+                var option = {
+                    cancelButton : "<button class='alertable-cancel' onclick='send(0)' type='button'>取消</button>",
+                    okButton: "<button class='alertable-ok' onclick='send(1)' type='button'>确认</button>"
+                }
+                $.alertable.confirm('是否确认支付?',option).then(function() {});
+            }
+            function jump()
+            {
+                window.location.href = '/member/index/addaddress';
+            }
+            function urlGet()
+            {
+                var aQuery = window.location.href.split("?");//取得Get参数
+                var aGET = new Array();
+                if(aQuery.length > 1)
+                {
+                    var aBuf = aQuery[1].split("&");
+                    for(var i=0, iLoop = aBuf.length; i<iLoop; i++)
+                    {
+                        var aTmp = aBuf[i].split("=");//分离key与Value
+                        aGET[aTmp[0]] = aTmp[1];
+                    }
+                }
+                return aGET;
+            }
+     </script>
+{/block}
+{block name="header"}
+	<header class="mui-bar mui-bar-nav bg-theme">
+	    <a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+	    <h1 class="mui-title">确认订单</h1>
+	</header>
+{/block}
+{block name="content"}
+<div class="mui-content">
+		<div class="section mb10">
+			<a class="flex pd10 mui-navigate-right " href="/member/index/address">
+				<div class="max-col-4 mr8">
+					<p class="ellipsis">{$address.name}</p>
+				</div>
+				<div class="">
+				    <input type="hidden" id="address" value="{$address.id}">
+					<p class="ellipsis"><i class="mui-icon mui-icon-phone fs20"></i><span>{$address.mobile}</span></p>
+					<div class="ellipsis-s mt5"><p class="ellipsis-text">{$address.address}</p></div>
+				</div>
+			</a>
+		</div>
+
+		<div class="section f-darkgray pcol10">
+		{notempty  name="list"}
+		{volist name="list" id="data"}
+			<div class="mui-clearfix order-confirm prow10 mb25" name="name" data-sum = "{$data.sum}" data-specid="{$data.spec_id}" data-thumb="{$data.thumb}" data-skuid="{$data.sku_id}" data-msg="{$data.message}">
+				<div class="goods-order-img"><img class="goods-img" src="{$data.thumb}"/></div>
+				<div class="goods-order-synopsis">
+					<div class="ellipsis-s">
+						<p class="ellipsis-text">{$data.sku_name}</p>
+					</div>
+					<p class="ellipsis fs10 mcol15">{$data.message}</p>
+					<p class="pllipsis goods-pirce-box pt5">价格：<span class="f-theme"><span class="fs10">￥</span>{$data.price}</span></p>
+					<span class="goods-order-other">x<span class="fs16" name="sum">{$data.sum}</span></span>
+				</div>
+			</div>
+			 {/volist}
+			 {else/}
+			 <div class="mui-clearfix order-confirm prow10 mb25"  name="name" data-sum = "{$good.sum}"data-specid="" data-thumb="{$good.thumb}" data-skuid="{$good.sku_id}" data-msg="{$good.message}">
+                <div class="goods-order-img"><img class="goods-img" src="{$good.thumb}"/></div>
+                <div class="goods-order-synopsis">
+                    <div class="ellipsis-s" style="height: 25px;">
+                        <p class="ellipsis-text">{$good.sku_name}</p>
+                    </div>
+					<p class="ellipsis fs10">
+					{volist name="$good.message" id="message"}
+                    {$message}&nbsp;&nbsp;
+					{/volist}
+					</p>
+                    <p class="pllipsis goods-pirce-box pt5">价格：<span class="f-theme"><span class="fs10">￥</span>{$good.price}</span></p>
+                    <span class="goods-order-other">x<span class="fs16">{$good.sum}</span></span>
+                </div>
+            </div>
+            {/notempty}
+			<div class="pay-search  mb5">
+				<a class="flex  mui-navigate-right prow10">
+					<div class="max-col-4 mr8">
+						<p class="ellipsis">支付配送</p>
+					</div>
+					<div class="tr fill-block">
+						<p class="ellipsis pay-type">在线支付</p>
+						<p class="ellipsis">商家配送</p>
+					</div>
+				</a>
+			</div>
+			<div class="prow10 mb15">
+				<label for="" class="mb5 divline">给商家留言</label>
+				<div class="layout-textarea radius-3">
+					<textarea id="area" rows="2" class="input mb0 pd5" placeholder="限100字以内"></textarea>
+					 <!--<p class="textarea-count"><span id="text-count">100</span>/100</p>-->
+				</div>
+			</div>
+			<div class="prow10 mb25">
+				<!--<p class="flex-justify"><span>商品金额</span><span class="f-theme"><span class="fs10">￥</span>{$good.shop_price}</span></p>-->
+				<p class="flex-justify"><span>运费</span><span class="f-theme"><span class="fs10">￥</span>{$good.express}</span></p>
+				<p class="tr fs16 f-darkblack mt5">实付金额：<span class="f-theme"><span class="fs10">￥</span>{$good.price}</span></p>
+			</div>
+		</div>
+	</div>
+	<footer class="foot-fillspace">
+    		<div class="fixed-bar pd0">
+    			<button onclick="confirm()" class="btn btn-block btn-theme radius-0 fs16">确认订单</button>
+    		</div>
+    </footer>
+{/block}
+<script src="js/comment.js" type="text/javascript" charset="utf-8"></script>

@@ -1,0 +1,183 @@
+{extend name="template/wap/public/base.html" /}
+{block name="title"}个人中心1{/block}
+{block name="css"}
+	<link rel="stylesheet" href="__TMPL__/css/login.css">
+{/block}
+{block name="script"}
+{/block}
+ {block name="header"}{include file="template/wap/public/header.html" /}{/block}
+{block name="content"}
+
+    <div class="order block">
+            <div class="block-title">
+                <i class="block-title-icon myorder"></i>
+                 <b>我的订单</b>
+                <a href="<{:url('member/order/index')}>" class="block-title-nav">
+                    <span>查看我的全部订单</span>
+                    <i class="arrow-right"></i>
+                </a>
+            </div>
+            <div class="block-content">
+                <a class="block-item" href="{:url('member/order/index',array('type'=>1))}">
+                    <i class="icon-bar"><img src="__TMPL__/new/images/icons/ICON_17.png"></i>
+                    <b>待付款</b>
+                </a>
+                <a class="block-item" href="{:url('member/order/index',array('type'=>4))}">
+                    <i class="icon-bar"><img src="__TMPL__/new/images/icons/ICON_19.png"></i>
+                    <b>待发货</b>
+                </a>
+                <a class="block-item" href="{:url('member/order/index')}">
+                    <i class="icon-bar"><img src="__TMPL__/new/images/icons/ICON_25.png"></i>
+                    <b>全部订单</b>
+                </a>
+            </div>
+
+        </div>
+        <div class="fund block">
+            <div class="block-title">
+                <img class="block-title-icon " src="__TMPL__/new/images/icons/ICON_67.png">
+                <b class="tit-text">现金积分</b>
+                <a href="###" class="block-title-nav">
+                    <i class="iconfont icon-qiandai"></i>
+                    <b>{$donjie['money']|default='0.00'}</b>
+                    
+                </a>
+            </div>
+            
+        </div>
+        <div class="fund block">
+            <div class="block-title">
+                <img class="block-title-icon " src="__TMPL__/new/images/icons/ICON_15.png">
+                 <b class="tit-text">母win</b>
+
+            </div>
+
+            <div class="block-content">
+                <a class="block-item" href="###">
+                    <div class="value"><?php echo sprintf("%.4f",$donjie['member_bi']+$donjie['mu']);?></div>
+                    <b>母win总额</b>
+                </a>
+                    <a class="block-item" href="###">
+                    <div class="value">{$donjie['member_bi']|default='0.0000'}</div>
+                    <b>当前余额</b>
+                </a>
+                <a class="block-item" href="###">
+                    <div class="value"><?php echo sprintf("%.4f",$donjie['mu']);?></div>
+                    <b>已提总额</b>
+                </a>
+            </div>
+        </div>
+        <div class="fund block">
+            <div class="block-title">
+                <img class="block-title-icon" src="__TMPL__/new/images/icons/ICON_14.png">
+                <b class="tit-text">子win</b>
+
+            </div>
+            <div class="block-content">
+                <a class="block-item" href="###">
+                    <div class="value"><?php echo sprintf("%.4f",$donjie['member_z_bi']+$donjie['zi']);?></div>
+                    <b>子win总额</b>   
+                </a>
+                    <a class="block-item" href="###">
+                    <div class="value">{$donjie['member_z_bi']|default='0.0000'}</div>
+                    <b>当前余额</b>
+                </a>
+                <a class="block-item" href="###">
+                    <div class="value"><?php echo sprintf("%.4f",$donjie['zi']);?></div>
+                    <b>已提总额</b>
+                </a>
+               
+            </div>
+        </div>
+        <div class="app-list block">
+            
+            <ul class="mui-clearfix">
+                
+                <li>
+                    <a class="block-item" href="{:url('member/memberSort/point')}">
+                        <div class="value"><img src="__TMPL__/new/images/icons/ICON_3.png"></div>
+                        <b>现金充值</b>
+                    </a>
+                </li>
+                <li>
+                    <a class="block-item" href="{:url('member/memberSort/transferring')}">
+                        <div class="value"><img src="__TMPL__/new/images/icons/ICON_12.png"></div>
+                        <b>win互转</b>
+                    </a>
+                </li>
+                <li>
+
+                  
+                        <a class="block-item" href="{:url('member/memberSort/commidetbi')}">
+                            <div class="value"><img src="__TMPL__/new/images/icons/ICON_8.png"></div>
+                            <b>申请提win</b>
+                        </a>
+                   
+
+                </li>
+                <li>
+                    <a class="block-item" href="{:url('member/memberSort/returnka')}">
+                        <div class="value"><img src="__TMPL__/new/images/icons/ICON_6.png"></div>
+                        <b>交易详情</b>
+                    </a>
+                </li>
+                <li>
+                    <a class="block-item" href="{:url('member/account/base')}">
+                        <div class="value"><img src="__TMPL__/new/images/icons/ICON_5.png"></div>
+                        <b>个人资料</b>
+                    </a>
+                </li>
+                <li>
+                    <a class="block-item" href="{:url('member/address/index')}">
+                        <div class="value"><img src="__TMPL__/new/images/icons/ICON_9.png"></div>
+                        <b>收货地址</b>
+                    </a>
+                </li>
+                <li>
+                    <a class="block-item" href="{:url('member/account/password')}">
+                        <div class="value"><img src="__TMPL__/new/images/icons/ICON_4.png"></div>
+                        <b>安全设置</b>
+                    </a>
+                </li>
+                <li>
+                    <a class="block-item" href="{:url('member/memberSort/client')}">
+                        <div class="value"><img src="__TMPL__/new/images/icons/ICON_1.png"></div>
+                        <b>我的团队</b>
+                    </a>
+                </li>
+				<li>
+                    <a class="block-item" href="{:url('member/memberSort/clientsee')}">
+                        <div class="value"><img src="__TMPL__/new/images/icons/ICON_1.png"></div>
+                        <b>系统排位</b>
+                    </a>
+                </li>
+                <li>
+                    <a class="block-item" href="{:url('member/Getwx/getseid')}">
+                        <div class="value"><img src="__TMPL__/new/images/icons/ICON_10.png"></div>
+                        <b>推广中心</b>
+                    </a>
+                </li>
+                
+                <li>
+                    <a class="block-item" href="{:url('home/index/erer_code')}">
+                        <div class="value"><img src="__TMPL__/new/images/icons/ICON_7.png"></div>
+                        <b>客户服务</b>
+                    </a>
+                </li> 
+		
+                
+                <li>
+                    <a class="block-item" href="{:url('member/public/logout')}">
+                        <div class="value"><img src="__TMPL__/new/images/icons/ICON_11.png"></div>
+                        <b>退出系统</b>
+                    </a>
+                </li>
+            </ul>
+           
+        </div>
+
+
+{/block}
+
+ {block name="footer"}{include file="template/wap/public/footer.html" /}{/block}
+

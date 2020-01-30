@@ -1,0 +1,230 @@
+{extend name="template/wap/public/base.html" /}
+<meta http-equiv="pragma" content="no-cache" />
+{block name="title"}探索者联盟{/block}
+{block name="css"}
+    <link rel="stylesheet" type="text/css" href="__TMPL__/alert/css/jquery.alertable.css"/>
+{/block}
+{block name="script"}
+    <script src="__TMPL__/js/jquery-1.8.0.min.js" type="text/javascript"></script>
+    <script src="__TMPL__/js/jquery-ui-jqLoding.js" type="text/javascript"></script>
+    <script src="__TMPL__/js/util.js" type="text/javascript" charset="utf-8"></script>
+    <script src="__TMPL__/alert/js/velocity.min.js" type="text/javascript" charset="utf-8"></script>
+    <script src="__TMPL__/alert/js/velocity.ui.min.js" type="text/javascript" charset="utf-8"></script>
+    <script src="__TMPL__/alert/js/jquery.alertable.min.js" type="text/javascript" charset="utf-8"></script>
+    <script type="text/javascript" src="__TMPL__/js/jquery.cookie.js"></script>
+    <script>
+        $(function() {
+            var option = {
+                cancelButton : "<button class='alertable-cancel' type='button'>取消</button>",
+                okButton: "<button class='alertable-ok' onclick='out()' type='button'>确认</button>"
+            }
+            $('#out').click(function() {
+                $.alertable.confirm('是否确认退出?',option).then(function() {});
+            });
+            $("#nine").click(function() {
+                $.fn.jqLoading({ height: 70, width: 240, text: "正在加载中，请耐心等待...." });
+                $.post('/ninestar/index/index',{type: 'into'},function(data) {
+                    if(!data.status) {
+                        $.alertable.alert('未激活创客系统！');
+                        $.fn.jqLoading("destroy");
+                        return false;
+                    }
+                    window.location.href = '/ninestar/index/index';
+                },'json');
+            });
+        });
+        function out(){
+            $.cookie('gboy_gboy_member_auth', '', { expires: -1, path: '/' });
+            window.location.href = "/member/publics/login";
+        }
+        function reset() {
+            $.ajax({
+                type: "post",
+                async: false,
+                //同步执行
+                url: "/member/index/reset",
+                dataType: "json",
+                data:{},
+                success: function(result) {
+                    if(result.status) {
+                        $('#money').text(result.result.money);
+                        $('#shop').text(result.result.shop_integral);
+                    } else {
+                        $.alertable.alert(data.message);
+                    }
+                },
+            });
+        }
+    </script>
+{/block}
+{block name="header"}
+<header class="mui-bar mui-bar-nav bg-theme">
+    <h1 class="mui-title">个人中心</h1>
+    <a class="mui-icon mui-icon-caret mui-pull-right"></a>
+</header>
+{/block}
+{block name="content"}
+    <div class="div">
+        <div class="order-user-avatar mb10">
+            <div class="flex-justify pd40 pt30">
+                <div class="layout-avatar">
+                    <img src="__TMPL__/images/def.jpg" style="width:100%;"/>
+                </div>
+                <div class="layout-text">
+                    <p class="p-row ellipsis">{$member.realname}</p>
+                    <p class="p-row ellipsis">{$member.mobile}</p>
+                    <p class="p-row ellipsis">等级：{$member.group_name}</p>
+                </div>
+            </div>
+        </div>
+        <div class="section mb10 ">
+            <div class="mui-table-view order-list-box un-border ">
+                <div class="mui-table-view-cell un-border list-icon">
+                    <div class="mui-navigate-right ">
+                        <a class="fr fs12" href="/member/index/allorder">查看全部订单</a>
+                        <p class="ellipsis p-row">我的订单</p>
+                    </div>
+                </div>
+            </div>
+            <div class="order pd10 mt-10">
+                <ul class="flex-justify">
+                    <li class="app-item">
+                        <a href="/member/index/allorder?type=1">
+                            <span class="app-icon"></span>
+                            <p class="ellipsis">待付款</p>
+                        </a>
+                    </li>
+                    <li class="app-item">
+                        <a href="/member/index/allorder?type=2">
+                            <span class="app-icon"></span>
+                            <p class="ellipsis">待发货</p>
+                        </a>
+                    </li>
+                    <li class="app-item">
+                        <a href="/member/index/allorder?type=3">
+                            <span class="app-icon"></span>
+                            <p class="ellipsis">待收货</p>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+		<div class="section mb10">
+			<div class="mui-table-view order-list-box un-border ">
+				<div class="mui-table-view-cell un-border list-icon list-icon2">
+					<div href="#" onclick="reset()">
+						<a class="fr fs20 mui-icon mui-icon-refreshempty"></a>
+						<p class="ellipsis p-row">积分</p>
+					</div>
+				</div>
+			</div>
+			<div class="order pd10 mt-10">
+				<ul class="flex-justify">
+					<li class="tc prow10">
+						<p class="ellipsis" id="money">{$info.money}</p>
+						<p class="ellipsis">现金积分</p>
+					</li>
+					<li class="tc prow10">
+						<p class="ellipsis" id="shop">{$info.shop_integral}</p>
+						<p class="ellipsis">消费积分</p>
+					</li>
+					<li class="tc prow10">
+						<p class="ellipsis"></p>
+						<p class="ellipsis"></p>
+					</li>
+				</ul>
+			</div>
+		</div>
+        <div class="section pcol10 mb10">
+            <ul class="order-app mui-clearfix">
+                <li class="app-item">
+                    <a href="xjcz.html">
+                        <span class="app-icon"></span>
+                        <p class="ellipsis">现金积分</p>
+                    </a>
+                </li>
+                <li class="app-item">
+                    <a href="transaction.html">
+                        <span class="app-icon"></span>
+                        <p class="ellipsis">积分互转</p>
+                    </a>
+                </li>
+                <li class="app-item">
+                    <a href="withdraw.html">
+                        <span class="app-icon"></span>
+                        <p class="ellipsis">申请提现</p>
+                    </a>
+                </li>
+                <li class="app-item">
+                    <a href="tradedetail.html">
+                        <span class="app-icon"></span>
+                        <p class="ellipsis">交易详情</p>
+                    </a>
+                </li>
+                <li class="app-item">
+                    <a href="userdata.html">
+                        <span class="app-icon"></span>
+                        <p class="ellipsis">个人资料</p>
+                    </a>
+                </li>
+                <li class="app-item">
+                    <a href="address.html">
+                        <span class="app-icon"></span>
+                        <p class="ellipsis">收货地址</p>
+                    </a>
+                </li>
+                <li class="app-item">
+                    <a href="resetpw.html">
+                        <span class="app-icon"></span>
+                        <p class="ellipsis">安全设置</p>
+                    </a>
+                </li>
+                <li class="app-item">
+                    <a href="team.html">
+                        <span class="app-icon"></span>
+                        <p class="ellipsis">我的团队</p>
+                    </a>
+                </li>
+                <li class="app-item">
+                    <a href="/member/index/share">
+                        <span class="app-icon"></span>
+                        <p class="ellipsis">推广中心</p>
+                    </a>
+                </li>
+                <li class="app-item">
+                    <a href="">
+                        <span class="app-icon"></span>
+                        <p class="ellipsis">客服中心</p>
+                    </a>
+                </li>
+                {if condition="{:config('plug.peer') eq 2}
+                <li class="app-item">
+                    <a href="/peer/index/index">
+                        <span class="app-icon"></span>
+                        <p class="ellipsis">数字资产</p>
+                    </a>
+                </li>
+                {/if}
+                <li class="app-item">
+                    <a href="#" id="out">
+                        <span class="app-icon"></span>
+                        <p class="ellipsis">退出系统</p>
+                    </a>
+                </li>
+            </ul>
+        </div>
+        <div class="section pcol10 mb10">
+            <ul class="order-app mui-clearfix">
+                {if condition="{:config('plug.ninestar') eq 2}
+                <li class="app-item">
+                    <a id="nine" href="javascript:void(0);">
+                        <span class="app-icon"></span>
+                        <p class="ellipsis">创客中心</p>
+                    </a>
+                </li>
+                {/if}
+            </ul>
+        </div>
+    </div>
+{/block}
+{block name="footer"}{include file="template/wap/public/footer.html" /}{/block}

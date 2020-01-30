@@ -1,0 +1,1004 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+
+	<meta charset="UTF-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	<meta http-equiv="X-UA-Compatible" content="ie=edge" />
+	<title>交易中心</title>
+	<link rel="stylesheet" type="text/css" href="__TMPL__/asset/font-awesome/css/font-awesome.min.css"/>
+	<link rel="stylesheet" type="text/css" href="__TMPL__/ATS/css/iconfont.css"/>
+	<link rel="stylesheet" type="text/css" href="__TMPL__/ATS/css/style.css"/>
+	<link rel="stylesheet" type="text/css" href="__TMPL__/ATS/css/common.css"/>
+	<script src="__TMPL__/asset/jquery-3.1.1.min.js" type="text/javascript" charset="utf-8"></script>
+	<script src="__TMPL__/asset/layer/layer.js" type="text/javascript" charset="utf-8"></script>
+	<script type="text/javascript" src="__TMPL__/js1/gboy.js"></script>
+	<script src="__TMPL__/ATS/js/common.js" type="text/javascript" charset="utf-8"></script>
+	
+<style>	<script type="text/javascript" src="__TMPL__/js1/gboy.member.js"></script>
+
+
+																			  .trade-list .btn-tag{ height: 25px; line-height: 22px;}
+</style>
+	<script>
+        $(function(){
+//            $('.to_os').click(function(){
+//                if(confirm('是否确认？')){  //卖出
+//                    var oid=$(this).data('oid');
+//                    $.post('{url("buy")}','oid='+oid,function(data){
+//                        if(data.status=='0'){
+//                            alert(data.message);
+//                        }else{
+//                            alert(data.message);
+//                            location.href='{url("order/sell")}';
+//                        }
+//
+//                    },'json');
+//                }
+//
+//
+//            })
+//            $('.to_os2').click(function(){  //买入
+//                if(confirm('是否确认？')){
+//
+//                    var oid=$(this).data('oid');
+//                    $.post('{url("sell")}','oid='+oid,function(data){
+//                        if(data.status=='0'){
+//                            alert(data.message);
+//                        }else{
+//                            alert(data.message);
+//                            location.href='{url("order/buy_details")}&sn='+data.result;
+//                        }
+//
+//                    },'json');
+//                }
+//
+//
+//            })
+
+        })
+	</script>
+</head>
+<body>
+<div class="lp-header c-fff">
+	<a href="/peer/index/index" class=" fa fa-angle-left fl"></a>
+	<h1 class="title"><?php if($_GET['type'] == 0){echo "ATS";} else {echo "AE";}?></h1>
+</div>
+<div class="mt50">
+	<div class="bgcolortheme02 c-fff">
+		<div class="flex pcol15">
+			<div class="flex-item posi-rela border-after">
+				<p class="colortheme10">{$money_finance['member_bi']}</p>
+				<p class="colortheme01 fs12">ATS余额</p>
+			</div>
+			<div class="flex-item">
+				<p class="colortheme10">{$money_finance['member_z_bi']}</p>
+				<p class="colortheme01 fs12">AE余额</p>
+			</div>
+		</div>
+	</div>
+	<div class="">
+		<div class="flex-justify pd10">
+			<?php if($type == 0){ ?>
+			<p class="ellipsis c-fff">ATS当前价格：{:config('cache.p_open_price')}</p>
+			<p class="ellipsis c-fff">高：{$min|default=0} <i class="iconfont icon-toTop f-green"></i></p>
+			<p class="ellipsis c-fff">低：{$min|default=0} <i class="iconfont icon-toDown f-red"></i></p>
+			<?php }?>
+			<?php if($type == 1){ ?>
+			<p class="ellipsis c-fff">AE当前价格：{$usdt} USDT</p>
+			<p class="ellipsis c-fff">高：{$usdt} USDT <i class="iconfont icon-toTop f-green"></i></p>
+			<p class="ellipsis c-fff">低：{$usdt} USDT <i class="iconfont icon-toDown f-red"></i></p>
+			<?php }?>
+		</div>
+	</div>
+	<div class="pt15 pb10 pb20">
+		<div class="flex tc">
+			<?php if($type == 0){ ?>
+			<a href="{:url('/peer/sell/sell',array('type'=>$type,'acc_type'=>1))}" class="flex-item pd5">
+				<i class="iconfont icon-sell colortheme03 fs28"></i>
+				<p class="ellipsis c-fff mt5">发布出售ATS</p>
+			</a>
+			<a href="{:url('/peer/buy/buy',array('type'=>$type,'acc_type'=>$acc_type))}" class="flex-item pd5">
+				<i class="iconfont icon-buy colortheme03 fs28"></i>
+				<p class="ellipsis c-fff mt5">发布购买ATS</p>
+			</a>
+			<?php }?>
+			<?php if($type == 1){ ?>
+			<a href="{:url('/peer/sell/sell',array('type'=>$type,'acc_type'=>$acc_type))}" class="flex-item pd5">
+				<i class="iconfont icon-sell colortheme03 fs28"></i>
+				<p class="ellipsis c-fff mt5">发布出售AE</p>
+			</a>
+			<a href="{:url('/peer/buy/buy',array('type'=>$type,'acc_type'=>$acc_type))}" class="flex-item pd5">
+				<i class="iconfont icon-buy colortheme03 fs28"></i>
+				<p class="ellipsis c-fff mt5">发布购买AE</p>
+			</a>
+			<?php }?>
+
+			<a href="{:url('/peer/order/buy',array('type'=>$type,'acc_type'=>$acc_type))}" class="flex-item pd5">
+				<i class="iconfont icon-order colortheme03 fs28"></i>
+				<p class="ellipsis c-fff mt5">我的订单</p>
+			</a>
+			<a href="{:url('/peer/member/details',array('type'=>$type,'acc_type'=>$acc_type))}" class="flex-item pd5">
+				<i class="iconfont icon-trade-center colortheme03 fs28"></i>
+				<p class="ellipsis c-fff mt5">交易记录</p>
+			</a>
+		</div>
+	</div>
+	<div class="pb10">
+		<div class="chart-bar tab-bar">
+			<div class=" flex tab-hd">
+				<div class="tab-hd-item flex-item cur c-fff">5分钟</div>
+				<div class="tab-hd-item flex-item c-fff">5小时</div>
+				<div class="tab-hd-item flex-item c-fff">日线</div>
+			</div>
+			<ul class="tab-bd pd10">
+				<li class="tab-item ">
+					<div  id="container1" style="min-width:100%;height:200px;" ></div>
+				</li>
+				<li class="tab-item ">
+					<div  id="container2" style="min-width:100%;height:200px;" ></div>
+				</li>
+				<li class="tab-item">
+					<div  id="container3" style="min-width:100%;height:200px;" ></div>
+				</li>
+			</ul>
+		</div>
+	</div>
+	<div class="">
+		<div class="tab-bar chart-bar">
+			<div class="tab-hd flex">
+				<?php if($acc_type == 0 || $acc_type == ""){ ?>
+				<div class="flex-item tab-hd-item cur c-fff">现金买入</div>
+				<div class="flex-item tab-hd-item c-fff">现金卖出</div>
+				<?php }?>
+				<?php if($acc_type == 1){ ?>
+				<div class="flex-item tab-hd-item cur c-fff">AE买入</div>
+				<div class="flex-item tab-hd-item c-fff">AE卖出</div>
+				<?php }?>
+
+			</div>
+			<div class="tab-bd">
+				<div class="tab-item fs12">
+					<ul class="trade-list">
+						{volist name="sell_list" id="v"}
+							<li class="bbcolortheme03 pd12 prow15">
+								<div class="flex">
+									<div class="flex-item tal">
+										<p class="ellipsis "><span class="layout-name colortheme09 fs15 mr20">{$usdt}</span></p>
+										<p class=" ellipsis"><span class="fs10 colortheme01 fs12 mr20">单价</span></p>
+									</div>
+									<div class="flex-item tal">
+										<p><span class="c-fff">{$v['seller_realname']}</span></p>
+										<p><span class="fs10 c-fff">限额 {$v['num']}</span></p>
+									</div>
+									<div class="flex-item tar mt8">
+										<a href="javascript:;"  class="btn btn-green btn-tag to_os2 btn-payOrder" data-name="{$v['seller_realname']}" data-oid="{$v['id']}" style="color:#fff;">买入</a>
+									</div>
+								</div>
+							</li>
+						{/volist}
+					</ul>
+				</div>
+				<div class="tab-item fs12">
+					<ul class="trade-list pd10">
+						{volist name="buy_list" id="v"}
+							<li class="bbcolortheme03 pd12 prow15">
+								<div class="flex">
+									<div class="flex-item tal">
+										<div class="flex-justify">
+											<div class="layout-text">
+												<p class="ellipsis "><span class="layout-name colortheme09 fs15 mr20">{$usdt}</span></p>
+												<p class=" ellipsis"><span class="fs10 colortheme01 fs12 mr20">单价</span></p>
+											</div>
+										</div>
+									</div>
+									<div class="flex-item tal">
+										<p><span class="c-fff">{$v['user_realname']}</span></p>
+										<p><span class="fs10 c-fff">限额 {$v['num']}</span></p>
+									</div>
+									<div class="flex-item tar mt8">
+										<!--<p class="ellipsis tc"><?php if($acc_type == 0){ echo "$";}?> {$v['count_price']} <?php if($acc_type == 1){ echo "AE";}?></p>-->
+										<a href="javascript:;"  class="btn btn-pink btn-tag to_os btn-sellOrder" data-name="{$v['user_realname']}" data-oid="{$v['id']}" style="color:#fff;">卖出</a>
+									</div>
+								</div>
+							</li>
+						{/volist}
+					</ul>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<form action="" method="post" class="prow20 pcol10 hidden" id="payForm">
+	<div class="input-group un-border-group">
+					<span class="input-group-addon pd0 len-5 tr f-Gray" >
+						限额：
+					</span>
+		<input type="text" class="input" disabled id="xiane" value="" style="opacity: 1; color: black;" />
+	</div>
+	<div class="input-group un-border-group">
+					<span class="input-group-addon pd0 len-5 tr f-Gray">
+						单价：
+					</span>
+		<input type="text" class="input" style="opacity: 1; color: black;" disabled id="dqjg" />
+	</div>
+	<div class="input-group un-border-group">
+					<span class="input-group-addon pd0 len-5 tr f-Gray">
+						数量：
+					</span>
+		<input type="text" id="nums" class="input border-b" style="opacity: 1; color: black;" placeholder="请输入数量" oninput="checkInt.call(this,100)" />
+	</div>
+	<div class="input-group un-border-group">
+					<span class="input-group-addon pd0 len-5 tr f-Gray">
+						<?php if($acc_type == 0 || $acc_type == ""){echo "金额：";}else{echo "AE：";}?>
+
+					</span>
+		<input type="text" class="input" value="" style="opacity: 1; color: black;" disabled id="zj" />
+	</div>
+	<div class="input-group un-border-group">
+		<span class="input-group-addon pd0 len-5 tr f-Gray">
+			支付密码：
+		</span>
+		<div class="passwordDiv">
+			<label for="iptpassword2" class="passwordLabel">
+				<ul class="clearfix">
+					<li></li><li></li><li></li><li></li><li></li><li></li>
+				</ul>
+			</label>
+			<input type="password" id="iptpassword2" name="password" maxlength="6" >
+		</div>
+	</div>
+	<button type="submit" id="buysubmit" class="hidden">提交</button>
+</form>
+<form action="" method="post" class="prow20 pcol10 hidden" id="sellForm">
+	<div class="input-group un-border-group">
+					<span class="input-group-addon pd0 len-5 tr f-Gray">
+						数量：
+					</span>
+		<input type="text" class="input" style="opacity: 1; color: black;" disabled id="xiane2" />
+	</div>
+	<div class="input-group un-border-group">
+					<span class="input-group-addon pd0 len-5 tr f-Gray">
+						单价：
+					</span>
+		<input type="text" class="input" style="opacity: 1; color: black;" disabled id="dqjg2" />
+	</div>
+
+	<div class="input-group un-border-group">
+		<span class="input-group-addon pd0 len-5 tr f-Gray">
+			支付密码：
+		</span>
+		<div class="passwordDiv">
+			<label for="iptpassword1" class="passwordLabel">
+				<ul class="clearfix">
+					<li></li><li></li><li></li><li></li><li></li><li></li>
+				</ul>
+			</label>
+			<input type="password" id="iptpassword1" name="password" maxlength="6" >
+		</div>
+	</div>
+	<button type="submit" id="sellsubmit" class="hidden">提交</button>
+</form>
+<script>
+    function re(){
+        alert($("#test").val());
+    }
+</script>
+<script type="text/javascript">
+    //购买弹窗
+
+    $(".btn-payOrder").on("click",function(){
+        var targetName = $(this).attr('data-name');
+        var id = $(this).attr('data-oid'); //订单id
+        $("#nums").val('');
+        $('.passwordDiv ul li').text('')
+        $("#zj").val('');
+		//先判断当前会员是否有银行卡信息
+        $.post('/peer/trade/check_bank',function(data){
+            if(data.status=='0'){
+                layer.msg("请先到个人中心完善您的收款信息");
+            }else{
+                //获取订单信息
+                $.post('/peer/trade/get_order','id='+id,function(data){
+                    if(data.status=='0'){
+                        console.log(data.message);//异常
+                    }else{
+                        $order = data.referer;
+                        layer.open({
+                            type: 1
+                            ,skin: 'layui-layer-molv'
+                            ,title: "向[ "+targetName+" ]买入"
+                            ,area: '300px;'
+                            ,offset: 'center' //具体配置参考：offset参数项
+                            ,content: $('#payForm')
+                            ,btn: '确认订单'
+                            ,btnAlign: 'c' //按钮居中
+                            ,shade: 0.5 //不显示遮罩
+                            ,yes: function(){
+							    var nums=$("#nums").val();//交易数量
+								var r = /^[0-9]*[1-9][0-9]*$/;
+								var re = r.test(nums);
+                                if(!nums){
+                                    layer.msg("请输入交易金额");
+                                }else if(!re || nums < 20) {
+									layer.msg("金额为大于20整数");
+								}else if(!$("#iptpassword2").val()){
+                                    layer.msg("请输入交易密码");
+                                }else{
+                                    var oid=$(this).data('oid');
+                                    var type = "{$_GET['type']}";
+                                    var acc_type = "{$_GET['acc_type']}";
+                                    var price = "{:config('cache.p_open_price')}"; //当前价格
+                                    
+                                    var password = $("#iptpassword2").val();
+
+                                    if(type == "0" && acc_type == "1"){   //如果用AE交易ATS
+                                        $.post('/peer/trade/ep_sell','oid='+id+'&nums='+nums+'&price='+price+"&pass="+password,function(data){
+                                            if(data.status=='0'){
+                                                layer.msg(data.message);
+                                            }else{
+                                                layer.msg("交易成功");
+                                                location.href='/peer/trade/home'+"?type="+type+"&acc_type="+acc_type;
+                                            }
+
+                                        },'json');
+                                    }else{   //现金交易
+                                        $.post('/peer/trade/sell','oid='+id+'&nums='+nums+'&price='+price+"&pass="+password,function(data){
+                                            if(data.status=='0'){
+                                                layer.msg(data.message);
+                                            }else{
+                                                layer.msg(data.message);
+                                                location.href='/peer/order/buy_details?sn='+data.result;
+                                            }
+
+                                        },'json');
+                                    }
+                                }
+                            }
+                        });
+                        $("#xiane").val($order['num']);
+                        $("#nums").attr("oninput","checkInt.call(this,"+$order['num']+","+$order['price']+")");
+                        $("#dqjg").val($order['price']);
+                    }
+                },'json');
+			}
+        },'json')
+    })
+
+    $(".btn-sellOrder").on("click",function(){
+        //var targetName = $(this).parents(".trade-list-item").find(".layout-name").text();
+        var targetName = $(this).attr('data-name');
+        var id = $(this).attr('data-oid'); //订单id
+
+        //先判断当前会员是否有银行卡信息
+        $.post('/peer/trade/check_bank',function(data){
+            if(data.status=='0'){
+                layer.msg("请先到个人中心完善您的收款信息");
+            }else{
+                $.post('/peer/trade/get_order','id='+id,function(data){
+                    if(data.status=='0'){
+                        console.log(data.message);//异常
+                    }else {
+                        $order = data.referer;
+                        layer.open({
+                            type: 1
+                            , skin: 'layui-layer-molv'
+                            , title: "向[ " + targetName + " ]卖出"
+                            , area: '300px;'
+                            , offset: 'center' //具体配置参考：offset参数项
+                            , content: $('#sellForm')
+                            , btn: '确认订单'
+                            , btnAlign: 'c' //按钮居中
+                            , shade: 0.5 //不显示遮罩
+                            , yes: function () {
+                                var password = $("#iptpassword1").val();
+                                var type = "{$_GET['type']}";
+                                var acc_type = "{$_GET['acc_type']}";
+                                $.post('{url("/peer/buy/buy")}','oid='+id+"&pass="+password,function(data){
+                                    if(data.status=='0'){
+                                        layer.msg(data.message);
+                                    }else{
+                                        layer.msg("确认成功，等待买家打款");
+                                        location.href='{url("peer/trade/home")}'+"?type="+type+"&acc_type="+acc_type;
+                                    }
+
+                                },'json');
+                            }
+                        });
+                        $("#xiane2").val($order['num']);
+                        $("#dqjg2").val($order['price']);
+
+                    }
+                },'json')
+            }
+        },'json')
+
+
+    })
+    //数量
+    function checkInt(max,price){
+        var val = this.value;
+        this.value = val.replace(/[^\d]/g,'');
+        this.value > max ? this.value = max : '';
+        if(this.value == ""){
+            var all_price = 0;
+        }else{
+            var all_price = this.value * price;
+        }
+		var acc_type = "{$acc_type}";
+        if(acc_type == "" || acc_type == "0"){
+            $("#zj").val(all_price.toFixed(2)+" USDT");
+		}else{
+            $("#zj").val(all_price.toFixed(2));
+		}
+
+    }
+    //密码框输入事件
+    $('.passwordDiv input').on('input', function(e) {
+        var number = 6;
+        var pw = $(this).val();
+        var list = $(this).parents('.passwordDiv').find('li');
+        for(var i = 0; i < number; i++) {
+            if(pw[i]) {
+                $(list[i]).text('•');
+            } else {
+                $(list[i]).text('');
+            };
+        };
+    });
+    //点击密码框清除密码
+    $('.passwordDiv ul').click(function() {
+        var salfPs = $(this).parents('.passwordDiv').find('input[type="password"]');
+        salfPs.val('');
+        salfPs.focus();
+        $('.passwordDiv ul li').text('')
+    });
+</script>
+
+<script src="__TMPL__/asset/highcharts/js/highcharts.js" type="text/javascript" charset="utf-8"></script>
+<script src="__TMPL__/asset/highcharts/js/oldie.js" type="text/javascript" charset="utf-8"></script>
+<script src="__TMPL__/asset/highcharts/js/highcharts-zh_CN.js" type="text/javascript" charset="utf-8"></script>
+<script type="text/javascript">
+    var data1 = [
+
+        [Date.UTC(2018,10,6),0.7588],
+        [Date.UTC(2018,10,8),0.7591],
+        [Date.UTC(2018,10,9),0.7544],
+        [Date.UTC(2018,10,10),0.7537],
+        [Date.UTC(2018,10,11),0.7512],
+        [Date.UTC(2018,10,12),0.7519],
+        [Date.UTC(2018,10,13),0.7522],
+        [Date.UTC(2018,10,15),0.7486],
+        [Date.UTC(2018,10,16),0.7500],
+        [Date.UTC(2018,10,17),0.7486],
+        [Date.UTC(2018,10,18),0.7396],
+        [Date.UTC(2018,10,19),0.7391],
+        [Date.UTC(2018,10,20),0.7394],
+        [Date.UTC(2018,10,22),0.7389],
+        [Date.UTC(2018,10,23),0.7411],
+        [Date.UTC(2018,10,24),0.7422],
+        [Date.UTC(2018,10,25),0.7393],
+        [Date.UTC(2018,10,26),0.7413],
+        [Date.UTC(2018,10,27),0.7396],
+        [Date.UTC(2018,11,6),0.7549],
+        [Date.UTC(2018,11,7),0.7562],
+        [Date.UTC(2018,11,9),0.7574],
+        [Date.UTC(2018,11,10),0.7543],
+        [Date.UTC(2018,11,11),0.7510],
+        [Date.UTC(2018,11,12),0.7498],
+        [Date.UTC(2018,11,13),0.7477],
+        [Date.UTC(2018,11,14),0.7492],
+        [Date.UTC(2018,11,16),0.7487],
+        [Date.UTC(2018,11,17),0.7480],
+        [Date.UTC(2018,11,18),0.7466],
+        [Date.UTC(2018,11,19),0.7521],
+        [Date.UTC(2018,11,20),0.7564],
+        [Date.UTC(2018,11,21),0.7621],
+        [Date.UTC(2018,11,23),0.7630],
+        [Date.UTC(2018,11,24),0.7623],
+        [Date.UTC(2018,11,25),0.7644],
+        [Date.UTC(2018,11,26),0.7685],
+        [Date.UTC(2018,11,27),0.7671],
+        [Date.UTC(2018,11,28),0.7687],
+        [Date.UTC(2018,11,30),0.7687],
+        [Date.UTC(2018,12,1),0.7654],
+        [Date.UTC(2018,12,2),0.7705],
+        [Date.UTC(2018,12,3),0.7687],
+        [Date.UTC(2018,12,4),0.7744],
+        [Date.UTC(2018,12,5),0.7793],
+        [Date.UTC(2018,12,7),0.7804],
+        [Date.UTC(2018,12,8),0.7770],
+        [Date.UTC(2018,12,9),0.7824],
+        [Date.UTC(2018,12,10),0.7705],
+        [Date.UTC(2018,12,11),0.7635],
+        [Date.UTC(2018,12,12),0.7652],
+        [Date.UTC(2018,12,14),0.7656],
+        [Date.UTC(2018,12,15),0.7655],
+        [Date.UTC(2018,12,16),0.7598],
+        [Date.UTC(2018,12,17),0.7619],
+        [Date.UTC(2018,12,18),0.7628],
+        [Date.UTC(2018,12,19),0.7609],
+        [Date.UTC(2018,12,21),0.7599],
+        [Date.UTC(2018,12,22),0.7584],
+        [Date.UTC(2018,12,23),0.7562],
+        [Date.UTC(2018,12,24),0.7575],
+        [Date.UTC(2018,12,25),0.7531],
+        [Date.UTC(2018,12,26),0.7530],
+        [Date.UTC(2018,12,28),0.7526],
+        [Date.UTC(2018,12,29),0.7540],
+        [Date.UTC(2018,12,30),0.7540],
+        [Date.UTC(2018,12,31),0.7518],
+        [Date.UTC(2019.01,1),0.7571],
+        [Date.UTC(2019.01,2),0.7529],
+        [Date.UTC(2019.01,4),0.7532],
+        [Date.UTC(2019.01,5),0.7542],
+        [Date.UTC(2019.01,6),0.7515],
+        [Date.UTC(2019.01,7),0.7498],
+        [Date.UTC(2019.01,8),0.7473],
+        [Date.UTC(2019.01,9),0.7494],
+        [Date.UTC(2019.01,11),0.7497],
+        [Date.UTC(2019.01,12),0.7519],
+        [Date.UTC(2019.01,13),0.7540],
+        [Date.UTC(2019.01,14),0.7543],
+        [Date.UTC(2019.01,15),0.7492],
+        [Date.UTC(2019.01,16),0.7502],
+        [Date.UTC(2019.01,18),0.7503],
+        [Date.UTC(2019.01,19),0.7499],
+        [Date.UTC(2019.01,20),0.7453],
+        [Date.UTC(2019.01,21),0.7487],
+        [Date.UTC(2019.01,22),0.7487],
+        [Date.UTC(2019.01,23),0.7472],
+        [Date.UTC(2019.01,25),0.7471],
+        [Date.UTC(2019.01,26),0.7480],
+        [Date.UTC(2019.01,27),0.7467],
+        [Date.UTC(2019.01,28),0.7497],
+        [Date.UTC(2019.01,29),0.7552],
+        [Date.UTC(2019.01,30),0.7562],
+
+    ];
+    var data2 = [
+        [Date.UTC(2018,10,6),0.7588],
+        [Date.UTC(2018,10,8),0.7591],
+        [Date.UTC(2018,10,9),0.7544],
+        [Date.UTC(2018,10,10),0.7537],
+        [Date.UTC(2018,10,11),0.7512],
+        [Date.UTC(2018,10,12),0.7519],
+        [Date.UTC(2018,10,13),0.7522],
+        [Date.UTC(2018,10,15),0.7486],
+        [Date.UTC(2018,10,16),0.7500],
+        [Date.UTC(2018,10,17),0.7486],
+        [Date.UTC(2018,10,18),0.7396],
+        [Date.UTC(2018,10,19),0.7391],
+        [Date.UTC(2018,10,20),0.7394],
+        [Date.UTC(2018,10,22),0.7389],
+        [Date.UTC(2018,10,23),0.7411],
+        [Date.UTC(2018,10,24),0.7422],
+        [Date.UTC(2018,10,25),0.7393],
+        [Date.UTC(2018,10,26),0.7413],
+        [Date.UTC(2018,10,27),0.7396],
+        [Date.UTC(2018,11,6),0.7549],
+        [Date.UTC(2018,11,7),0.7562],
+        [Date.UTC(2018,11,9),0.7574],
+        [Date.UTC(2018,11,10),0.7543],
+        [Date.UTC(2018,11,11),0.7510],
+        [Date.UTC(2018,11,12),0.7498],
+        [Date.UTC(2018,11,13),0.7477],
+        [Date.UTC(2018,11,14),0.7492],
+        [Date.UTC(2018,11,16),0.7487],
+        [Date.UTC(2018,11,17),0.7480],
+        [Date.UTC(2018,11,18),0.7466],
+        [Date.UTC(2018,11,19),0.7521],
+        [Date.UTC(2018,11,20),0.7564],
+        [Date.UTC(2018,11,21),0.7621],
+        [Date.UTC(2018,11,23),0.7630],
+        [Date.UTC(2018,11,24),0.7623],
+        [Date.UTC(2018,11,25),0.7644],
+        [Date.UTC(2018,11,26),0.7685],
+        [Date.UTC(2018,11,27),0.7671],
+        [Date.UTC(2018,11,28),0.7687],
+        [Date.UTC(2018,11,30),0.7594],
+        [Date.UTC(2018,12,1),0.7654],
+        [Date.UTC(2018,12,2),0.7705],
+        [Date.UTC(2018,12,3),0.7687],
+        [Date.UTC(2018,12,4),0.7744],
+        [Date.UTC(2018,12,5),0.7793],
+        [Date.UTC(2018,12,7),0.7804],
+        [Date.UTC(2018,12,8),0.7770],
+        [Date.UTC(2018,12,9),0.7824],
+        [Date.UTC(2018,12,10),0.7705],
+        [Date.UTC(2018,12,11),0.7635],
+        [Date.UTC(2018,12,12),0.7652],
+        [Date.UTC(2018,12,14),0.7656],
+        [Date.UTC(2018,12,15),0.7655],
+        [Date.UTC(2018,12,16),0.7598],
+        [Date.UTC(2018,12,17),0.7619],
+        [Date.UTC(2018,12,18),0.7628],
+        [Date.UTC(2018,12,19),0.7609],
+        [Date.UTC(2018,12,21),0.7599],
+        [Date.UTC(2018,12,22),0.7584],
+        [Date.UTC(2018,12,23),0.7562],
+        [Date.UTC(2018,12,24),0.7575],
+        [Date.UTC(2018,12,25),0.7531],
+        [Date.UTC(2018,12,26),0.7530],
+        [Date.UTC(2018,12,28),0.7526],
+        [Date.UTC(2018,12,29),0.7540],
+        [Date.UTC(2018,12,30),0.7540],
+        [Date.UTC(2018,12,31),0.7518],
+        [Date.UTC(2019.01,1),0.7571],
+        [Date.UTC(2019.01,2),0.7529],
+        [Date.UTC(2019.01,4),0.7532],
+        [Date.UTC(2019.01,5),0.7542],
+        [Date.UTC(2019.01,6),0.7515],
+        [Date.UTC(2019.01,7),0.7498],
+        [Date.UTC(2019.01,8),0.7473],
+        [Date.UTC(2019.01,9),0.7494],
+        [Date.UTC(2019.01,11),0.7497],
+        [Date.UTC(2019.01,12),0.7519],
+        [Date.UTC(2019.01,13),0.7540],
+        [Date.UTC(2019.01,14),0.7543],
+        [Date.UTC(2019.01,15),0.7492],
+        [Date.UTC(2019.01,16),0.7502],
+        [Date.UTC(2019.01,18),0.7503],
+        [Date.UTC(2019.01,19),0.7499],
+        [Date.UTC(2019.01,20),0.7453],
+        [Date.UTC(2019.01,21),0.7487],
+        [Date.UTC(2019.01,22),0.7487],
+        [Date.UTC(2019.01,23),0.7472],
+        [Date.UTC(2019.01,25),0.7471],
+        [Date.UTC(2019.01,26),0.7480],
+        [Date.UTC(2019.01,27),0.7467],
+        [Date.UTC(2019.01,28),0.7497],
+        [Date.UTC(2019.01,29),0.7552],
+        [Date.UTC(2019.01,30),0.7562],
+    ];
+    var data3 = [
+        [Date.UTC(2018,10,6),0.7588],
+        [Date.UTC(2018,10,8),0.7591],
+        [Date.UTC(2018,10,9),0.7544],
+        [Date.UTC(2018,10,10),0.7537],
+        [Date.UTC(2018,10,11),0.7512],
+        [Date.UTC(2018,10,12),0.7519],
+        [Date.UTC(2018,10,13),0.7522],
+        [Date.UTC(2018,10,15),0.7486],
+        [Date.UTC(2018,10,16),0.7500],
+        [Date.UTC(2018,10,17),0.7486],
+        [Date.UTC(2018,10,18),0.7396],
+        [Date.UTC(2018,10,19),0.7391],
+        [Date.UTC(2018,10,20),0.7394],
+        [Date.UTC(2018,10,22),0.7389],
+        [Date.UTC(2018,10,23),0.7411],
+        [Date.UTC(2018,10,24),0.7422],
+        [Date.UTC(2018,10,25),0.7393],
+        [Date.UTC(2018,10,26),0.7413],
+        [Date.UTC(2018,10,27),0.7396],
+        [Date.UTC(2018,11,6),0.7549],
+        [Date.UTC(2018,11,7),0.7562],
+        [Date.UTC(2018,11,9),0.7574],
+        [Date.UTC(2018,11,10),0.7543],
+        [Date.UTC(2018,11,11),0.7510],
+        [Date.UTC(2018,11,12),0.7498],
+        [Date.UTC(2018,11,13),0.7477],
+        [Date.UTC(2018,11,14),0.7492],
+        [Date.UTC(2018,11,16),0.7487],
+        [Date.UTC(2018,11,17),0.7480],
+        [Date.UTC(2018,11,18),0.7466],
+        [Date.UTC(2018,11,19),0.7800],
+        [Date.UTC(2018,11,20),0.7564],
+        [Date.UTC(2018,11,21),0.7621],
+        [Date.UTC(2018,11,23),0.7630],
+        [Date.UTC(2018,11,24),0.7623],
+        [Date.UTC(2018,11,25),0.7644],
+        [Date.UTC(2018,11,26),0.7685],
+        [Date.UTC(2018,11,27),0.7671],
+        [Date.UTC(2018,11,28),0.7687],
+        [Date.UTC(2018,11,30),0.7687],
+        [Date.UTC(2018,12,1),0.7654],
+        [Date.UTC(2018,12,2),0.7705],
+        [Date.UTC(2018,12,3),0.7687],
+        [Date.UTC(2018,12,4),0.7744],
+        [Date.UTC(2018,12,5),0.7793],
+        [Date.UTC(2018,12,7),0.7804],
+        [Date.UTC(2018,12,8),0.7770],
+        [Date.UTC(2018,12,9),0.7824],
+        [Date.UTC(2018,12,10),0.7705],
+        [Date.UTC(2018,12,11),0.7635],
+        [Date.UTC(2018,12,12),0.7652],
+        [Date.UTC(2018,12,14),0.7656],
+        [Date.UTC(2018,12,15),0.7655],
+        [Date.UTC(2018,12,16),0.7598],
+        [Date.UTC(2018,12,17),0.7619],
+        [Date.UTC(2018,12,18),0.7628],
+        [Date.UTC(2018,12,19),0.7609],
+        [Date.UTC(2018,12,21),0.7599],
+        [Date.UTC(2018,12,22),0.7584],
+        [Date.UTC(2018,12,23),0.7562],
+        [Date.UTC(2018,12,24),0.7575],
+        [Date.UTC(2018,12,25),0.7531],
+        [Date.UTC(2018,12,26),0.7530],
+        [Date.UTC(2018,12,28),0.7526],
+        [Date.UTC(2018,12,29),0.7540],
+        [Date.UTC(2018,12,30),0.7540],
+        [Date.UTC(2018,12,31),0.7518],
+        [Date.UTC(2019.01,1),0.7571],
+        [Date.UTC(2019.01,2),0.7529],
+        [Date.UTC(2019.01,4),0.7532],
+        [Date.UTC(2019.01,5),0.7542],
+        [Date.UTC(2019.01,6),0.7515],
+        [Date.UTC(2019.01,7),0.7498],
+        [Date.UTC(2019.01,8),0.7473],
+        [Date.UTC(2019.01,9),0.7494],
+        [Date.UTC(2019.01,11),0.7497],
+        [Date.UTC(2019.01,12),0.7519],
+        [Date.UTC(2019.01,13),0.7540],
+        [Date.UTC(2019.01,14),0.7543],
+        [Date.UTC(2019.01,15),0.7492],
+        [Date.UTC(2019.01,16),0.7502],
+        [Date.UTC(2019.01,18),0.7503],
+        [Date.UTC(2019.01,19),0.7499],
+        [Date.UTC(2019.01,20),0.7453],
+        [Date.UTC(2019.01,21),0.7487],
+        [Date.UTC(2019.01,22),0.7487],
+        [Date.UTC(2019.01,23),0.7472],
+        [Date.UTC(2019.01,25),0.7471],
+        [Date.UTC(2019.01,26),0.7480],
+        [Date.UTC(2019.01,27),0.7467],
+        [Date.UTC(2019.01,28),0.7497],
+        [Date.UTC(2019.01,29),0.7552],
+        [Date.UTC(2019.01,30),0.7562],
+    ];
+	(function () {
+        var chart = Highcharts.chart('container1', {
+            chart: {
+                zoomType: 'x',
+                marginBottom:20,
+                marginTop:40
+            },
+            title: {
+                text: ''
+            },
+
+            xAxis: {
+                type: 'datetime',
+                dateTimeLabelFormats: {
+                    millisecond: '%H:%M:%S.%L',
+                    second: '%H:%M:%S',
+                    minute: '%H:%M',
+                    hour: '%H:%M',
+                    day: '%m-%d',
+                    week: '%m-%d',
+                    month: '%Y-%m',
+                    year: '%Y'
+                }
+            },
+/*            credits:{//右下角的文本
+                enabled: false
+            },*/
+            tooltip: {
+                dateTimeLabelFormats: {
+                    millisecond: '%H:%M:%S.%L',
+                    second: '%H:%M:%S',
+                    minute: '%H:%M',
+                    hour: '%H:%M',
+                    day: '%Y-%m-%d',
+                    week: '%m-%d',
+                    month: '%Y-%m',
+                    year: '%Y'
+                },
+                backgroundColor: 'tansparent',   // 背景颜色
+                borderColor: '#f78100',         // 边框颜色
+                animation: true ,              // 是否启用动画效果
+                style: {                      // 文字内容相关样式
+                    color: "#f78100",
+                    fontSize: "12px",
+                    fontWeight: "blod",
+                    fontFamily: "Courir new"
+                }
+            },
+            yAxis: {
+                title: {
+                    text: ''
+                }
+            },
+            legend: {
+                enabled: false
+            },
+            plotOptions: {
+                spline: {
+                    lineColor:'#4c8bee',
+                    marker: {
+                        radius: 1,
+                        color:'4c8bee'
+                    },
+
+                    lineWidth: 2,
+                    states: {
+                        hover: {
+                            lineWidth: 3
+                        }
+                    },
+                    threshold: null
+                }
+            },
+
+            series: [{
+                marker:{
+                    fillColor:"#4cee89"
+                },
+                type: 'spline',
+                name: 'ATS',
+                data: data1
+            }]
+        });
+	}())
+
+    $.getJSON('https://data.jianshukeji.com/jsonp?filename=json/usdeur.json&callback=?', function (data) {
+        var chart = Highcharts.chart('container2', {
+            chart: {
+                zoomType: 'x',
+                marginBottom:20,
+                marginTop:40
+            },
+            title: {
+                text: ''
+            },
+
+            xAxis: {
+                type: 'datetime',
+                dateTimeLabelFormats: {
+                    millisecond: '%H:%M:%S.%L',
+                    second: '%H:%M:%S',
+                    minute: '%H:%M',
+                    hour: '%H:%M',
+                    day: '%m-%d',
+                    week: '%m-%d',
+                    month: '%Y-%m',
+                    year: '%Y'
+                }
+            },
+          /*  credits:{//右下角的文本
+                enabled: false
+            },*/
+            tooltip: {
+                dateTimeLabelFormats: {
+                    millisecond: '%H:%M:%S.%L',
+                    second: '%H:%M:%S',
+                    minute: '%H:%M',
+                    hour: '%H:%M',
+                    day: '%Y-%m-%d',
+                    week: '%m-%d',
+                    month: '%Y-%m',
+                    year: '%Y'
+                },
+                backgroundColor: 'transparent',   // 背景颜色
+                borderColor: '#f78100',         // 边框颜色
+                animation: true ,              // 是否启用动画效果
+                style: {                      // 文字内容相关样式
+                    color: "#f78100",
+                    fontSize: "12px",
+                    fontWeight: "blod",
+                    fontFamily: "Courir new"
+                }
+            },
+            yAxis: {
+                title: {
+                    text: ''
+                }
+            },
+            legend: {
+                enabled: false
+            },
+            plotOptions: {
+                spline: {
+                    lineColor:'#4c8bee',
+                    marker: {
+                        radius: 1,
+                        color:'4c8bee'
+                    },
+
+                    lineWidth: 2,
+                    states: {
+                        hover: {
+                            lineWidth: 3
+                        }
+                    },
+                    threshold: null
+                }
+            },
+
+            series: [{
+                marker:{
+                    fillColor:"#4cee89"
+                },
+                type: 'spline',
+                name: 'ATS',
+                data: data2
+            }]
+        });
+    });
+    $.getJSON('https://data.jianshukeji.com/jsonp?filename=json/usdeur.json&callback=?', function (data) {
+        var chart = Highcharts.chart('container3', {
+            chart: {
+                zoomType: 'x',
+                marginBottom:20,
+                marginTop:40
+            },
+            title: {
+                text: ''
+            },
+
+            xAxis: {
+                type: 'datetime',
+                dateTimeLabelFormats: {
+                    millisecond: '%H:%M:%S.%L',
+                    second: '%H:%M:%S',
+                    minute: '%H:%M',
+                    hour: '%H:%M',
+                    day: '%m-%d',
+                    week: '%m-%d',
+                    month: '%Y-%m',
+                    year: '%Y'
+                }
+            },
+          /*  credits:{//右下角的文本
+                enabled: false
+            },*/
+            tooltip: {
+                dateTimeLabelFormats: {
+                    millisecond: '%H:%M:%S.%L',
+                    second: '%H:%M:%S',
+                    minute: '%H:%M',
+                    hour: '%H:%M',
+                    day: '%Y-%m-%d',
+                    week: '%m-%d',
+                    month: '%Y-%m',
+                    year: '%Y'
+                },
+                backgroundColor: '#FCFFC5',   // 背景颜色
+                borderColor: '#f78100',         // 边框颜色
+                animation: true ,              // 是否启用动画效果
+                style: {                      // 文字内容相关样式
+                    color: "#f78100",
+                    fontSize: "12px",
+                    fontWeight: "blod",
+                    fontFamily: "Courir new"
+                }
+            },
+            yAxis: {
+                title: {
+                    text: ''
+                }
+            },
+            legend: {
+                enabled: false
+            },
+            plotOptions: {
+                spline: {
+                    lineColor:'#4c8bee',
+                    marker: {
+                        radius: 1,
+                        color:'4c8bee'
+                    },
+
+                    lineWidth: 2,
+                    states: {
+                        hover: {
+                            lineWidth: 3
+                        }
+                    },
+                    threshold: null
+                }
+            },
+
+            series: [{
+                marker:{
+                    fillColor:"#4cee89"
+                },
+                type: 'spline',
+                name: 'ATS',
+                data: data3
+            }]
+        });
+    });
+</script>
+</body>
+</html>

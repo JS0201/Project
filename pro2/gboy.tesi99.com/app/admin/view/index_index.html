@@ -1,0 +1,34 @@
+{extend name="public/base" /}
+
+{block name="header"}
+	{include file='public:header' /}
+{/block}
+
+{block name="nav"}
+	{include file='public:nav' /}
+{/block}
+
+{block name="set"}
+	{include file='public:set' /}
+{/block}
+
+{block name="top"}
+	{include file='public:top' /}
+{/block}
+
+{block name="main"}
+
+
+<div class="content_frame">
+	<div class="category_content" style="display: none;">
+		<iframe name="category_frame" id="category_frame" src="" frameborder="false" scrolling="auto" style="border:none;" height="100%" allowtransparency="true"></iframe>
+	</div>
+
+	<div class="main_content">
+		<iframe id="main_frame" name="main_frame" src="{:url('admin/index/main')}" frameborder="false" scrolling="auto" style="overflow-x:hidden;border:none;" width="100%" height="auto" allowtransparency="true"></iframe>
+	</div>
+</div>
+{/block}
+
+
+

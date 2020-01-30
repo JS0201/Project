@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+	<meta charset="UTF-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	<meta http-equiv="X-UA-Compatible" content="ie=edge" />
+	<title>探索者联盟</title>
+    <link rel="stylesheet" type="text/css" href="__TMPL__/alert/css/jquery.alertable.css"/>
+	<link rel="stylesheet" type="text/css" href="__TMPL__/css/iconfont.css"/>
+	<link rel="stylesheet" type="text/css" href="__TMPL__/css/style.css"/>
+	<link rel="stylesheet" type="text/css" href="__TMPL__/css/login.css"/>
+</head>
+<body>
+	<header class="fixed-bar head-bar">
+	    <h1 class="title">登录</h1>
+	    <a href="register.html" class="side-link fr">注册</a>
+	    <a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+	</header>
+
+<div class="content">
+		<div class="logo-bar mb30">
+			<img src="__TMPL__/images/avatar.jpg" alt="logo" class="logo" />
+		</div>
+	</div>
+			<div class="form-group mb10 prow60">
+				<div class="input-group un-border-group ">
+					<span class="input-group-addon pd0 pr5"><i class="iconfont icon-shouji fs24"></i></span>
+					<input class="input  un-border" type="text" name="phone" placeholder="请输入手机号"/>
+				</div>
+				<div class="input-group un-border-group ">
+					<span class="input-group-addon pd0 pr5"><i class="iconfont icon-mima fs24"></i></span>
+					<input class="input  un-border" type="password" name="password" placeholder="请输入密码"/>
+
+				</div>
+				<div class="input-group un-border-group ">
+					<span class="input-group-addon pd0 pr5"><i class="iconfont icon-anquan fs24"></i></span>
+					<input class="input  un-border" type="text" name="captcha" placeholder="请输入验证码"/>
+					<span class="input-group-addon pd0"><div><img src="{:captcha_src()}" id="captcha_img" onclick="refresh()" alt="点击换一张"/></div></span>
+				</div>
+				<div class="sub-bar pt30">
+					<button onclick="send()" class="btn btn-login">登陆</button>
+					<div class="sub-bar-after"></div>
+				</div>
+				<div class="tc pcol30">
+					<a href="#" class="f-gray">忘记密码?</a>
+				</div>
+	</div>
+</body>
+</html>
+<script src="__TMPL__/js/jquery-3.1.1.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="__TMPL__/alert/js/velocity.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="__TMPL__/alert/js/velocity.ui.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="__TMPL__/alert/js/jquery.alertable.min.js" type="text/javascript" charset="utf-8"></script>
+<script>
+	$.post('/member/publics/getPhoneNumber',{},function(data) {
+		alert(data);
+	});
+
+
+    function refresh() {
+        var ts = Date.parse(new Date())/1000;
+        $('#captcha_img').attr('src', '/captcha?id=' + ts);
+    }
+    function send() {
+        var phone = $("input[name='phone']").val();
+        var password = $("input[name='password']").val();
+        var captcha = $("input[name='captcha']").val();
+         $.ajax({
+             type: "post",
+             url: "/member/publics/login",
+             data: {phone:phone, password:password, captcha: captcha},
+             dataType: "json",
+             success: function(data){
+                if(!data.status) {
+                    $.alertable.alert(data.message);
+                    refresh();
+                }else{
+                    //登录成功
+                    window.location.href = "/member/index/order";
+                }
+             }
+         });
+    }
+</script>

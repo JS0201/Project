@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>激活会员</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no" />
+    <link rel="stylesheet" href="__ROOT__/template/wap/ninestar/static/css/index.css" />
+    <link rel="stylesheet" type="text/css" href="__ROOT__/template/wap/ninestar/static/css/reset.css" />
+    <link rel="stylesheet" type="text/css" href="__ROOT__/template/wap/ninestar/static/css/iconfont.css"/>
+    <link rel="stylesheet" type="text/css" href="__TMPL__/alert/css/jquery.alertable.css"/>
+</head>
+
+<body>
+
+<div class="background-main"></div>
+
+<div class="header">
+    <a href="/ninestar/index/index"><span class="iconfont icon-fanhui"></span></a>
+    激活会员
+
+</div>
+
+<div class="user-super">
+    <a href="">
+        <div>
+            <h2>{$member.realname ? $member.realname : $member.username}</h2>
+            <p><span class="iconfont icon-huiyuan"></span>{$level}星会员</p>
+        </div>
+        <div class="user-img">
+            <img src="{$face}"/>
+        </div>
+    </a>
+</div>
+
+<div class="activation-input">
+    <p>待激活会员账号</p>
+    <form action="">
+        <input type="text" name="phone" />
+        <div class="activation-btn">
+            <a href="javascript:void(0);" id="send">确认激活</a>
+        </div>
+    </form>
+</div>
+
+<div class="activation-jilu">
+    <p>激活记录</p>
+    <div class="activation-list">
+        {volist name="list" id="data"}
+        <div class="activation-list-item">
+            <div>{$data.phone}</div>
+            <div>{$data.created}</div>
+        </div>
+        {/volist}
+    </div>
+</div>
+
+
+<script type="text/javascript" src="__ROOT__/template/wap/ninestar/static/js/jquery.min.js"></script>
+<script type="text/javascript" src="__ROOT__/template/wap/ninestar/static/js/index.js" ></script>
+<script src="__TMPL__/alert/js/jquery.alertable.min.js" type="text/javascript" charset="utf-8"></script>
+<script>
+    $(function() {
+        $("#send").click(function() {
+            var phone = $("input[name='phone']").val();
+            if(phone == '') {
+                alert('账号不能为空');
+            }
+            $.post('register',{phone : phone},function(data) {
+                if(!data.status) {
+                    alert(data.message);
+                    return false;
+                }
+                alert('激活成功');
+                window.location.reload();
+            },'json');
+        });
+    });
+</script>
+</body>
+</html>
+

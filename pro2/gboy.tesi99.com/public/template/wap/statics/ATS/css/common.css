@@ -1,0 +1,167 @@
+body{color:#333}
+.wrapper{background-color:#f5f5f5}
+.person-avatar{
+	text-align: center;
+}
+.person-img{
+	height:80px;
+	width:80px;
+}
+.person-down .flex-item{
+	position: relative;
+	z-index: 0;
+}
+
+.home-parts{
+	display: -webkit-flex;
+    display: flex;
+    -webkit-flex-wrap: wrap;
+    flex-wrap: wrap;
+}
+.home-parts-item{
+	display: block;
+}
+/*列表*/
+.list-record-bar{
+	border-radius:4px 4px  0 ;
+	overflow: hidden;
+}
+.list-record__item:not(:last-child){
+	border-bottom: 1px solid #ccc;
+}
+.list-record__th{
+	background-color:#f7f7f7
+}
+.list-record p{
+	line-height: 1.4;
+}
+.check-text .iconfont{background-color:#fff;color:#fff;font-size: 14px;vertical-align: middle;border:1px solid #ccc;border-radius:2px ;margin-right: 5px;}
+:checked + .check-text .iconfont{background-color:#e92b77;border-color:#e92b77}
+.btn-login{background-color:#e92b77;border-color:#e92b77;color:#fff;border-radius: 40px;height:40px;}
+
+input:focus,button:focus{outline: none;}
+/*选择语言*/
+.lang-item{
+	padding:10px 0;
+	display: block;
+}
+.lang-item:not(:last-child){
+	border-bottom: 1px solid #ccc;
+}
+.changestate .iconfont{display: none;}
+:checked ~ .changestate .iconfont{display: inline-block;}
+/*弹窗*/
+.container { 
+	display: none;
+	position: fixed; 
+	top: 0; right: 0; bottom: 0; left: 0; 
+	background-color: rgba(0,0,0,.5); 
+	text-align: center; 
+	font-size: 0; 
+	white-space: nowrap; 
+	overflow: auto; 
+} 
+.container:after { 
+  content: ''; 
+  display: inline-block; 
+  height: 100%; 
+  vertical-align: middle; 
+} 
+.dialog { 
+	min-width: 220px;
+  display: inline-block; 
+  vertical-align: middle; 
+  text-align: left; 
+  font-size: 14px; 
+  white-space: normal; 
+  border-radius: 6px;
+background-color: #fff;
+overflow: hidden;
+} 
+.btn-close{
+	background-color:transparent;
+	border:none;
+	color:#eee;
+	opacity: 0.8;
+}
+/*交易所*/
+.tab-item:not(:first-child){display: none;}
+.chart-header .flex-item{position: relative;}
+.chart-header .flex-item:not(:last-child)::before{
+	content: '';
+	position:absolute;
+	top:15%;right:0;bottom:15%;left:0;
+	border-right:1px solid #fff;
+}
+.chart-bar .tab-hd-item{
+	border-top:1px solid transparent;
+	border-bottom:1px solid transparent;
+	padding:7px 0;
+	
+}
+.chart-bar .tab-hd-item:not(:last-child){border-right: 1px solid #49435a;}
+.tab-hd{border-bottom: 1px solid #49435a;}
+.chart-bar .tab-hd-item.cur{
+	background-color:#1c172e;
+	color:#02ccad;
+	border-bottom: 1px solid #1c172e;
+}
+.trade-list .layout-img{
+	float: left;
+	width:40px;
+	height: 40px;
+}
+.trade-list .layout-text{margin-left:10px;}
+.trade-list .btn-tag{height: 20px;padding:0 15px;font-size: 12px;}
+.trade-list-item:not(:last-child){
+	border-bottom: 1px solid #eee;
+}
+.range-group{position:relative}
+.range-top{position:absolute;bottom:0;right:0;left:0;margin:auto;transform:translateY(-10px)}
+.btn-range{
+	width: 16px;
+	height:16px;
+	line-height: 16px;
+	padding:0;
+	
+}
+.range{
+	width:calc(100% - 50px)
+}
+.pushOrder-form .row{
+	line-height: 34px;
+}
+/*支付密码框*/
+.passwordLabel{
+	text-align: center;
+	position: relative;
+}
+.passwordLabel li{
+	vertical-align: top;
+    display: inline-block;
+    width: 30px;
+    height: 30px;
+    line-height: 30px;
+    text-align: center;
+    border: 1px solid #dedede;
+    margin-left: -1px;
+}
+.passwordDiv input{
+   	width:100px;
+	height:1px;
+	position:absolute;
+	clip:rect(0,0,0,0)
+}
+.un-border-group .input.border-b{border-bottom: 1px solid #dedede;}
+.odd-tit{line-height: 34px;}
+.layui-layer-molv{
+	border-radius: 8px!important;
+	overflow: hidden;
+}
+.target-copy{position: absolute;z-index: -1;}
+
+.trade-asset .tab-hd-item{line-height: 42px;}
+.trade-asset .tab-hd-item.cur{border-bottom: 2px solid #02ccad;color:#02ccad}
+.trade-asset .lp-cells::after,.trade-asset .lp-cells::before{background-color:#eee}
+.trade-asset .lp-cells__item:not(:last-child)::after{background-color:#eee}
+.table th{background-color:#56a2cf;color: #ffffff;border-top: 0;}

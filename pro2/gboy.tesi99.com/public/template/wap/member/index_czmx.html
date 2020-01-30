@@ -1,0 +1,55 @@
+{extend name="template/wap/public/base.html" /}
+{block name="title"}探索者联盟{/block}
+{block name="script"}
+    <script src="__TMPL__/js/util.js" type="text/javascript" charset="utf-8"></script>
+    <script src="__TMPL__/js/comment.js" type="text/javascript" charset="utf-8"></script>
+{/block}
+{block name="header"}
+    <header class="mui-bar mui-bar-nav bg-theme">
+        <a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+        <h1 class="mui-title">充值明细</h1>
+    </header>
+{/block}
+{block name="content"}
+    <div class="mui-content">
+        <div class="person-data tab-bar">
+            <ul class="mui-clearfix tab-hd layout-row">
+                <li class="cur tab-hd-item col-4">全部类型</li>
+                <li class="tab-hd-item col-4">现金积分充值</li>
+                <li class="tab-hd-item col-4">互转现金积分</li>
+            </ul>
+            <div class="tab-bd">
+                <div class="tab-item">
+                    {volist name="list.list" id="data"}
+                    <div class="pd10 section f-gray mb10">
+                        <p class="flex-justify"><span>充值时间</span><span>{$data.apply_time}</span></p>
+                        <p class="flex-justify"><span>充值金额</span><span>￥{$data.value}</span></p>
+                        <p class="flex-justify"><span>到账时间</span><span>{$data.created}</span></p>
+                        <p class="flex-justify"><span>充值状态</span><span>{$data.transaction_text}</span></p>
+                    </div>
+                    {/volist}
+                </div>
+                <div class="tab-item">
+                    {volist name="list.recharge" id="data"}
+                    <div class="pd10 section f-gray mb10">
+                        <p class="flex-justify"><span>充值时间</span><span>{$data.apply_time}</span></p>
+                        <p class="flex-justify"><span>充值金额</span><span>￥{$data.value}</span></p>
+                        <p class="flex-justify"><span>到账时间</span><span>{$data.created}</span></p>
+                        <p class="flex-justify"><span>充值状态</span><span>{$data.transaction_text}</span></p>
+                    </div>
+                    {/volist}
+                </div>
+                <div class="tab-item">
+                  {volist name="list.turn" id="data"}
+                  <div class="pd10 section f-gray mb10">
+                      <p class="flex-justify"><span>充值时间</span><span>{$data.apply_time}</span></p>
+                      <p class="flex-justify"><span>充值金额</span><span>￥{$data.value}</span></p>
+                      <p class="flex-justify"><span>到账时间</span><span>{$data.created}</span></p>
+                      <p class="flex-justify"><span>充值状态</span><span>{$data.transaction_text}</span></p>
+                  </div>
+                  {/volist}
+                </div>
+            </div>
+        </div>
+    </div>
+{/block}

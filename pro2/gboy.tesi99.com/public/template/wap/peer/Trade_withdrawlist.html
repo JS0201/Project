@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+
+		<title>兑换记录</title>
+		<link rel="stylesheet" type="text/css" href="__TMPL__/ATS/css/addicon.css"/>
+		<link rel="stylesheet" type="text/css" href="__TMPL__/ATS/css/font-awesome.min.css"/>
+		<link rel="stylesheet" type="text/css" href="__TMPL__/ATS/css/style.css"/>
+		<link rel="stylesheet" type="text/css" href="__TMPL__/ATS/css/common.css"/>
+		<link rel="stylesheet" type="text/css" href="__TMPL__/ATS/css/paging.css"/>
+
+	</head>
+	<body>
+		<div class="lp-header c-fff pcol3 content-box">
+			<a class="lp-back fa fa-angle-left fl" href="/index.php?m=Member&amp;c=memberSort&amp;a=tixian"></a>
+			<h1 class="title">兑换记录</h1>
+
+		</div>
+		<div class="prow15 mt80 bgcolortheme01 bbcolortheme03">
+			<div class="flex">
+				<div class="flex-item colortheme01 tal height50">
+					兑换状态
+				</div>
+				<div class="flex-item colortheme01 height50">
+					兑换数量
+				</div>
+				<div class="flex-item colortheme01 tar height50">
+					兑换时间
+				</div>
+			</div>
+		</div>
+		<div class="">
+			<div class="record-list ">
+			    <volist name="list" id="foo">
+                    <div class="prow15 bbcolortheme03">
+                        <div class="flex">
+                            <div class="flex-item c-fff tal height50">
+                                <{$foo['status']}>
+                            </div>
+                            <div class="flex-item f-green height50">
+                                <{$foo['ai']}>
+                            </div>
+                            <div class="flex-item c-fff tar height50">
+                                <{$foo['addtime']}>
+                            </div>
+                        </div>
+                    </div>
+                </volist>
+
+			</div>
+		</div>
+
+
+
+	</body>
+</html>

@@ -1,0 +1,64 @@
+{extend name="template/wap/public/base.html" /}
+{block name="title"}探索者联盟{/block}
+{block name="script"}
+<script src="__TMPL__/js/util.js" type="text/javascript" charset="utf-8"></script>
+<script src="__TMPL__/js/comment.js" type="text/javascript" charset="utf-8"></script>
+{/block}
+{block name="header"}
+    <header class="mui-bar mui-bar-nav bg-theme">
+        <a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+        <h1 class="mui-title">交易</h1>
+    </header>
+{/block}
+{block name="content"}
+    <div class="mui-content">
+        <div class="person-data tab-bar">
+            <ul class="mui-clearfix tab-hd">
+                <li class="cur tab-hd-item">全部类型</li>
+                <li class="tab-hd-item" style="margin-left: 10%;">直推收益</li>
+                <li class="tab-hd-item" style="margin-left: 10%;">团队收益</li>
+            </ul>
+            <div class="tab-bd">
+                <ul class="tab-item">
+                    {volist name="list.all" id="data"}
+                    <li class="mui-card">
+                        <div class="pd10">
+                            <div class="hd"><span>提供者：{$data.username}</span><span class="fr">{$data.dateline}</span></div>
+                            <div class="bd tc  mt20">
+                                <p class="ellipsis fs20 f-theme">{$data.value}</p>
+                                <p class="ellipsis fs12 f-darkgray">WIN收益</p>
+                            </div>
+                        </div>
+                    </li>
+                    {/volist}
+                </ul>
+                <ul class="tab-item">
+                {volist name="list.recomment" id="data"}
+                    <li class="mui-card">
+                        <div class="pd10">
+                            <div class="hd"><span>提供者：{$data.username}</span><span class="fr">{$data.dateline}</span></div>
+                            <div class="bd tc  mt20">
+                                <p class="ellipsis fs20 f-theme">{$data.value}</p>
+                                <p class="ellipsis fs12 f-darkgray">WIN收益</p>
+                            </div>
+                        </div>
+                    </li>
+                    {/volist}
+                </ul>
+                <ul class="tab-item">
+                    {volist name="list.team" id="data"}
+                    <li class="mui-card">
+                        <div class="pd10">
+                            <div class="hd"><span>提供者：{$data.username}</span><span class="fr">{$data.dateline}</span></div>
+                            <div class="bd tc  mt20">
+                                <p class="ellipsis fs20 f-theme">{$data.value}</p>
+                                <p class="ellipsis fs12 f-darkgray">WIN收益</p>
+                            </div>
+                        </div>
+                    </li>
+                    {/volist}
+                </ul>
+            </div>
+        </div>
+    </div>
+{/block}

@@ -1,0 +1,96 @@
+{extend name="admin@public/base" /}
+
+{block name="script"}
+<script>
+   $(function(){
+       $('#parent_name').click(function(){
+           parent.layer.open({
+               type: 2,
+               title: '选择上级分类',
+               shadeClose: false,
+               resize:false,
+               scrollbar:false,
+               move:false,
+               shade: 0.3,
+               area: ['920px', '450px'],
+               content: '{:url("popup")}'
+           });
+
+       })
+
+   })
+</script>
+{/block}
+{block name="main-content"}
+<div class="main-content">
+
+    <div class="main-content-inner">
+
+        <div class="page-content">
+
+            <div class="row">
+                <div class="tabbable">
+                    <ul class="nav nav-tabs" >
+
+                        <li class="active"><a data-toggle="tab" href="#tag1">基本信息</a></li>
+
+                    </ul>
+
+                    <form class="form-horizontal"  role="form" method="post">
+                        <input type="hidden" name="id" value="{:isset($info['id'])?$info['id']:''}">
+                        <input type="hidden" name="parent_id" id="parent_id" data-value="{$info['path_id']}" value="{$info['parent_id']}">
+                        <div class="tab-content">
+
+                            <div id="tag1" class="tab-pane active">
+        <?php
+         echo  \form\Form::input('text','parent_name',$info['parent_name'],'上级分类','请选择上级分类',array('readonly'=>'readonly','placeholder'=>'请选择分类'));
+         echo  \form\Form::input('text','name',$info['name'],'分类名称','分类名称');
+         echo  \form\Form::input('text','type_id',$info['type_id'],'关联类型','每个分类可以管理一个商品类型，用于前台筛选及商品类型添加');
+         echo  \form\Form::input('upload','img',$info['img'],'栏目图片','栏目图片',array('num'=>1,'input'=>'img',''));
+         echo  \form\Form::input('text','url',$info['url'],'栏目链接','设置后点击栏目跳转到指定链接');
+
+         echo  \form\Form::input('textarea','grade',$info['grade'],'价格分级','填写分类下商品筛选价格分级，如：0-99，每行一个');
+         echo  \form\Form::input('text','keywords',$info['keywords'],'分类关键词','多个关键字请用分隔符分隔');
+         echo  \form\Form::input('textarea','descript',$info['descript'],'分类描述','建议不超过80个字');
+         echo  \form\Form::input('text','sort',isset($info['sort']) ? $info['sort'] :100,'排序','请填写自然数，文字分类列表将会根据排序进行由小到大排列显示');
+         echo  \form\Form::input('radio','show_in_nav',isset($info['show_in_nav']) ? $info['show_in_nav'] :0,'是否导航','是否在前台导航显示',array('items'=>array('否','是')));
+         echo  \form\Form::input('radio','is_floor',isset($info['is_floor']) ? $info['is_floor'] :0,'是否楼层','首页是否楼层显示',array('items'=>array('否','是')));
+         echo  \form\Form::input('radio','status',isset($info['status']) ? $info['status'] :1,'是否启用','请设置商品分类是否启用，不影响后台显示使用',array('items'=>array('否','是')));
+         echo  \form\Form::input('radio','type',isset($info['type']) ? ($info['type'] == 2 ? : 1 ) : 0,'是否套餐','',array('items'=>array('否','是')));
+
+        ?>
+
+
+                            </div>
+
+                        </div>
+
+
+                        <div class="clearfix form-actions">
+                            <div class="col-md-offset-2 col-md-10">
+                                <button class="btn btn-info"  type="button">
+                                    <i class="icon-ok bigger-110"></i>
+                                    保存
+                                </button>
+
+
+                                <button class="btn" type="reset">
+                                    <i class="icon-undo bigger-110"></i>
+                                    重置
+                                </button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+
+            </div>
+
+        </div>
+
+
+    </div>
+
+</div>
+
+
+{/block}

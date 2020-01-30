@@ -1,0 +1,90 @@
+{extend name="admin@public/base" /}
+
+{block name="main-content"}
+<div class="main-content">
+
+    <div class="main-content-inner">
+
+        <div class="page-content">
+
+            <div class="row">
+                <div class="col-xs-12">
+
+
+                    <div class="border clearfix">
+
+                        <a href="{:url('add')}" class="btn btn-warning btn-sm"><i class="icon-plus bigger-120"></i> 添加</a>
+                        &nbsp;
+                        <a href="{:url('delete')}" data-ajax="id" class="btn btn-danger btn-sm "><i class="icon-trash bigger-120"></i> 删除</a>
+
+                    </div>
+
+
+
+
+
+
+
+
+                    <div class="table-responsive">
+                        <table id="sample-table" class="table table-striped table-bordered table-hover">
+                            <thead>
+                            <tr>
+                                <th width="50"> <label> <input type="checkbox" class="ace " id="check-all" /> <span class="lbl"></span> </label> </th>
+                                <th width="50">排序</th>
+                                <th width="50">ID</th>
+                                <th>名称</th>
+                                <th width="100">宽度</th>
+                                <th width="100">高度</th>
+                                <th width="100">已发布</th>
+                                <th width="100">状态</th>
+                                <th width="250">操作</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            {volist name="list" id="foo"}
+                            <tr>
+                                <td > <label class="check-option"> <input type="checkbox" class="ace"  value="{$foo['id']}" /> <span class="lbl"></span> </label> </td>
+                                <td>{$foo['sort']}</td>
+                                <td>{$foo['id']}</td>
+                                <td class="left">{$foo['name']}</td>
+                                <td>{$foo['width']}</td>
+                                <td>{$foo['height']}</td>
+                                <td>{$foo['count_num']}</td>
+                                <td><i class="{if condition="$foo['status'] eq 1"}icon-ok text-success{else/}icon-remove text-danger{/if} bigger-120"></i></td>
+                                <td>
+
+                                    <div>
+                                        <a class="green" href="{:url('edit',['id'=>$foo['id']])}" title="编辑"> <i class="icon-pencil bigger-130"></i> 编辑</a>
+                                        &nbsp;
+                                        <a class="red" data-confirm="是否确认删除？" href="{:url('delete',['id'=>$foo['id']])}" title="删除"> <i class="icon-trash bigger-130"></i> 删除</a>
+                                        &nbsp;
+                                        <a class="blue" href="{:url('delete',['id'=>$foo['id']])}"> <i class="icon-retweet bigger-130"></i> 代码调用</a>
+
+
+                                    </div>
+
+
+                                </td>
+                            </tr>
+                            {/volist}
+
+                            </tbody>
+                        </table>
+                    </div>
+
+                </div>
+
+            </div>
+
+
+
+        </div>
+
+
+    </div>
+
+</div>
+
+{/block}
+

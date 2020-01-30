@@ -1,0 +1,119 @@
+{extend name="admin@public/base" /}
+
+{block name="main-content"}
+<div class="main-content">
+
+	<div class="main-content-inner">
+
+		<div class="page-content">
+
+			<div class="row">
+				<div class="col-xs-12">
+                    <div class="border clearfix">
+                        <div class="search clearfix">
+                            <form class="form-inline">
+                                   <?php
+                                        echo  \form\Form::input('text','keywords',input('get.keywords'),'关键词','',array('placeholder'=>'标题'));
+                                        echo  \form\Form::input('select','group_id',input('get.group_id'),'等级','',array('items'=>$member_group));
+                                        //echo  \form\Form::input('select','status',input('get.islock'),'状态','',array('items'=>array(''=>'全部','1'=>'锁定','0'=>'正常')));
+                                    ?>
+
+                                <div class="form-group">
+                                <span class="input-group-btn" style="width:100%;">
+                                    <button type="submit" class="btn btn-purple btn-sm">
+                                        搜索
+                                        <i class="icon-search icon-on-right bigger-110"></i>
+                                    </button>
+                                 </span>
+                                </div>
+                            </form>
+                        </div>
+                        <a href="{:url('add')}" class="btn btn-warning btn-sm"><i class="icon-plus bigger-120"></i> 添加</a>
+                        <a href="{:url('delete')}" data-ajax="id" class="btn btn-danger btn-sm "><i class="icon-trash bigger-120"></i> 删除</a>
+
+                    </div>
+					<div class="table-responsive">
+					  <table id="sample-table" class="table table-striped table-bordered table-hover">
+   <thead>
+    <tr>
+     <th width="50"> <label> <input type="checkbox" class="ace " id="check-all" /> <span class="lbl"></span> </label> </th>
+     <th width="50">ID</th>
+     <th>会员</th>
+     <th width="200">等级&姓名</th>
+     <th width="200">账户余额</th>
+     <th width="210">注册&登录</th>
+     <th width="100">状态</th>
+     <th width="200">操作</th>
+    </tr>
+   </thead>
+   <tbody>
+   {volist name="list" id="foo"}
+    <tr>
+     <td > <label class="check-option"> <input type="checkbox" class="ace"  value="{$foo['id']}" /> <span class="lbl"></span> </label> </td>
+     <td>{$foo['id']}</td>
+        <td class="left">
+         <img class="pull-left gboy-margin-right-10" src="{if condition="$foo['face']"}{$foo['face']}{else/}__STATIC__/images/default_head.png{/if}" width="50">
+         {$foo['username']} <span class="blue">（登录次数：{$foo['login_num']}）</span>
+           <div class="info gboy-margin-top-10">
+            <i class="blue icon-envelope bigger-120" title="邮箱：{$foo['email']}"></i>&nbsp;&nbsp;
+            <i class="blue icon-mobile-phone bigger-130" title="手机：{$foo['mobile']}"></i>&nbsp;&nbsp;
+            <i class="blue icon-building bigger-110" title="点击查看收货地址"></i>
+           </div>
+     </td>
+     <td  class="left">
+            <p>等级：{$foo['group_name']}</p>
+            <p>姓名：{$foo['realname']}</p>
+        </td>
+     <td class="left">
+         <p>现金积分：{$foo['money']}</p>
+         <p>消费积分：{$foo['shop_integral']}</p>
+     </td>
+     <td class="left">
+        <p>注册时间：{$foo['register_time']}</p>
+        <p>最后登录：{$foo['login_time']}</p>
+     </td>
+     <td><i class="{if condition="$foo['islock'] eq 0"}icon-unlock text-success{else/}icon-lock text-danger{/if} bigger-120"></i></td>
+     <td>
+
+      <div>
+       <a class="blue" href="{:url('member/publics/admin_login',['id'=>$foo['id']])}" target="view_window"> <i class="icon-user bigger-130"></i> 登录</a>
+          &nbsp;
+       <a class="green" href="{:url('edit',['id'=>$foo['id']])}"> <i class="icon-pencil bigger-130"></i> 编辑</a>
+          &nbsp;&nbsp;
+       <a class="red" data-confirm="是否确认删除？" href="{:url('delete',['id'=>$foo['id']])}"> <i class="icon-trash bigger-130"></i> 删除</a>
+      </div>
+
+
+     </td>
+    </tr>
+   {/volist}
+
+   </tbody>
+  </table>
+					</div>
+
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <div class="dataTables_info">每页显示{$list->listRows()}条，总{$list->total()}条数据</div>
+                        </div>
+
+                        <div class="dataTables_paginate paging_bootstrap">
+                            {$list->render()}
+                        </div>
+
+                    </div>
+				</div>
+
+			</div>
+
+
+
+		</div>
+
+
+	</div>
+
+</div>
+
+{/block}
+

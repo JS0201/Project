@@ -1,0 +1,102 @@
+{extend name="admin@public/base" /}
+
+{block name="script"}
+
+<link rel="stylesheet" href="__STATIC__/js/emotion/emotion.css" />
+<script src="https://cdn.bootcss.com/caret/1.0.0/jquery.caret.min.js"></script>
+<script src="__STATIC__/js/emotion/emotion.js"></script>
+<script>
+$(function(){
+
+   $('.emotion').each(function (i) {
+		obj=$(this);
+		var input = obj.parents('.form-group').find('textarea');
+		emotion({
+			btn: obj,
+			input: input,
+			callback: function (con, btn, input) {
+			}
+		});
+	})
+
+})
+</script>
+{/block}
+{block name="main-content"}
+<div class="main-content"> 
+  	 
+	<div class="main-content-inner">
+ 
+		<div class="page-content">
+			
+			<div class="row">
+			<div class="tabbable">
+				<ul class="nav nav-tabs" id="myTab">
+	
+					<li class="active"><a data-toggle="tab" href="#tag1" >基本信息</a></li>
+		
+					
+				</ul>
+				
+				<form class="form-horizontal" role="form" method="post" >
+				<div class="tab-content">
+					
+				
+					<div id="tag1" class="tab-pane active">
+					
+						<div class="form-group">
+							<label class="col-sm-2 control-label no-padding-right">欢迎信息回复</label>
+							<div class="col-sm-10">
+							<textarea class="col-xs-10 col-sm-5" name="wx_welcome" >{:config('cache.wx_welcome')}</textarea>
+							<span class="help-inline col-xs-12 col-sm-7">
+								<span class="middle">用户关注后发送的欢迎信息<br /><br /><a href="javascript:;" class="emotion"><i class=" icon-heart"></i> 选择表情</a></span>
+							</span>
+							</div>
+						</div>
+						<div class="space-4"></div>
+						<div class="form-group">
+							<label class="col-sm-2 control-label no-padding-right">默认信息回复</label>
+							<div class="col-sm-10">
+							<textarea class="col-xs-10 col-sm-5" name="wx_default_welcome" >{:config('cache.wx_default_welcome')}</textarea>
+							<span class="help-inline col-xs-12 col-sm-7">
+								<span class="middle">没有匹配的关注词时回复的消息<br /><br /><a href="javascript:;" class="emotion"><i class=" icon-heart"></i> 选择表情</a></span>
+							</span>
+							</div>
+						</div>
+						<div class="space-4"></div>
+					</div>
+				
+
+				
+				
+				</div>
+				
+				
+				<div class="clearfix form-actions">
+						<div class="col-md-offset-2 col-md-10">
+							<button class="btn btn-info"  type="button">
+								<i class="icon-ok bigger-110"></i>
+								保存
+							</button>
+
+
+							<button class="btn" type="reset">
+								<i class="icon-undo bigger-110"></i>
+								重置
+							</button>
+						</div>
+					</div>
+				</form>
+			</div>
+			
+			</div>
+		
+		</div>
+		
+		
+	</div>
+
+</div> 
+
+
+{/block}

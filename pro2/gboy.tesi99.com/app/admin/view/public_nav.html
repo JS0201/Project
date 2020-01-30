@@ -1,0 +1,146 @@
+<a class="menu-toggler" id="menu-toggler" href="#">
+	<span class="menu-text"></span>
+</a>
+<div id="sidebar" class="sidebar">
+	<script type="text/javascript">
+		try{ace.settings.loadState('sidebar')}catch(e){}
+	</script>
+
+	<div class="sidebar-shortcuts" id="sidebar-shortcuts">
+		<div class="sidebar-shortcuts-large" id="sidebar-shortcuts-large">
+			<a href="{:url('admin/site/base')}" target="main_frame">
+				<button class="btn btn-danger">
+					<i class="icon-cogs"></i>
+				</button>
+			</a>
+
+
+			<a href="{:url('admin/site/base')}" target="main_frame">
+				<button class="btn btn-info">
+					<i class="icon-list"></i>
+				</button>
+			</a>
+
+			<a href="{:url('member/member/index')}" target="main_frame">
+				<button class="btn btn-warning">
+					<i class="icon-group"></i>
+				</button>
+			</a>
+
+			<a href="{:url('statistics/order/index')}" target="main_frame">
+				<button class="btn btn-success">
+					<i class="icon-signal"></i>
+				</button>
+			</a>
+		</div>
+
+		<div class="sidebar-shortcuts-mini" id="sidebar-shortcuts-mini">
+			<span class="btn btn-success"></span>
+
+			<span class="btn btn-info"></span>
+
+			<span class="btn btn-warning"></span>
+
+			<span class="btn btn-danger"></span>
+		</div>
+	</div><!-- #sidebar-shortcuts -->
+	
+	<ul class="nav nav-list">
+		{volist name="nodes" id="node"}
+		<li>
+			<a href="javascript:;" class="dropdown-toggle">
+				<i class="{$node['ico']}"></i>
+				<span class="menu-text"> {$node['name']}</span>
+				<b class="arrow icon-angle-down"></b>
+			</a>
+		
+			{if condition="isset($node['_child'])"}
+			<ul class="submenu">
+				{volist name="node['_child']" id="_node"}
+				<li>
+					<a href="{if condition="isset($_node['_child'])"}javascript:;{else/}{$_node['url']}{/if}" class="dropdown-toggle" target="{$_node['target']|default='main_frame'}">
+						<i class="icon-double-angle-right"></i>
+						
+						<span class="menu-text"> {$_node['name']} </span>
+						{if condition="isset($_node['_child'])"}<b class="arrow icon-angle-down"></b>{/if}
+					</a>
+					{if condition="isset($_node['_child'])"}
+					<ul class="submenu">
+						{volist name="_node['_child']" id="__node"}
+						<li>
+							<a href="{$__node['url']}" target="{$__node['target']|default='main_frame'}">
+								<i class="menu-icon  icon-caret-right"></i>
+								{$__node['name']}
+							</a>
+						</li>
+						{/volist}
+					</ul>
+					{/if}
+				</li>
+				{/volist}
+				
+			</ul>
+			{/if}
+		</li>
+		{/volist}
+
+		 
+		<!--<li>
+			<a href="#" class="dropdown-toggle">
+				<i class="icon-file-alt"></i>
+
+				<span class="menu-text">
+					帮助中心
+				
+				</span>
+
+				<b class="arrow icon-angle-down"></b>
+			</a>
+
+			<ul class="submenu">
+				<li>
+					<a href="faq.html">
+						<i class="icon-double-angle-right"></i>
+						FAQ
+					</a>
+				</li>
+
+				<li>
+					<a href="error-404.html">
+						<i class="icon-double-angle-right"></i>
+						Error 404
+					</a>
+				</li>
+
+				<li>
+					<a href="error-500.html">
+						<i class="icon-double-angle-right"></i>
+						Error 500
+					</a>
+				</li>
+
+				<li>
+					<a href="grid.html">
+						<i class="icon-double-angle-right"></i>
+						Grid
+					</a>
+				</li>
+
+				<li>
+					<a href="blank.html">
+						<i class="icon-double-angle-right"></i>
+						Blank Page
+					</a>
+				</li>
+			</ul>
+		</li> -->
+	</ul><!-- /.nav-list -->
+
+	<div class="sidebar-collapse" id="sidebar-collapse">
+		<i class="icon-double-angle-left" data-icon1="icon-double-angle-left" data-icon2="icon-double-angle-right"></i>
+	</div>
+
+	<script type="text/javascript">
+		try{ace.settings.check('sidebar' , 'collapsed')}catch(e){}
+	</script>
+</div>

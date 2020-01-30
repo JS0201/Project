@@ -1,0 +1,81 @@
+{extend name="template/wap/public/base.html" /}
+{block name="title"}探索者联盟{/block}
+{block name="css"}
+    <link rel="stylesheet" type="text/css" href="__TMPL__/alert/css/jquery.alertable.css"/>
+{/block}
+{block name="script"}
+    <script src="__TMPL__/alert/js/velocity.min.js" type="text/javascript" charset="utf-8"></script>
+    <script src="__TMPL__/alert/js/velocity.ui.min.js" type="text/javascript" charset="utf-8"></script>
+    <script src="__TMPL__/alert/js/jquery.alertable.min.js" type="text/javascript" charset="utf-8"></script>
+    <script>
+        function send() {
+            var password = $("input[name='password']").val();
+            if(!password) {
+                $.alertable.alert('请输入原始密码');
+                return false;
+            }
+            var newpassword = $("input[name='newpassword']").val();
+            if(!newpassword) {
+                $.alertable.alert('请输入新密码');
+                return false;
+            }
+            var long = newpassword.length;
+            if(long < 6 || long > 16) {
+                $.alertable.alert('密码长度为6-16位之间');
+                return false;
+            }
+            var repassword = $("input[name='repassword']").val();
+            if(!repassword) {
+                $.alertable.alert('请重复新密码');
+                return false;
+            }
+            $.post('/member/index/resetpw',{password: password, newpassword:newpassword,repassword:repassword},function(data) {
+                if(!data.status) {
+                    $.alertable.alert(data.message);
+                    return false;
+                }
+                $.alertable.alert('修改成功');
+                window.location.href = '/member/index/order';
+            },'json');
+        }
+    </script>
+{/block}
+{block name="header"}
+    <header class="mui-bar mui-bar-nav bg-theme">
+        <a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+        <h1 class="mui-title">修改密码</h1>
+    </header>
+{/block}
+{block name="content"}
+    <div class="mui-content">
+        <div class="person-data">
+
+            <form action="" method="post" class="pcol65">
+                <div class="flex-justify layout-row pb10">
+                    <span class="input-label col-4 tr">原始密码：</span>
+                    <div class="col-8">
+                        <input class="input  " name="password" type="text" placeholder="请输入原始密码" autofocus="true"/>
+                    </div>
+                </div>
+                <div class="flex-justify layout-row pb10">
+                    <span class="input-label col-4 tr">新的密码：</span>
+                    <div class="col-8">
+                        <input class="input  " name="newpassword" type="password" placeholder="请输入新密码"/>
+                    </div>
+                </div>
+                <div class="flex-justify layout-row pb10">
+                    <span class="input-label col-4 tr">确认密码：</span>
+                    <div class="col-8">
+                        <input class="input  " name="repassword" type="password" placeholder="请重复新密码"/>
+                    </div>
+                </div>
+                <div class="flex-justify layout-row pcol10">
+                    <span class="input-label col-4 tr">&nbsp;</span>
+                    <div class="col-8">
+                        <button class="btn btn-theme input" type="button" onclick="send()">提交</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+{/block}

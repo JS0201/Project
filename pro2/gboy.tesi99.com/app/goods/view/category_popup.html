@@ -1,0 +1,184 @@
+{extend name="admin@public/base" /}
+{block name="style"}
+body.navbar-fixed{padding-top:0;overflow:hidden;}
+{/block}
+{block name="script"}
+	<script>
+	
+			$('#breadcrumbs').parent().remove();
+			
+		$(function(){
+			
+			$(document).on('click','.focus_list a',function(){
+			
+				$('.class-choose span').attr('data-id',$(this).attr('data-id'));
+				
+			});
+			
+			
+			$('[type="button"]').on("click",function(){
+				var parent_id=$('.class-choose span').attr('data-id');
+				if(parent_id=='' || parent_id==undefined){
+					alert('请选择分类');
+					return false;
+				}
+				
+				//alert(parent_id);
+				iframe_val(parent_id,'#parent_id');
+				//alert($('.class-choose span').html());
+				var html=html_encode($('.class-choose span').html());
+				iframe_val(html,'#parent_name');
+			})
+			
+			
+			//$pvalue = $('input[name=parent_id]').attr('data-value');
+			
+			
+			//编辑模拟click选中
+			$pvalue = $(window.parent.document.body).find('input[name=parent_id]').attr('data-value');
+			if($pvalue){
+				arr=$pvalue.split(',');
+				for(var i=0;i<arr.length-2;i++){
+					id=arr[i];
+					$('#cat'+id).click();
+					$('.class-choose span').html(classNameText()).removeClass('red');
+				}
+				
+			}
+			
+			
+		})
+			
+			
+		function classNameText(){
+				var _txt = '';
+				$('.focus_list div.focus').each(function(){
+					if($(this).find("a.focus").html()!=null){
+						if($(this).index()==0){
+							_txt += $(this).find("a.focus").html();
+						}else{
+							_txt += '>'+$(this).find("a.focus").html();
+						}
+					}
+				})
+				
+				return _txt;
+		}
+		
+			
+			
+		json_category = <?php echo json_encode($category); ?> ;
+			
+			
+		nb_category(-1,'.root');
+
+		
+
+
+
+	function nb_category(pid, e){
+		
+		$(e).parent().nextAll('.child').empty();
+		
+		var ids = $(window.parent.document.body).find('input[name=id]').val();
+		
+		//编辑不能选择自己
+		if(pid==ids && ids){
+			var _this = $('#cat' + ids);
+			_this.addClass('disable');
+			$(".class-choose span").html("不能选择自身！").addClass('red');
+			return false;
+		}
+		
+		
+		
+		
+		
+		if($(e).hasClass('focus')){
+			if($(e).parent().next('.child').children('a').length<=0){
+				$(this).removeClass('focus');
+			}else{
+				var flog = true;
+				$(e).parent().nextAll('div a').each(function(){
+				if($(this).hasClass('focus')){
+					flog = false;
+				}
+				});
+				if(flog){
+					_this.removeClass('focus');
+				}
+			}
+		}else{
+			$(e).addClass('focus').siblings().removeClass('focus');
+		}   
+		
+		
+	
+		var strHTML = "";
+		$.each(json_category, function(InfoIndex, Info){
+	
+			if (pid == Info.parent_id){
+				strHTML += " <a href = 'javascript:void(0)' onclick = 'nb_category(" + Info.id + ",this)' id = 'cat" + Info.id + "' data-id = " + Info.id + " > " + Info.name + " </a>";
+			
+			}	
+		}
+		
+		);
+		if (pid ==-1){
+			$(".root").html(strHTML);
+		} else{
+			$(e).parent().next('div').css('background', '#FFF');
+			$(e).parent().next('div').html(strHTML);
+		}
+		
+		$('.class-choose span').html(classNameText()).removeClass('red');
+	}	
+		
+		
+		
+	</script>
+{/block}
+{block name="main-content"}
+<div class="main-content category_popup">
+
+    <div class="main-content-inner">
+
+        <div class="page-content">
+
+            <div class="row">
+                <div class="tabbable">
+					<div class="focus_list">
+						<div class="root border focus"></div>
+						<div class="child border focus"></div>
+						<div class="child border focus"></div>
+						<div class="child border focus"></div>
+					</div>
+					
+					<p class="class-choose">您当前所选择的分类：<span></span></p>
+					<div class="clearfix form-actions">
+						<div class="col-md-offset-2 col-md-10">
+							<button class="btn btn-info"  type="button">
+								<i class="icon-ok bigger-110"></i>
+								确认
+							</button>
+
+
+							<button class="btn" type="reset">
+								<i class="icon-undo bigger-110"></i>
+								重置
+							</button>
+						</div>
+					</div>
+                </div>
+
+            </div>
+
+        </div>
+
+
+    </div>
+
+</div>
+
+{/block}
+

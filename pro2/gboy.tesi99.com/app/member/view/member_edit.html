@@ -1,0 +1,108 @@
+{extend name="admin@public/base" /}
+
+{block name="script"}
+<script>
+
+</script>
+{/block}
+{block name="main-content"}
+<div class="main-content">
+
+    <div class="main-content-inner">
+
+        <div class="page-content">
+
+            <div class="row">
+                <div class="tabbable">
+                    <ul class="nav nav-tabs" >
+                        <li class="active"><a data-toggle="tab" href="#tag1">基本信息</a></li>
+                        <li><a data-toggle="tab" href="#tag2">资金信息</a></li>
+                        <li><a data-toggle="tab" href="#tag3">认证信息</a></li>
+                        <li><a data-toggle="tab" href="#tag4">账户信息</a></li>
+                    </ul>
+
+                    <form class="form-horizontal"  role="form" method="post">
+                        <input type="hidden" name="id" value="{$info['id']}">
+
+                        <div class="tab-content">
+
+                            <div id="tag1" class="tab-pane active">
+								<?php 
+								 echo  \form\Form::input('text','username',$info['username'],'会员名','会员名不能重复',$info['username']?array('disabled'=>'disabled'):'');
+								 echo  \form\Form::input('text','password','','登录密码','不修改则不填写');
+								 echo  \form\Form::input('select','group_id',$info['group_id'],'会员组','会员所属分组',array('items'=>$member_group));
+								 echo  \form\Form::input('text','realname',$info['realname'],'真实姓名','会员的真实姓名');
+								 echo  \form\Form::input('text','mobile',$info['mobile'],'手机号码','会员手机号码');
+								 echo  \form\Form::input('text','email',$info['email'],'邮箱','会员邮箱');
+								 echo  \form\Form::input('radio','islock',$info['islock'],'状态','会员登录状态，锁定后不能登录',array('items'=>array('正常','锁定')));
+								 echo  \form\Form::input('text','',$info['register_time'],'注册时间','会员注册时间',array('disabled'=>'disabled'));
+								 echo  \form\Form::input('text','',$info['register_ip'],'注册IP','会员注册IP',array('disabled'=>'disabled'));
+								 echo  \form\Form::input('text','',$info['login_time'],'登录时间','会员最后登录时间',array('disabled'=>'disabled'));
+								 echo  \form\Form::input('text','',$info['login_ip'],'登录IP','会员最后登录IP',array('disabled'=>'disabled'));
+								 echo  \form\Form::input('text','',$info['login_num'],'登录次数','会员登录次数',array('disabled'=>'disabled'));
+								 
+								?>
+                            </div>
+
+                        
+
+                            <div id="tag2" class="tab-pane ">
+								<?php
+								 echo  \form\Form::input('text','money',$info['money'],'现金积分','',array('disabled'=>'disabled'));
+								 echo \form\Form::input('text','set_money',0,'编辑现金积分','正为加负为减');
+								 echo  \form\Form::input('text','shop_integral',$info['shop_integral'],'消费积分','',array('disabled'=>'disabled'));
+								 echo \form\Form::input('text','set_shop',0,'编辑消费积分','正为加负为减');
+								 //echo  \form\Form::input('text','exp',$info['exp'],'经验值','会员经验值');
+								?>
+                            </div>
+
+                            <div id="tag3" class="tab-pane ">
+								<?php 
+								 echo  \form\Form::input('radio','mobile_status',$info['mobile_status'],'手机认证','手机认证',array('items'=>array('未认证','已认证')));
+								 echo  \form\Form::input('radio','email_status',$info['email_status'],'邮箱认证','邮箱认证',array('items'=>array('未认证','已认证')));
+								
+								?>
+                            </div>
+
+                            <div id="tag4" class="tab-pane ">
+                                <?php
+								 echo  \form\Form::input('text','',$info['profile']['account_name'],'开户名','',array('disabled'=>'disabled'));
+                                 echo  \form\Form::input('text','',$info['profile']['account_bank'],'开户行','',array('disabled'=>'disabled'));
+                                 echo  \form\Form::input('text','',$info['profile']['bank_account'],'银行卡号','',array('disabled'=>'disabled'));
+                                echo  \form\Form::input('text','',$info['profile']['alipay'],'支付宝','',array('disabled'=>'disabled'));
+                                echo  \form\Form::input('text','',$info['profile']['wechat'],'微信','',array('disabled'=>'disabled'));
+                                ?>
+                            </div>
+							
+	 
+                        </div>
+
+
+                        <div class="clearfix form-actions">
+                            <div class="col-md-offset-2 col-md-10">
+                                <button class="btn btn-info"  type="button">
+                                    <i class="icon-ok bigger-110"></i>
+                                    保存
+                                </button>
+
+
+                                <button class="btn" type="reset">
+                                    <i class="icon-undo bigger-110"></i>
+                                    重置
+                                </button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+
+            </div>
+
+        </div>
+
+
+    </div>
+
+</div>
+
+
+{/block}

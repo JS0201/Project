@@ -1,0 +1,80 @@
+{extend name="public/base" /}
+
+{block name="main-content"}
+
+
+<div class="main-content">
+
+	<div class="main-content-inner">
+
+		<div class="page-content">
+
+			<div class="row">
+				<div class="col-xs-12">
+
+
+                    <div class="border clearfix">
+
+                        <a href="{:url('optimize')}" data-ajax="tables" class="btn btn-green btn-sm"><i class="icon-magic bigger-120"></i> 优化</a>
+                        &nbsp;
+                        <a href="{:url('repair')}" data-ajax="tables" class="btn btn-danger btn-sm "><i class="icon-wrench bigger-120"></i> 修复</a>
+
+
+
+                    </div>
+
+
+
+					<div class="table-responsive">
+					  <table id="sample-table" class="table table-striped table-bordered table-hover">
+   <thead>
+    <tr>
+     <th class="center" width="100"> <label> <input type="checkbox" class="ace " id="check-all" /> <span class="lbl"></span> </label> </th>
+     <th>表名</th>
+     <th width="200">数据量</th>
+     <th width="200">数据大小</th>
+     <th width="200">创建时间</th>
+     <th width="200">表说明</th>
+     <th width="200">操作</th>
+    </tr>
+   </thead>
+   <tbody>
+   {volist name="list" id="foo"}
+    <tr>
+     <td class="center"> <label class="check-option"> <input type="checkbox" class="ace" name="tables[]" value="{$foo['name']}" /> <span class="lbl"></span> </label> </td>
+     <td>{$foo['name']}</td>
+     <td>{$foo['rows']}</td>
+     <td>{$foo['data_length']|byte_Format=###}</td>
+     <td>{$foo['create_time']}</td>
+     <td>{$foo['comment']}</td>
+     <td class="hidden-480">
+      <div class="visible-md visible-lg hidden-sm hidden-xs action-buttons">
+
+       <a class="green" href="{:url('optimize',['tables'=>$foo['name']])}"> <i class="icon-magic bigger-130"></i> 优化表</a>
+       <a class="red"  href="{:url('repair',['tables'=>$foo['name']])}"> <i class="icon-wrench bigger-130"></i> 修复表</a>
+      </div>
+
+
+     </td>
+    </tr>
+   {/volist}
+
+   </tbody>
+  </table>
+					</div>
+
+				</div>
+
+			</div>
+
+
+
+		</div>
+
+
+	</div>
+
+</div>
+
+{/block}
+

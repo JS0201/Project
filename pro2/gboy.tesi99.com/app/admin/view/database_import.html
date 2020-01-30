@@ -1,0 +1,63 @@
+{extend name="public/base" /}
+
+{block name="main-content"}
+
+
+<div class="main-content">
+
+	<div class="main-content-inner">
+
+		<div class="page-content">
+            <div role="alert" class="alert alert-success">为了提高系统安全性不支持手动恢复，请下载备份文件使用第三方工具恢复。</div>
+			<div class="row">
+				<div class="col-xs-12">
+
+					<div class="table-responsive">
+					  <table id="sample-table" class="table table-striped table-bordered table-hover">
+   <thead>
+    <tr>
+     <th class="center" width="100"> <label> <input type="checkbox" class="ace " id="check-all" /> <span class="lbl"></span> </label> </th>
+     <th>文件名称</th>
+     <th width="200">备份时间</th>
+     <th width="200">文件大小</th>
+     <th width="200">操作</th>
+    </tr>
+   </thead>
+   <tbody>
+   {volist name="list" id="foo"}
+    <tr>
+     <td class="center"> <label class="check-option"> <input type="checkbox" class="ace" name="tables[]" value="{$foo['name']}" /> <span class="lbl"></span> </label> </td>
+     <td>{$foo['filename']}</td>
+     <td>{$key}</td>
+     <td>{$foo['size']|byte_Format=###}</td>
+     <td class="hidden-480">
+      <div class="visible-md visible-lg hidden-sm hidden-xs action-buttons">
+
+       <a class="green" href="{:url('download',['time'=>$foo['time']])}"> <i class="icon-cloud-download bigger-130"></i> 下载</a>
+       <a class="red"  href="{:url('delfile',['time'=>$foo['time']])}"> <i class="icon-trash bigger-130"></i> 删除</a>
+      </div>
+
+
+     </td>
+    </tr>
+   {/volist}
+
+   </tbody>
+  </table>
+					</div>
+
+				</div>
+
+			</div>
+
+
+
+		</div>
+
+
+	</div>
+
+</div>
+
+{/block}
+

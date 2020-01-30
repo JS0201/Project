@@ -1,0 +1,320 @@
+{extend name="template/wap/public/base.html" /}
+{block name="title"}探索者联盟{/block}
+{block name="css"}
+    <link rel="stylesheet" type="text/css" href="__TMPL__/alert/css/jquery.alertable.css"/>
+    <link rel="stylesheet" type="text/css" href="__TMPL__/css/mui.min.css"/>
+    <link rel="stylesheet" type="text/css" href="__TMPL__/css/custom.css"/>
+    <link rel="stylesheet" type="text/css" href="__TMPL__/css/style.css"/>
+{/block}
+{block name="script"}
+<script src="__TMPL__/alert/js/velocity.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="__TMPL__/alert/js/velocity.ui.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="__TMPL__/alert/js/jquery.alertable.min.js" type="text/javascript" charset="utf-8"></script>
+    <script>
+        $(function() {
+            var type = GetQueryString("type");
+            var gallery = mui('.mui-slider');
+            switch(type)
+            {
+            case '1':
+              $("a[href='#item2mobile']").attr('class', 'mui-control-item mui-active');
+              gallery.slider().gotoItem(1); //待支付
+              break;
+            case '2':
+              $("a[href='#item3mobile']").attr('class', 'mui-control-item mui-active');
+              gallery.slider().gotoItem(2);//待发货
+              break;
+            case '3':
+              $("a[href='#item4mobile']").attr('class', 'mui-control-item mui-active');
+              gallery.slider().gotoItem(3); //待收货
+              break;
+            default:
+              $("a[href='#item1mobile']").attr('class', 'mui-control-item mui-active');
+              gallery.slider().gotoItem(0); //待收货
+           }
+        })
+        function GetQueryString(name) {
+           var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)"); //构造一个含有目标参数的正则表达式对象
+           var r = window.location.search.substr(1).match(reg); //匹配目标参数
+           if (r != null) return unescape(r[2]); return null; //返回参数值
+        }
+        function deleted(obj) {
+            sn = $(obj).attr('data-sn');
+            var option = {
+                cancelButton : "<button class='alertable-cancel' type='button'>取消</button>",
+                okButton: "<button class='alertable-ok' onclick='delall()' type='button'>确认</button>"
+            }
+             $.alertable.confirm('是否确认删除?',option).then(function() {});
+        }
+        function delall(){
+            $.post('/order/order/deleted',{sn : sn, action: 'order', status : 2},function (data) {
+                  if(!data.status) {
+                    $.alertable.alert(data.message);
+                  }else{
+                    location.reload();
+                  }
+            },'json');
+        }
+        function sure(obj) {
+            ssn = $(obj).attr('data-sn');
+            var option = {
+                cancelButton : "<button class='alertable-cancel' type='button'>取消</button>",
+                okButton: "<button class='alertable-ok' onclick='pay()' type='button'>确认</button>"
+            }
+             $.alertable.confirm('是否确认付款?',option).then(function() {});
+        }
+        function pay() {
+            $.post('/order/order/pay',{sn : ssn, action: 'pay'},function (data) {
+                  if(!data.status) {
+                    $.alertable.alert(data.message);
+                  }else{
+                    location.reload();
+                  }
+            },'json');
+        }
+        function sureget(obj){
+            sn = $(obj).attr('data-sn');
+            var option = {
+                cancelButton : "<button class='alertable-cancel' type='button'>取消</button>",
+                okButton: "<button class='alertable-ok' onclick='get()' type='button'>确认</button>"
+            }
+             $.alertable.confirm('是否确认收货?',option).then(function() {});
+        }
+        function get() {
+            $.post('/order/order/sureget',{sn : sn, action: 'finish'},function (data) {
+              if(!data.status) {
+                $.alertable.alert(data.message);
+              }else{
+                location.reload();
+              }
+        },'json');
+        }
+        function cui(){
+            $.alertable.alert('已提醒商家尽快发货。请耐心等待');
+        }
+    </script>
+{/block}
+{block name="header"}
+    <header class="mui-bar mui-bar-nav bg-theme">
+        <h1 class="mui-title">我的订单</h1>
+        <a class="mui-icon mui-icon-caret mui-pull-right"></a>
+        <a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+    </header>
+{/block}
+{block name="content"}
+    <div class="mui-content">
+        <div id="slider" class="mui-slider">
+            <div id="sliderSegmentedControl" class="section  mui-segmented-control mui-segmented-control-inverted">
+                <a class="mui-control-item" href="#item1mobile">
+                    全部
+                </a>
+                <a class="mui-control-item" href="#item2mobile">
+                    待付款
+                </a>
+                <a class="mui-control-item" href="#item3mobile">
+                    待发货
+                </a>
+                <a class="mui-control-item" href="#item4mobile">
+                    待收货
+                </a>
+            </div>
+            <div id="sliderProgressBar" class="mui-slider-progress-bar mui-col-xs-3"></div>
+            <div class="mui-slider-group">
+                <div id="item1mobile" class="mui-slider-item mui-control-content mui-active">
+                    <ul class="goods-order">
+                         {volist name="orderList.result" id = 'data'}
+                             <li class="goods-order-item section mt10">
+                                 <div class="goods-order-tit ">
+                                     <span class="fr f-theme">
+                                           {switch $data.status}
+                                               {case '0'}待付款{/case}
+                                               {case 1}待发货{/case}
+                                               {case 2}已发货{/case}
+                                               {case 3}已完成{/case}
+                                           {/switch}
+                                     </span>
+                                     订单号:{$data.sn}
+                                 </div>
+                                 <div class="goods-order-cont">
+                                     {volist name="data.list" id="value"}
+                                     <div class="mui-clearfix" style="margin-top: 0.7em;position: relative">
+                                         <div class="goods-order-img"><img class="goods-img" src="{$value.thumb}"/></div>
+                                         <div class="goods-order-synopsis">
+                                             <div class="ellipsis-s">
+                                                 <p class="ellipsis-text">{$value.sku_name}</p>
+                                             </div>
+                                             <p class="ellipsis fs10 mt2">
+                                                 {volist name="$value.message" id = 'message'}
+                                                    {$message}&nbsp;&nbsp;
+                                                 {/volist}
+                                             </p>
+                                             <span style="position:absolute;right: 0;bottom: 0;" class="goods-order-other">x<span class="fs16">{$value.sum}</span></span>
+                                         </div>
+                                     </div>
+                                    {/volist}
+                                 </div>
+                                 <div class="goods-order-down">
+                                     <p class="ellipsis tr mb8">
+                                         <span class="sp">共{$data.sum}件商品</span>
+                                         <span class="ml10 f-theme">合计：<span class="fs8">￥</span>{$data.real_amount}</span>
+                                     </p>
+                                     <div class="tr">
+                                        {switch $data.status}
+                                            {case '0'}
+                                                <button onclick="deleted(this)" data-sn="{$data.sn}" class="btn btn-delete btn-order ">取消订单</button>
+                                                <button class="btn btn-theme btn-order  ml5" data-sn="{$data.sn}" onclick="sure(this)">确认付款</button>
+                                            {/case}
+                                            {case 1}
+                                                <button class="btn btn-theme btn-order ml5" onclick="cui()">催单</button>
+                                            {/case}
+                                            {case 2}
+                                                 <!--<button class="btn btn-blue btn-order ">查看物流</button> -->
+                                                 <button class="btn btn-theme btn-order  ml5" data-sn="{$data.sn}" onclick="sureget(this)">确认收货</button>
+                                            {/case}
+                                         {/switch}
+                                     </div>
+                                 </div>
+                              </li>
+                         {/volist}
+                    </ul>
+                </div>
+                <div id="item2mobile" class="mui-slider-item mui-control-content ">
+                    <ul class="goods-order">
+                       {volist name="orderList.nopay" id = 'data'}
+                            <li class="goods-order-item section mt10">
+                                <div class="goods-order-tit ">
+                                    <span class="fr f-theme">
+                                      待付款
+                                    </span>
+                                    订单号:{$data.sn}
+                                </div>
+                                <div class="goods-order-cont">
+                                    <!--<div class="mui-clearfix">
+                                        <div class="goods-order-img"><img class="goods-img" src="{$data.thumb}"/></div>
+                                        <div class="goods-order-synopsis">
+                                            <div class="ellipsis-s">
+                                                <p class="ellipsis-text">{$data.subtitle}</p>
+                                            </div>
+                                            <p class="ellipsis fs10 mt2">{$data.weight}kg  {$data.sku_name}</p>
+                                            <span class="goods-order-other">x<span class="fs16">{$data.sum}</span></span>
+                                        </div>
+                                    </div> -->
+                                    {volist name="data.list" id="value"}
+                                     <div class="mui-clearfix" style="margin-top: 0.7em;position: relative">
+                                         <div class="goods-order-img"><img class="goods-img" src="{$value.thumb}"/></div>
+                                         <div class="goods-order-synopsis">
+                                             <div class="ellipsis-s">
+                                                 <p class="ellipsis-text">{$value.sku_name}</p>
+                                             </div>
+                                             <p class="ellipsis fs10 mt2">
+                                                 {volist name="$value.message" id = 'message'}
+                                                 {$message}&nbsp;&nbsp;
+                                                 {/volist}
+                                             </p>
+                                             <span style="position:absolute;right: 0;bottom: 0;" class="goods-order-other">x<span class="fs16">{$value.sum}</span></span>
+                                         </div>
+                                     </div>
+                                    {/volist}
+                                </div>
+                                <div class="goods-order-down">
+                                    <p class="ellipsis tr mb8">
+                                        <span class="sp">共{$data.sum}件商品</span>
+                                        <span class="ml10 f-theme">合计：<span class="fs8">￥</span>{$data.real_amount}</span>
+                                    </p>
+                                    <div class="tr">
+                                         <button class="btn btn-delete btn-order " onclick="deleted(this)" data-sn="{$data.sn}">取消订单</button>
+                                         <button class="btn btn-theme btn-order  ml5" data-sn="{$data.sn}" onclick="sure(this)" >确认付款</button>
+                                    </div>
+                                </div>
+                             </li>
+                        {/volist}
+                    </ul>
+                </div>
+                <div id="item3mobile" class="mui-slider-item mui-control-content">
+                    <ul class="goods-order">
+                        {volist name="orderList.nosend" id = 'data'}
+                            <li class="goods-order-item section mt10">
+                                <div class="goods-order-tit ">
+                                    <span class="fr f-theme">
+                                      待发货
+                                    </span>
+                                    订单号:{$data.sn}
+                                </div>
+                                <div class="goods-order-cont">
+                                    {volist name="data.list" id="value"}
+                                     <div class="mui-clearfix" style="margin-top: 0.7em;position: relative">
+                                         <div class="goods-order-img"><img class="goods-img" src="{$value.thumb}"/></div>
+                                         <div class="goods-order-synopsis">
+                                             <div class="ellipsis-s">
+                                                 <p class="ellipsis-text">{$value.sku_name}</p>
+                                             </div>
+                                             <p class="ellipsis fs10 mt2">
+                                                 {volist name="$value.message" id = 'message'}
+                                                 {$message}&nbsp;&nbsp;
+                                                 {/volist}
+                                             </p>
+                                             <span style="position:absolute;right: 0;bottom: 0;" class="goods-order-other">x<span class="fs16">{$value.sum}</span></span>
+                                         </div>
+                                     </div>
+                                    {/volist}
+                                </div>
+                                <div class="goods-order-down">
+                                    <p class="ellipsis tr mb8">
+                                        <span class="sp">共{$data.sum}件商品</span>
+                                        <span class="ml10 f-theme">合计：<span class="fs8">￥</span>{$data.real_amount}</span>
+                                    </p>
+                                    <div class="tr">
+                                         <button class="btn btn-theme btn-order ml5" onclick="cui()">催单</button>
+                                    </div>
+                                </div>
+                             </li>
+                        {/volist}
+                    </ul>
+                </div>
+                <div id="item4mobile" class="mui-slider-item mui-control-content">
+                    <ul class="goods-order">
+                        {volist name="orderList.noget" id = 'data'}
+                           <li class="goods-order-item section mt10">
+                                <div class="goods-order-tit ">
+                                    <span class="fr f-theme">
+                                      已发货
+                                    </span>
+                                    订单号:{$data.sn}
+                                </div>
+                                <div class="goods-order-cont">
+                                    {volist name="data.list" id="value"}
+                                     <div class="mui-clearfix" style="margin-top: 0.7em;position: relative">
+                                         <div class="goods-order-img"><img class="goods-img" src="{$value.thumb}"/></div>
+                                         <div class="goods-order-synopsis">
+                                             <div class="ellipsis-s">
+                                                 <p class="ellipsis-text">{$value.sku_name}</p>
+                                             </div>
+                                             <p class="ellipsis fs10 mt2">
+                                                 {volist name="$value.message" id = 'message'}
+                                                 {$message}&nbsp;&nbsp;
+                                                 {/volist}
+                                             </p>
+                                             <span style="position:absolute;right: 0;bottom: 0;" class="goods-order-other">x<span class="fs16">{$value.sum}</span></span>
+                                         </div>
+                                     </div>
+                                    {/volist}
+                                </div>
+                                <div class="goods-order-down">
+                                    <p class="ellipsis tr mb8">
+                                        <span class="sp">共{$data.sum}件商品</span>
+                                        <span class="ml10 f-theme">合计：<span class="fs8">￥</span>{$data.real_amount}</span>
+                                    </p>
+                                    <div class="tr">
+                                         <!--<button class="btn btn-blue btn-order ">查看物流</button>-->
+                                         <button class="btn btn-theme btn-order  ml5" onclick="sureget(this)" data-sn="{$data.sn}">确认收货</button>
+                                    </div>
+                                </div>
+                             </li>
+                        {/volist}
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+{/block}
+<script src="__TMPL__/js/comment.js" type="text/javascript" charset="utf-8"></script>

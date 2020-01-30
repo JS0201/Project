@@ -1,0 +1,93 @@
+<link rel="stylesheet" type="text/css" href="__TMPL__/css/pay.css"/>
+<script src="__TMPL__/js/jquery-3.1.1.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="__TMPL__/js/cnpay.js" type="text/javascript" charset="utf-8"></script>
+<style>
+    .msg_default_box {
+        background: #00c800;
+        border: 1px solid #00c800;
+    }
+</style>
+<div id="orderInfo1">
+    <div class="ico_title">微信扫码支付商家端生成二维码</div>
+    <div class="form_wrap account">
+        <div class="form_list">
+            <span class="list_title">商品名称</span>
+            <span class="list_val">
+                <input name="name" value="测试商品" maxlength="32"  placeholder="商品名称">
+            </span>
+        </div>
+        <div class="form_list">
+            <span class="list_title">商品价格：</span>
+            <span class="list_val">
+                <input name="total" id="total" value="1" maxlength="5"  placeholder="商品价格单位为分">
+
+            </span> <em>商品价格单位为分</em>
+        </div>
+        <div class="form_list">
+            <span class="list_title">商品订单号：</span>
+            <span class="list_val">
+                <input name="orderNo" id="orderNo" value="" maxlength=""  placeholder="商品订单号" readonly="readonly">
+            </span>
+        </div>
+        <div class="form_list">
+            <span class="list_title"></span>
+            <span class="list_val submit btn btn_blue" onclick="submit()">确定</span>
+        </div>
+    </div>
+</div>
+<script>
+    //生成订单号
+    $("#orderNo").val(formatDate());
+    var  orderNo=$('#orderNo').val();
+    function submit() {
+        var data = {
+            orderNo:orderNo,
+            name: "测试商品",
+            total: $("#total").val(),
+            method: 'wxScancode'
+        };
+        var mask = $('<div class="mask"></div>');
+        $('body').append(mask);
+        $.ajax({
+                url: '/demo/index/index',
+                type: 'POST',
+                dataType: 'JSON',
+                data: data
+            })
+            .done(function(res) {
+                console.log(res);
+                $('body').find('.mask').remove();
+                if (res.code == 1) {
+                    $('body').popUpWin({
+                        content: function() {
+                            return '<img src="' + res.result.imgUrl + '" /><div class="msg_default_box"><i class="icon60_qr pngFix"></i><p>请使用微信扫描<br>二维码以完成支付</p></div>';
+                        },
+                        closeCallback: function() {
+                            self.popWin = undefined;
+                        }
+                    });
+                } else {
+                    $('body').popUpWin({
+                        content: function() {
+                            return '<p>' + res.msg + '</p> ';
+                        }
+                    });
+                }
+            })
+            .fail(function() {
+                console.log("error");
+            })
+            .always(function() {
+                console.log("complete");
+                $('body').find('.mask').remove();
+
+                //回调跳转支付成功页面
+                setInterval(function() {
+                    payM.orderQuery(orderNo);
+                    console.log('pay test')
+                }, 3000)
+            });
+
+
+    }
+</script>

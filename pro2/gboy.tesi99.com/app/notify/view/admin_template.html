@@ -1,0 +1,99 @@
+{extend name="admin@public/base" /}
+
+{block name="script"}
+<script>
+    $(function(){
+		
+        $(document).on('click',".template_left  a",function(e){
+	
+            //e.preventDefault();
+            $(this).addClass("current").siblings().removeClass("current");
+            $("#content-label").html($(this).text());
+            $("div[id^='edit_']").hide();
+            $("#edit_"+$(this).attr('data-type')).show();
+		
+            //$("input[name=select_wrap]").val($(this).attr('data-type'));
+        });
+		$(".template_left a").eq(0).click();
+		
+
+    })
+</script>
+{/block} 
+{block name="main-content"}
+<div class="main-content"> 
+  	 
+	<div class="main-content-inner">
+ 
+		<div class="page-content">
+			
+			<div class="row">
+			<div class="tabbable">
+				<ul class="nav nav-tabs" id="myTab">
+			
+					<li class="active"><a data-toggle="tab" href="#tag1">通知配置</a></li>
+					
+				</ul>
+				
+				<form class="form-horizontal"  role="form" method="post" >
+				<input type="hidden" name="id" value="{:input('code')}" />
+				<div class="tab-content">
+					
+				
+					<div id="tag1" class="tab-pane active" style="overflow:hidden;position:relative;">
+					
+						<div class="notify_template">
+						
+								<div class="template_left">
+									{volist name="hooks" id="v"}
+									<a href="javascript:;" data-type="{$key}">
+										{$v}
+										<label><input name="enabled[]" class="ace ace-switch " type="checkbox" value="{$key}" {if condition="is_array($template[enabled]) && in_array($key,$template[enabled])"}checked="checked"{/if}><span class="lbl" ></span></label>
+									</a>
+									{/volist}
+								</div>
+								
+								<div class="template_right">
+									 <?php include(APP_PATH.'notify/library/driver/'.input('code').'/template.inc.php') ?>
+								</div>
+						</div>
+
+
+					</div>
+					
+
+				
+				
+				</div>
+				
+				
+				<div class="clearfix form-actions">
+						<div class="col-md-offset-2 col-md-10">
+							<button class="btn btn-info"  type="button">
+								<i class="icon-ok bigger-110"></i>
+								保存
+							</button>
+
+
+							<button class="btn" type="reset">
+								<i class="icon-undo bigger-110"></i>
+								重置
+							</button>
+						</div>
+					</div>
+				</form>
+			</div>
+			
+			</div>
+		
+		</div>
+		
+		
+	</div>
+
+</div> 
+
+
+{/block}
+
+

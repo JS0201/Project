@@ -1,0 +1,88 @@
+{extend name="template/wap/public/base.html" /}
+{block name="title"}探索者联盟{/block}
+{block name="css"}
+    <link rel="stylesheet" type="text/css" href="__TMPL__/css/mui.picker.min.css"/>
+    <link rel="stylesheet" type="text/css" href="__TMPL__/css/mui.poppicker.css"/>
+    <link rel="stylesheet" type="text/css" href="__TMPL__/alert/css/jquery.alertable.css"/>
+{/block}
+{block name="script"}
+    <script src="__TMPL__/js/mui.picker.min.js" type="text/javascript" charset="utf-8"></script>
+    <script src="__TMPL__/js/mui.poppicker.js" type="text/javascript" charset="utf-8"></script>
+    <script src="__TMPL__/alert/js/velocity.min.js" type="text/javascript" charset="utf-8"></script>
+    <script src="__TMPL__/alert/js/velocity.ui.min.js" type="text/javascript" charset="utf-8"></script>
+    <script src="__TMPL__/alert/js/jquery.alertable.min.js" type="text/javascript" charset="utf-8"></script>
+    <script>
+        $(function() {
+            var url = $("#isnull").attr('data-url');
+            if(url) {
+                $.alertable.alert('请完善个人信息').always(function() {
+                    window.location.href = url;
+                });
+            }
+        });
+        function send() {
+            var money = $("input[name='money']").val();
+            if(!money) {
+                $.alertable.alert('提现金额不能为空');
+                return false;
+            }
+            $.post('/member/index/withdraw',{money : money}, function(data){
+                if(!data.status) {
+                     $.alertable.alert(data.message);
+                     return false;
+                }
+                window.location.href = '/member/index/withdrawdetail';
+            },'json');
+        }
+    </script>
+{/block}
+{block name="header"}
+    <header class="mui-bar mui-bar-nav bg-theme">
+        <a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+        <h1 class="mui-title">申请提现</h1>
+        <a class="mui-btn-link mui-pull-right" href="withdrawdetail.html">明细</a>
+    </header>
+{/block}
+{block name="content"}
+    <div class="mui-content section">
+        <form action="" method="post">
+            <div class="prow10">
+                <div class="pcol20">
+                    <div class="flex-justify layout-row">
+                            <span class="tx-select tc" style="width: 100%;">
+                                <label class=" checkbox  ">
+                                    <input type="radio" name="tx" checked="" />
+                                    <div class="tx-select-box">
+                                        积分总额
+                                        <p class="e llipsis">{$info.money}</p>
+                                    </div>
+                                </label>
+                            </span>
+                    </div>
+                </div>
+            </div>
+            <div class="prow10 mt20">
+                <p class="ellipsis mb10">提现金额</p>
+                <div class="input-group un-border-group border-b">
+                    <span class="input-group-addon f-gray">￥</span>
+                    <input type="text" name="money" class="input tx-money f-theme"/>
+                </div>
+                <div class="flex-justify fs12 f-gray">
+                    <span>扣除￥1.00手续费 (费率0.1)</span>
+                    <span>后台审核48小时内到账</span>
+                </div>
+            </div>
+            <div class="prow10 mt20">
+                <div class="f-darkgray">
+                    <p class="flex-justify"><span>开户名</span><span>{$info.account_name}</span></p>
+                    <p class="flex-justify"><span>开户行</span><span>{$info.account_bank}</span></p>
+                    <p class="flex-justify"><span>银行卡号</span><span>{$info.bank_account}</span></p>
+                </div>
+            </div>
+            <div class="sub-bar pd10 mt40">
+                 <input type="hidden" data-url="{$url}" id="isnull">
+                <button type="button" onclick="send()" class="btn btn-theme fill-block">申请提现</button>
+            </div>
+        </form>
+    </div>
+{/block}

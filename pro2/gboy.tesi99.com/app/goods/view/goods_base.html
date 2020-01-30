@@ -1,0 +1,20 @@
+<?php
+ echo  \form\Form::input('text','',$category['parent_name'],'商品分类','选择商品所属分类，一个商品只能属于一个分类',array('disabled'=>'disabled'));
+ echo  \form\Form::input('text','spu[name]',$goods['spu']['name'],'商品名称','商品标题名称不能为空，最长不能超过200个字符');
+ echo  \form\Form::input('text','spu[subtitle]',$goods['spu']['subtitle'],'广告语','商品广告语是用于介绍商品的描述信息');
+ 
+ echo  \form\Form::input('select','spu[brand_id]',$goods['spu']['brand_id'],'商品品牌','为商品选择所属品牌，便于用户按照品牌进行查找',array('items'=>$brands));
+ 
+  echo  \form\Form::input('text','spu[warn_number]',isset($goods['spu']['warn_number'])?$goods['spu']['warn_number']:5,'库存警告','填写商品库存警告数，当库存小于等于警告数，系统就会提醒此商品为库存警告商品，系统默认为5');
+ 
+ echo  \form\Form::input('text','spu[weight]',$goods['spu']['weight'],'重量','请填写每件商品重量，以（kg）为单位');
+ echo  \form\Form::input('text','spu[volume]',$goods['spu']['volume'],'体积','请填写每件商品体积，以（m³）为单位');
+ echo  \form\Form::input('text','spu[sort]',isset($goods['sort']) ? $goods['sort'] :100,'排序','请填写自然数，列表将会根据排序进行由小到大排列显示');
+ 
+echo  \form\Form::input('text','spu[keyword]',isset($goods['spu']['keyword'])?$info['keyword']:'','关键词','关键词出现在页面头部的标签中，多个关键字请用分隔符分隔');
+ echo  \form\Form::input('textarea','spu[description]',isset($goods['spu']['description'])?$goods['spu']['description']:'','描述','描述出现在页面头部的标签中，最多不能超过80个字符');
+ echo  \form\Form::input('radio','spu[status]',isset($goods['spu']['status']) ? $goods['spu']['status'] :1,'是否上架','设置当前商品是否上架销售，默认为是，如选择否，将不在前台显示该商品',array('items'=>array('否','是')));
+
+ 
+ 
+?>

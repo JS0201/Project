@@ -1,0 +1,122 @@
+{extend name="template/wap/public/base.html" /}
+{block name="title"}探索者联盟{/block}
+{block name="css"}
+    <link rel="stylesheet" type="text/css" href="__TMPL__/alert/css/jquery.alertable.css"/>
+{/block}
+{block name="script"}
+    <script src="__TMPL__/alert/js/velocity.min.js" type="text/javascript" charset="utf-8"></script>
+    <script src="__TMPL__/alert/js/velocity.ui.min.js" type="text/javascript" charset="utf-8"></script>
+    <script src="__TMPL__/alert/js/jquery.alertable.min.js" type="text/javascript" charset="utf-8"></script>
+    <script>
+        $(function (){
+            img = '';
+            var url = $('#father').attr('data-url');
+            if(url) {
+                $.alertable.alert('请完善个人信息').always(function() {
+                    window.location.href = url;
+                });
+            }
+            $("#file").change(function () {
+                   var $file = $(this);
+                   var fileObj = $file[0];
+                   img = fileObj.files[0];
+                   fileVal.value=this.value
+            })
+        });
+
+        function send() {
+            var money = $("input[name='rechange']").val();
+            if(!money) {
+                $.alertable.alert('请填写充值金额');
+                return false;
+            }
+            if(!img) {
+                $.alertable.alert('请上传交易凭证');
+                return false;
+            }
+            var formData = new FormData();
+            formData.append('money', money);
+            formData.append('file', img);
+            $.ajax({
+                url: '/member/index/xjcz',
+                type: "post",
+                data: formData,
+                dataType: "json",
+                contentType: false,
+                processData: false,
+                mimeType: "multipart/form-data",
+                success: function (data) {
+                    $.alertable.alert(data.message);
+                    if(!data.status) {
+                        return false;
+                    }
+                    window.location.href = '/member/index/czmx';
+                }
+            });
+        }
+    </script>
+{/block}
+{block name="header"}
+<header class="mui-bar mui-bar-nav bg-theme">
+    <a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+    <h1 class="mui-title">现金充值</h1>
+    <a class="mui-btn-link mui-pull-right" href="czmx.html">明细</a>
+</header>
+{/block}
+{block name="content"}
+    <div class="mui-content section" id="father" data-url = "{$url}">
+        <form action="" method="post">
+            <div class="prow10">
+                <div class="pcol20">
+                    <div class="flex-justify layout-row">
+                            <span class="cz-select tc">
+                                <label class=" checkbox  ">
+                                    <input type="radio" name="tx" checked="" />
+                                    <div class="cz-select-box pcol15 mui-icon fs14 ">
+                                        现金积分充值
+                                    </div>
+                                </label>
+                            </span>
+                        <span class="cz-select  tc" onclick="window.location.href='/member/index/transaction'">
+                                <label class=" checkbox">
+                                    <input type="radio" name="tx"  />
+                                    <div class="cz-select-box pcol15 mui-icon fs14">
+                                        互转积分充值
+                                    </div>
+                                </label>
+                            </span>
+                    </div>
+                </div>
+            </div>
+            <div class="prow10 mt20">
+                <p class="ellipsis mb10">充值信息</p>
+                <div class="f-darkgray">
+                    <p class="flex-justify"><span>开户名</span><span>{$bank.account_name}</span></p>
+                    <p class="flex-justify"><span>开户行</span><span>{$bank.account_bank}</span></p>
+                    <p class="flex-justify"><span>银行卡</span><span>{$bank.bank_account}</span></p>
+                </div>
+            </div>
+            <div class="prow10 mt20">
+                <p class="ellipsis mb10">充值金额</p>
+                <div class="input-group un-border-group border-b">
+                    <span class="input-group-addon f-gray">￥</span>
+                    <input type="text" name="rechange" class="input tx-money f-theme"/>
+                </div>
+            </div>
+            <div class="prow10 mt20">
+                <p class="ellipsis mb10">上传凭证</p>
+                <div class="input-group ">
+                    <input type="text" class="input " id="fileVal"/>
+                    <span class="input-group-btn">
+                            <button class="btn btn-info" type="button" onclick="file.click()">浏览</button>
+                            <!--<input type="file" name="img" id="file" class="mui-hidden" onchange="fileVal.value=this.value"/>-->
+                            <input type="file" name="img" id="file" class="mui-hidden"/>
+                        </span>
+                </div>
+            </div>
+            <div class="sub-bar pd10 mt40">
+                <button type="button" onclick="send()" class="btn btn-theme fill-block">确认充值</button>
+            </div>
+        </form>
+    </div>
+{/block}

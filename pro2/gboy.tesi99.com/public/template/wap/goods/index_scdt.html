@@ -1,0 +1,106 @@
+{extend name="template/wap/public/base.html" /}
+{block name="title"}探索者联盟{/block}
+{block name="css"}
+    <link rel="stylesheet" type="text/css" href="__TMPL__/css/iconfont.css"/>
+    <link rel="stylesheet" type="text/css" href="__TMPL__/css/swiper.min.css"/>
+    <link rel="stylesheet" type="text/css" href="__TMPL__/css/mui.min.css"/>
+    <link rel="stylesheet" type="text/css" href="__TMPL__/css/custom.css"/>
+    <link rel="stylesheet" type="text/css" href="__TMPL__/css/style.css"/>
+    <link rel="stylesheet" type="text/css" href="__TMPL__/css/load.css"/>
+{/block}
+{block name="script"}
+    <script src="__TMPL__/js/util.js" type="text/javascript" charset="utf-8"></script>
+    <script src="__TMPL__/js/comment.js" type="text/javascript" charset="utf-8"></script>
+    <script type="text/javascript">
+        var gallery = mui('.mui-slider');
+        gallery.slider({
+            interval:5000//自动轮播周期，若为0则不自动播放，默认为0；
+        });
+        page = 1;  //当前所在的页码
+        loaded = false; //是否加载完毕
+        stop = true;//是否停止
+        scrolling = false;//是否还可以滚动
+        $(function() {
+            $(window).scroll(function() {
+                if (loaded){return;}
+                var totalheight = parseFloat($(window).height()) + parseFloat($(window).scrollTop());
+                if ($(document).height() <= totalheight+100) {
+                    if (stop == true) {
+                        stop = false;
+                        scrolling = true;
+                        $('#scdt-list').append('<div class="loading-li clearfix"><img src="__TMPL__/img/loading.gif"> 正在加载更多动态</div>');
+                        page++;
+                        //加载下一页产品
+                        getpage();
+                    }
+                }
+            });
+        });
+        function getpage(){
+            $.ajax({
+                url : '/goods/index/scdtlist',
+                data : {
+                    page : page
+                },
+                type: 'POST',
+                beforeSend: function(jqXHR, settings){},
+                success: function(result){
+                    stop = true;
+                    if(result == ''){
+                        $('#scdt-list .loading-li').remove();
+                        $('#scdt-list').append('<div class="loading-li loading-li-bottom">我是有底线的</div>');
+                        loaded = true;
+                        $(window).scroll = null;
+                        return false;
+                    }
+                    $('#scdt-list .loading-li').remove();
+                    $('#scdt-list').append(result);
+                }
+            });
+        }
+    </script>
+{/block}
+{block name="header"}
+<header class="mui-bar mui-bar-nav bg-theme">
+    <h1 class="mui-title">商城动态</h1>
+    <a class="mui-icon mui-icon-caret mui-pull-right"></a>
+</header>
+{/block}
+{block name="content"}
+<div class="mui-content">
+    <div class="mui-slider mb10">
+        <div class="mui-slider-group mui-slider-loop">
+            <!--支持循环，需要重复图片节点-->
+            <div class="mui-slider-item mui-slider-item-duplicate"><a href="#"><img src="__TMPL__/images/banner_03.jpg" /></a></div>
+            <div class="mui-slider-item"><a href="#"><img src="__TMPL__/images/banner_01.jpg" /></a></div>
+            <div class="mui-slider-item"><a href="#"><img src="__TMPL__/images/banner_02.jpg" /></a></div>
+            <div class="mui-slider-item"><a href="#"><img src="__TMPL__/images/banner_03.jpg" /></a></div>
+            <!--支持循环，需要重复图片节点-->
+            <div class="mui-slider-item mui-slider-item-duplicate"><a href="#"><img src="__TMPL__/images/banner_01.jpg" /></a></div>
+        </div>
+        <div class="mui-slider-indicator">
+            <div class="mui-indicator mui-active"></div>
+            <div class="mui-indicator"></div>
+            <div class="mui-indicator"></div>
+        </div>
+    </div>
+    <ul class="Inquiries" id="scdt-list">
+        {volist name="content" id="data"}
+            <li class="Inquiries-item pd10 section mb10">
+                <a href="#" class="fill-block div-table">
+                    <div class="Inquiries-text div-tablecell">
+                        <p class="ellipsis mb5">{$data.title}</p>
+                        <div class="ellipsis-s">
+                            <p class="ellipsis-text f-gray">
+                                {$data.content}
+                            </p>
+                        </div>
+                        <span class="Inquiries-time">{$data.add_time}</span>
+                    </div>
+                    <img class="Inquiries-img div-tablecell" style="float:right" src="{$data.thumb}"/>
+                </a>
+            </li>
+        {/volist}
+    </ul>
+</div>
+{/block}

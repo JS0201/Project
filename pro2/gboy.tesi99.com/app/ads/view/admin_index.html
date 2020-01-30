@@ -1,0 +1,118 @@
+{extend name="admin@public/base" /}
+
+{block name="main-content"}
+<div class="main-content">
+
+    <div class="main-content-inner">
+
+        <div class="page-content">
+
+            <div class="row">
+                <div class="col-xs-12">
+
+
+                    <div class="border clearfix">
+                        <div class="search clearfix">
+                            <form class="form-inline">
+                                <?php
+                                        echo  \form\Form::input('text','keywords',input('get.keywords'),'关键词','',array('placeholder'=>'标题'));
+                                echo  \form\Form::input('select','status',input('get.status'),'状态','',array('items'=>array(''=>'全部','1'=>'显示','0'=>'不显示')));
+                                //echo  \form\Form::input('select','order',input('get.order'),'排序','',array('items'=>array('默认','add_time'=>'添加时间','hits'=>'点击量','sort'=>'排序号')));
+                                echo  \form\Form::input('calendar','start_time',input('get.start_time'),'时间','');
+                                echo  \form\Form::input('calendar','end_time',input('get.end_time'),'','');
+                                ?>
+
+                                <div class="form-group">
+                                <span class="input-group-btn">
+                                    <button type="submit" class="btn btn-purple btn-sm">
+                                        搜索
+                                        <i class="icon-search icon-on-right bigger-110"></i>
+                                    </button>
+                                 </span>
+                                </div>
+                            </form>
+
+                        </div>
+                        <a href="{:url('add')}" class="btn btn-warning btn-sm"><i class="icon-plus bigger-120"></i> 添加</a>
+                        &nbsp;
+                        <a href="{:url('delete')}" data-ajax="id" class="btn btn-danger btn-sm "><i class="icon-trash bigger-120"></i> 删除</a>
+
+                    </div>
+
+
+
+
+
+
+
+
+                    <div class="table-responsive">
+                        <table id="sample-table" class="table table-striped table-bordered table-hover">
+                            <thead>
+                            <tr>
+                                <th width="50"> <label> <input type="checkbox" class="ace " id="check-all" /> <span class="lbl"></span> </label> </th>
+                                <th width="50">排序</th>
+                                <th width="50">ID</th>
+                                <th width="150">广告图</th>
+                                <th>广告名称</th>
+                                <th width="100">所属广告位</th>
+                                <th width="100">开始时间</th>
+                                <th width="100">结束时间</th>
+                                <th width="100">状态</th>
+                                <th width="150">操作</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            {volist name="list" id="foo"}
+                            <tr>
+                                <td > <label class="check-option"> <input type="checkbox" class="ace"  value="{$foo['id']}" /> <span class="lbl"></span> </label> </td>
+                                <td>{$foo['sort']}</td>
+                                <td>{$foo['id']}</td>
+                                <td><img src="{if condition="$foo['thumb']"}__ROOT__{$foo['thumb']}{else/}__STATIC__/images/nopic.gif{/if}" width="50"></td>
+                                <td class="left">{$foo['title']}</td>
+                                <td>{$foo['position_name']}</td>
+                                <td>{$foo['starttime']}</td>
+                                <td>{$foo['endtime']}</td>
+                                <td><i class="{if condition="$foo['status'] eq 1"}icon-ok text-success{else/}icon-remove text-danger{/if} bigger-120"></i></td>
+                                <td>
+
+                                    <div>
+                                        <a class="green" href="{:url('edit',['id'=>$foo['id']])}"> <i class="icon-pencil bigger-130"></i> 编辑</a>
+                                        &nbsp;
+                                        <a class="red" data-confirm="是否确认删除？" href="{:url('delete',['id'=>$foo['id']])}"> <i class="icon-trash bigger-130"></i> 删除</a>
+                                    </div>
+
+
+                                </td>
+                            </tr>
+                            {/volist}
+
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <div class="dataTables_info">每页显示{$list->listRows()}条，总{$list->total()}条数据</div>
+                        </div>
+
+                        <div class="dataTables_paginate paging_bootstrap">
+                            {$list->render()}
+                        </div>
+
+                    </div>
+                </div>
+
+            </div>
+
+
+
+        </div>
+
+
+    </div>
+
+</div>
+
+{/block}
+

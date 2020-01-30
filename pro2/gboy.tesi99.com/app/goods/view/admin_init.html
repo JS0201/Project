@@ -1,0 +1,43 @@
+{extend name="admin@public/base" /}
+
+{block name="style"}
+	.row-fluid{width:450px;position:absolute;left:50%;top:44%;margin-left:-225px;}
+	.widget-main{height:175px;}
+	.row-fluid{}
+	.content{text-align:center;width:80%;padding-top:50px;margin:0 auto;}
+{/block}
+{block name="script"}
+	<script>
+		$(function(){
+			$(parent.document.body).find('#category_frame').attr('src','{:url("public_categorys")}');
+			$(parent.document.body).find('.category_content').show();
+		})
+	</script>
+{/block}
+{block name="main-content"}
+<!--<div class="main-content" style="position:relative;height:400px;">
+
+	<div class="row-fluid">
+		
+			<div class="widget-box">
+		
+				<div class="widget-header widget-header-blue widget-header-flat"><h4 class="lighter">快速进入</h4></div>
+					<div class="widget-main widget-body" >
+					
+						<div class="content">
+							<div class="clearfix">
+								<input type="text" placeholder="输入“拼音”或者“栏目名称”可快速搜索" class="col-xs-12 col-sm-12">
+							</div>
+						</div>
+						
+					</div>
+			
+			</div>
+		
+	</div>
+		
+
+</div> -->
+
+{/block}
+

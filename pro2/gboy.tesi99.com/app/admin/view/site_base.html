@@ -1,0 +1,80 @@
+{extend name="public/base" /}
+
+{block name="main-content"}
+<div class="main-content"> 
+  	 
+	<div class="main-content-inner">
+ 
+		<div class="page-content">
+			
+			<div class="row">
+			<div class="tabbable">
+				<ul class="nav nav-tabs" id="myTab">
+					{foreach name="group_list" item="v"}
+					<li><a data-toggle="tab" href="#tag{$key}">{$v}</a></li>
+					{/foreach}
+					
+				</ul>
+				
+				<form class="form-horizontal" action="{:url($Think.ACTION_NAME)}" role="form" method="post" enctype="multipart/form-data" >
+				<div class="tab-content">
+					
+					{volist name="list" id="foo"}
+					
+					<div id="tag{$key}" class="tab-pane">
+						{volist name="foo" id="v" key="k"}
+						
+						<?php
+						 
+							echo  \form\Form::input($v['type'],$v['key'],$v['value'],$v['title'],$v['description'],$v['default_value']);
+							
+						?>
+					
+						{/volist}
+					</div>
+					{/volist}
+
+				
+				
+				</div>
+				
+				
+				<div class="clearfix form-actions">
+						<div class="col-md-offset-2 col-md-10">
+							<button class="btn btn-info"  type="button">
+								<i class="icon-ok bigger-110"></i>
+								保存
+							</button>
+
+
+							<button class="btn" type="reset">
+								<i class="icon-undo bigger-110"></i>
+								重置
+							</button>
+						</div>
+					</div>
+				</form>
+			</div>
+			
+			</div>
+		
+		</div>
+		
+		
+	</div>
+
+</div> 
+
+
+{/block}
+
+{block name="script"}
+<script>
+$(function(){
+	
+	$('#myTab li').eq(0).addClass('active');
+	$('.tab-pane').eq(0).addClass('active');
+
+})
+</script>
+{/block} 

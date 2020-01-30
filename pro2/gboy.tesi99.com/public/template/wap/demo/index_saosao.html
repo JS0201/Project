@@ -1,0 +1,49 @@
+<link rel="stylesheet" type="text/css" href="__TMPL__/css/pay.css"/>
+<script src="__TMPL__/js/jquery-3.1.1.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="http://res.wx.qq.com/open/js/jweixin-1.2.0.js" type="text/javascript" charset="utf-8"></script>
+<script>
+$(function() {
+    wx.config({
+
+        debug: false,
+
+        appId: $("input[name='appId']").val(),
+
+        timestamp: $("input[name='timestamp']").val(),
+
+        nonceStr: $("input[name='nonceStr']").val(),
+
+        signature: $("input[name='signature']").val(),
+
+        jsApiList: ['scanQRCode']
+    });
+})
+function sao() {
+
+            wx.scanQRCode({
+                needResult: 1, // 默认为0，扫描结果由微信处理，1则直接返回扫描结果，
+                scanType: ["qrCode","barCode"], // 可以指定扫二维码还是一维码，默认二者都有
+               /* success: function (res) {
+                    var result = res.resultStr; // 当needResult 为 1 时，扫码返回的结果
+                }*/
+            });
+
+}
+</script>
+<style>
+    .msg_default_box {
+        background: #00c800;
+        border: 1px solid #00c800;
+    }
+</style>
+<div id="orderInfo1">
+    <input type="hidden" name = "appId" value="{$data['appId']}"/>
+    <input type="hidden" name = "timestamp" value="{$data['timestamp']}"/>
+    <input type="hidden" name = "nonceStr" value="{$data['nonceStr']}"/>
+    <input type="hidden" name = "signature" value="{$data['signature']}"/>
+     <button onclick="sao()" style="width: 100px;height: 50px;">扫一扫</button>
+</div>
+<script>
+    //生成订单号
+
+</script>

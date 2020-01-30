@@ -1,0 +1,45 @@
+{extend name="template/wap/public/base.html" /}
+{block name="title"}探索者联盟{/block}
+{block name="css"}
+    <style type="text/css">
+        .fixed-search{position:absolute;left:50px;right:50px;padding:5px;}
+        .fixed-search .input-group{border:1px solid #ccc;border-radius: 4px;}
+    </style>
+{/block}
+{block name="header"}
+<header class="mui-bar mui-bar-nav ">
+    <a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+    <div class="fixed-search">
+        <div class="input-group un-border-group border-all">
+            <span class="input-group-addon pd0 pl10"><i class="iconfont icon-fangdajing fs20"></i></span>
+            <input type="text" class="input" placeholder="请输入关键字"/>
+        </div>
+    </div>
+    <a class=" mui-icon iconfont icon-liebiao mui-pull-right"></a>
+</header>
+{/block}
+{block name="content"}
+    <div class="mui-content ">
+        <ul class="goods-list">
+        {volist name="goodList" id = 'data'}
+            <li class="goods-list-item div-table">
+                <a href="/goods/index/details?id={$data.sku_id}"><img src="{$data.thumb}" class="goods-list-img div-tablecell"/></a>
+                <div class="goods-list-text div-tablecell pl10">
+                    <div class="ellipsis-s">
+                        <p class="ellipsis-text">{$data.subtitle}</p>
+                    </div>
+                    <div class="goods-list-textdown">
+                        <p class="ellipsis f-theme fs12">
+                            <a href="#" class="fr"><i class="iconfont icon-ai66"></i></a>
+                            ￥<span class="fs18">{$data.shop_price}</span>
+                        </p>
+                        <p class="ellipsis fs10 mt-4 f-darkgray">
+                            <span>{$data.all}人购买</span><span class="ml20"></span>
+                        </p>
+                    </div>
+                </div>
+            </li>
+        {/volist}
+        </ul>
+    </div>
+{/block}

@@ -1,0 +1,271 @@
+{extend name="template/wap/public/base.html" /}
+{block name="title"}探索者联盟{/block}
+{block name="css"}
+    <link rel="stylesheet" type="text/css" href="__TMPL__/alert/css/jquery.alertable.css"/>
+{/block}
+{block name="script"}
+<script src="__TMPL__/alert/js/velocity.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="__TMPL__/alert/js/velocity.ui.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="__TMPL__/alert/js/jquery.alertable.min.js" type="text/javascript" charset="utf-8"></script>
+<script type="text/javascript">
+	$(document).ready(function () {
+		getPrice();
+	    getAllPrice();
+
+	    document.querySelector('.mui-slider').addEventListener('slide', function(event) {
+	        $("#allPrice").text(0.00);
+            $("#checkAll").prop('checked', false);
+            $(".checked_goods [name='checked_goods']").prop('checked', false);
+	        if(!event.detail.slideNumber){
+	            $("a[href='#item2mobile']").attr('class', 'mui-control-item');
+	            $("a[href='#item1mobile']").attr('class', 'mui-control-item  mui-active');
+	        }
+            if(event.detail.slideNumber == 1) {
+	            $("a[href='#item1mobile']").attr('class', 'mui-control-item');
+	            $("a[href='#item2mobile']").attr('class', 'mui-control-item  mui-active');
+            }
+            getPrice();
+	    })
+
+	    $("#checkAll").click(function () {
+	        if(this.checked ==  true){
+	             $($("a[class='mui-control-item  mui-active']").attr('href')).find(".checked_goods [name='checked_goods']").prop('checked', true);
+	        }else{
+	             $($("a[class='mui-control-item  mui-active']").attr('href')).find(".checked_goods [name='checked_goods']").prop('checked', false);
+	        }
+	        getAllPrice();
+	    })
+	    $(".checked_goods").click(function () {
+	        //总的checkbox的个数
+	        var len =   $(".checked_goods").length;
+	        //已选中的checkbox的个数
+	        var checkedLen  =   $("input[type='checkbox'][name='checked_goods']:checked").length;
+	        if(len  ==  checkedLen){
+	            $('#checkAll').prop('checked', true);
+	        }else{
+	            $('#checkAll').prop('checked', false);
+	        }
+	        getAllPrice();
+	    })
+	    $('.goods_num').change(function(){
+			getPrice();
+			getAllPrice();
+		})
+	});
+	function delAll() {
+	    var checkedLen  =   $("input[type='checkbox'][name='checked_goods']:checked").length;
+        if(checkedLen == 0) {
+            $.alertable.alert('请选择商品');
+            return;
+        }
+	    var option = {
+            cancelButton : "<button class='alertable-cancel' type='button'>取消</button>",
+            okButton: "<button class='alertable-ok' onclick='delall()' type='button'>确认</button>"
+        }
+        $.alertable.confirm('是否确认删除?',option).then(function() {});
+	}
+	function delall() {
+	    var allinput = $("input[name='checked_goods']");
+        var spec_ids = '';
+        allinput.each(function(k, v){
+            if(v.checked) { //被选中的
+                if(spec_ids) {
+                    spec_ids = spec_ids + ',' + $(v).attr('spec_id');
+                }else{
+                    spec_ids = $(v).attr('spec_id');
+                }
+            }
+        });
+        if(spec_ids) {
+            var type = $('#type').attr('date-type');
+           $.post('/order/cart/delpro',{spec_id: spec_ids, type:type},function(data) {
+                if(!data.status) {
+                    $.alertable.alert(data.message);
+                }else{
+                    window.location.reload()
+                }
+           },'json');
+        }
+	}
+    function setment() {
+	    var checkedLen  =   $("input[type='checkbox'][name='checked_goods']:checked").length;
+	    if(checkedLen == 0) {
+            $.alertable.alert('请选择商品');
+            return;
+	    }
+        var allinput = $("input[name='checked_goods']");
+        var spec_ids = '';
+        allinput.each(function(k, v){
+            if(v.checked) { //被选中的
+                if(spec_ids) {
+                    spec_ids = spec_ids + ',' + $(v).attr('spec_id');
+                }else{
+                    spec_ids = $(v).attr('spec_id');
+                }
+            }
+        });
+       window.location.href='/order/order/confirm?spec_ids=' + spec_ids;
+    }
+	function getAllPrice() {
+	    var priceAll =  0.0;
+	   $($("a[class='mui-control-item  mui-active']").attr('href')).find("input[type='checkbox'][name='checked_goods']").each(function () {
+	        if(this.checked == true){
+	        	var price = $(this).parents('.cart-goods-item').find('.total_price').text();
+	            priceAll += parseFloat(price);
+	        }
+	    })
+	    $("#allPrice").text(priceAll.toFixed(2));
+	}
+
+	function getPrice(){
+		  $($("a[class='mui-control-item  mui-active']").attr('href')).find("span[class='fs16 total_price']").each(function(){
+		  	var unitPrice = $(this).attr('data-unit-price'),
+		  		count = $(this).parents('.cart-goods-item').find('.goods_num').val(),
+		  		countPrice = unitPrice * count;
+		  		$(this).text(parseFloat(countPrice.toFixed(2)));
+		  })
+	}
+	function setsum(obj) {
+	    var sum = $(obj).val();
+	    var sku_id = obj.getAttribute('sku_id');
+	    var specid = obj.getAttribute('spec_id');
+        var type = $('#type').attr('date-type');
+	    $.post('/order/cart/set_nums',{sku_id:sku_id, nums: sum, specid: specid, type: type},function(data) {
+	        if(!data.status) {
+	            $.alertable.alert(data.message);
+	        }
+	    },'json');
+	}
+	function deleted(obj) {
+	    spec_id = obj.getAttribute('spec_id');
+	    var option = {
+            cancelButton : "<button class='alertable-cancel' type='button'>取消</button>",
+            okButton: "<button class='alertable-ok' onclick='sure()' type='button'>确认</button>"
+        }
+
+	    $.alertable.confirm('是否确认删除?',option).then(function() {});
+	}
+	function sure() {
+	   var id = spec_id;
+	   var type = $('#type').attr('date-type');
+       $.post('/order/cart/delpro',{spec_id: id, type:type},function(data) {
+            if(!data.status) {
+                $.alertable.alert(data.message);
+            }else{
+                window.location.reload()
+            }
+       },'json');
+	}
+    </script>
+{/block}
+<script src="__TMPL__/js/mui.min.js"></script>
+{block name="header"}
+    <header class="mui-bar mui-bar-nav bg-theme">
+        <h1 class="mui-title">我的购物车</h1>
+        <button class="mui-btn-link mui-pull-right" onclick="delAll()"> 删除</button>
+        <a class="mui-icon mui-icon-caret mui-pull-right"></a>
+        <a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+    </header>
+{/block}
+{block name="content"}
+    <div class="mui-content">
+        <div class="mui-slider">
+
+            <div id="sliderSegmentedControl" class="section  mui-segmented-control mui-segmented-control-inverted">
+                <a class="mui-control-item  mui-active" href="#item1mobile">
+                    现金积分商城
+                </a>
+                <a class="mui-control-item" href="#item2mobile">
+                    消费积分商城
+                </a>
+
+            </div>
+            <div id="sliderProgressBar" class="mui-slider-progress-bar mui-col-xs-6"></div>
+            <div class="mui-slider-group">
+                <div id="item1mobile" class="mui-slider-item mui-control-content mui-active">
+                    <ul class="cart-list f-darkgray">
+                    		    {volist name="cart_recharge" id='data'}
+                     			<li class="cart-goods-item flex-justify">
+                     				<label class="checkbox cart-checkbox-all checked_goods">
+                     					<input type="checkbox" name="checked_goods" spec_id = "{$data.specid}"/>
+                     					<span class=" checkbox-pro checkbox-round"></span>
+                     				</label>
+                     				<div class="mui-clearfix ml10 cart-goods">
+                     					<div class="goods-order-img"><img class="goods-img" src="{$data._sku_['thumb']}"/></div>
+                     					<div class="goods-order-synopsis"  style="width: 150px;">
+                     						<div class="ellipsis-s">
+                     							<p class="ellipsis-text">{$data._sku_['sku_name']}</p>
+                     						</div>
+                     						<p class="ellipsis mb5">{$data._sku_['spec']}</p>
+                     						<div class="goods-order-other ">
+                                                <span class="f-theme ver-box">
+                                                    <span>￥</span><span class="fs16 total_price" data-unit-price="{$data._sku_['shop_price']}"></span>
+                                                </span>
+                                                <!--<span class="fs18">
+                                                    <button class="label label-primary" onclick="deleted(this)" spec_id = "{$data.specid}">删除</button>
+                                                </span> -->
+                                            </div>
+                     						<div class="mui-numbox mt10" data-numbox-min="1" style="margin-top: 30px;">
+                     							<button class="mui-btn mui-btn-numbox-minus"  type="button">-</button>
+                     							<input class="mui-input-numbox goods_num" name="message" type="number" spec_id="{$data.specid}" sku_id = "{$data._sku_['sku_id']}" onchange="setsum(this)" value="{$data.number}">
+                     							<button class="mui-btn mui-btn-numbox-plus" type="button">+</button>
+                     						</div>
+                     					</div>
+                     				</div>
+                     			</li>
+
+                    			{/volist}
+                    		</ul>
+                </div>
+                <div id="item2mobile" class="mui-slider-item mui-control-content ">
+                    <ul class="cart-list f-darkgray">
+                    		    {volist name="cart_consume" id='data'}
+                    			<li class="cart-goods-item flex-justify">
+                    				<label class="checkbox cart-checkbox-all checked_goods">
+                    					<input type="checkbox" name="checked_goods" spec_id = "{$data.specid}"/>
+                    					<span class=" checkbox-pro checkbox-round"></span>
+                    				</label>
+                    				<div class="mui-clearfix ml10 cart-goods">
+                    					<div class="goods-order-img"><img class="goods-img" src="{$data._sku_['thumb']}"/></div>
+                    					<div class="goods-order-synopsis"  style="width: 150px;">
+                    						<div class="ellipsis-s">
+                    							<p class="ellipsis-text">{$data._sku_['sku_name']}</p>
+                    						</div>
+                    						<p class="ellipsis mb5">{$data._sku_['spec']}</p>
+                    						<div class="goods-order-other ">
+                                                <span class="f-theme ver-box">
+                                                    <span>￥</span><span class="fs16 total_price" data-unit-price="{$data._sku_['shop_price']}"></span>
+                                                </span>
+                                                <!--<span class="fs18">
+                                                    <button class="label label-primary" onclick="deleted(this)" spec_id = "{$data.specid}">删除</button>
+                                                </span> -->
+                                            </div>
+                    						<div class="mui-numbox mt10" data-numbox-min="1" style="margin-top: 30px;">
+                    							<button class="mui-btn mui-btn-numbox-minus"  type="button">-</button>
+                    							<input class="mui-input-numbox goods_num" name="message" readonly type="number" spec_id="{$data.specid}" sku_id = "{$data._sku_['sku_id']}" onchange="setsum(this)" value="{$data.number}">
+                    							<button class="mui-btn mui-btn-numbox-plus" type="button">+</button>
+                    						</div>
+                    					</div>
+                    				</div>
+                    			</li>
+
+                    			{/volist}
+                    		</ul>
+                </div>
+            </div>
+        </div>
+    </div>
+    <footer class="foot-fillspace">
+        		<div class="fixed-bar flex-justify  layout-row pd0">
+        			<div class="fill-block prow10 col-9 fs16">
+        				<label class="checkbox cart-checkbox-all">
+        					<input type="checkbox" name="checked_goods_all" id="checkAll"  />
+        					<span class=" checkbox-pro checkbox-round">全选</span>
+        				</label>
+        				<span class="divline fr">合计：<span class="f-theme"><span class="fs14">￥</span><span id="allPrice">0.00</span></span></span>
+        			</div>
+        			<button class="col-3 btn btn-theme btn-block radius-0" onclick="setment()">结算</button>
+        		</div>
+        	</footer>
+{/block}
+<script src="__TMPL__/js/comment.js" type="text/javascript" charset="utf-8"></script>

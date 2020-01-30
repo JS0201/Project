@@ -1,0 +1,50 @@
+body,html{
+	height:100%
+}
+.warpper{
+	min-height:100%;
+	
+}
+.logo-bar{
+	background-color:#4c8bee;
+	color:#fff;
+	text-align: center;
+}
+.logo{
+	width:100px;
+	height:100px;
+}
+.logo-down{
+	position: relative;
+	padding-top:13px ;
+	padding-bottom:13px;
+}
+.logo-down-after{
+	border:7px solid;
+	border-color:transparent transparent #22d8c7;
+	position:absolute;
+	bottom:0;
+	left: 25%;
+	margin-left: -7px;
+	transition: all .5s;
+}
+.logo-down .cur:nth-child(2) ~ .logo-down-after{
+	left:75%;
+}
+.logo-down .flex-item:not(:first-child){border-left:1px solid #fff}
+
+.input-group-addon{color:#4c8bee}
+
+.input-group{
+	border-bottom: 1px solid #4b5c82;
+}
+.item-form:not(:first-child){display: none;}
+.input[type="text"], 
+.input[type="password"], 
+.input[type="number"], 
+.input[type="url"], 
+.input[type="email"], .input[type="month"], .input[type="search"], 
+.input[type="tel"], .input[type="week"], select{color: #fff;}
+
+.btn.btn-eye{color: #fff;}
+.un-border-group .input-group-btn .btn{border: 1px solid transparent;}

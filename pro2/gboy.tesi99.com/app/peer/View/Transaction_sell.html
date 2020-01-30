@@ -1,0 +1,134 @@
+<include file="Admin@Public/header" />	
+<div class="fixed-nav layout">
+    <ul>
+        <li class="first">卖出订单管理<a id="addHome" title="添加到首页快捷菜单">[+]</a></li>
+        <li class="spacer-gray"></li>
+    </ul>
+    <div class="hr-gray"></div>
+</div>
+
+<div class="content padding-big have-fixed-nav">
+ 
+
+    <div class="member-list-search clearfix">
+        <form action="" method="get">
+            <input type="hidden" name="m" value="<{:MODULE_NAME}>">
+            <input type="hidden" name="c" value="<{:CONTROLLER_NAME}>">
+            <input type="hidden" name="a" value="<{:ACTION_NAME}>">
+            <div class="form-box form-layout-rank clearfix border-bottom-none">
+				<?php echo  \Org\Util\Form::input('select','status',$_GET['status'] ,'按状态查看','',array('items' =>array(''=>'全部','0'=>'待接单','1'=>'待打款','2'=>'已打款','3'=>'交易完成','-1'=>'取消')))?>
+                <?php echo  \Org\Util\Form::input('text', 'keyword', $_GET['keyword'], '搜索', '', array('placeholder' => '输入会员ID/会员名均可搜索'));?>
+            </div>
+            <input class="button bg-sub fl" type="submit" value="查询">
+        </form>
+    </div>
+
+	<div class="table-work border margin-tb">
+				<div class="border border-white tw-wrap">
+			
+					<a data-message="是否确定删除所选？" href="<?php echo U('del')?>" data-ajax='id'><i class="ico_delete"></i>删除</a>
+					<div class="spacer-gray"></div>
+				</div>
+			</div>
+
+    <div class="table-wrap member-info-table">
+        <div class="table resize-table paging-table check-table high-table border clearfix">
+            <div class="tr">
+                <span class="th check-option" data-resize="false"><span><input id="check-all" type="checkbox" /></span></span>
+                <span class="th" data-width="10"><span class="td-con">订单号</span></span>
+                <span class="th" data-width="10"><span class="td-con">卖家</span></span>
+                <span class="th" data-width="10"><span class="td-con">数量</span></span>
+                <span class="th" data-width="10"><span class="td-con">单价</span></span>
+                <span class="th" data-width="10"><span class="td-con">总价</span></span>
+                <span class="th" data-width="10"><span class="td-con">买家</span></span>
+                <span class="th" data-width="10"><span class="td-con">凭证</span></span>
+                <span class="th" data-width="10"><span class="td-con">状态</span></span>
+                <span class="th" data-width="10"><span class="td-con">创建时间</span></span>
+                <span class="th" data-width="10" style="width: 183px;"><span class="td-con">操作</span></span>
+            </div>
+            <?php foreach ($list['lists'] AS $val): ?>
+            <div class="tr">
+                <span class="td check-option"><input type="checkbox" name="ids" value="<?php echo $val['id'] ?>" /></span>
+                <span class="td">
+                    <{$val['order_no']}>
+                </span>
+                <span class="td">
+                     <{$val['seller_user']}>（<{$val['seller_realname']}>）
+                </span>
+				<span class="td">
+                      <{$val['num']}>
+                </span>
+                <span class="td">
+					 <{$val['price']}>
+                </span>
+                <span class="td">
+					 <{$val['count_price']}>
+                </span>
+                
+                <span class="td">
+					<{$val['buy_user']}><?php if($val['buy_user']){echo "（".$val['user_realname']."）";}?>
+                </span>      
+                <span class="td">
+					<if condition="$val['pay_pic']"><a href="<{$val['pay_pic']}>" target="_blank"><img src="<{$val['pay_pic']}>" height="30"></a></if>
+                </span> 
+				
+				<span class="td">
+					<{$val['_status']}>
+                </span>
+
+                <span class="td text-center">
+					<{$val['order_create_time']|getdatetime=###}>
+                </span>
+              
+                <span class="td">
+					<if condition="$val['order_status'] eq '1' || $val['order_status'] eq '0'">
+                    <a href="<{:U('cancel',array('id'=>$val['id']))}>" data-confirm="是否确认取消？金额会原路返回到卖家账户">取消</a>&nbsp;&nbsp;
+                    <else/>
+                        无
+					</if>
+                </span>
+            </div>
+            <?php endforeach ?>
+            <div class="paging padding-tb body-bg clearfix">
+                  
+                <?php echo $pages;?>
+                <div class="clear"></div>
+            </div>
+        </div>
+    </div>
+</div>
+<script type="text/javascript">
+
+    $(window).load(function () {
+        $(".table").resizableColumns();
+        $(".paging-table").fixedPaging();
+        $(".member-info-tip").hover(function () {
+            $(this).children("span").show();
+        }, function () {
+            $(this).children("span").hide();
+        });
+        $(".member-list-search .form-group").each(function (i) {
+            $(this).addClass("form-group-id" + (i + 1));
+        });
+        $("a.member_update").click(function () {
+            top.dialog({
+                url: $(this).attr("data-url"),
+                title: '修改会员信息',
+                width: 460,
+                onclose: function () {
+                    if (this.returnValue) {
+                        window.location.href = this.returnValue.referer;
+                    }
+                }
+            })
+                    .showModal();
+        });
+        return false;
+    })
+    $(function () {
+        var $val = $("input[type=text]").eq(1).val();
+        $("input[type=text]").eq(1).focus().val($val);
+    })
+</script>
+</body>
+</html>

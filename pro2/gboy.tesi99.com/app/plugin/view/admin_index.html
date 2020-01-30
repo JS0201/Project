@@ -1,0 +1,80 @@
+{extend name="admin@public/base" /}
+{block name="script"}
+	<script>
+		$(function() {
+		    $('.purple').click(function() {
+		        var url = $(this).attr('data-url');
+				$.post(url,{},function(data) {
+				    if(!data.status) {
+                        alert(data.msg);
+				        return false;
+					}
+					alert('安装成功');
+					window.location.href = "{:url('index')}";
+				},'json');
+			});
+		});
+
+	</script>
+{/block}
+{block name="main-content"}
+<div class="main-content">
+
+	<div class="main-content-inner">
+
+		<div class="page-content">
+
+			<div class="row">
+				<div class="col-xs-12">
+
+						<div class="table-responsive">
+					  <table id="sample-table" class="table table-striped table-bordered table-hover">
+   <thead>
+    <tr>
+     <th>插件名称</th>
+     <th>插件标识</th>
+     <th>版本</th>
+     <th>作者</th>
+     <th width="300">操作</th>
+    </tr>
+   </thead>
+   <tbody>
+   {volist name="plugins" id="foo"}
+    <tr>
+        <td>
+            <div class="gboy-margin-right-10 pull-left"><img  width="40"   src="{$foo['icon']}"></div>
+					{$foo['title']}<p class="gboy-margin-bottom-0">{$foo['description']}</p>
+        </td>
+		<td>{$foo['name']}</td>
+		<td>{$foo['version']}</td>
+		<td>{$foo['author']}</td>
+		 <td>
+      <div>
+		  <!--{if condition="$foo['has_admin']"}
+       <a class="blue" href="{:url('config',['name'=>$foo['name']])}"><i class=" icon-wrench bigger-110"></i> 配置</a>
+        <a class="green" href="{:addon_url($foo['name'].'://admin/index')}"><i class="icon-columns bigger-110"></i> 管理</a>
+		  {/if}-->
+
+		  {if condition="$foo['status'] == 0"}
+		  <a class="purple" data-url="{:url('install',['name'=>$foo['name']])}" href="javascript:void(0);"><i class=" icon-cog bigger-110"></i> 安装</a>
+		  {elseif condition="$foo['status'] == 1"}
+		  	<a class="grey" href="{:url('update',['name'=>$foo['name']])}"><i class="  icon-refresh bigger-110"></i> 更新</a>
+		  	<!--<a class="brown" href="{:url('toggle',['name'=>$foo['name']])}"><i class=" icon-ban-circle bigger-110"></i> 禁用</a>-->
+		  {/if}
+		
+      </div>
+     </td>
+    </tr>
+   {/volist}
+
+   </tbody>
+  </table>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+</div>
+{/block}
+

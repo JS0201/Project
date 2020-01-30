@@ -1,0 +1,70 @@
+{extend name="admin@public/base" /}
+{block name="main-content"}
+<div class="main-content">
+
+    <div class="main-content-inner">
+
+        <div class="page-content">
+
+            <div class="row">
+                <div class="tabbable">
+                    <ul class="nav nav-tabs" >
+
+                        <li class="active"><a data-toggle="tab" href="#tag1">基本信息</a></li>
+
+                    </ul>
+
+                    <form class="form-horizontal"  role="form" method="post">
+                        <input type="hidden" name="id" value="{:isset($info['id'])?$info['id']:''}">
+                        <input type="hidden" name="parent_id" id="parent_id" data-value="{$info['path_id']}" value="{$info['parent_id']}">
+                        <div class="tab-content">
+
+                            <div id="tag1" class="tab-pane active">
+        <?php
+     
+         echo  \form\Form::input('text','name',$info['name'],'品牌名称','请填写商品品牌的名称；例如：可口可乐等');
+   
+         echo  \form\Form::input('upload','logo',$info['logo'],'品牌图片','请上传品牌LOGO，用于前台展示',array('num'=>1,'input'=>'logo',''));
+         echo  \form\Form::input('text','url',$info['url'],'品牌网址','请填写品牌网址');
+         echo  \form\Form::input('textarea','descript',$info['descript'],'品牌描述','请填写品牌的描述信息');
+         echo  \form\Form::input('text','sort',isset($info['sort']) ? $info['sort'] :100,'排序','请填写自然数，根据排序进行由小到大排列显示');
+      
+         echo  \form\Form::input('radio','isrecommend',isset($info['isrecommend']) ? $info['isrecommend'] :0,'是否推荐','请设置品牌是否为推荐品牌',array('items'=>array('否','是')));
+         echo  \form\Form::input('radio','status',isset($info['status']) ? $info['status'] :1,'是否启用','请设置商品分类是否启用，不影响后台显示使用',array('items'=>array('否','是')));
+
+        ?>
+
+
+                            </div>
+
+                        </div>
+
+
+                        <div class="clearfix form-actions">
+                            <div class="col-md-offset-2 col-md-10">
+                                <button class="btn btn-info"  type="button">
+                                    <i class="icon-ok bigger-110"></i>
+                                    保存
+                                </button>
+
+
+                                <button class="btn" type="reset">
+                                    <i class="icon-undo bigger-110"></i>
+                                    重置
+                                </button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+
+            </div>
+
+        </div>
+
+
+    </div>
+
+</div>
+
+
+{/block}

@@ -1,0 +1,63 @@
+{extend name="template/wap/public/base.html" /}
+{block name="title"}探索者联盟{/block}
+{block name="css"}
+<link href="__TMPL__/js/ztree/ztreestyle.css" rel="stylesheet" type="text/css" />
+<style>
+	.submit-btn{
+		background:#7c38bc;
+		color:#fff;
+		border: 1px solid transparent;
+		cursor: pointer;
+		padding: 6px 12px;
+		margin-bottom: 0;
+		font-size: 14px;
+		font-weight: 400;
+		line-height: 1.42857143;
+		text-align: center;
+		white-space: nowrap;
+		border-radius:4px;
+	}
+	.count-text{
+		padding-left:15px;
+		padding-right:15px;
+		font-size:14px;
+		color:#ff0808;
+	}
+</style>
+{/block}
+{block name="script"}
+<script src="__TMPL__/js/jquery-3.1.1.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="__TMPL__/js/ztree/jquery.ztree.core.js"></script>
+<script type="text/javascript">
+    var setting = {
+		async: {
+			enable: true,
+			url:"/member/index/team",
+			autoParam:["id","ids"],
+			dataFilter: null
+		},
+    };
+
+    $(document).ready(function(){
+        $.fn.zTree.init($("#treeDemo"), setting);
+    });
+</script>
+{/block}
+{block name="header"}
+<header class="mui-bar mui-bar-nav bg-theme">
+	<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+	<h1 class="mui-title">我的团队</h1>
+</header>
+{/block}
+{block name="content"}
+<div class="mui-content">
+	<div class="count-text">
+		<p>团队人数：{$num}</p>
+	</div>
+	<div class="content_wrap">
+		<div class="zTreeDemoBackground left">
+			<ul id="treeDemo" class="ztree"></ul>
+		</div>
+	</div>
+</div>
+{/block}

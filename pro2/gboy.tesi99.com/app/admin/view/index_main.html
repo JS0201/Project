@@ -1,0 +1,214 @@
+{extend name="public/base" /}
+{block name="style"}
+	.pro_name a{color: #4183c4;}
+	.osc_git_title{background-color: #d8e5f1;}
+	.osc_git_box{background-color: #fafafa;}
+	.osc_git_box{border-color: #ddd;}
+	.osc_git_info{color: #666;}
+	.osc_git_main a{color: #4183c4;}
+	.infobox-data ul{list-style:none;margin-left:0;}
+	.infobox-data li{width:50%;float:left;padding-top:5px;}
+	.infobox-data li span{display:inline-block;width:60px;}
+{/block}
+{block name="main-content"}
+<div class="main-content">
+  
+<div class="page-content">
+	<div class="page-header">
+		<h1>
+			后台管理
+			<small>
+				<i class="icon-double-angle-right"></i>
+				首页
+			</small>
+		</h1>
+	</div><!-- /.page-header -->
+
+	<div class="row">
+		<div class="col-xs-12">
+			<!-- PAGE CONTENT BEGINS -->
+
+			<div class="alert alert-block alert-success">
+				<button type="button" class="close" data-dismiss="alert">
+					<i class="icon-remove"></i>
+				</button>
+				<i class="icon-ok green"></i>
+				为了您更好的使用本系统，建议屏幕分辨率1280*768以上，并且安装火狐或chrome谷歌浏览器
+			</div>
+
+				<div class="row">
+					<div class="space-6"></div>
+					<div class="col-sm-7">
+
+						<div class="infobox infobox-blue col-xs-12 col-sm-6 col-md-6 col-lg-6">
+							<div class="infobox-icon">
+								<i class="ace-icon icon-certificate"></i>
+							</div>
+							<div class="infobox-data">
+								<span class="infobox-data-number">{$order_statistics['today']['orders']}</span>
+								<div class="infobox-content">今日订单数</div>
+							</div>
+
+						</div>
+						<div class="infobox infobox-pink col-xs-12 col-sm-6 col-md-6 col-lg-6">
+							<div class="infobox-icon">
+								<i class="ace-icon icon-group"></i>
+							</div>
+							<div class="infobox-data">
+								<span class="infobox-data-number">{$member_statistics['day']}</span>
+								<div class="infobox-content">今日注册会员数</div>
+							</div>
+
+						</div>
+					
+
+						<div class="infobox infobox-green  infobox-dark col-xs-12 col-sm-6 col-md-6 col-lg-6" style="margin:0;">
+							<div class="infobox-data">
+								<ul>
+									<li><span>昨天数量</span> <a href="" class="infobox-content">{$order_statistics['yesterday']['orders']}</a></li>
+									<li><span>7天数量</span> <a href="" class="infobox-content">{$order_statistics['week']['orders']}</a></li>
+									<li><span>30天数量</span> <a href="" class="infobox-content">{$order_statistics['month']['orders']}</a></li>
+									<li><span>总数量</span> <a href="" class="infobox-content">{$order_statistics['count']['orders']}</a></li>
+								</ul>
+
+							</div>
+						</div>
+						<div class="infobox infobox-orange2 infobox-dark col-xs-12 col-sm-6 col-md-6 col-lg-6" style="margin:0;">
+							<div class="infobox-data">
+								<ul>
+									<li><span>昨天数量</span> <a href="" class="infobox-content">{$member_statistics['yesterday']}</a></li>
+									<li><span>7天数量</span> <a href="" class="infobox-content">{$member_statistics['week']}</a></li>
+									<li><span>30天数量</span> <a href="" class="infobox-content">{$member_statistics['month']}</a></li>
+									<li><span>总数量</span> <a href="" class="infobox-content">{$member_statistics['count']}</a></li>
+								</ul>
+
+							</div>
+						</div>
+					
+						<div class="row">
+							<div class="col-xs-12">
+								<div class="space-6"></div>
+							</div>
+						</div>
+
+						<div class="sl-indextop10 text-left panel">
+							<div class="widget-header">
+								<h5 class="widget-title"><span style="font-size:14px; font-family:Microsoft YaHei">最新会员</span></h5>
+							</div>
+							<div class="widget-body">
+								<div class="widget-main no-padding">
+									<table class="table table-bordered table-striped">
+										<thead class="thin-border-bottom">
+										<tr>
+											<th>
+												<i class="icon-caret-right blue"></i>会员名
+											</th>
+
+											<th>
+												<i class="icon-caret-right blue"></i>
+												手机号码
+											</th>
+
+											<th class="hidden-480">
+												<i class="icon-caret-right blue"></i>
+												注册时间
+											</th>
+										</tr>
+										</thead>
+
+										<tbody>
+										{volist name="member_list" id="member"}
+										<tr>
+											<td>{$member['username']}</td>
+
+											<td>{$member['mobile']}</td>
+
+											<td>
+												{$member['register_time']}
+											</td>
+										</tr>
+										{/volist}
+
+										</tbody>
+									</table>
+								</div>
+							</div>
+						</div>
+						<div class="sl-indextop10 text-left">
+							<div class="widget-header">
+								<h5 class="widget-title"><span style="font-size:14px; font-family:Microsoft YaHei">最新订单</span></h5>
+							</div>
+							<div class="widget-body">
+								<div class="widget-main">
+									<table class="table table-bordered table-striped">
+										<thead class="thin-border-bottom">
+										<tr>
+											<th>
+												<i class="icon-caret-right blue"></i>
+												订单号
+											</th>
+
+											<th>
+												<i class="icon-caret-right blue"></i>
+												用户名
+											</th>
+											<th>
+												<i class="icon-caret-right blue"></i>
+												订单金额
+											</th>
+
+											<th>
+												<i class="icon-caret-right blue"></i>
+												订单时间
+											</th>
+										</tr>
+										</thead>
+
+										<tbody>
+										{volist name="order_list" id="order"}
+										<tr>
+											<td>{$order['sn']}</td>
+											<td>
+												{$order['user']}
+											</td>
+
+											<td>
+												<span class="label label-info arrowed-right arrowed-in">{$order['real_amount']}</span>
+											</td>
+											<td>
+												{$order['system_time']}
+											</td>
+										</tr>
+										{/volist}
+
+
+										</tbody>
+									</table>
+								</div>
+							</div>
+						</div>
+					</div>
+
+					<div class="vspace-12-sm"></div>
+
+					<div class="col-sm-5">
+						{:hook('maintainhook')}
+						{:hook('sysinfohook')}
+						{:hook('kjhook')}
+
+					</div><!-- /.col -->
+	</div>
+	
+
+			<!-- PAGE CONTENT ENDS -->
+		</div><!-- /.col -->
+	</div><!-- /.row -->
+</div>
+
+  
+  
+</div>
+  
+  
+{/block}
+

@@ -1,0 +1,96 @@
+{extend name="admin@public/base" /}
+
+{block name="main-content"}
+<div class="main-content">
+
+	<div class="main-content-inner">
+
+		<div class="page-content">
+
+			<div class="row">
+				<div class="col-xs-12">
+
+
+                    <div class="border clearfix">
+
+                        <div class="gboy-tab-title">
+                            <a href="{:url('index',['status'=>1])}" {if condition="input('status') eq '' || input('status') eq 1"}class="label"{/if}>已启用模块</a>
+                            <a href="{:url('index',['status'=>0])}" {if condition="input('status') eq '0'"}class="label"{/if}>未启用模块</a>
+                        </div>
+
+                    </div>
+
+
+
+
+
+
+    <!--
+        <div class="tree" style="display:inline-block;">
+         <i class="icon-plus"></i>
+        </div>
+
+        预留异步加载
+    -->
+					<div class="table-responsive">
+					  <table id="sample-table" class="table table-striped table-bordered table-hover">
+   <thead>
+    <tr>
+     <th>模块名称</th>
+     <th>模块状态</th>
+     <th>到期时间</th>
+     <th>版本</th>
+     <th>服务商</th>
+     <th width="200">操作</th>
+    </tr>
+   </thead>
+   <tbody>
+   {volist name="lists" id="foo"}
+    <tr>
+        <td class="left">
+            <div class="gboy-margin-right-10 pull-left"><img  width="40"  src="{$foo['ico']}"></div>
+            {$foo['name']}<p class="gboy-margin-bottom-0"><span class="blue">简介：</span>{$foo['description']}</p>
+        </td>
+     <td>正常</td>
+     <td>永久</td>
+     <td>{$foo['version']}</td>
+     <td>{$foo['copyright']}</td>
+     <td>
+      <div>
+	  
+	    {if condition="$foo['status']"}
+		 <a class="brown" href="{:url('toggle',['module'=>$foo['module_name']])}"><i class=" icon-ban-circle bigger-110"></i> 禁用</a>
+		  {else/}
+		  <a class="brown" href="{:url('toggle',['module'=>$foo['module_name']])}"><i class=" icon-ok bigger-110"></i> 启用</a>
+		  {/if}
+     
+          &nbsp;
+          <a class="grey" href="{:url('update',['module'=>$foo['module_name']])}"><i class="  icon-refresh bigger-110"></i> 更新</a>
+		  &nbsp;
+		  <a class="green" href="{:url('config',['module'=>$foo['module_name']])}"><i class="icon-columns bigger-110"></i> 配置</a>
+      </div>
+
+
+     </td>
+    </tr>
+   {/volist}
+
+   </tbody>
+  </table>
+					</div>
+
+				</div>
+
+			</div>
+
+
+
+		</div>
+
+
+	</div>
+
+</div>
+
+{/block}
+

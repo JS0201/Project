@@ -1,0 +1,71 @@
+{extend name="admin@public/base" /}
+
+{block name="script"}
+<script>
+
+</script>
+{/block}
+{block name="main-content"}
+<div class="main-content">
+
+    <div class="main-content-inner">
+
+        <div class="page-content">
+
+            <div class="row">
+                <div class="tabbable">
+                    <ul class="nav nav-tabs" >
+
+                        <li class="active"><a data-toggle="tab" href="#tag1">基本信息</a></li>
+                    </ul>
+
+                    <form class="form-horizontal"  role="form" method="post">
+                        <input type="hidden" name="id" value="{:isset($info['id'])?$info['id']:''}">
+                        <div class="tab-content">
+
+                            <div id="tag1" class="tab-pane active">
+        <?php
+         echo  \form\Form::input('text','name',isset($info['name'])?$info['name']:'','广告位名称','请填写广告位名称，如：首页轮播图');
+         echo  \form\Form::input('text','width',isset($info['width'])?$info['width']:'','广告位宽度','设置图片广告位的宽度，单位为px');
+         echo  \form\Form::input('text','height',isset($info['height'])?$info['height']:'','广告位高度','设置图片广告位的高度，单位为px');
+         echo  \form\Form::input('upload','defaultpic',isset($info['defaultpic'])?$info['defaultpic']:'','广告图片','广告位展示的图片',array('num'=>1,'input'=>'defaultpic',''));
+
+         echo  \form\Form::input('radio','status',isset($info['status']) ? $info['status'] :0,'是否启用','是否启用广告位，如关闭，广告位下的所有广告将不展示',array('items'=>array('否','是')));
+         echo  \form\Form::input('radio','type',isset($info['type']) ? $info['type'] :0,'展示方式','请选择广告位的展示方式',array('items'=>array('图片')));
+        ?>
+
+
+                            </div>
+
+                   
+                        </div>
+
+
+                        <div class="clearfix form-actions">
+                            <div class="col-md-offset-2 col-md-10">
+                                <button class="btn btn-info"  type="button">
+                                    <i class="icon-ok bigger-110"></i>
+                                    保存
+                                </button>
+
+
+                                <button class="btn" type="reset">
+                                    <i class="icon-undo bigger-110"></i>
+                                    重置
+                                </button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+
+            </div>
+
+        </div>
+
+
+    </div>
+
+</div>
+
+
+{/block}

@@ -1,0 +1,16 @@
+
+    <div class="avatar-bar">
+        <div class="cont-padded mui-clearfix" >
+            <div class="avatar"><img src="__TMPL__/new/images/def.jpg"/></div>
+            <div class="user-bar">
+                <div class="user-phone">用户姓名：{$member['realname']}</div>
+                <if condition="$member['id'] neq 1">
+                <div class="user-id">推&nbsp;荐&nbsp;人：{$member['_push']['realname']}</div>
+                </if>
+                <div class="user-id">会员等级：{$donjie['grade']|default='0'}</div>
+            </div>
+            <div class="tag-bar">
+                用户权益<i class="mui-icon mui-icon-arrowright"></i>
+            </div>
+        </div>
+    </div>

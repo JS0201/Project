@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="zh">
+
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<meta http-equiv="X-UA-Compatible" content="ie=edge" />
+		<title>交易区-首页</title>
+		<link rel="stylesheet" type="text/css" href="__TMPL__/asset/font-awesome/css/font-awesome.min.css" />
+		<link rel="stylesheet" type="text/css" href="__TMPL__/ATS/css/iconfont.css" />
+		<link rel="stylesheet" type="text/css" href="__TMPL__/ATS/css/style.css" />
+		<link rel="stylesheet" type="text/css" href="__TMPL__/ATS/css/common.css" />
+		<link rel="stylesheet" type="text/css" href="__TMPL__/ATS/css/paging.css" />
+		<script src="__TMPL__/js/jquery-3.1.1.min.js" type="text/javascript" charset="utf-8"></script>
+		<script type="text/javascript" src="__TMPL__/js1/gboy.js"></script>
+		<script type="text/javascript" src="__TMPL__/js1/gboy.member.js"></script>
+	</head>
+
+	<body>
+		<div class="lp-header bgcolortheme02 c-fff">
+			<a href="/member/index/order" class="lp-back fa fa-angle-left fl"></a>
+			<h1 class="title">数字资产</h1>
+		</div>
+		<div class="">
+			<div class="person-box pt50 pb15 bgcolortheme02 mb10">
+				<div class="person-avatar mb10">
+					<img src="/template/wap/statics/images/def.jpg" alt="" class="person-img" />
+					<div class="person-text pt10">
+						<!--<p class="c-fff"><{$realname}></p>-->
+						<p class="c-fff tac">
+							{:config('cache.p_open_price')}
+						</p>
+						<p class="c-fff tac">当前价格</p>
+					</div>
+				</div>
+			</div>
+			<div class="mg15 mb10 bgcolortheme02 pcol10">
+				<div class="flex-justify">
+					<div class="input-group">
+						<input type="text" class="input bgtransp un-border c-fff" value="{$code}" id="foo" />
+						<div class="input-group-btn">
+							<button class="btn btn-copy bgcolortheme04 un-border c-fff" type="button" data-clipboard-action="copy" data-clipboard-target="#foo">复制地址</button>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="prow15">
+				<div class="radius-4 btn-gradual-bg01 widthp100">
+					<div class="flex  pd10">
+						<div class="flex-item ">
+							<p class="ellipsis"><span class="f-pink mr5">ATS</span>
+								{$money_finance[ 'member_bi']}
+							</p>
+						</div>
+						<div class="flex-item">
+							<p class="ellipsis"><span class="f-blue mr5">当前价格</span>
+								{:config('cache.p_open_price')}
+							</p>
+						</div>
+					</div>
+					<div class="pcol15 flex">
+						<div class="flex-item">
+							<a href="javascript:void(0);" onclick="alert('ATS暂未上线交易');" class="btn btn-pink prow30">现金交易</a>
+						</div>
+						<div class="flex-item">
+							<a href="/peer/trade/home?type=0&acc_type=1" class="btn btn-blue prow30">ATS 交易</a>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="prow15 mt10">
+				<div class="radius-4 btn-gradual-bg01 widthp100">
+					<div class="flex tc prow30 pcol10">
+						<div class="flex-item tal">
+							<p class="ellipsis"><span class=" f-theme">AE&nbsp;</span>
+								{$money_finance[ 'member_z_bi']}
+							</p>
+						</div>
+						<div class="flex-item">
+							<p class="ellipsis"><span class="f-theme mr5">当前价格</span>{$usdt}（USDT）</p>
+						</div>
+					</div>
+					<div class="pcol15 prow30 tc">
+						<a href="/peer/trade/home?type=1" class="btn btn-green fill-block h40 l25">AE交易</a>
+					</div>
+				</div>
+			</div>
+						<!-- <div class="prow15 mt10">
+            				<div class="radius-4 btn-gradual-bg01 widthp100">
+            					<div class="flex tc prow30 pcol10">
+            						<div class="flex-item tal">
+            							<p class="ellipsis"><span class=" f-theme">积分&nbsp;</span>
+            								{$money_finance[ 'shop_integral']}
+            							</p>
+            						</div>
+            					</div>
+            					<div class="pcol15 prow30 tc">
+            						<a href="/trade/change" class="btn btn-green fill-block h40 l25">积分兑换</a>
+            					</div>
+            				</div>
+            			</div> -->
+					<div class="prow15 mt10">
+        				<div class="radius-4 btn-gradual-bg01 widthp100">
+        					<div class="flex tc prow30 pcol10">
+        						<div class="flex-item tal">
+        							<p class="ellipsis"><span class=" f-theme">ATS&nbsp;</span>
+        								{$money_finance[ 'member_bi']}
+        							</p>
+        						</div>
+        					</div>
+        					<div class="pcol15 prow30 tc">
+        						<a href="/peer/trade/withdraw?type=1" class="btn btn-green fill-block h40 l25">ATS兑换</a>
+        					</div>
+        				</div>
+        			</div>
+		</div>
+		<script src="__TMPL__/asset/clipboard.min.js" type="text/javascript" charset="utf-8"></script>
+		<script type="text/javascript">
+			var clipboard = new ClipboardJS('.btn-copy');
+
+			clipboard.on('success', function(e) {
+				alert("复制成功")
+				console.log(e);
+			});
+
+			clipboard.on('error', function(e) {
+				console.log(e);
+			});
+		</script>
+	</body>
+
+</html>

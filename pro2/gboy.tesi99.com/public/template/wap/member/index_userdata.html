@@ -1,0 +1,164 @@
+{extend name="template/wap/public/base.html" /}
+{block name="title"}探索者联盟{/block}
+{block name="css"}
+    <link rel="stylesheet" type="text/css" href="__TMPL__/alert/css/jquery.alertable.css"/>
+{/block}
+{block name="script"}
+<script src="__TMPL__/js/util.js" type="text/javascript" charset="utf-8"></script>
+<script src="__TMPL__/js/comment.js" type="text/javascript" charset="utf-8"></script>
+<script src="__TMPL__/alert/js/velocity.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="__TMPL__/alert/js/velocity.ui.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="__TMPL__/alert/js/jquery.alertable.min.js" type="text/javascript" charset="utf-8"></script>
+<script>
+
+        function usermsg(){
+            var mobile = $("input[name='mobile']").val();
+            var realname = $("input[name='realname']").val();
+            $.post('/member/index/userdata',{user: 1,mobile: mobile, realname: realname}, function(data) {
+                if(data.status) {
+                    $.alertable.alert('操作成功');
+                }else{
+                    $.alertable.alert(data.message);
+                }
+            },'json');
+        }
+        function bank(){
+            var account_name = $("input[name='account_name']").val();
+            var account_bank = $("input[name='account_bank']").val();
+            var bank_account = $("input[name='bank_account']").val();
+            $.post('/member/index/userdata',{account_name: account_name,account_bank: account_bank, bank_account: bank_account}, function(data) {
+                if(data.status) {
+                    $.alertable.alert('操作成功');
+                }else{
+                    $.alertable.alert(data.message);
+                }
+            },'json');
+        }
+        function paybao(){
+            var alipay = $("input[name='alipay']").val();
+            $.post('/member/index/userdata',{alipay: alipay}, function(data) {
+                if(data.status) {
+                    $.alertable.alert('操作成功');
+                }else{
+                    $.alertable.alert(data.message);
+                }
+            },'json');
+        }
+        function wepay(){
+            var wechat = $("input[name='wechat']").val();
+            $.post('/member/index/userdata',{wechat: wechat}, function(data) {
+                if(data.status) {
+                    $.alertable.alert('操作成功');
+                }else{
+                    $.alertable.alert(data.message);
+                }
+            },'json');
+        }
+
+</script>
+{/block}
+{block name="header"}
+<header class="mui-bar mui-bar-nav bg-theme">
+    <a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+    <h1 class="mui-title">个人资料</h1>
+</header>
+{/block}
+{block name="content"}
+    <div class="mui-content">
+        <div class="person-data tab-bar">
+            <ul class="mui-clearfix tab-hd">
+                <li class="cur tab-hd-item">个人资料</li>
+                <li class="tab-hd-item">银行卡号</li>
+                <li class="tab-hd-item">支付宝号</li>
+                <li class="tab-hd-item">微信账号</li>
+            </ul>
+            <div class="tab-bd">
+                <div class="tab-item">
+                    <form action="" method="post" class="pcol65">
+                        <div class="flex-justify layout-row pb10">
+                            <span class="input-label col-4 tr">手机号码：</span>
+                            <div class="col-8">
+                                <input class="input  " value="{$user.mobile}" name="mobile" type="text" placeholder="请输入您的手机号" autofocus="true"/>
+                            </div>
+                        </div>
+                        <div class="flex-justify layout-row pb10">
+                            <span class="input-label col-4 tr">姓名：</span>
+                            <div class="col-8">
+                                <input class="input  " value="{$user.realname}" name="realname" type="text" placeholder="请输入您的姓名"/>
+                            </div>
+                        </div>
+                        <div class="flex-justify layout-row pcol10">
+                            <span class="input-label col-4 tr">&nbsp;</span>
+                            <div class="col-8">
+                                <input type="hidden" name = "user" value="1">
+                                <button  type="button" onclick="usermsg()" class="btn btn-theme input">提交</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="tab-item">
+                    <form action="" method="post" class="pcol65">
+                        <div class="flex-justify layout-row pb10">
+                            <span class="input-label col-4 tr">开户名：</span>
+                            <div class="col-8">
+                                <input class="input  " name="account_name" value="{$list.account_name}" type="text" placeholder="请输入开户名" autofocus="true"/>
+                            </div>
+                        </div>
+                        <div class="flex-justify layout-row pb10">
+                            <span class="input-label col-4 tr">开户行：</span>
+                            <div class="col-8">
+                                <input class="input  " name="account_bank" value="{$list.account_bank}" type="text" placeholder="请输入开户行及支行"/>
+                            </div>
+                        </div>
+                        <div class="flex-justify layout-row pb10">
+                            <span class="input-label col-4 tr">银行卡：</span>
+                            <div class="col-8">
+                                <input class="input  " name="bank_account" value="{$list.bank_account}" type="text" placeholder="请输入您的银行卡号"/>
+                            </div>
+                        </div>
+                        <div class="flex-justify layout-row pcol10">
+                            <span class="input-label col-4 tr">&nbsp;</span>
+                            <div class="col-8">
+                                <button type="button" onclick="bank()" class="btn btn-theme input">提交</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="tab-item">
+                    <form action="" method="post" class="pcol65">
+                        <div class="flex-justify layout-row pb10">
+                            <span class="input-label col-4 tr">支付宝号：</span>
+                            <div class="col-8">
+                                <input class="input  " name="alipay" value="{$list.alipay}" type="text" placeholder="请输入支付宝账号" autofocus="true"/>
+                            </div>
+                        </div>
+
+                        <div class="flex-justify layout-row pcol10">
+                            <span class="input-label col-4 tr">&nbsp;</span>
+                            <div class="col-8">
+                                <button type="button" onclick="paybao()" class="btn btn-theme input">提交</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="tab-item">
+                    <form action="" method="post" class="pcol65">
+                        <div class="flex-justify layout-row pb10">
+                            <span class="input-label col-4 tr">微信账号：</span>
+                            <div class="col-8">
+                                <input class="input  " name="wechat" value="{$list.wechat}" type="text" placeholder="请输入微信账号" autofocus="true"/>
+                            </div>
+                        </div>
+
+                        <div class="flex-justify layout-row pcol10">
+                            <span class="input-label col-4 tr">&nbsp;</span>
+                            <div class="col-8">
+                                <button type="button" onclick="wepay()" class="btn btn-theme input">提交</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+{/block}

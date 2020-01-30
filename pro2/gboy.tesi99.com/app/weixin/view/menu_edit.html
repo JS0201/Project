@@ -1,0 +1,198 @@
+{extend name="admin@public/base" /}
+
+{block name="script"}
+<script src="__STATIC__/js/underscore-min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/vue"></script>
+<script>
+
+    {if condition="ACTION_NAME eq 'edit'"}
+        var data_info={$info['data']}
+      {else/}
+          var data_info='';
+    {/if}
+
+$(function(){
+
+
+
+    var vm = new Vue({
+        el: '#menu_form',
+        beforeMount() {
+            this.active = this.data.button[0];
+
+        },
+        data: {
+            //菜单数据
+            data: data_info?data_info:{"status":1,"button":[{"type":"view","name":"菜单名称","url":"","active":true,"sub_button":[]}]},
+            //当前编辑菜单
+            active: {}
+        },
+
+        methods:{
+            //添加一级菜单
+            addTopButton() {
+                var menu = {type: 'view', name: '菜单名称', url: '', sub_button: []};
+                this.data.button.push(menu);
+
+                this.active = _.last(this.data.button);
+
+            },
+            //删除一级菜单
+            removeTopButton(item) {
+                this.data.button = _.without(this.data.button, item);
+            },
+
+            //添加子菜单
+            addSubButton(k) {
+                var menu = {type: 'view', name: '菜单名称', url: '', sub_button: []};
+                this.data.button[k].sub_button.push(menu);
+                this.active = menu;
+            },
+            //删除二级菜单
+            removeSubButton(k, i) {
+                this.data.button[k].sub_button.splice(i, 1);
+            },
+            //编辑菜单
+            editTopMenu(k) {
+                this.active = this.data.button[k];
+            },
+            //编辑子菜单
+            editSubMenu(k, i) {
+
+                this.active = this.data.button[k].sub_button[i];
+            },
+            submit: function(){
+
+                if (!this.data) {
+                    alert("菜单数据不能为空");
+                    return false;
+                } else {
+                    $('#menu_form').submit();
+                }
+            }
+
+        }
+
+    });
+
+})
+</script>
+{/block}
+{block name="main-content"}
+<div class="main-content">
+
+    <div class="main-content-inner">
+
+        <div class="page-content">
+
+            <div class="row">
+                <div class="tabbable" >
+                    <ul class="nav nav-tabs" >
+                        <li class="active"><a data-toggle="tab" href="#tag1">基本信息</a></li>
+                    </ul>
+
+                    <form class="form-horizontal"  id="menu_form"  role="form" method="post">
+                        <input type="hidden" name="id" value="{$info['id']}">
+
+                        <div class="tab-content"  style="overflow: hidden;" >
+                            <div class="alert alert-success" role="alert">修改微信菜单后微信客户端需要一些时间才可显示,如果要即时看到效果,需要取消关注后再关注一下。</div>
+                            <div id="tag1" class="tab-pane active">
+
+                                <div class="col-xs-4">
+
+                                    <div class="mobile_view ">
+
+                                        <div class="mobile_header text-center"><img src="__STATIC__/images/mobile_head_t.png"></div>
+                                        <div class="mobile-body">
+                                            <img src="__STATIC__/images/mobile-header.png">
+
+                                            <div class="menu_html">
+
+                                                <div v-for="(v,k) in data.button">
+                                                    <h5><i class=" icon-minus-sign" @click="removeTopButton(v)"></i> <span  @click="editTopMenu(k)" v-html="v.name">菜单名称</span></h5>
+                                                    <dl>
+                                                        <dt  v-if="!v.sub_button || v.sub_button.length<5"  @click="addSubButton(k)"><i class="icon-plus"></i></dt>
+
+                                                        <dd v-for="(m,i) in v.sub_button"   @click="editSubMenu(k,i)">
+                                                            <i class="icon-minus-sign" @click="removeSubButton(k,i)"></i>
+                                                            <span  v-html="m.name" ></span>
+                                                        </dd>
+                                                    </dl>
+                                                </div>
+                                                <div v-if="data.button.length<3" class="add">
+                                                    <h5  @click="addTopButton()"><i class="icon-plus"></i> 添加菜单</h5>
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                        <div class="mobile-footer text-center"><div class="home-btn"></div></div>
+                                    </div>
+
+                                </div>
+
+                                <div class="col-xs-8">
+
+                                    <div class="panel panel-default">
+
+                                        <div class="panel-body">
+
+                                           <?php  echo  \form\Form::input('text','title',$info['title'],'菜单标题','');?>
+                                        </div>
+                                    </div>
+
+                                    <div class="panel panel-default" v-if="active.sub_button.length==0">
+                                        <div class="panel-body">
+                                            <?php  echo  \form\Form::input('text','','','菜单名称','',array('v-model'=>'active.name'));?>
+                                            <?php  echo  \form\Form::input('radio','','','动作','',array('items'=>array('view'=>'链接地址','click'=>'触发关键字','scancode_push'=>'扫码推事件','scancode_waitmsg'=>'扫码带提示','pic_sysphoto'=>'系统拍照发图','pic_photo_or_album'=>'拍照或者相册发图','pic_weixin'=>'微信相册发图','location_select'=>'地理位置'),'v-model'=>'active.type'));?>
+                                            <div class="form-group" v-show="active.sub_button.length==0 && active.type=='view'">
+                                                <label class="col-sm-2 control-label no-padding-right">链接</label>
+                                                <div class="col-sm-10"><input class="col-xs-10 col-sm-5 " type="text" name="" id="" value="" tabindex="0" v-model="active.url" />
+                                                    <span class="help-inline col-xs-12 col-sm-7"><span class="middle">指定点击此菜单时要跳转的链接（注：链接需加http://）</span></span></div>
+                                            </div>
+
+                                            <div class="space-4"></div>
+                                            <div class="form-group" v-show="active.sub_button.length==0 && active.type!='view'">
+                                                <label class="col-sm-2 control-label no-padding-right">关键字</label>
+                                                <div class="col-sm-10"><input class="col-xs-10 col-sm-5 " type="text" name="" id="" value="" tabindex="0" v-model="active.key" />
+                                                    <span class="help-inline col-xs-12 col-sm-7"><span class="middle">触发关键字</span></span></div></div>
+                                            <div class="space-4"></div>
+                                        </div>
+                                    </div>
+
+
+                                </div>
+
+                            </div>
+	 
+                        </div>
+
+                        <textarea name="data" v-html="data" hidden ></textarea>
+
+                        <div class="clearfix form-actions">
+                            <div class="col-md-offset-2 col-md-10">
+                                <button class="btn btn-info"   type="button"  @click="submit">
+                                    <i class="icon-ok bigger-110"></i>
+                                    保存
+                                </button>
+
+
+                                <button class="btn" type="reset">
+                                    <i class="icon-undo bigger-110"></i>
+                                    重置
+                                </button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+
+            </div>
+
+        </div>
+
+
+    </div>
+
+</div>
+
+
+{/block}

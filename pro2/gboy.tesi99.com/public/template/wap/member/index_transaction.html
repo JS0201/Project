@@ -1,0 +1,89 @@
+{extend name="template/wap/public/base.html" /}
+{block name="title"}探索者联盟{/block}
+{block name="css"}
+    <link rel="stylesheet" type="text/css" href="__TMPL__/alert/css/jquery.alertable.css"/>
+{/block}
+{block name="script"}
+    <script src="__TMPL__/alert/js/velocity.min.js" type="text/javascript" charset="utf-8"></script>
+    <script src="__TMPL__/alert/js/velocity.ui.min.js" type="text/javascript" charset="utf-8"></script>
+    <script src="__TMPL__/alert/js/jquery.alertable.min.js" type="text/javascript" charset="utf-8"></script>
+    <script>
+        function send() {
+            var value = $("input[name='value']").val();
+            var mobile = $("input[name='mobile']").val();
+            if(!value) {
+                $.alertable.alert('请填写充值金额');
+                return false;
+            }
+           if(!mobile) {
+                $.alertable.alert('请填写收款人手机号');
+                return false;
+            }
+            $.post('/member/index/transaction', {mobile: mobile, money : value},function(data) {
+                 $.alertable.alert(data.message);
+                    if(!data.status) {
+                        return false;
+                    }
+                    window.location.href = '/member/index/czmx';
+            },'json');
+        }
+    </script>
+{/block}
+{block name="header"}
+<header class="mui-bar mui-bar-nav bg-theme">
+    <a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+    <h1 class="mui-title">积分互转</h1>
+    <a class="mui-btn-link mui-pull-right" href="czmx.html">明细</a>
+</header>
+{/block}
+{block name="content"}
+    <div class="mui-content section" id="father" data-url = "{$url}">
+        <form action="" method="post">
+            <div class="prow10">
+                <div class="pcol20">
+                    <div class="flex-justify layout-row">
+                            <span class="cz-select tc" onclick="window.location.href='/member/index/xjcz'">
+                                <label class=" checkbox  ">
+                                    <input type="radio" name="tx" checked="" />
+                                    <div class="cz-select-box pcol15 mui-icon fs14 ">
+                                        现金积分充值
+                                    </div>
+                                </label>
+                            </span>
+                        <span class="cz-select  tc">
+                                <label class=" checkbox">
+                                    <input type="radio" name="tx"  checked=""/>
+                                    <div class="cz-select-box pcol15 mui-icon fs14">
+                                        互转积分充值
+                                    </div>
+                                </label>
+                            </span>
+                    </div>
+                </div>
+            </div>
+            <div class="prow10 mt20">
+                <p class="ellipsis mb10">用户信息</p>
+                <div class="f-darkgray">
+                    <p class="flex-justify"><span>用户名</span><span>{$user.realname}</span></p>
+                    <p class="flex-justify"><span>积分余额</span><span>{$user.money}</span></p>
+                </div>
+            </div>
+            <div class="prow10 mt20">
+                <p class="ellipsis mb10">收款方手机号</p>
+                <div class="input-group un-border-group border-b">
+                    <input type="text" name="mobile" class="input tx-money f-theme"/>
+                </div>
+            </div>
+            <div class="prow10 mt20">
+                <p class="ellipsis mb10">转账金额</p>
+                <div class="input-group un-border-group border-b">
+                    <span class="input-group-addon f-gray">￥</span>
+                    <input type="text" name="value" class="input tx-money f-theme"/>
+                </div>
+            </div>
+            <div class="sub-bar pd10 mt40">
+                <button type="button" onclick="send()" class="btn btn-theme fill-block">确认</button>
+            </div>
+        </form>
+    </div>
+{/block}

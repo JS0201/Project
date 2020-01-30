@@ -1,0 +1,136 @@
+{extend name="template/wap/public/base.html" /}
+{block name="title"}探索者联盟{/block}
+{block name="css"}
+    <link rel="stylesheet" type="text/css" href="__TMPL__/css/swiper.min.css"/>
+	<link rel="stylesheet" type="text/css" href="__TMPL__/css/custom.css"/>
+{/block}
+{block name="script"}
+    <script src="__TMPL__/js/util.js" type="text/javascript" charset="utf-8"></script>
+    <script src="__TMPL__/js/comment.js" type="text/javascript" charset="utf-8"></script>
+    <script src="__TMPL__/js/swiper.min.js"></script>
+{/block}
+{block name="header"}
+<header class="mui-bar mui-bar-nav bg-theme">
+    <h1 class="mui-title">套餐商城</h1>
+    <a class="mui-icon mui-icon-caret mui-pull-right"></a>
+</header>
+{/block}
+{block name="content"}
+<div class="mui-content">
+    <div class="section mb10">
+        <!--轮播图-->
+        <section class="pc-banner section">
+            <div class="swiper-container">
+                <div class="swiper-wrapper">
+                  {volist name="bannerList" id="data"}
+                      <div class="swiper-slide"><a href="{$data.link}"><img src="{$data.thumb}" ></a></div>
+                  {/volist}
+                </div>
+            </div>
+            <div class="swiper-pagination"></div>
+        </section>
+        <!--应用模块-->
+        <div class="pd10 ">
+            <ul class="flex-justify">
+                <li class="app-item">
+                    <a href="/member/index/xjcz">
+                        <span class="app-icon"></span>
+                        <p class="ellipsis">在线充值</p>
+                    </a>
+                </li>
+                <li class="app-item">
+                    <a href="#">
+                        <span class="app-icon"></span>
+                        <p class="ellipsis">积分商城</p>
+                    </a>
+                </li>
+                <li class="app-item">
+                    <a href="#">
+                        <span class="app-icon"></span>
+                        <p class="ellipsis">消费商城</p>
+                    </a>
+                </li>
+                <li class="app-item">
+                    <a href="#">
+                        <span class="app-icon"></span>
+                        <p class="ellipsis">我的团队</p>
+                    </a>
+                </li>
+            </ul>
+        </div>
+        <div class="pcol12 prow10">
+            <div class="news-slip" id="news_slip">
+                <div class="news-slip-before"><img class="news-slip-before-img" src="__TMPL__/img/news-tag.png"/></div>
+                <ul class="news-slip-cont">
+                    {volist name="contentList" id = 'data'}
+                        <li class="news-slip-item"><a href="/member/index/page.html?id={$data.id}" class="A">{$data.title}</a></li>
+                    {/volist}
+                </ul>
+                <a class="news-slip-after" href="/goods/index/scdt">
+                    更多
+                </a>
+            </div>
+        </div>
+
+    </div>
+    <div class="section mb10">
+    </div>
+    <div class="section mb10">
+        <div class="list-goods-box prow10 pcol20">
+            <div class="list-goods-hd mb20">
+                <span class="list-goods-tit">套餐商品</span>
+                <img class="list-goods-hd-bg" src="__TMPL__/img/tit-bg_03.jpg">
+            </div>
+            <ul class="mui-clearfix">
+                {volist name="goodList" id = 'data'}
+                    <li class="list-goods-item pb10">
+                        <a href="/goods/index/details?id={$data.id}"><img class="fill-block" src="{$data.thumb}"/></a>
+                        <div class="pd10">
+                            <div class="ellipsis-s ">
+                                <p class="ellipsis-text">
+                                    {$data.name}
+                                </p>
+                            </div>
+                        </div>
+                        <div class="flex-justify prow10 f-theme">
+                            <span class="fs16"><span class="fs12">￥</span>{$data.max_price}</span>
+                            <span class="iconfont icon-ai66"></span>
+                        </div>
+                    </li>
+                {/volist}
+            </ul>
+        </div>
+    </div>
+</div>
+ <script>
+        $(function() {
+            var height = $('#first').height() * 0.48;
+            $('#scend').height(height);
+        })
+        mui('.scroll-box .mui-scroll-wrapper').scroll({
+            scrollX: true,
+            scrollY: false,
+            indicators: false
+        });
+        util.newsSlip('#news_slip',3000,500);
+        window.onload = function() {
+            var swiper = new Swiper('.swiper-container',{
+                autoplay:300000,
+                speed:1000,
+                autoplayDisableOnInteraction : false,
+                loop:true,
+                centeredSlides : true,
+                slidesPerView:2,
+                pagination : '.swiper-pagination',
+                paginationClickable:true,
+
+                breakpoints: {
+                    668: {
+                        slidesPerView: 1,
+                    }
+                }
+            });
+        }
+    </script>
+{/block}
+{block name="footer"}{include file="template/wap/public/footer.html" /}{/block}

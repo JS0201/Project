@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+	<meta charset="UTF-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	<meta http-equiv="X-UA-Compatible" content="ie=edge" />
+	<title>兑换资产</title>
+	<link rel="stylesheet" type="text/css" href="__TMPL__/ATS/css/font-awesome.min.css"/>
+    <link rel="stylesheet" type="text/css" href="__TMPL__/ATS/css/iconfont.css"/>
+    <link rel="stylesheet" type="text/css" href="__TMPL__/ATS/css/alertpay.css"/>
+    <link rel="stylesheet" type="text/css" href="__TMPL__/css/sixpay.css"/>
+	<link rel="stylesheet" type="text/css" href="__TMPL__/ATS/css/style.css"/>
+	<link rel="stylesheet" type="text/css" href="__TMPL__/ATS/css/common.css"/>
+	<link rel="stylesheet" type="text/css" href="__TMPL__/alert/css/jquery.alertable.css"/>
+	<script src="__TMPL__/asset/jquery-3.1.1.min.js" type="text/javascript" charset="utf-8"></script>
+	<script src="__TMPL__/asset/layer/layer.js" type="text/javascript" charset="utf-8"></script>
+    <script src="__TMPL__/alert/js/velocity.min.js" type="text/javascript" charset="utf-8"></script>
+    <script src="__TMPL__/alert/js/velocity.ui.min.js" type="text/javascript" charset="utf-8"></script>
+    <script src="__TMPL__/alert/js/jquery.alertable.min.js" type="text/javascript" charset="utf-8"></script>
+	<script>
+	    $(function() {
+            $(".close").click(function(){
+                $(".ftc_wzsf").hide();
+                $(".mm_box li").removeClass("mmdd");
+                $(".mm_box li").attr("data","");
+                i = 0;
+            });
+            $(".xiaq_tb").click(function(){
+                $(".numb_box").slideUp(500);
+            });
+            $(".mm_box").click(function(){
+                $(".numb_box").slideDown(500);
+            });
+            var i = 0;
+            $(".nub_ggg li .zf_num").click(function(){
+
+                if(i<6){
+                    $(".mm_box li").eq(i).addClass("mmdd");
+                    $(".mm_box li").eq(i).attr("data",$(this).text());
+                    i++
+                    if (i==6) {
+                      setTimeout(function(){
+                        var data = "";
+                            $(".mm_box li").each(function(){
+                            data += $(this).attr("data");
+                        });
+                          checkps(data);
+                      },100);
+                    };
+                }
+            });
+
+            $(".nub_ggg li .zf_del").click(function(){
+                if(i>0){
+                    i--
+                    $(".mm_box li").eq(i).removeClass("mmdd");
+                    $(".mm_box li").eq(i).attr("data","");
+                }
+            });
+
+            $(".nub_ggg li .zf_empty").click(function(){
+                $(".mm_box li").removeClass("mmdd");
+                $(".mm_box li").attr("data","");
+                i = 0;
+            });
+	    });
+	    function send() {
+	        sum = $("input[name='sum']").val();
+            if(isNaN(sum)) {
+                $.alertable.alert('金额输入错误');
+                return false;
+            }
+            var r = /^[0-9]*[1-9][0-9]*$/;
+            var re = r.test(sum);
+            var bei = sum % 1;
+            if(!re || bei != 0) {
+                $.alertable.alert('金额输入错误');
+                return false;
+            }
+            $(".ftc_wzsf").show();
+	    }
+        function checkps(password) {
+            $.post("<{:U('Member/index/checkps')}>",{twopassword : password},function (data) {
+                if(!data.status) {
+
+                     $.alertable.alert(data.message).always(function() {
+                        window.location.reload();
+                    });
+                }else{
+
+                    $.post("<{:U('Peer/Trade/change')}>",{nums : sum},function(data) {
+                        if(!data.status) {
+                            $.alertable.alert(data.message).always(function() {
+                                window.location.reload();
+                            });
+                            return false;
+                        }
+                        $.alertable.alert('兑换成功').always(function() {
+                            window.location.reload();
+                         });
+                    },'json');
+                }
+            },'json');
+        }
+    </script>
+</head>
+<body>
+	<div class="lp-header c-fff">
+		<a class="lp-back fa fa-angle-left fl" href="<{:U('peer/index/index')}>"></a>
+		<h1 class="title">积分兑换</h1>
+	</div>
+	<div class="mt50">
+		<div class="bgcolortheme02 pb90 pt20 tc">
+			<p class="colortheme01 fs14">AE</p>
+			<p class="colortheme07 fs16" name="sum" sum="<{$sum}>"><{$donjie['member_z_bi']|default='0.0000'}></p>
+		</div>
+		<div class="mt-75">
+			<div class="prow15 pcol15">
+				<div class="mb10 widthp100 btn-gradual-bg01 prow15 pcol20">
+					<p class="c-fff fs12 tal">兑换账户</p>
+					<div class="input-group un-border-group mb5">
+						<input type="text" name="sum" class="input pl0 bgtransp bbcolortheme03" placeholder="请输入兑换数量" />
+					</div>
+					<p class="ellipsis colortheme08 fs12 tal">提示：1AE兑换<{$pecent}>积分</p>
+					
+					<div class="mt20">
+						<button class="btn btn-green fill-block" onclick="send()">确认</button>
+					</div>
+				</div>
+				
+			</div>
+		</div>
+		<div class="">
+                <!--<div class="section prow15 pt15 pb10">近期记录</div>-->
+                <h3 class="c-fff fs16 pl15 mb10">近期记录</h3>
+                <div class="flex prow15 bbcolortheme03">
+                    <div class="flex-item pcol5 tal">
+                        <span class="c-fff">AE</span>
+                    </div>
+                    <div class="flex-item pcol5">
+                        <span class="c-fff">兑换资产</span>
+                    </div>
+                    <div class="flex-item pcol5 tar">
+                        <span class="c-fff">兑换时间</span>
+                    </div>
+                </div>
+                 <div class=" pcol10">
+                 	
+                    <ul class=" list-record ">
+
+                        <if condition ="$list">
+                            <volist name="list" id="fov">
+                                <li class="flex  pcol15 prow15 bbcolortheme03">
+                                    <div class="flex-item fs12 tal">
+                                        <p class="ellipsis c-fff fs12"><{$fov['money_nums']}></p>
+                                    </div>
+                                    <div class="flex-item fs12">
+                                        <p class="colortheme03 fs12"><{$fov['money_nums']}></p>
+                                    </div>
+                                    <div class="flex-item fs12 tar">
+                                        <p class="ellipsis c-fff fs12"><{$fov['dateline']}></p>
+                                    </div>
+                                </li>
+                            </volist>
+                            <else/>
+                            <li class="c-fff pcol7 tac">
+                                		没有兑换记录
+                            </li>
+                        </if>
+                    </ul>
+                </div>
+            </div>
+		</div>
+	</div>
+
+
+ <div class="ftc_wzsf">
+        <div class="srzfmm_box">
+            <div class="qsrzfmm_bt clear_wl">
+                <img src="__TMPL__/images/xx_03.jpg" class="tx close fl">
+                <span class="fl">请输入支付密码</span></div>
+            <ul class="mm_box">
+                <li></li><li></li><li></li><li></li><li></li><li></li>
+            </ul>
+        </div>
+        <div class="numb_box">
+            <div class="xiaq_tb">
+                <img src="__TMPL__/images/jftc_14.jpg" height="10"></div>
+            <ul class="nub_ggg">
+                <li><a href="javascript:void(0);" class="zf_num">1</a></li>
+                <li><a href="javascript:void(0);" class="zj_x zf_num">2</a></li>
+                <li><a href="javascript:void(0);" class="zf_num">3</a></li>
+                <li><a href="javascript:void(0);" class="zf_num">4</a></li>
+                <li><a href="javascript:void(0);" class="zj_x zf_num">5</a></li>
+                <li><a href="javascript:void(0);" class="zf_num">6</a></li>
+                <li><a href="javascript:void(0);" class="zf_num">7</a></li>
+                <li><a href="javascript:void(0);" class="zj_x zf_num">8</a></li>
+                <li><a href="javascript:void(0);" class="zf_num">9</a></li>
+                <li><a href="javascript:void(0);" class="zf_empty">清空</a></li>
+                <li><a href="javascript:void(0);" class="zj_x zf_num">0</a></li>
+                <li><a href="javascript:void(0);" class="zf_del">删除</a></li>
+            </ul>
+        </div>
+        <div class="hbbj"></div>
+    </div>
+</body>
+</html>

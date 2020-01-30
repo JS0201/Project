@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8" />
+		<title>后台管理</title>
+		<meta name="description" content="" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<link href="__STATIC__/css/bootstrap.min.css" rel="stylesheet" />
+		<link rel="stylesheet" href="__STATIC__/css/font-awesome.min.css" />
+		<link rel="stylesheet" href="__STATIC__/css/font-awesome-ie7.min.css" />
+		<link rel="stylesheet" href="__STATIC__/css/jquery-ui-1.10.3.full.min.css" />
+		<link rel="stylesheet" href="__STATIC__/css/ace-fonts.css" />
+		<link rel="stylesheet" href="__STATIC__/css/ace.min.css" />
+		<link rel="stylesheet" href="__STATIC__/css/ace-rtl.min.css" />
+		<link rel="stylesheet" href="__STATIC__/css/ace-skins.min.css" />
+		<link rel="stylesheet" href="__STATIC__/js/layer/theme/default/layer.css" />
+		<link rel="stylesheet" href="__STATIC__/css/ace-ie.min.css" />
+		<link rel="stylesheet" href="__STATIC__/css/gboy.css" />
+		<script src="__STATIC__/js/ace-extra.min.js"></script>
+		<script src="__STATIC__/js/html5shiv.js"></script>
+		<script src="__STATIC__/js/respond.min.js"></script>
+		<style>
+			.main-content{margin-left:0;}
+			.breadcrumbs{width:100%;position:fixed;z-index:999;top:0;}
+			.ace-settings-container{right:19px;top:45px;}
+			.btn-scroll-up{position:fixed;right:17px;}
+			{block name="style"}{/block}
+		</style>
+	</head>
+	<body class="navbar-fixed">
+		{block name="header"}{/block}
+		{block name="nav"}{/block}
+		<div class="main-container" id="main-container" style="overflow:hidden;position:relative;">
+			<script type="text/javascript">
+				try{ace.settings.check('main-container' , 'fixed')}catch(e){}
+			</script>
+			{block name="main"}{/block}
+			<div class="main-content">
+				<div class="breadcrumbs" id="breadcrumbs">
+					<ul class="breadcrumb">
+					 <li class="active"> <i class="icon-home home-icon"></i> 后台管理</li>
+					</ul>
+				</div>
+			</div>
+			{block name="main-content"}
+			{/block}
+			{block name="top"}{/block}
+		</div>
+<script src='__STATIC__/js/jquery-2.0.3.min.js'></script>
+<script type="text/javascript">
+ window.jQuery || document.write("<script src='__STATIC__/js/jquery-1.10.2.min.js'>"+"<"+"/script>");
+</script>
+<![endif]-->
+
+		<script type="text/javascript">
+			if("ontouchend" in document) document.write("<script src='__STATIC__/js/jquery.mobile.custom.min.js'>"+"<"+"/script>");
+		</script>
+		<script src="__STATIC__/js/bootstrap.min.js"></script>
+		<script src="__STATIC__/js/typeahead-bs2.min.js"></script>
+
+		<!-- page specific plugin scripts -->
+
+		<!--[if lte IE 8]>
+		  <script src="__STATIC__/js/excanvas.min.js"></script>
+		<![endif]-->
+
+		<script src="__STATIC__/js/jquery-ui-1.10.3.custom.min.js"></script>
+		<script src="__STATIC__/js/jquery.ui.touch-punch.min.js"></script>
+		<script src="__STATIC__/js/jquery.slimscroll.min.js"></script>
+		<script src="__STATIC__/js/jquery.easy-pie-chart.min.js"></script>
+		<script src="__STATIC__/js/jquery.sparkline.min.js"></script>
+		<script src="__STATIC__/js/flot/jquery.flot.min.js"></script>
+		<script src="__STATIC__/js/flot/jquery.flot.pie.min.js"></script>
+		<script src="__STATIC__/js/flot/jquery.flot.resize.min.js"></script>
+
+		<!-- 表格 -->
+		<script src="__STATIC__/js/jquery.dataTables.min.js"></script>
+		<script src="__STATIC__/js/jquery.dataTables.bootstrap.js"></script>
+		<!-- ace scripts -->
+
+		<script src="__STATIC__/js/ace-elements.min.js"></script>
+		<script src="__STATIC__/js/ace.min.js"></script>
+		<script src="__STATIC__/js/layer/layer.js"></script>
+
+		<!-- 自定义js-->
+		<script src="__STATIC__/js/jquery-form.js"></script>
+		<script src="__STATIC__/js/gboy.js"></script>
+
+		<script>
+
+
+		$(function(){
+		//o=$(window.top.document).find("#main_frame")
+			/*
+		if($("#main_frame").size()<=0){   //此处效果为防止在框架内执行跳转时，出现延迟效果失效。将效果返回父级框架执行该函数
+			if(top!=self){
+				$('.main-content').css({'margin-left':'190px'});
+			}else{
+
+				$('.main-content').css({'margin-left':'0'});
+
+			}
+			return false
+		}
+		*/
+
+            $("input").keydown(function(e){
+
+                var e = e || event,
+                    keycode = e.which || e.keyCode;
+                if (keycode==13) {
+                    $(this).parents('form').submit();
+                }
+            });
+
+
+			{if condition="($Think.MODULE_NAME eq 'content'  && $Think.CONTROLLER_NAME eq 'Content') || $Think.MODULE_NAME eq 'goods'  && $Think.CONTROLLER_NAME eq 'Admin' "}
+				$(parent.document.body).find('.category_content').show();
+			{else/}
+           		$(parent.document.body).find('.category_content').hide();
+			{/if}
+
+			window.onresize = function(){
+				var heights = document.documentElement.clientHeight-50;
+				if(document.getElementById('main_frame')){
+                    document.getElementById('main_frame').height = heights;
+				}
+
+
+				//var openClose = $("#main_frame").height()+39;
+				//$('#center_frame').height(openClose+9);
+				//$("#openClose").height(openClose+30);
+			}
+			window.onresize();
+
+        })
+
+            var formhash = "<?php echo FORMHASH ?>";
+            var SYS_MODULE_NAME = "<?php echo MODULE_NAME ?>";
+            var SYS_CONTROL_NAME = "<?php echo CONTROLLER_NAME ?>";
+            var SYS_METHOD_NAME = "<?php echo ACTION_NAME ?>";
+            //var depr = "<?php echo config('pathinfo_depr') ?>";
+
+			$('form').each(function(i, n) {
+				$(this).append('<input type="hidden" name="formhash" value="'+ formhash +'"/>');
+			})
+
+			$("a").each(function() {
+				var _this = $(this);
+				var href = _this.attr('href');
+				if(href && href.indexOf('javascript:') == -1 && href.indexOf('formhash') == -1  && href.indexOf('#') == -1) {
+					if(href.indexOf('?') == -1){
+                        href += '?formhash='+formhash;
+                    }else{
+                        href += '&formhash='+formhash;
+                    }
+
+					$(this).attr('href', href);
+				}
+			})
+
+			$("iframe").each(function() {
+				var _this = $(this);
+				var src = _this.attr('src');
+				if(src && src.indexOf('formhash') == -1) {
+                    src += '?formhash='+formhash;
+					$(this).attr('src', src);
+				}
+			})
+
+
+			$.getJSON('{:url("admin/index/public_current_pos")}','m='+SYS_MODULE_NAME+'&c='+SYS_CONTROL_NAME+'&a='+SYS_METHOD_NAME,function(data){
+				$(data).each(function(k,v){
+
+				    $('#breadcrumbs .breadcrumb').append(' <li>'+v.name+'</li>');
+            	})
+			})
+
+		</script>
+		<!-- 此页相关插件js -->
+		{block name="script"}{/block}
+		<!-- 与此页相关的js -->
+
+
+
+	</body>
+</html>

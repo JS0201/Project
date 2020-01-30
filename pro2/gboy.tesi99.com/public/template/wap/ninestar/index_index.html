@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>用户系统</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no" />
+    <link rel="stylesheet" href="__ROOT__/template/wap/ninestar/static/css/index.css" />
+    <link rel="stylesheet" type="text/css" href="__ROOT__/template/wap/ninestar/static/css/reset.css" />
+    <link rel="stylesheet" type="text/css" href="__ROOT__/template/wap/ninestar/static/css/iconfont.css"/>
+</head>
+
+<body>
+
+<div class="background-main"></div>
+<div class="header">
+    <a href="/member/index/order"><span class="iconfont icon-fanhui"></span></a>
+    用户系统
+    <!--<a class="user-set-btn" href="set.html">设置</a>-->
+</div>
+<div class="user-super">
+    <a href="">
+        <div>
+            <h2>{$member.realname ? $member.realname : $member.username}</h2>
+            <p><span class="iconfont icon-huiyuan"></span>{$level}星会员</p>
+        </div>
+        <div class="user-img">
+            <img src="{$face}"/>
+        </div>
+    </a>
+</div>
+<div class="user-justvip">
+    <div class="user-justvip-head">
+        <p>下一级：{$next}</p>
+    </div>
+    <div class="user-justvip-item">
+        <div class="user-justvip-col">
+            <div class="user-activation">
+                <a data-level="{$level}" id="register" href="javascript:void(0);">
+                    <div>
+                        <img src="__ROOT__/template/wap/ninestar/static/img/sj.png"/>
+                    </div>
+                    <p>激活会员</p>
+                </a>
+            </div>
+            <div class="user-examine">
+                <a href="examine.html">
+                    <div>
+                        <span class="iconfont icon-shenhe"></span>
+                    </div>
+                    <p>审核升级</p>
+                </a>
+            </div>
+        </div>
+        <div class="user-justvip-col">
+            <div class="user-apply">
+                <a id="apply" data="{$wechat}" data-isup="{$isup}" href="javascript:void(0);">
+                    <div>
+                        <span class="iconfont icon-shengji"></span>
+                    </div>
+                    <p>申请升级</p>
+                </a>
+            </div>
+            <div class="user-team">
+                <a href="team.html">
+                    <div>
+                        <span class="iconfont icon-tuandui"></span>
+                    </div>
+                    <p>我的团队</p>
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+<script type="text/javascript" src="__ROOT__/template/wap/ninestar/static/js/jquery.min.js"></script>
+<script type="text/javascript" src="__ROOT__/template/wap/ninestar/static/js/index.js" ></script>
+<script>
+    $(function() {
+        $('#register').click(function() {
+            var level = $(this).attr('data-level');
+            if(level == 0) {
+                alert("请先升级为一星会员");
+                return false;
+            }
+            window.location.href = 'register.html'
+        });
+        $('#apply').click(function() {
+            if($(this).attr('data') == '') {
+                alert('请完善微信信息');
+                window.location.href = '/member/index/userdata';
+            }else if($(this).attr('data-isup') >= 3){
+                window.location.href = 'apply.html';
+            }else{
+                alert('未达到升级条件');
+                return false;
+            }
+        });
+    });
+</script>
+</body>
+</html>
+

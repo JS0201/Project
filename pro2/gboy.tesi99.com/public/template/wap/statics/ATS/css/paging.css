@@ -1,0 +1,48 @@
+body{background-color: #1c172e}
+.bgcolortheme01{background-color: #171228}
+/*EP杞处  s*/
+input[type="text"].input::-webkit-input-placeholder,
+input[type="password"].input::-webkit-input-placeholder{color:#604da5;}
+input[type="text"].input,
+input[type="password"].input{background-color: transparent;border-bottom: 1px solid #49435a;padding-left: 0;color: #fff;}
+textarea::-webkit-input-placeholder {color:#999;}
+
+/*EP杞处  s*/
+
+/*鏁板瓧璧勪骇 s*/
+input[type='text'].c-fff,
+button.c-fff{color: #fff;}
+input[type='text'].c-fff{margin-top: 2px;}
+input[type='text'].c-fff::-webkit-input-placeholder{color: #fff;}
+button.c-fff::-webkit-input-placeholder{color: #fff;}
+
+/*鏁板瓧璧勪骇 e*/
+
+/*鎴戠殑閽卞寘 s*/
+.code{width: 54%}
+
+/*鎴戠殑閽卞寘 e*/
+
+/*娉ㄥ唽鎺掍綅*/
+.c-fff{color: #fff;}
+.mui-content{background-color: transparent}
+
+.mui-btn-blue, .mui-btn-primary, input[type=submit]{background-color: #02ccad;border-color: #02ccad;}
+.bar a{color: #02ccad;}
+
+
+
+/*兑换  s*/
+.input-bg{background-color: #1a152b}
+input[type='text'].color01::-webkit-input-placeholder{color: #655d83;}
+input[type='text'].color02::-webkit-input-placeholder,
+input[type='password'].color02::-webkit-input-placeholder{color: #12dfe1;}
+
+.calc50{width: calc(100% - 50px);}
+.bgtransp{background-color: transparent!important;border: none!important;}
+.z111{z-index: 111;}
+.fonttop{top: 7px;right: 7px;z-index: 11;}
+.calc12{width: calc(50% - 25px);}
+input[type='text'].huzhuan{padding-left: 30px;}
+
+

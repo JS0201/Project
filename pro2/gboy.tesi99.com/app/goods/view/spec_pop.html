@@ -1,0 +1,313 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8" />
+	<title>后台管理</title>
+	<meta name="description" content="" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	<link href="__STATIC__/css/bootstrap.min.css" rel="stylesheet" />
+	<link rel="stylesheet" href="__STATIC__/css/font-awesome.min.css" />
+	<link rel="stylesheet" href="__STATIC__/css/font-awesome-ie7.min.css" />
+	<link rel="stylesheet" href="__STATIC__/css/jquery-ui-1.10.3.full.min.css" />
+	<link rel="stylesheet" href="__STATIC__/css/ace-fonts.css" />
+	<link rel="stylesheet" href="__STATIC__/css/ace.min.css" />
+	<link rel="stylesheet" href="__STATIC__/css/ace-rtl.min.css" />
+	<link rel="stylesheet" href="__STATIC__/css/ace-skins.min.css" />
+	<link rel="stylesheet" href="__STATIC__/js/layer/theme/default/layer.css" />
+	<link rel="stylesheet" href="__STATIC__/css/ace-ie.min.css" />
+	<link rel="stylesheet" href="__STATIC__/css/gboy.css" />
+	<link type="text/css" rel="stylesheet" href="__STATIC__/js/upload/uploader.css" />
+	<link rel="stylesheet" href="__STATIC__/js/cxcolor/jquery.cxcolor.css?v=20190222" type="text/css">
+	<script src="__STATIC__/js/jquery-2.0.3.min.js?v=20190222" charset="utf-8" type="text/javascript"></script>
+	<script src="__STATIC__/js/cxcolor/jquery.cxcolor.min.js?v=20190222" charset="utf-8" type="text/javascript"></script>
+	<script src="__STATIC__/js/upload/uploader.js" charset="utf-8" type="text/javascript"></script>
+	<style>
+		.main-content{margin-left:0;}
+		.breadcrumbs{width:100%;position:fixed;z-index:999;top:0;}
+		.ace-settings-container{right:19px;top:45px;}
+		.btn-scroll-up{position:fixed;right:17px;}
+		body.navbar-fixed{padding-top:0;overflow:hidden;}
+	</style>
+</head>
+<body class="navbar-fixed">
+<div class="main-container" id="main-container" style="overflow:hidden;position:relative;">
+	<script type="text/javascript">
+        try{ace.settings.check('main-container' , 'fixed')}catch(e){}
+	</script>
+	<div class="main-content">
+		<div class="breadcrumbs" id="breadcrumbs">
+			<ul class="breadcrumb">
+				<li class="active"> <i class="icon-home home-icon"></i> 后台管理</li>
+			</ul>
+		</div>
+	</div>
+	<div class="main-content ">
+		<div class="main-content-inner">
+			<div class="page-content">
+				<div class="row">
+					<div class="setspec-popup">
+						<div class="pull-left">
+							<p>请选择规格 [可多选]</p>
+							<div class="spec-left-body border">
+								{foreach name="specs" id="spec"}
+								<a data-id="{$spec['id']}" class="specname" href="javascript:;">{$spec['name']}<em>[0]</em></a>
+								{/foreach}
+							</div>
+						</div>
+						<div class="right">
+							<p>请选择规格 [可多选]</p>
+							<div class="spec-right-body">
+								<div class="top border spec_choose">
+									<div class="title spec_title">
+										<label><input class="margin-small-right" id="checkAll" type="checkbox" />全选</label>
+										<p class="hidden">请填写您要添加的新规格名称</p>
+									</div>
+									{foreach name="specs" id="spec"}
+									<div class="wrap hide  spec-num" data-id="{$spec['id']}">
+										{foreach name="spec['value']" id="v"}
+										<a data-id="{$spec['id']}" data-name="{$spec['name']}" data-value="{$v}" data-style="" data-color="" data-img="" href="javascript:;">{$v}</a>
+										{/foreach}
+									</div>
+									{/foreach}
+
+									<p class="no-choose-tip">请选择左边规格列表</p>
+								</div>
+								<div class="bottom margin-top border">
+									<div class="title">
+										<span class="fl">规格展现方式</span>
+
+									</div>
+
+									{foreach name="specs" id="spec"}
+									<div class="table-wrap hide" data-id="{$spec['id']}">
+										<div class="fixed-tr">
+											<div class="pull-left w33">
+												<label><input class="choose-show margin-right" type="radio" name="type[{$spec['id']}]" value="0" checked="checked" />文字展现</label>
+											</div>
+											<div class="pull-left w33">
+												<label><input class="choose-show margin-right" type="radio" name="type[{$spec['id']}]" value="1" />颜色展现</label>
+											</div>
+											<div class="pull-left w34">
+												<label><input class="choose-show margin-right" type="radio" name="type[{$spec['id']}]" value="2" />图片展现</label>
+											</div>
+											<div class="bg-box"><div class="bg-block"></div></div>
+										</div>
+
+										<div class="table">
+
+										</div>
+									</div>
+									{/foreach}
+									<p class="no-choose-tip">请选择上方规格</p>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+		<script>
+            var selectArr = new Array();
+            var selectedItem = window.parent.selectedItem?window.parent.selectedItem:[];
+
+            //alert(JSON.stringify(selectedItem));
+
+            //显示已选择的项目
+            $.each(selectedItem,function(key,val){
+                $("a[data-id='"+val.id+"'][data-value='"+val.value+"']").addClass('current');
+                num = parseInt($("a[data-id='"+val.id+"'] em").text().replace('[','').replace(']',''));
+                $("a[data-id='"+val.id+"'][data-value='"+val.value+"']").attr({"data-style":val.style,"data-img":val.img,"data-color":val.color});
+                $("a[data-id='"+val.id+"'] em").text('['+(++num)+']');
+
+
+                selectArr.push(val.id);
+
+
+                spec_img = val.img ? val.img :'__STATIC__/images/default_no_upload.png';
+
+                var html='<div class="table-h" data-title="' + val.value + '" title="'+val.value+'">'
+                html+='<div class="pull-left w33">'+val.value+'</div>';
+                html+='<div class="pull-left w33"><input class="input_cxcolor"  style="background-color:' + val.color + ';" value="' + val.color + '" ></div>';
+                html+='<div class="pull-left w34"> <div class="pic-center"><img src="'+spec_img+'"></div><a  class="upload">添加图片</a></div>';
+                html+='</div>';
+                $('div[data-id="' + val.id + '"]').find('.table').append(html);
+                $('div[data-id="' + val.id + '"]').find('input[type=radio][value="' + val.style + '"]').attr('checked','checked');
+            });
+            //颜色选择器
+
+            $('#breadcrumbs').parent().remove();
+
+            //属性点击
+            $(document).on("click",".spec-left-body a", function() {
+                $(".spec-right-body .top .no-choose-tip").addClass("hide");
+                $("#checkAll").attr("checked", false);
+                $(this).addClass("current").siblings().removeClass("current");
+                $(".spec-right-body .wrap").addClass("hide").removeClass("now_wrap");
+                $(".spec-right-body .wrap").eq($(this).index()).removeClass("hide").addClass("now_wrap");
+                spec_select();
+
+            });
+
+
+            //值点击
+            $(document).on('click','.spec_choose a',function(){
+                var spec_value = $(this).attr('data-value');
+                var spec_id = $(this).data('id');
+                if($(this).hasClass("current")){
+                    $(this).removeClass('current');
+                    spec_del(spec_value);
+                }else{
+                    $(this).addClass('current');
+                    spec_show(spec_value,spec_id);
+                }
+                spec_select();
+            })
+
+            //全选
+            $("#checkAll").on("click",function(){
+                if($(this).is(":checked")){
+                    $(".spec-right-body .now_wrap").find("a").addClass('current');
+                    $(".spec-right-body .now_wrap").find("a").each(function(){
+                        var spec_id = $(this).data('value');
+                        var specs = $(this).data('id');
+                        spec_show(spec_id,specs);
+                    })
+                }else{
+                    $(".spec-right-body .now_wrap").find("a").removeClass('current');
+                    $(".spec-right-body .now_wrap").find("a").each(function(){
+                        var spec_id = $(this).data('value');
+                        spec_del(spec_id);
+                    })
+                }
+                spec_select();
+            });
+
+            function spec_select(){
+                var current_spec = $(".spec-right-body .now_wrap");
+                var num = 0;
+                $("a",current_spec).each(function(){
+                    if($(this).hasClass("current")){
+                        num++;
+                    }
+                });
+                $(".spec-left-body a").eq(current_spec.index()-1).children("em").text(num<0?"[0]":"["+num+"]");
+                if($("a",current_spec).length==num && num>0){
+                    $("#checkAll").attr("checked",true);
+                }else{
+                    $("#checkAll").attr("checked",false);
+                }
+                scrollBar($(".now_wrap").index()-1);
+
+            }
+
+            function spec_del(value){
+                $('[data-title="'+ value +'"]').remove();
+            }
+
+            function spec_show(value,spec_id){
+                var html = '';
+                html+='<div class="table-h" data-title="' + value + '" title="'+value+'">'
+                html+='<div class="pull-left w33">'+value+'</div>';
+                html+='<div class="pull-left w33"><input class="input_cxcolor"  style="background-color:;" value="" ></div>';
+                html+='<div class="pull-left w34 "><label><div class="pic-center "><img src="__STATIC__/images/default_no_upload.png"></div><a  class="upload">添加图片</a></label></div>';
+                html+='</div>';
+                $('.table-wrap[data-id="' + spec_id + '"]').removeClass('hide').find('.table').append(html);
+                $('.table-wrap[data-id="' + spec_id + '"]').find(".input_cxcolor").cxColor();
+                create_upload(value);
+            }
+
+
+
+            function scrollBar(i){
+
+                var $o = $(".table-wrap").eq(i);
+                if($o.find(".table-h").length>0){
+                    $(".table-wrap").eq(i).removeClass('hide').show().siblings(".table-wrap").hide();
+                    $(".spec-right-body .bottom .no-choose-tip").hide();
+                }else{
+                    $(".table-wrap").hide();
+                    $(".spec-right-body .bottom .no-choose-tip").show();
+                }
+
+                if($o.find(".table-h").height()>$o.find(".table").height()){
+                    $o.find(".fixed-tr").addClass("p-right");
+                }else{
+                    $o.find(".fixed-tr").removeClass("p-right");
+                }
+                $o.find("[type='radio']:checked").trigger("click");
+
+                $(".table-wrap").each(function(i,item) {
+                    $(item).find('label').on('click',function(){
+                        var type = $(item).find('input:radio:checked').val();
+                        $('.spec_choose a[data-id="' + $(item).data('id') + '"]').attr('data-style',type);
+                    })
+                });
+            }
+            function create_upload(i){
+                var uploader = WebUploader.create({
+                    auto:true,
+                    fileVal:'upfile',
+                    // swf文件路径
+                    swf: '__STATIC__/js/upload/uploader.swf',
+                    // 文件接收服务端。
+                    server: "<?php echo url('attachment/index/upload')?>",
+                    // 选择文件的按钮。可选
+                    formData:{
+                        upload_init : '<?php echo $attachment_init; ?>'
+                    },
+                    // 内部根据当前运行是创建，可能是input元素，也可能是flash.
+                    pick: {
+                        id: '.table-h[data-title="'+ i +'"] .upload'
+                    },
+                    accept:{
+                        title: '图片文件',
+                        extensions: 'gif,jpg,jpeg,bmp,png',
+                        mimeTypes: 'image/*'
+                    },
+                    thumb:{
+                        width: '50',
+                        height: '50'
+                    },
+                    chunked: false,
+                    chunkSize:1000000,
+                    // 不压缩image, 默认如果是jpeg，文件上传前会压缩一把再上传！
+                    resize: false
+                });
+                uploader.onUploadSuccess = function( file, response ) {
+                    var pickid = this.options.pick.id;
+
+                    var obj = eval("(" + response._raw + ")")
+                    var result = obj.result;
+                    if(result.length > 0) {
+
+                        $(pickid).parent().find('.pic-center img').attr('src',result);
+                        $('a[data-value="' + i + '"]').attr('data-img',result);
+                        $(pickid).find('.webuploader-pick').text('更换图片');
+                    }
+                }
+                uploader.onUploadProgress = function(file, percentage) {
+                    var pickid = this.options.pick.id;
+
+                    $(pickid).find('.webuploader-pick').text('上传中');
+                };
+                uploader.onUploadError = function(file, reason) {
+                    alert(reason);
+                }
+
+            }
+            $(".input_cxcolor").cxColor();
+            $('body').on('change',"[class='input_cxcolor']", function () {
+                var id = $(this).parents('.table-wrap').attr('data-id');
+                var num = $(".table-wrap[data-id='"+id+"']").find("input[class='input_cxcolor']").index($(this));
+                $(".spec-num a.current[data-id='"+id+"']").eq(num).attr('data-color', this.value);
+            })
+		</script>
+</body>
+</html>
+
+
+
+
+
